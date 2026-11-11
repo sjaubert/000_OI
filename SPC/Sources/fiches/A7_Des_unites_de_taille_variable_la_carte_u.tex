@@ -1,0 +1,23 @@
+\documentclass[10pt,a4paper]{article}
+\input{commun.tex}
+\pied{Base SPC · fiche A7 · Des unités de taille variable : la carte u}
+\begin{document}
+\thispagestyle{fancy}
+\entete{A7}{Des unités de taille variable : la carte u}{Comment comparer des rouleaux qui n'ont pas la même longueur ?}{Cartes aux attributs}{25 min}{en binôme}{3}
+\begin{tcolorbox}[boite]\textbf{Le but.} Ramener les défauts à une unité commune et lire une carte u.\par\textbf{Il vous faut.} Le fichier Defauts\_rouleaux\_simule.xlsx ou la page « Données à copier » · Ellistat\end{tcolorbox}
+\begin{tcolorbox}[pred]Rouleau de 40 m : 5 défauts. Rouleau de 120 m : 7 défauts. Lequel est le plus mauvais ?\reponse\end{tcolorbox}
+\titre{À faire}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{\arabic*.}},leftmargin=15pt,itemsep=1.5pt]
+\item \tagE\ Nouvelle grille, coller le jeu « 25 rouleaux de longueur variable ».
+\item À la main : $\bar u$ = total des défauts / total des mètres. Pour le rouleau 14 : $u$ = défauts / longueur, et sa limite $\bar u + 3\sqrt{\bar u / \text{longueur}}$.
+\item \tagE\ \menu{Cartes de contrôle aux attributs}, carte \textbf{u}, taille lue dans la colonne Longueur\_m.
+\end{enumerate}
+\titre{J'observe, je décide}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{Q\arabic*.}},leftmargin=22pt]
+\item $\bar u$ = \champ{16mm} défaut par mètre \quad Rouleau 14 : $u$ = \champ{16mm} \quad sa limite = \champ{16mm}\par\vspace{5pt}
+\item Quel rouleau sort des limites ? Aurait-on pu le voir en comptant seulement les défauts ?\reponse[2]
+\item Quelle différence entre la carte c et la carte u ?\reponse[1]
+\end{enumerate}
+\begin{tcolorbox}[retenir]Carte u : défauts par unité de taille (par mètre, par m², par pièce). Elle remplace la carte c quand la taille contrôlée varie.\end{tcolorbox}
+\vfill{\footnotesize\color{uimm}\textbf{Ressources de la base :} Données à copier.}
+\end{document}

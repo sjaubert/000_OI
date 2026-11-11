@@ -1,0 +1,35 @@
+\documentclass[10pt,a4paper]{article}
+\input{commun.tex}
+\pied{Base SPC · fiche A2 · Ma première carte p, à la main}
+\begin{document}
+\thispagestyle{fancy}
+\entete{A2}{Ma première carte p, à la main}{Le taux de pièces défectueuses est-il stable ?}{Cartes aux attributs}{35 min}{en binôme}{1}
+\begin{tcolorbox}[boite]\textbf{Le but.} Relever 20 lots, calculer la moyenne et les limites, tracer la carte à la main.\par\textbf{Il vous faut.} La page « Tirer un lot » (scénario donné par le formateur) · Une calculatrice, un crayon, une règle\end{tcolorbox}
+\begin{tcolorbox}[pred]Dans des lots de 50 pièces, on trouve en moyenne 2 défectueuses. Un lot avec 5 défectueuses est-il anormal ?\reponse\end{tcolorbox}
+\titre{À faire}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{\arabic*.}},leftmargin=15pt,itemsep=1.5pt]
+\item \tagW\ Page « Tirer un lot » : on compte des pièces défectueuses, taille du lot 50, scénario et numéro de poste donnés par le formateur.
+\item Tirer 20 lots, un par un. Noter chaque résultat dans le tableau et placer le point sur la carte.
+\item Calculer $\bar p$ = total des défectueuses / total des pièces contrôlées.
+\item Calculer les limites : $\bar p \pm 3\sqrt{\bar p\,(1-\bar p)/n}$ avec $n = 50$. Une limite négative devient 0.
+\item Tracer la ligne centrale et les limites sur la carte (en nombre de pièces : multiplier par 50).
+\end{enumerate}
+\vspace{3pt}{\renewcommand{\arraystretch}{1.35}\small\begin{tabularx}{\linewidth}{|l|*{10}{>{\centering\arraybackslash}X|}}\hline
+\textbf{Lot} & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10\\\hline
+\textbf{Défectueuses} &  &  &  &  &  &  &  &  &  & \\\hline\end{tabularx}}\par\vspace{2pt}
+{\renewcommand{\arraystretch}{1.35}\small\begin{tabularx}{\linewidth}{|l|*{10}{>{\centering\arraybackslash}X|}}\hline
+\textbf{Lot} & 11 & 12 & 13 & 14 & 15 & 16 & 17 & 18 & 19 & 20\\\hline
+\textbf{Défectueuses} &  &  &  &  &  &  &  &  &  & \\\hline\end{tabularx}}\par\vspace{2pt}
+\begin{center}\begin{tikzpicture}[x=0.780cm,y=0.31cm]\draw[gray!45,very thin] (0,0) grid (20,12);\draw[thick] (0,0)--(20,0);\draw[thick] (0,0)--(0,12);\node[left,font=\scriptsize] at (0,0) {0};\node[left,font=\scriptsize] at (0,2) {2};\node[left,font=\scriptsize] at (0,4) {4};\node[left,font=\scriptsize] at (0,6) {6};\node[left,font=\scriptsize] at (0,8) {8};\node[left,font=\scriptsize] at (0,10) {10};\node[left,font=\scriptsize] at (0,12) {12};\node[below,font=\scriptsize] at (1,0) {1};\node[below,font=\scriptsize] at (2,0) {2};\node[below,font=\scriptsize] at (3,0) {3};\node[below,font=\scriptsize] at (4,0) {4};\node[below,font=\scriptsize] at (5,0) {5};\node[below,font=\scriptsize] at (6,0) {6};\node[below,font=\scriptsize] at (7,0) {7};\node[below,font=\scriptsize] at (8,0) {8};\node[below,font=\scriptsize] at (9,0) {9};\node[below,font=\scriptsize] at (10,0) {10};\node[below,font=\scriptsize] at (11,0) {11};\node[below,font=\scriptsize] at (12,0) {12};\node[below,font=\scriptsize] at (13,0) {13};\node[below,font=\scriptsize] at (14,0) {14};\node[below,font=\scriptsize] at (15,0) {15};\node[below,font=\scriptsize] at (16,0) {16};\node[below,font=\scriptsize] at (17,0) {17};\node[below,font=\scriptsize] at (18,0) {18};\node[below,font=\scriptsize] at (19,0) {19};\node[below,font=\scriptsize] at (20,0) {20};\node[right,font=\scriptsize] at (20,0) {0 \%};\node[right,font=\scriptsize] at (20,2) {4 \%};\node[right,font=\scriptsize] at (20,4) {8 \%};\node[right,font=\scriptsize] at (20,6) {12 \%};\node[right,font=\scriptsize] at (20,8) {16 \%};\node[right,font=\scriptsize] at (20,10) {20 \%};\node[right,font=\scriptsize] at (20,12) {24 \%};\node[rotate=90,font=\scriptsize] at (-1.41,6.0) {pièces défectueuses};\node[below,font=\scriptsize] at (10.0,-1.3) {lot};\end{tikzpicture}\end{center}
+\newpage
+\titre{J'observe, je décide}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{Q\arabic*.}},leftmargin=22pt]
+\item $\bar p$ = \champ{16mm} \% \quad Limite supérieure = \champ{16mm} \% soit \champ{12mm} pièces \quad Limite inférieure = \champ{16mm}\par\vspace{5pt}
+\item Un point sort-il des limites ? Le procédé est-il stable ?\reponse[1]
+\item Reprenez la prédiction : 5 défectueuses dans un lot de 50, est-ce anormal ?\reponse[1]
+\item Ouvrir « Afficher la carte calculée par la page ». Vos limites sont-elles les mêmes ?\reponse[1]
+\end{enumerate}
+\begin{tcolorbox}[retenir]Les limites disent ce que le hasard produit à lui seul. Tant que les points restent dedans, on ne touche à rien.\end{tcolorbox}
+\begin{tcolorbox}[plus]Sans écran : un lot = 10 dés lancés, une pièce défectueuse = un 6. Relever 20 lancers et tracer la carte avec $n = 10$.\end{tcolorbox}
+\vfill{\footnotesize\color{uimm}\textbf{Ressources de la base :} Tirer un lot · Jeu de secours.}
+\end{document}

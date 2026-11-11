@@ -1,0 +1,30 @@
+\documentclass[10pt,a4paper]{article}
+\input{commun.tex}
+\pied{Base SPC · fiche M10 · Fabriquer son étalon}
+\begin{document}
+\thispagestyle{fancy}
+\entete{M10}{Fabriquer son étalon}{Comment obtenir un étalon de 12,000 mm avec des cales ?}{Le moyen de mesure}{25 min}{en binôme}{2}
+\begin{tcolorbox}[boite]\textbf{Le but.} Composer une valeur par adhérence de deux cales et s'en servir comme étalon au plus près de la cote contrôlée.\par\textbf{Il vous faut.} Un coffret de cales (cales de 10 et de 2 mm) · Un micromètre 0-25 mm · Chiffon non pelucheux\end{tcolorbox}
+\begin{tcolorbox}[pred]Deux cales de 10 et de 2 mm collées l'une sur l'autre font-elles exactement 12,000 mm au micromètre ?\reponse\end{tcolorbox}
+\titre{À faire}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{\arabic*.}},leftmargin=15pt,itemsep=1.5pt]
+\item Nettoyer les faces des deux cales. Les poser en croix, presser légèrement et faire glisser jusqu'à ce qu'elles collent : c'est l'\textbf{adhérence}.
+\item Mesurer la pile 15 fois au micromètre, en la retirant à chaque fois. Ne pas la tenir dans la main.
+\item \tagE\ \menu{Gage R\&R} > \menu{Justesse} : valeur vraie 12,000 ; tolérance 11,85 / 12,00 ; résolution 0,001.
+\item Séparer les cales en les faisant glisser, sans tirer. Les nettoyer et les ranger.
+\end{enumerate}
+\vspace{3pt}\textbf{Pile 10 + 2 : mes 15 mesures (mm)}\par\vspace{2pt}
+{\renewcommand{\arraystretch}{1.45}\begin{tabularx}{\linewidth}{|*{5}{>{\centering\arraybackslash}p{5mm}|>{\centering\arraybackslash}X|}}\hline
+\scriptsize 1 &  & \scriptsize 2 &  & \scriptsize 3 &  & \scriptsize 4 &  & \scriptsize 5 & \\\hline
+\scriptsize 6 &  & \scriptsize 7 &  & \scriptsize 8 &  & \scriptsize 9 &  & \scriptsize 10 & \\\hline
+\scriptsize 11 &  & \scriptsize 12 &  & \scriptsize 13 &  & \scriptsize 14 &  & \scriptsize 15 & \\\hline
+\end{tabularx}}\par
+\titre{J'observe, je décide}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{Q\arabic*.}},leftmargin=22pt]
+\item Moyenne de la pile = \champ{18mm} mm. Écart à 12,000 = \champ{18mm} mm.\par\vspace{5pt}
+\item L'étalon vaut maintenant 12,000 mm, une limite de la tolérance de la butée. Pourquoi est-ce mieux que la cale de 10 mm ?\reponse[2]
+\item Comparez Cg et Cgk avec ceux obtenus sur la cale de 10 mm (M3).\reponse[1]
+\end{enumerate}
+\begin{tcolorbox}[retenir]On vérifie un instrument là où il sert : avec un étalon proche de la cote à contrôler.\end{tcolorbox}
+\begin{tcolorbox}[plus]Composez 11,850 mm (par exemple 10 + 1,35 + 0,5) et refaites l'étude : l'instrument est-il aussi juste aux deux limites de la tolérance ?\end{tcolorbox}
+\end{document}

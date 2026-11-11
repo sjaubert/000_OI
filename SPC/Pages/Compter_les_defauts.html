@@ -1,0 +1,672 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Compter les défauts</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Même poste de contrôle que « La carte sonne-t-elle ? » : papier d'enregistreur à gauche, pupitre de décision à droite. */
+:root{
+  --papier:#F6F8F7; --encre:#17324D; --trait:#5B6B7A; --grille:#D9E2E0; --fond:#E9EEED; --carte:#FFFFFF;
+  --limite:#B4530F; --ok:#2E7D32; --okfond:#E3F1E4; --ko:#B3261E; --kofond:#FBE4E2; --accent:#1F4E79; --accentfond:#DCE7F2;
+  --surbrillance:rgba(180,83,15,.14); --piece:#C9D3D9; --piecebord:#7D8B96; --defaut:#B3261E;
+  --f-titre:"Barlow Semi Condensed","Arial Narrow",Arial,sans-serif;
+  --f-texte:"Source Sans 3","Segoe UI",Arial,sans-serif;
+  --f-chiffre:"IBM Plex Mono",Consolas,"Courier New",monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --papier:#16201F; --encre:#DCE8F2; --trait:#9AABB8; --grille:#26332F; --fond:#0F1716; --carte:#1B2625;
+  --limite:#F08A4B; --ok:#7CC283; --okfond:#1D3322; --ko:#F2877E; --kofond:#3A1E1C; --accent:#8DB8E6; --accentfond:#1E3247;
+  --surbrillance:rgba(240,138,75,.18); --piece:#3A4851; --piecebord:#8A9AA6; --defaut:#F2877E; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --papier:#16201F; --encre:#DCE8F2; --trait:#9AABB8; --grille:#26332F; --fond:#0F1716; --carte:#1B2625;
+  --limite:#F08A4B; --ok:#7CC283; --okfond:#1D3322; --ko:#F2877E; --kofond:#3A1E1C; --accent:#8DB8E6; --accentfond:#1E3247;
+  --surbrillance:rgba(240,138,75,.18); --piece:#3A4851; --piecebord:#8A9AA6; --defaut:#F2877E; color-scheme:dark}
+body{background:var(--fond);color:var(--encre);font-family:var(--f-texte);font-size:16px;line-height:1.45}
+.page{max-width:1180px;margin:0 auto;padding-block:20px 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:16px}
+.page>*{min-width:0}
+header{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:flex-end;justify-content:space-between}
+h1{font-family:var(--f-titre);font-weight:700;font-size:clamp(1.7rem,3.2vw,2.3rem);line-height:1.05;margin:0;letter-spacing:.01em;text-wrap:balance}
+.sous{margin:4px 0 0;color:var(--trait);font-size:.95rem}
+.compteur{display:flex;gap:8px;flex-wrap:wrap}
+.pastille{font-family:var(--f-chiffre);font-size:.85rem;background:var(--carte);border:1px solid var(--grille);border-radius:6px;padding:5px 9px;white-space:nowrap}
+.pastille b{font-weight:500;color:var(--accent)}
+/* étapes */
+nav.etapes{display:flex;flex-wrap:wrap;gap:6px}
+nav.etapes button{font:inherit;font-family:var(--f-titre);font-weight:600;font-size:1.02rem;letter-spacing:.02em;background:var(--carte);color:var(--encre);border:1.5px solid var(--grille);border-radius:6px;padding:7px 12px;cursor:pointer}
+nav.etapes button span{font-family:var(--f-chiffre);font-weight:500;color:var(--trait);margin-right:6px}
+nav.etapes button[aria-current="step"]{background:var(--accent);border-color:var(--accent);color:var(--carte)}
+nav.etapes button[aria-current="step"] span{color:var(--carte)}
+.bloc{display:grid;gap:14px}
+.principe{background:var(--carte);border-left:4px solid var(--accent);border-radius:0 8px 8px 0;padding:12px 16px;display:grid;gap:4px}
+.principe h2{font-family:var(--f-titre);font-weight:700;font-size:1.4rem;margin:0}
+.principe p{margin:0}
+.duree{font-family:var(--f-chiffre);font-size:.82rem;color:var(--trait)}
+.poste{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:860px){.poste{grid-template-columns:1fr}}
+.enregistreur{background:var(--papier);border:1px solid var(--grille);border-radius:8px;padding:14px 14px 8px;min-width:0}
+.contexte{display:flex;flex-wrap:wrap;gap:4px 14px;align-items:baseline;margin-bottom:6px}
+.contexte h3{font-family:var(--f-titre);font-weight:600;font-size:1.25rem;margin:0}
+.contexte span{color:var(--trait);font-size:.9rem}
+svg{display:block;width:100%;height:auto}
+.legende{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:.82rem;color:var(--trait);padding:4px 2px 6px}
+.legende i{display:inline-block;width:22px;height:0;border-top:2px solid var(--encre);vertical-align:middle;margin-right:6px}
+.legende i.lim{border-top:2px dashed var(--limite)}
+.legende i.lc{border-top:1.5px solid var(--trait)}
+.pupitre{background:var(--carte);border:1px solid var(--grille);border-radius:8px;padding:16px;display:grid;gap:14px;min-width:0}
+.question{display:grid;gap:6px}
+.question h4{font-family:var(--f-titre);font-weight:600;font-size:1.05rem;margin:0;letter-spacing:.02em}
+.question h4 small{font-family:var(--f-texte);font-weight:400;color:var(--trait);font-size:.85rem;letter-spacing:0}
+.choix{display:grid;gap:6px}
+.choix.deux{grid-template-columns:1fr 1fr}
+.choix.trois{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:520px){.choix.trois{grid-template-columns:1fr}}
+.choix button{font:inherit;text-align:left;background:var(--papier);color:var(--encre);border:1.5px solid var(--grille);border-radius:6px;padding:8px 10px;cursor:pointer;line-height:1.25}
+.choix button:hover{border-color:var(--accent)}
+.choix button[aria-pressed="true"]{border-color:var(--accent);background:var(--accentfond);font-weight:600}
+.choix button.juste{border-color:var(--ok);background:var(--okfond)}
+.choix button.faux{border-color:var(--ko);background:var(--kofond)}
+.choix button:disabled{cursor:default}
+button:focus-visible,select:focus-visible,summary:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.btn{font:inherit;border:none;border-radius:6px;padding:10px 16px;cursor:pointer;font-family:var(--f-titre);font-weight:600;font-size:1.05rem;letter-spacing:.02em}
+.btn.principal{background:var(--accent);color:var(--carte)}
+.btn.principal:disabled{opacity:.45;cursor:not-allowed}
+.btn.second{background:transparent;color:var(--accent);border:1.5px solid var(--accent)}
+.retour{border-radius:6px;padding:12px 14px;display:grid;gap:6px;font-size:.95rem}
+.retour.bon{background:var(--okfond);border:1px solid var(--ok)}
+.retour.mauvais{background:var(--kofond);border:1px solid var(--ko)}
+.retour strong{font-family:var(--f-titre);font-size:1.15rem;font-weight:700}
+.memo{background:var(--carte);border:1px solid var(--grille);border-radius:8px;padding:10px 14px}
+.memo summary{cursor:pointer;font-family:var(--f-titre);font-weight:600;font-size:1.1rem}
+.memo-table{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.92rem;margin-top:8px}
+th,td{text-align:left;vertical-align:top;padding:7px 8px;border-bottom:1px solid var(--grille)}
+th{font-family:var(--f-titre);font-weight:600;font-size:.95rem}
+.formule{font-family:var(--f-chiffre);font-size:.92rem;background:var(--papier);border:1px solid var(--grille);border-radius:6px;padding:8px 10px;margin:6px 0;overflow-x:auto;white-space:nowrap}
+.note{font-size:.85rem;color:var(--trait)}
+.num{font-family:var(--f-chiffre);font-variant-numeric:tabular-nums}
+/* bloc 1 : le lot de pièces */
+.lot{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}
+@media (max-width:700px){.lot{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media (max-width:420px){.lot{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.lot figure{margin:0;background:var(--carte);border:1px solid var(--grille);border-radius:6px;padding:4px 4px 2px}
+.lot figcaption{font-family:var(--f-chiffre);font-size:.75rem;color:var(--trait);text-align:center}
+.lot figure.marquee{outline:2px solid var(--limite);outline-offset:-1px}
+.saisie{display:grid;gap:10px}
+.saisie label{display:grid;gap:4px;font-weight:600}
+.saisie input{font:inherit;font-family:var(--f-chiffre);width:7em;background:var(--papier);color:var(--encre);border:1.5px solid var(--grille);border-radius:6px;padding:7px 9px}
+.cles{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:.88rem;color:var(--trait)}
+.cles svg{display:inline-block;width:26px;height:18px;vertical-align:middle;margin-right:4px}
+/* bloc 2 */
+.situations{display:grid;gap:10px}
+.situation{background:var(--carte);border:1px solid var(--grille);border-radius:8px;padding:12px 14px;display:grid;gap:8px}
+.situation p{margin:0}
+.situation .num{color:var(--trait);margin-right:6px}
+.explic{font-size:.92rem;border-radius:6px;padding:8px 10px}
+.explic.bon{background:var(--okfond)}
+.explic.mauvais{background:var(--kofond)}
+.bilan{background:var(--carte);border:2px solid var(--accent);border-radius:8px;padding:16px;display:grid;gap:8px}
+.bilan h3{font-family:var(--f-titre);margin:0;font-size:1.4rem}
+.barre-outils{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;font-size:.95rem}
+.barre-outils label{color:var(--trait)}
+select{font:inherit;background:var(--carte);color:var(--encre);border:1px solid var(--grille);border-radius:6px;padding:6px 8px;max-width:100%}
+@media (prefers-reduced-motion:no-preference){.retour,.bilan,.explic{animation:entree .25s ease-out}@keyframes entree{from{transform:translateY(4px);opacity:.6}to{transform:none;opacity:1}}}
+</style>
+</head>
+<body>
+
+
+<div class="page">
+  <header>
+    <div>
+      <h1>Compter les défauts : cartes p et c</h1>
+      <p class="sous">Quand on ne mesure pas mais qu'on compte, on utilise une carte aux attributs. Cinq étapes d'environ 20 minutes.</p>
+    </div>
+    <div class="compteur" aria-live="polite">
+      <span class="pastille">Compter <b id="s1">0</b>/<span id="m1">0</span></span>
+      <span class="pastille">Choisir <b id="s2">0</b>/8</span>
+      <span class="pastille">Carte p <b id="s3">0</b>/<span id="m3">0</span></span>
+      <span class="pastille">Carte c <b id="s4">0</b>/<span id="m4">0</span></span>
+      <span class="pastille">Quiz <b id="s5">0</b>/9</span>
+    </div>
+  </header>
+
+  <nav class="etapes" aria-label="Étapes">
+    <button type="button" data-etape="1" aria-current="step"><span>1</span>Compter</button>
+    <button type="button" data-etape="2"><span>2</span>Quelle carte ?</button>
+    <button type="button" data-etape="3"><span>3</span>Carte p</button>
+    <button type="button" data-etape="4"><span>4</span>Carte c</button>
+    <button type="button" data-etape="5"><span>5</span>Bilan</button>
+  </nav>
+
+  <!-- ===================== ÉTAPE 1 ===================== -->
+  <section class="bloc" id="etape1">
+    <div class="principe">
+      <h2>Une pièce défectueuse ou des défauts ?</h2>
+      <p>Une pièce <b>défectueuse</b> est une pièce refusée, quel que soit le nombre de défauts qu'elle porte. Un <b>défaut</b> est chaque anomalie : une rayure, une bavure, une tache.</p>
+      <p>Une pièce qui porte trois défauts compte pour <b>1 pièce défectueuse</b>, mais pour <b>3 défauts</b>. Le choix dépend de la décision à prendre.</p>
+      <span class="duree">environ 20 min</span>
+    </div>
+    <div class="poste">
+      <section class="enregistreur" aria-label="Le lot à contrôler">
+        <div class="contexte"><h3>Lot <span id="numLot">1</span> sur 3 : 12 plaques</h3><span>Contrôle visuel en fin de ligne</span></div>
+        <div class="lot" id="lot"></div>
+        <div class="cles" aria-hidden="true">
+          <span><svg viewBox="0 0 26 18"><line x1="4" y1="14" x2="22" y2="4" stroke="var(--defaut)" stroke-width="2.4" stroke-linecap="round"/></svg>rayure</span>
+          <span><svg viewBox="0 0 26 18"><circle cx="13" cy="9" r="5" fill="var(--defaut)"/></svg>tache</span>
+          <span><svg viewBox="0 0 26 18"><path d="M8 16 L13 4 L18 16 Z" fill="var(--defaut)"/></svg>bavure</span>
+        </div>
+      </section>
+      <section class="pupitre" aria-label="Votre comptage">
+        <div class="saisie">
+          <label for="inDef">Nombre de pièces défectueuses<input id="inDef" type="number" inputmode="numeric" min="0" max="12"></label>
+          <label for="inDefauts">Nombre de défauts au total<input id="inDefauts" type="number" inputmode="numeric" min="0" max="40"></label>
+        </div>
+        <div class="actions">
+          <button class="btn principal" id="valider1">Valider</button>
+          <button class="btn second" id="suivant1" hidden>Lot suivant</button>
+        </div>
+        <div id="retour1" class="retour" hidden aria-live="polite"></div>
+      </section>
+    </div>
+  </section>
+
+  <!-- ===================== ÉTAPE 2 ===================== -->
+  <section class="bloc" id="etape2" hidden>
+    <div class="principe">
+      <h2>Quelle carte pour quelle situation ?</h2>
+      <p>On <b>mesure</b> une grandeur (un diamètre, un couple) : carte aux mesures, X̄/R.</p>
+      <p>On <b>compte des pièces défectueuses</b> (bonne ou mauvaise, passe ou ne passe pas) : <b>carte p</b>, la proportion de pièces défectueuses par lot.</p>
+      <p>On <b>compte des défauts</b> sur une unité toujours de la même taille (un capot, un rouleau de 50 m) : <b>carte c</b>, le nombre de défauts par unité.</p>
+      <span class="duree">environ 20 min</span>
+    </div>
+    <div class="situations" id="situations"></div>
+  </section>
+
+  <!-- ===================== ÉTAPES 3 et 4 : même poste ===================== -->
+  <section class="bloc" id="etape3" hidden>
+    <div class="principe" id="principeCarte"></div>
+    <div class="barre-outils">
+      <label for="mode">Mode</label>
+      <select id="mode"></select>
+      <span class="note">Les démonstrations ne comptent pas dans le score.</span>
+    </div>
+    <div class="poste">
+      <section class="enregistreur" aria-label="Carte de contrôle">
+        <div class="contexte"><h3 id="ctxNom"></h3><span id="ctxInfo"></span></div>
+        <svg id="svgCarte" viewBox="0 0 720 280" role="img" aria-label="Carte de contrôle aux attributs"></svg>
+        <div class="legende"><span><i></i>points relevés</span><span><i class="lc"></i>ligne centrale</span><span><i class="lim"></i>limites de contrôle (pas des tolérances)</span></div>
+      </section>
+      <section class="pupitre" aria-label="Votre décision">
+        <div class="question"><h4>1. La carte sonne-t-elle ?</h4><div class="choix deux" data-q="verdict"></div></div>
+        <div class="question"><h4>2. Quelle règle ? <small>(Aucune si tout est normal)</small></h4><div class="choix" data-q="regle"></div></div>
+        <div class="question"><h4>3. Que faites-vous ?</h4><div class="choix" data-q="reaction"></div></div>
+        <div class="actions">
+          <button class="btn principal" id="valider3" disabled>Valider</button>
+          <button class="btn second" id="suivant3" hidden>Carte suivante</button>
+          <span class="pastille">Carte <b id="numCarte">1</b> / 8</span>
+        </div>
+        <div id="retour3" class="retour" hidden aria-live="polite"></div>
+      </section>
+    </div>
+    <div id="bilan3" class="bilan" hidden></div>
+    <details class="memo" id="calculs"></details>
+  </section>
+
+  <!-- ===================== ÉTAPE 5 ===================== -->
+  <section class="bloc" id="etape5" hidden>
+    <div class="principe">
+      <h2>Bilan : neuf questions</h2>
+      <p>Une réponse par question. L'explication s'affiche dès que vous répondez.</p>
+      <span class="duree">environ 20 min, avec la carte réflexe</span>
+    </div>
+    <div class="situations" id="quiz"></div>
+    <div id="bilan5" class="bilan" hidden></div>
+    <details class="memo" open>
+      <summary>Carte réflexe : cartes aux attributs</summary>
+      <div class="memo-table"><table>
+        <thead><tr><th>Question</th><th>Carte p</th><th>Carte c</th></tr></thead>
+        <tbody>
+          <tr><td>Qu'est-ce qu'on compte ?</td><td>Les pièces défectueuses d'un lot</td><td>Les défauts sur une unité de taille constante</td></tr>
+          <tr><td>Qu'est-ce qu'on trace ?</td><td>La proportion p = défectueuses / contrôlées</td><td>Le nombre de défauts c</td></tr>
+          <tr><td>Taille du lot</td><td>Fixe ou variable (les limites bougent alors d'un lot à l'autre)</td><td>Toujours la même unité</td></tr>
+          <tr><td>Limite inférieure négative au calcul</td><td>On la remplace par 0</td><td>On la remplace par 0</td></tr>
+          <tr><td>Point au-dessus de LSC</td><td colspan="2">Appliquer le plan de réaction du poste</td></tr>
+          <tr><td>7 points du même côté, 6 qui montent</td><td colspan="2">Au-dessus ou en montée : chercher ce qui a changé. En dessous ou en descente : vérifier le contrôle, puis comprendre l'amélioration pour la garder</td></tr>
+        </tbody>
+      </table></div>
+      <p class="note">Les limites se calculent sur une période de référence maîtrisée et représentative (la « phase I » dans Ellistat). Les calculer sur une période perturbée revient à valider le désordre comme normal.</p>
+    </details>
+  </section>
+</div>
+
+<script>
+(function(){
+"use strict";
+var $ = function(id){ return document.getElementById(id); };
+function fr(x, d){ return x.toFixed(d).replace(".", ","); }
+function gauss(){ var u=0,v=0; while(u===0)u=Math.random(); while(v===0)v=Math.random(); return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v); }
+function unif(a,b){ return a+(b-a)*Math.random(); }
+function entier(a,b){ return Math.floor(unif(a,b+1)); }
+function melanger(t){ for(var i=t.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var x=t[i];t[i]=t[j];t[j]=x;} return t; }
+function poisson(l){ var L=Math.exp(-l), k=0, p=1; do{ k++; p*=Math.random(); }while(p>L); return k-1; }
+function binom(n,p){ var k=0; for(var i=0;i<n;i++) if(Math.random()<p) k++; return k; }
+var SVGNS="http://www.w3.org/2000/svg";
+function el(nom, att, parent){ var e=document.createElementNS(SVGNS,nom); for(var k in att) e.setAttribute(k, att[k]); if(parent) parent.appendChild(e); return e; }
+function texte(parent, x, y, t, att){ var e=el("text", Object.assign({x:x,y:y,"font-size":12,fill:"var(--trait)","font-family":"IBM Plex Mono, Consolas, monospace"}, att||{}), parent); e.textContent=t; return e; }
+var scores={s1:0,m1:0,s2:0,s3:0,m3:0,s4:0,m4:0,s5:0};
+function majScores(){ Object.keys(scores).forEach(function(k){ var e=$(k); if(e) e.textContent=scores[k]; }); }
+
+/* ============ navigation ============ */
+var etapeCourante=1;
+function aller(n){
+  etapeCourante=n;
+  document.querySelectorAll("nav.etapes button").forEach(function(b){ if(+b.dataset.etape===n) b.setAttribute("aria-current","step"); else b.removeAttribute("aria-current"); });
+  $("etape1").hidden = n!==1; $("etape2").hidden = n!==2; $("etape3").hidden = !(n===3||n===4); $("etape5").hidden = n!==5;
+  if(n===3||n===4) demarrerCarte(n===3?"p":"c");
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+document.querySelectorAll("nav.etapes button").forEach(function(b){ b.addEventListener("click", function(){ aller(+b.dataset.etape); }); });
+
+/* ============ ÉTAPE 1 : compter ============ */
+var lotCourant=null, numLot=1, lot1Corrige=false;
+function genererLot(){
+  for(var essai=0; essai<200; essai++){
+    var pieces=[], tirage=[0,0,0,0,0,0,0,1,1,1,2,3];
+    for(var i=0;i<12;i++){
+      var nb=tirage[Math.floor(Math.random()*tirage.length)], d=[];
+      for(var k=0;k<nb;k++) d.push(["rayure","tache","bavure"][entier(0,2)]);
+      pieces.push(d);
+    }
+    var def=pieces.filter(function(p){return p.length>0;}).length, tot=pieces.reduce(function(a,p){return a+p.length;},0);
+    if(def>=3 && def<=7 && pieces.some(function(p){return p.length>=2;}) && tot>def) return {pieces:pieces, def:def, tot:tot};
+  }
+}
+function dessinerPiece(svg, defauts){
+  el("rect",{x:6,y:6,width:88,height:58,rx:6,fill:"var(--piece)",stroke:"var(--piecebord)","stroke-width":1.5},svg);
+  el("circle",{cx:20,cy:20,r:4.5,fill:"var(--carte)",stroke:"var(--piecebord)"},svg);
+  el("circle",{cx:80,cy:50,r:4.5,fill:"var(--carte)",stroke:"var(--piecebord)"},svg);
+  var places=melanger([[32,22],[60,18],[44,44],[70,38],[26,48],[56,52]]);
+  defauts.forEach(function(d,k){
+    var p=places[k], x=p[0], y=p[1];
+    if(d==="rayure") el("line",{x1:x-9,y1:y+6,x2:x+9,y2:y-6,stroke:"var(--defaut)","stroke-width":2.4,"stroke-linecap":"round"},svg);
+    else if(d==="tache") el("circle",{cx:x,cy:y,r:4.5,fill:"var(--defaut)"},svg);
+    else el("path",{d:"M"+(x-5)+" "+(y+6)+" L"+x+" "+(y-6)+" L"+(x+5)+" "+(y+6)+" Z",fill:"var(--defaut)"},svg);
+  });
+}
+function afficherLot(){
+  lotCourant=genererLot(); lot1Corrige=false;
+  var box=$("lot"); box.innerHTML="";
+  lotCourant.pieces.forEach(function(d,i){
+    var f=document.createElement("figure"), s=el("svg",{viewBox:"0 0 100 70",role:"img","aria-label":"Plaque "+(i+1)+(d.length?" : "+d.join(", "):" : aucun défaut")});
+    dessinerPiece(s,d); f.appendChild(s);
+    var c=document.createElement("figcaption"); c.textContent="n° "+(i+1); f.appendChild(c);
+    box.appendChild(f);
+  });
+  $("numLot").textContent=numLot; $("inDef").value=""; $("inDefauts").value="";
+  $("inDef").disabled=false; $("inDefauts").disabled=false;
+  $("retour1").hidden=true; $("valider1").hidden=false; $("suivant1").hidden=true;
+}
+function valider1(){
+  if(lot1Corrige) return;
+  var a=$("inDef").value, b=$("inDefauts").value;
+  if(a===""||b===""){ var r0=$("retour1"); r0.className="retour mauvais"; r0.innerHTML="<span>Remplissez les deux cases.</span>"; r0.hidden=false; return; }
+  lot1Corrige=true; a=+a; b=+b;
+  var ok1=a===lotCourant.def, ok2=b===lotCourant.tot, pts=(ok1?1:0)+(ok2?1:0);
+  scores.s1+=pts; scores.m1+=2; majScores();
+  document.querySelectorAll("#lot figure").forEach(function(f,i){ if(lotCourant.pieces[i].length) f.classList.add("marquee"); });
+  var multi=lotCourant.pieces.map(function(p,i){return p.length>=2 ? "n° "+(i+1)+" ("+p.length+" défauts)" : null;}).filter(Boolean);
+  var r=$("retour1"); r.className="retour "+(pts===2?"bon":"mauvais");
+  r.innerHTML="<strong>"+(pts===2?"Juste : 2 sur 2.":"À revoir : "+pts+" sur 2.")+"</strong>"+
+    "<span>"+lotCourant.def+" plaques sont défectueuses (entourées en orange) et elles portent "+lotCourant.tot+" défauts au total. "+
+    "Plaques à plusieurs défauts : "+multi.join(", ")+". Chacune compte pour 1 plaque défectueuse, mais pour tous ses défauts.</span>"+
+    "<span class=\"note\">Pour la carte p, on retiendrait "+lotCourant.def+" défectueuses sur 12, soit p = "+fr(100*lotCourant.def/12,1)+" %. Pour la carte c, on retiendrait c = "+lotCourant.tot+" défauts.</span>";
+  r.hidden=false; $("inDef").disabled=true; $("inDefauts").disabled=true;
+  $("valider1").hidden=true; var s=$("suivant1"); s.hidden=false;
+  s.textContent = numLot<3 ? "Lot suivant" : "Passer à l'étape 2"; s.focus();
+}
+$("valider1").addEventListener("click", valider1);
+$("suivant1").addEventListener("click", function(){ if(numLot<3){ numLot++; afficherLot(); } else { aller(2); } });
+
+/* ============ ÉTAPE 2 : quelle carte ============ */
+var CARTES=["Carte X̄/R (mesures)","Carte p (pièces défectueuses)","Carte c (défauts)"];
+var SITUATIONS=[
+  {t:"Au contrôle final, on trie chaque lot de 500 bouchons : bon ou mauvais.", r:1, e:"On classe chaque bouchon bon ou mauvais : on compte des pièces défectueuses. Carte p."},
+  {t:"Sur chaque capot peint, on compte les grains de poussière, les coulures et les rayures.", r:2, e:"Un même capot peut porter plusieurs défauts, et on veut tous les compter. Les capots ont tous la même taille. Carte c."},
+  {t:"Toutes les heures, on mesure le diamètre de 5 butées au micromètre.", r:0, e:"On mesure une grandeur. C'est une carte aux mesures : X̄/R."},
+  {t:"On contrôle 400 alésages par équipe au calibre tampon entre / n'entre pas.", r:1, e:"Le calibre ne donne pas de valeur : l'alésage passe ou ne passe pas. On compte des pièces défectueuses. Carte p."},
+  {t:"Sur chaque lot de 20 cartes électroniques, on compte les soudures défectueuses.", r:2, e:"On compte des défauts (les soudures) sur une unité de taille constante (le lot de 20 cartes). Carte c."},
+  {t:"Chaque semaine, on suit les colis refusés par le client. Le nombre de colis expédiés change d'une semaine à l'autre.", r:1, e:"Un colis est accepté ou refusé : on compte des pièces défectueuses. La carte p accepte une taille de lot variable, ses limites changent alors d'un point à l'autre."},
+  {t:"Sur chaque rouleau de tissu de 50 m, on compte les défauts d'aspect.", r:2, e:"On compte des défauts sur une unité de taille constante (50 m). Carte c. Si la longueur changeait d'un rouleau à l'autre, il faudrait une carte u (défauts par mètre), non traitée ici."},
+  {t:"Des carters portent parfois plusieurs défauts. Le responsable veut suivre combien de carters partent en retouche.", r:1, e:"La décision porte sur les carters à retoucher, pas sur le nombre de défauts. Un carter à 3 défauts part une seule fois en retouche. Carte p."}
+];
+function construireSituations(){
+  var box=$("situations"); box.innerHTML=""; scores.s2=0; majScores();
+  SITUATIONS.forEach(function(s,k){
+    var d=document.createElement("div"); d.className="situation";
+    d.innerHTML="<p><span class=\"num\">"+(k+1)+".</span>"+s.t+"</p>";
+    var c=document.createElement("div"); c.className="choix trois";
+    var ex=document.createElement("div"); ex.className="explic"; ex.hidden=true;
+    CARTES.forEach(function(lib,i){
+      var b=document.createElement("button"); b.type="button"; b.textContent=lib;
+      b.addEventListener("click", function(){
+        if(c.dataset.fait) return; c.dataset.fait="1";
+        c.querySelectorAll("button").forEach(function(x,j){ x.disabled=true; if(j===s.r) x.classList.add("juste"); else if(j===i) x.classList.add("faux"); });
+        if(i===s.r){ scores.s2++; majScores(); }
+        ex.className="explic "+(i===s.r?"bon":"mauvais"); ex.textContent=(i===s.r?"Juste. ":"Non. ")+s.e; ex.hidden=false;
+      });
+      c.appendChild(b);
+    });
+    d.appendChild(c); d.appendChild(ex); box.appendChild(d);
+  });
+  var a=document.createElement("div"); a.className="actions";
+  a.innerHTML="<button class=\"btn second\" type=\"button\" id=\"refaire2\">Recommencer</button><button class=\"btn principal\" type=\"button\" id=\"vers3\">Passer à la carte p</button>";
+  box.appendChild(a);
+  $("refaire2").addEventListener("click", construireSituations);
+  $("vers3").addEventListener("click", function(){ aller(3); });
+}
+
+/* ============ ÉTAPES 3 et 4 : moteur commun ============ */
+var N=25;
+var CONTEXTES={
+  p:[
+    {nom:"Bouchons triés au contrôle final", n:500, pb:0.03, info:"lots de 500 bouchons"},
+    {nom:"Connecteurs sertis, contrôle visuel", n:500, pb:0.04, info:"lots de 500 connecteurs"},
+    {nom:"Alésages contrôlés au calibre tampon", n:400, pb:0.05, info:"400 alésages par équipe"}
+  ],
+  c:[
+    {nom:"Défauts d'aspect sur capots peints", lam:10, info:"défauts comptés sur chaque capot"},
+    {nom:"Soudures défectueuses", lam:14, info:"défauts comptés par lot de 20 cartes électroniques"},
+    {nom:"Défauts d'aspect sur tissu", lam:12, info:"défauts comptés sur chaque rouleau de 50 m"}
+  ]
+};
+var REGLES=["Aucune","1 point hors des limites","7 points du même côté","6 points qui montent ou descendent"];
+var REACTIONS=["Ne toucher à rien","Appliquer le plan de réaction du poste","Chercher ce qui a changé (matière, outil, réglage, opérateur)","Vérifier le contrôle, puis comprendre l'amélioration pour la garder"];
+var VERDICTS=["Normal","Alarme"];
+var TYPES=["normal","R1h","R1b","R2h","R2b","R3m","R3d","pPres","p5","p6"];
+var LIBTYPES={normal:"Démonstration : procédé normal",R1h:"Démonstration : 1 point au-dessus de LSC",R1b:"Démonstration : 1 point au-dessous de LIC",
+  R2h:"Démonstration : 7 points au-dessus de LC",R2b:"Démonstration : 7 points au-dessous de LC",R3m:"Démonstration : 6 points qui montent",R3d:"Démonstration : 6 points qui descendent",
+  pPres:"Piège : point proche de LSC",p5:"Piège : 5 points qui montent seulement",p6:"Piège : 6 points du même côté seulement"};
+var ATTENDU={normal:[0,0,0],pPres:[0,0,0],p5:[0,0,0],p6:[0,0,0],R1h:[1,1,1],R1b:[1,1,3],R2h:[1,2,2],R2b:[1,2,3],R3m:[1,3,2],R3d:[1,3,3]};
+
+var famille="p", ctx=null, lim=null, carte=null, reponses={}, corrige=false, mode="serie", numero=1, sac=[], erreurs={};
+function limites(f, c){
+  if(f==="p"){ var s=Math.sqrt(c.pb*(1-c.pb)/c.n), lic=c.pb-3*s; return {LC:c.pb, LSC:c.pb+3*s, LICcalc:lic, LIC:Math.max(0,lic), s:s}; }
+  var sc=Math.sqrt(c.lam), lc=c.lam-3*sc; return {LC:c.lam, LSC:c.lam+3*sc, LICcalc:lc, LIC:Math.max(0,lc), s:sc};
+}
+/* valeur tracée : proportion (p) ou nombre (c) à partir d'un compte */
+function val(k){ return famille==="p" ? k/ctx.n : k; }
+function tirer(mult){ return famille==="p" ? binom(ctx.n, Math.min(0.99, ctx.pb*mult)) : poisson(ctx.lam*mult); }
+/* compte entier qui donne une valeur cible (arrondi) */
+function compte(v){ return famille==="p" ? Math.round(v*ctx.n) : Math.round(v); }
+function analyse(x){
+  var res={R1h:[],R1b:[],R2:[],R3:[]}, LC=lim.LC;
+  x.forEach(function(v,i){ if(v>lim.LSC) res.R1h.push([i]); if(v<lim.LIC) res.R1b.push([i]); });
+  var run=[0];
+  for(var i=1;i<N;i++){ if((x[i]-LC)*(x[i-1]-LC)>0 && x[i]!==LC) run.push(i); else { if(run.length>=7 && x[run[0]]!==LC) res.R2.push(run.slice()); run=[i]; } }
+  if(run.length>=7 && x[run[0]]!==LC) res.R2.push(run.slice());
+  var up=[0], dn=[0];
+  for(i=1;i<N;i++){
+    if(x[i]>x[i-1]) up.push(i); else { if(up.length>=6) res.R3.push(up.slice()); up=[i]; }
+    if(x[i]<x[i-1]) dn.push(i); else { if(dn.length>=6) res.R3.push(dn.slice()); dn=[i]; }
+  }
+  if(up.length>=6) res.R3.push(up.slice()); if(dn.length>=6) res.R3.push(dn.slice());
+  return res;
+}
+function plusLongues(x){
+  var cote=1, m=1, d=1, b={cote:1,monte:1};
+  for(var i=1;i<N;i++){ cote=(x[i]-lim.LC)*(x[i-1]-lim.LC)>0?cote+1:1; m=x[i]>x[i-1]?m+1:1; d=x[i]<x[i-1]?d+1:1; b.cote=Math.max(b.cote,cote); b.monte=Math.max(b.monte,m,d); }
+  return b;
+}
+function generer(type){
+  var LSCk=famille==="p"?lim.LSC*ctx.n:lim.LSC, LICk=famille==="p"?lim.LIC*ctx.n:lim.LIC, LCk=famille==="p"?lim.LC*ctx.n:lim.LC, sk=famille==="p"?lim.s*ctx.n:lim.s;
+  for(var essai=0; essai<8000; essai++){
+    var k=[], i, s, L, info={};
+    for(i=0;i<N;i++) k.push(tirer(1));
+    if(type==="R1h"){ i=entier(8,N-1); info.i=i; k[i]=Math.floor(LSCk)+entier(1,Math.max(2,Math.round(sk))); }
+    else if(type==="R1b"){ i=entier(8,N-1); info.i=i; k[i]=Math.max(0, Math.ceil(LICk)-entier(1,2)); if(k[i]>=LICk) continue; }
+    else if(type==="R2h"||type==="R2b"){ L=entier(7,9); s=entier(5,N-L); info.s=s; info.L=L;
+      for(i=s;i<s+L;i++){ var t=type==="R2h"? LCk+unif(0.4,2.2)*sk : LCk-unif(0.4,2.0)*sk; k[i]=Math.round(t); } }
+    else if(type==="R3m"||type==="R3d"){ s=entier(6,N-6); info.s=s; var a=unif(1.6,2.2)*sk, pas=2*a/5;
+      for(i=0;i<6;i++){ var v=type==="R3m"? LCk-a+i*pas : LCk+a-i*pas; k[s+i]=Math.round(v+unif(-0.15,0.15)*pas); } }
+    else if(type==="pPres"){ i=entier(6,N-2); info.i=i; k[i]=Math.floor(LSCk); if(LSCk-k[i]>0.6*sk) continue; }
+    else if(type==="p5"){ s=entier(5,N-6); info.s=s; var a5=unif(1.0,1.5)*sk, p5=a5*2/4;
+      for(i=0;i<5;i++) k[s+i]=Math.round(LCk-a5+i*p5); k[s+5]=k[s+3]-entier(1,2); }
+    else if(type==="p6"){ s=entier(4,N-7); info.s=s; var haut=Math.random()<0.5; info.haut=haut;
+      for(i=s;i<s+6;i++){ k[i]=Math.round(haut? LCk+unif(0.4,1.8)*sk : LCk-unif(0.4,1.6)*sk); }
+      k[s+6]=Math.round(haut? LCk-unif(0.5,1.2)*sk : LCk+unif(0.5,1.2)*sk);
+      if(s>0) k[s-1]=Math.round(haut? LCk-unif(0.5,1.2)*sk : LCk+unif(0.5,1.2)*sk); }
+    if(k.some(function(x){return x<0;})) continue;
+    var x=k.map(val), an=analyse(x), ls=plusLongues(x);
+    var nb={R1h:an.R1h.length,R1b:an.R1b.length,R2:an.R2.length,R3:an.R3.length};
+    var aucune=!nb.R1h&&!nb.R1b&&!nb.R2&&!nb.R3;
+    var seule=function(c){ return nb[c]===1 && Object.keys(nb).every(function(z){ return z===c || nb[z]===0; }); };
+    var ok=false, marge=function(v){ return v<lim.LSC-0.35*lim.s && v>lim.LIC+0.35*lim.s; };
+    var autresCalmes=function(excl){ return x.every(function(v,j){ return excl.indexOf(j)>=0 || marge(v); }); };
+    if(type==="normal") ok=aucune && ls.cote<=5 && ls.monte<=4 && autresCalmes([]);
+    else if(type==="R1h") ok=seule("R1h") && autresCalmes([info.i]);
+    else if(type==="R1b") ok=seule("R1b") && autresCalmes([info.i]);
+    else if(type==="R2h"||type==="R2b") ok=seule("R2") && an.R2[0].length<=info.L+2 && (type==="R2h"? x[an.R2[0][0]]>lim.LC : x[an.R2[0][0]]<lim.LC) && autresCalmes([]);
+    else if(type==="R3m"||type==="R3d") ok=seule("R3") && (type==="R3m"? x[an.R3[0][1]]>x[an.R3[0][0]] : x[an.R3[0][1]]<x[an.R3[0][0]]) && autresCalmes([]);
+    else if(type==="pPres") ok=aucune && ls.cote<=5 && ls.monte<=4 && autresCalmes([info.i]);
+    else if(type==="p5") ok=aucune && ls.monte===5 && ls.cote<=6 && autresCalmes([]);
+    else if(type==="p6") ok=aucune && ls.cote===6 && ls.monte<=4 && autresCalmes([]);
+    if(ok) return {type:type, k:k, x:x, an:an, info:info};
+  }
+  throw new Error("génération impossible : "+type+" ("+famille+")");
+}
+function aff(v){ return famille==="p" ? fr(100*v,1)+" %" : fr(v,1); }
+function affPt(v){ return famille==="p" ? fr(100*v,1)+" %" : String(Math.round(v)); }
+
+function dessiner(surligner){
+  var svg=$("svgCarte"); while(svg.firstChild) svg.removeChild(svg.firstChild);
+  var W=720, H=280, g={l:16,r:118,t:24,b:28}, x=carte.x;
+  var ymax=Math.max(lim.LSC+1.2*lim.s, Math.max.apply(null,x)+0.6*lim.s), ymin=Math.max(0, Math.min(lim.LIC-1.0*lim.s, Math.min.apply(null,x)-0.6*lim.s));
+  if(lim.LIC===0) ymin=0;
+  var X=function(i){ return g.l+14+i*(W-g.l-g.r-28)/(N-1); }, Y=function(v){ return g.t+(ymax-v)*(H-g.t-g.b)/(ymax-ymin); };
+  el("rect",{x:g.l,y:g.t,width:W-g.l-g.r,height:H-g.t-g.b,fill:"var(--papier)",stroke:"var(--grille)"},svg);
+  for(var i=0;i<N;i++) el("line",{x1:X(i),x2:X(i),y1:g.t,y2:H-g.b,stroke:"var(--grille)"},svg);
+  var o={zones:[],marques:[],numeros:[],etiq:[]};
+  if(surligner){
+    var an=carte.an, t=carte.type, inf=carte.info;
+    if(an.R1h.length||an.R1b.length){ var z1=an.R1h.concat(an.R1b); o.marques=z1.map(function(z){return z[0];}); o.etiq=z1.map(function(z){return {i:z[0],t:"hors limite",dessous:x[z[0]]<lim.LC};}); }
+    if(an.R2.length){ o.zones=an.R2; o.marques=an.R2[0]; o.numeros=an.R2[0]; }
+    if(an.R3.length){ o.zones=an.R3; o.marques=an.R3[0]; o.numeros=an.R3[0]; }
+    if(t==="pPres"){ o.marques=[inf.i]; o.etiq=[{i:inf.i,t:"dedans",dessous:false}]; }
+    if(t==="p5"){ var z5=[0,1,2,3,4].map(function(q){return inf.s+q;}); o.zones=[z5]; o.marques=z5; o.numeros=z5; }
+    if(t==="p6"){ var z6=[0,1,2,3,4,5].map(function(q){return inf.s+q;}); o.zones=[z6]; o.marques=z6; o.numeros=z6; }
+  }
+  o.zones.forEach(function(z){ el("rect",{x:X(z[0])-10,y:g.t,width:X(z[z.length-1])-X(z[0])+20,height:H-g.t-g.b,fill:"var(--surbrillance)",rx:4},svg); });
+  var lignes=[{v:lim.LSC,nom:"LSC",lim:true},{v:lim.LC,nom:famille==="p"?"p̄":"c̄",lim:false},{v:lim.LIC,nom:"LIC",lim:true}];
+  lignes.forEach(function(l){
+    el("line",{x1:g.l,x2:W-g.r,y1:Y(l.v),y2:Y(l.v),stroke:l.lim?"var(--limite)":"var(--trait)","stroke-width":l.lim?2:1.5,"stroke-dasharray":l.lim?"7 5":"none"},svg);
+    texte(svg, W-g.r+8, Y(l.v)+4, l.nom+" "+aff(l.v), {fill:l.lim?"var(--limite)":"var(--trait)"});
+  });
+  el("polyline",{points:x.map(function(v,i){return X(i)+","+Y(v);}).join(" "),fill:"none",stroke:"var(--encre)","stroke-width":1.8,"stroke-linejoin":"round"},svg);
+  x.forEach(function(v,i){
+    var m=o.marques.indexOf(i)>=0;
+    el("circle",{cx:X(i),cy:Y(v),r:m?5.5:3.8,fill:m?"var(--limite)":"var(--encre)",stroke:"var(--papier)","stroke-width":1.2},svg);
+    texte(svg, X(i), H-g.b+16, String(i+1), {"text-anchor":"middle","font-size":10.5});
+  });
+  o.numeros.forEach(function(i,q){ texte(svg, X(i), Y(x[i])-10, String(q+1), {"text-anchor":"middle",fill:"var(--limite)","font-weight":"600"}); });
+  o.etiq.forEach(function(e){ texte(svg, X(e.i), Y(x[e.i])+(e.dessous?20:-12), e.t, {"text-anchor":"middle",fill:"var(--limite)","font-weight":"600"}); });
+  var titre = famille==="p" ? "Carte p : proportion de pièces défectueuses par lot (%)" : "Carte c : nombre de défauts par unité";
+  texte(svg, g.l+4, 16, titre, {"font-size":13,fill:"var(--encre)","font-family":"Barlow Semi Condensed, Arial Narrow, sans-serif","font-weight":"600"});
+}
+
+var LISTES={verdict:VERDICTS, regle:REGLES, reaction:REACTIONS};
+function construireChoix(){
+  document.querySelectorAll("#etape3 .choix").forEach(function(box){
+    var q=box.getAttribute("data-q"); box.innerHTML="";
+    LISTES[q].forEach(function(lib,k){
+      var b=document.createElement("button"); b.type="button"; b.textContent=lib; b.setAttribute("aria-pressed","false");
+      b.addEventListener("click", function(){
+        if(corrige) return; choisir(q,k);
+        if(q==="verdict" && k===0){ choisir("regle",0); choisir("reaction",0); }
+        $("valider3").disabled=!(("verdict" in reponses)&&("regle" in reponses)&&("reaction" in reponses));
+      });
+      box.appendChild(b);
+    });
+  });
+}
+function choisir(q,k){ reponses[q]=k; document.querySelectorAll('#etape3 [data-q="'+q+'"] button').forEach(function(x,i){ x.setAttribute("aria-pressed", i===k?"true":"false"); }); }
+
+function explication(){
+  var t=carte.type, inf=carte.info, x=carte.x, an=carte.an, U=famille==="p"?"Le lot ":"L'unité ", dit=function(v){ return famille==="p" ? "donne "+affPt(v) : "compte "+affPt(v)+" défauts"; };
+  var ameli="On vérifie d'abord le contrôle (contrôleur, éclairage, gabarit) : moins de défectueux peut venir d'un contrôle relâché. Si le contrôle est bon, on cherche ce qui a changé pour le garder.";
+  switch(t){
+    case "normal": return "Aucune règle n'est déclenchée : tous les points sont entre LIC ("+aff(lim.LIC)+") et LSC ("+aff(lim.LSC)+"), pas de série de 7 du même côté, pas de série de 6 qui montent ou descendent. Les variations viennent du hasard : on ne touche à rien.";
+    case "R1h": var i=an.R1h[0][0]; return U+(i+1)+" "+dit(x[i])+", au-dessus de la LSC ("+aff(lim.LSC)+"). Un seul point suffit : cause spéciale probable. On applique le plan de réaction du poste : isoler les pièces concernées, vérifier le contrôle, chercher la cause.";
+    case "R1b": var j=an.R1b[0][0]; return U+(j+1)+" "+dit(x[j])+", au-dessous de la LIC ("+aff(lim.LIC)+"). C'est un signal, même s'il paraît favorable. "+ameli;
+    case "R2h": case "R2b": var z=an.R2[0], h=x[z[0]]>lim.LC; return "Les points "+(z[0]+1)+" à "+(z[z.length-1]+1)+" sont tous "+(h?"au-dessus":"au-dessous")+" de la ligne centrale : "+z.length+" de suite (la règle en demande 7). "+(h?"Le taux de défauts a augmenté durablement. On cherche ce qui a changé : matière, outil, réglage, opérateur.":ameli);
+    case "R3m": case "R3d": var z3=an.R3[0], m=x[z3[1]]>x[z3[0]]; return "Les points "+(z3[0]+1)+" à "+(z3[z3.length-1]+1)+" "+(m?"montent":"descendent")+" sans interruption : "+z3.length+" de suite. "+(m?"Les défauts augmentent progressivement : usure, encrassement, dérive. On cherche ce qui a changé avant de sortir des limites.":ameli);
+    case "pPres": return "Piège : le point "+(inf.i+1)+" ("+affPt(x[inf.i])+") est tout près de la LSC ("+aff(lim.LSC)+"), mais il est dedans. Proche d'une limite n'est pas une alarme. On ne touche à rien.";
+    case "p5": return "Piège : les points "+(inf.s+1)+" à "+(inf.s+5)+" montent, mais il n'y en a que 5 à la suite. La règle en demande 6. On ne touche à rien, en gardant un œil sur la carte.";
+    case "p6": return "Piège : les points "+(inf.s+1)+" à "+(inf.s+6)+" sont du même côté de la ligne centrale, mais il n'y en a que 6. La règle en demande 7. On ne touche à rien.";
+  }
+  return "";
+}
+
+function principeCarte(){
+  var p=$("principeCarte"), c=$("calculs");
+  if(famille==="p"){
+    p.innerHTML="<h2>La carte p : la proportion de pièces défectueuses</h2>"+
+      "<p>À chaque lot, on compte les pièces défectueuses et on divise par le nombre de pièces contrôlées. La carte trace cette proportion, en %.</p>"+
+      "<p>Les limites ont été calculées sur une période de référence maîtrisée. Elles disent ce que le procédé fait d'habitude, pas ce que le client accepte. Les règles de lecture sont les mêmes que sur la carte X̄.</p>"+
+      "<span class=\"duree\">environ 25 min</span>";
+    var L=lim;
+    c.innerHTML="<summary>Comment la page calcule les limites de la carte p</summary>"+
+      "<p>p̄ = nombre total de défectueuses ÷ nombre total de pièces contrôlées, sur la période de référence. n = taille du lot.</p>"+
+      "<div class=\"formule\">LSC = p̄ + 3 × √( p̄ (1 − p̄) / n )<br>LIC = p̄ − 3 × √( p̄ (1 − p̄) / n )</div>"+
+      "<p>Ici : p̄ = "+fr(100*ctx.pb,1)+" %, n = "+ctx.n+". √( p̄ (1 − p̄) / n ) = "+fr(100*L.s,2)+" %, donc LSC = "+fr(100*L.LSC,2)+" % et LIC = "+fr(100*L.LICcalc,2)+" %.</p>"+
+      "<p>Si le calcul de la LIC donne un nombre négatif, on retient LIC = 0 : une proportion ne peut pas être négative. Exemple : p̄ = 3 % et n = 100 donnent LIC = 3 − 3 × 1,71 = −2,1 %, on retient 0.</p>"+
+      "<p class=\"note\">Si la taille des lots change, n change, et les limites changent d'un lot à l'autre : plus le lot est grand, plus elles sont serrées. Ellistat accepte une taille de lot fixe ou une colonne dédiée.</p>";
+  } else {
+    p.innerHTML="<h2>La carte c : le nombre de défauts par unité</h2>"+
+      "<p>Sur chaque unité contrôlée, toujours de la même taille, on compte tous les défauts. La carte trace ce nombre.</p>"+
+      "<p>Mêmes règles de lecture que la carte p. Un point au-dessus de la LSC déclenche le plan de réaction du poste.</p>"+
+      "<span class=\"duree\">environ 25 min</span>";
+    c.innerHTML="<summary>Comment la page calcule les limites de la carte c</summary>"+
+      "<p>c̄ = nombre moyen de défauts par unité, sur la période de référence.</p>"+
+      "<div class=\"formule\">LSC = c̄ + 3 × √c̄<br>LIC = c̄ − 3 × √c̄</div>"+
+      "<p>Ici : c̄ = "+ctx.lam+", √c̄ = "+fr(lim.s,2)+", donc LSC = "+fr(lim.LSC,2)+" et LIC = "+fr(lim.LICcalc,2)+".</p>"+
+      "<p>Si le calcul de la LIC donne un nombre négatif, on retient LIC = 0. Exemple : c̄ = 4 donne LIC = 4 − 3 × 2 = −2, on retient 0.</p>"+
+      "<p class=\"note\">Si la taille de l'unité change (des rouleaux de longueurs différentes), on utilise une carte u, le nombre de défauts par unité de longueur ou de surface. Elle n'est pas traitée ici.</p>";
+  }
+}
+
+function demarrerCarte(f){
+  famille=f;
+  var sel=$("mode"); sel.innerHTML="<option value=\"serie\">Série de 8 cartes au hasard</option>"+TYPES.map(function(t){return "<option value=\""+t+"\">"+LIBTYPES[t]+"</option>";}).join("");
+  mode="serie"; sel.value="serie";
+  nouvelleSerie();
+}
+function nouvelleCarte(){
+  var liste=CONTEXTES[famille]; ctx=liste[Math.floor(Math.random()*liste.length)]; lim=limites(famille, ctx);
+  var type = mode==="serie" ? sac[numero-1] : mode;
+  carte=generer(type);
+  $("ctxNom").textContent=ctx.nom;
+  $("ctxInfo").textContent=famille==="p" ? ctx.info+" · p̄ = "+fr(100*ctx.pb,1)+" %" : ctx.info+" · c̄ = "+ctx.lam;
+  principeCarte();
+  reponses={}; corrige=false;
+  document.querySelectorAll("#etape3 .choix button").forEach(function(b){ b.setAttribute("aria-pressed","false"); b.classList.remove("juste","faux"); b.disabled=false; });
+  $("valider3").disabled=true; $("valider3").hidden=false; $("suivant3").hidden=true;
+  var r=$("retour3"); r.hidden=true; r.innerHTML="";
+  $("numCarte").textContent = mode==="serie" ? numero : "démo";
+  dessiner(false);
+}
+function nouvelleSerie(){
+  var dem=["R1h","R2h","R3m"], reste=melanger(TYPES.filter(function(t){return dem.indexOf(t)<0;})).slice(0,5);
+  sac=melanger(dem.concat(reste)); numero=1; erreurs={}; $("bilan3").hidden=true;
+  nouvelleCarte();
+}
+function valider3(){
+  if(corrige) return; corrige=true;
+  var att=ATTENDU[carte.type], qs=["verdict","regle","reaction"], pts=0;
+  qs.forEach(function(q,k){
+    document.querySelectorAll('#etape3 [data-q="'+q+'"] button').forEach(function(b,i){ b.disabled=true; if(i===att[k]) b.classList.add("juste"); else if(i===reponses[q]) b.classList.add("faux"); });
+    if(reponses[q]===att[k]) pts++;
+  });
+  dessiner(true);
+  var bon=pts===3, r=$("retour3");
+  r.className="retour "+(bon?"bon":"mauvais");
+  r.innerHTML="<strong>"+(bon?"Juste : 3 sur 3.":"À revoir : "+pts+" sur 3.")+"</strong><span>"+explication()+"</span>"+(bon?"":"<span class=\"note\">Sur la carte, les points en cause sont marqués en orange.</span>");
+  r.hidden=false;
+  if(mode==="serie"){
+    var cs=famille==="p"?"s3":"s4", cm=famille==="p"?"m3":"m4"; scores[cs]+=pts; scores[cm]+=3; majScores();
+    if(!bon){ var cle=LIBTYPES[carte.type].replace("Démonstration : ",""); erreurs[cle]=(erreurs[cle]||0)+1; }
+  }
+  $("valider3").hidden=true; var s=$("suivant3"); s.hidden=false;
+  s.textContent=(mode==="serie" && numero===8) ? "Voir le bilan" : "Carte suivante"; s.focus();
+}
+function suivant3(){
+  if(mode==="serie"){ if(numero===8){ bilan3(); return; } numero++; }
+  nouvelleCarte();
+}
+function bilan3(){
+  var b=$("bilan3"), cs=famille==="p"?"s3":"s4", cm=famille==="p"?"m3":"m4";
+  var liste=Object.keys(erreurs).map(function(k){ return "<li>"+k+" : "+erreurs[k]+" carte"+(erreurs[k]>1?"s":"")+"</li>"; }).join("");
+  b.innerHTML="<h3>Bilan de la série : <span class=\"num\">"+scores[cs]+" / "+scores[cm]+"</span></h3>"+
+    (liste?"<p>Les cas à retravailler (utilisez le menu Mode pour les revoir) :</p><ul>"+liste+"</ul>":"<p>Aucune erreur.</p>")+
+    "<div class=\"actions\"><button class=\"btn second\" id=\"rejouer3\">Nouvelle série de 8</button><button class=\"btn principal\" id=\"suite3\">"+(famille==="p"?"Passer à la carte c":"Passer au bilan")+"</button></div>";
+  b.hidden=false;
+  $("rejouer3").addEventListener("click", function(){ nouvelleSerie(); window.scrollTo({top:0,behavior:"smooth"}); });
+  $("suite3").addEventListener("click", function(){ aller(famille==="p"?4:5); });
+  b.scrollIntoView({behavior:"smooth", block:"center"});
+}
+$("valider3").addEventListener("click", valider3);
+$("suivant3").addEventListener("click", suivant3);
+$("mode").addEventListener("change", function(e){ mode=e.target.value; $("bilan3").hidden=true; if(mode==="serie") nouvelleSerie(); else nouvelleCarte(); });
+
+/* ============ ÉTAPE 5 : quiz ============ */
+var QUIZ=[
+  {q:"Une plaque porte une rayure et deux taches. Pour la carte c, elle compte pour :", o:["0 défaut","1 défaut","3 défauts"], r:2, e:"Sur la carte c, on compte tous les défauts : 1 rayure + 2 taches = 3 défauts."},
+  {q:"La même plaque, pour la carte p, compte pour :", o:["1 pièce défectueuse","3 pièces défectueuses","Elle ne compte pas"], r:0, e:"Une pièce est défectueuse ou elle ne l'est pas, quel que soit le nombre de ses défauts."},
+  {q:"On contrôle des alésages au calibre entre / n'entre pas. Quelle carte ?", o:["Carte X̄/R","Carte p","Carte c"], r:1, e:"Le calibre ne donne pas de valeur. L'alésage est bon ou mauvais : on compte des pièces défectueuses."},
+  {q:"Le calcul de la limite inférieure d'une carte p donne −1,2 %. Que retient-on ?", o:["LIC = −1,2 %","LIC = 0","On ne peut pas faire de carte p"], r:1, e:"Une proportion ne peut pas être négative : on retient LIC = 0. La carte reste utilisable avec sa seule limite supérieure."},
+  {q:"Sur la carte p, 7 lots de suite sont sous la ligne centrale. Que faites-vous ?", o:["Rien, c'est une bonne nouvelle","Vérifier le contrôle, puis comprendre l'amélioration pour la garder","Appliquer le plan de réaction du poste"], r:1, e:"Moins de défectueux peut venir d'un contrôle relâché. Si le contrôle est bon, l'amélioration a une cause : on la cherche pour la garder."},
+  {q:"Les limites d'une carte p, ce sont :", o:["Les tolérances du client","Ce que le procédé fait d'habitude","L'objectif fixé par la direction"], r:1, e:"Les limites de contrôle sont calculées à partir du procédé lui-même. Elles ne disent pas ce que le client accepte."},
+  {q:"Dans Ellistat, la « phase I » est :", o:["La période de référence sur laquelle on calcule les limites","Les 10 derniers lots","La période où il y a eu le plus de défauts"], r:0, e:"On la choisit maîtrisée et représentative. Calculer les limites sur une période perturbée revient à valider le désordre comme normal."},
+  {q:"Le nombre de colis expédiés change chaque semaine. Sur la carte p des colis refusés :", o:["On garde les mêmes limites","Les limites changent d'une semaine à l'autre","On ne peut pas faire de carte"], r:1, e:"Les limites dépendent de n. Plus le lot est grand, plus elles sont serrées."},
+  {q:"Sur la carte c, un capot présente un nombre de défauts au-dessus de la LSC. Que faites-vous ?", o:["Ne toucher à rien","Appliquer le plan de réaction du poste","Recalculer les limites"], r:1, e:"Un point hors limites signale une cause spéciale probable : on applique le plan de réaction du poste."}
+];
+function construireQuiz(){
+  var box=$("quiz"); box.innerHTML=""; scores.s5=0; majScores(); $("bilan5").hidden=true; var faits=0;
+  QUIZ.forEach(function(s,k){
+    var d=document.createElement("div"); d.className="situation";
+    d.innerHTML="<p><span class=\"num\">"+(k+1)+".</span>"+s.q+"</p>";
+    var c=document.createElement("div"); c.className="choix"; var ex=document.createElement("div"); ex.className="explic"; ex.hidden=true;
+    s.o.forEach(function(lib,i){
+      var b=document.createElement("button"); b.type="button"; b.textContent=lib;
+      b.addEventListener("click", function(){
+        if(c.dataset.fait) return; c.dataset.fait="1"; faits++;
+        c.querySelectorAll("button").forEach(function(x,j){ x.disabled=true; if(j===s.r) x.classList.add("juste"); else if(j===i) x.classList.add("faux"); });
+        if(i===s.r){ scores.s5++; majScores(); }
+        ex.className="explic "+(i===s.r?"bon":"mauvais"); ex.textContent=(i===s.r?"Juste. ":"Non. ")+s.e; ex.hidden=false;
+        if(faits===QUIZ.length) bilan5();
+      });
+      c.appendChild(b);
+    });
+    d.appendChild(c); d.appendChild(ex); box.appendChild(d);
+  });
+}
+function bilan5(){
+  var b=$("bilan5"), tot=scores.s1+scores.s2+scores.s3+scores.s4+scores.s5, max=scores.m1+8+scores.m3+scores.m4+9;
+  b.innerHTML="<h3>Quiz : <span class=\"num\">"+scores.s5+" / 9</span></h3><p>Sur l'ensemble de la séance : <span class=\"num\">"+tot+" / "+max+"</span> points.</p>"+
+    "<div class=\"actions\"><button class=\"btn second\" id=\"refaire5\">Refaire le quiz</button></div>";
+  b.hidden=false; $("refaire5").addEventListener("click", construireQuiz);
+}
+
+/* ============ démarrage ============ */
+afficherLot(); construireSituations(); construireChoix(); construireQuiz(); majScores();
+window.__attr={ generer:function(f,t,ci){ famille=f; ctx=CONTEXTES[f][ci||0]; lim=limites(f,ctx); return generer(t); }, TYPES:TYPES, CONTEXTES:CONTEXTES, limites:limites, analyse:function(x){return analyse(x);}, genererLot:genererLot };
+})();
+</script>
+
+</body>
+</html>

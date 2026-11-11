@@ -1,0 +1,91 @@
+\documentclass[10pt,a4paper]{article}
+\input{charte.tex}
+\renewcommand{\bandeau}[3]{%
+\begin{tcolorbox}[colback=uimm,colframe=uimm,arc=2pt,left=4pt,right=8pt,top=4pt,bottom=4pt]
+\begin{minipage}[c]{18mm}\setlength{\fboxsep}{1.2pt}\fcolorbox{white}{white}{\includegraphics[height=16.5mm]{logo_uimm.jpg}}\end{minipage}\hspace{4mm}%
+\begin{minipage}[c]{\dimexpr\linewidth-22mm\relax}\color{white}
+{\small #1}\\[1pt]{\LARGE\bfseries #2}\\[2pt]{\large #3}
+\end{minipage}
+\end{tcolorbox}}
+\pied{Trois cales, trois questions · guide formateur}
+\begin{document}
+\thispagestyle{fancy}
+\bandeau{Guide formateur · ne pas distribuer}{Trois cales, trois questions}{Ateliers sur cales étalons de 10, 20 et 30 mm, procédure 1 du livret Bosch n° 10}
+
+\titre{1. Préparation (la veille et le matin)}
+\begin{itemize}
+\item \textbf{Cales} : 10 mm (Mitutoyo), 20 mm, 30 mm, classe 1. Relever la valeur de chaque certificat ; à défaut, la valeur nominale. Vérifier l'état des faces (rayures, oxydation) : une cale abîmée n'adhère plus et ne sert plus d'étalon.
+\item \textbf{Stabilisation thermique} : cales et micromètres posés dans la salle au moins une heure avant. Prévoir gants ou pinces, chiffon non pelucheux, solvant de nettoyage.
+\item \textbf{Micromètres} : cinq 0-25 numérotés (M1 à M5), zéro contrôlé. Le 25-50 se règle avec sa \textbf{cale de réglage de 25 mm}, pas en fermant les touches.
+\item \textbf{Postes} : trois tables séparées, une cale par table. Ouvrir la page « Trois cales, trois questions » sur le poste projeté.
+\end{itemize}
+
+\titre{2. Déroulé (environ 1 h 40)}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabularx}{\linewidth}{@{}l l X@{}}
+\toprule
+\textbf{Durée} & \textbf{Étape} & \textbf{Points d'attention}\\\midrule
+10 min & Question, rappel & Fiche stagiaire p. 1, § 1 et 2. Faire noter les valeurs des certificats (§ 3).\\
+45 min & Rotation, 5 tours & Fiche p. 1, § 4. Environ 8 min par tour. Le mesureur annonce, le secrétaire note dans la grille p. 2. Surveiller le retrait de la cale entre deux mesures et la tenue de la cale.\\
+10 min & Défi & Un stagiaire en avance, après la rotation : le poste 30 mm est libre (fiche p. 3).\\
+10 min & Saisie, calcul & Coller depuis Excel ou saisir les trois grilles. Projeter les ateliers dans l'ordre 1, 3, 2 : l'atelier 3 explique l'atelier 1.\\
+25 min & Questions, bilan & Fiche p. 3, Q1 à Q8.\\
+\bottomrule
+\end{tabularx}
+
+\titre{3. Repères chiffrés ($T = 0{,}15$ mm)}
+\begin{itemize}
+\item \textbf{Résolution} (calcul demandé fiche stagiaire p. 1, § 2) : micromètre $0{,}001/0{,}15\times100 = 0{,}67$ \% ; pied à coulisse $0{,}02/0{,}15\times100 = 13{,}3$ \%. Seul le micromètre passe sous 5 \% : le pied à coulisse est écarté avant tout calcul de $C_g$ (livret, fig. 3).
+\item \textbf{Dispersion admise} : $C_g \ge 1{,}33 \iff s \le 0{,}2\,T/(6 \times 1{,}33) \approx 0{,}0038$ mm. Un micromètre en bon état est très en dessous : on attend des $C_g$ élevés. L'intérêt des ateliers est dans le biais et l'effet opérateur, pas dans le verdict.
+\item \textbf{Seuil du biais} : $\lvert\bar x - x_m\rvert / s \le t_{n-1;\,0{,}975}/\sqrt n$, soit 0,715 pour $n = 10$ et 0,284 pour $n = 50$ (annexe C.2, tableau).
+\item \textbf{$T_{\min} = 10\,\lvert\bar x - x_m\rvert + 39{,}9\,s$} : de $C_{gk} \ge 1{,}33$, on tire $0{,}1\,T \ge \lvert\bar x - x_m\rvert + 3{,}99\,s$. Cette condition contient celle de $C_g$.
+\item \textbf{Cales de classe 1} (tableau DIN 861, source secondaire, à confirmer sur le certificat) :
+\begin{center}\small
+\begin{tabular}{@{}lccc@{}}
+\toprule
+Longueur nominale & 0,5 à 10 mm & plus de 10 à 25 mm & plus de 25 à 50 mm\\\midrule
+Écart limite sur la longueur & $\pm\,0{,}20$ µm & $\pm\,0{,}30$ µm & $\pm\,0{,}40$ µm\\
+Variation de longueur & 0,16 µm & 0,16 µm & 0,18 µm\\
+\bottomrule
+\end{tabular}
+\end{center}
+Tous ces écarts restent sous la résolution (1 µm) : la valeur nominale peut servir de $x_m$. Le livret demande $U_{cal} < 0{,}1\,T = 15$ µm (§ 4.1) : largement tenu.
+\item \textbf{Température} : l'acier se dilate d'environ $11{,}5 \times 10^{-6}$ par °C (valeur usuelle pour les cales en acier, à confirmer chez le fabricant). Pour 30 mm : environ 0,35 µm par °C. Une cale réchauffée de 3 °C dans la main gagne environ 1 µm, soit un pas de résolution.
+\end{itemize}
+
+\titre{4. Les limites à assumer devant le groupe}
+\begin{itemize}
+\item \textbf{Choix des cales.} Le livret veut un étalon « si possible au milieu de la tolérance » de la cote (§ 4.1). Aucune des trois cales n'est à 12 mm : chaque atelier qualifie l'instrument à la longueur de sa cale. La cale 10 est la plus proche de la butée.
+\item \textbf{Atelier 1.} Cinq opérateurs dans une même série : $s$ contient l'effet opérateur. C'est un écart au protocole, admis s'il est justifié et noté (§ 4.1). Il pénalise le micromètre : s'il passe, la conclusion est plus solide.
+\item \textbf{Atelier 2.} Chacun mesure avec son propre micromètre : le biais est celui du couple micromètre et utilisateur. On ne peut pas les séparer avec ce plan.
+\item \textbf{10 mesures par personne} : résultats individuels indicatifs (le livret demande 50, au moins 25).
+\item \textbf{Atelier 3} : ce n'est pas une étude R\&R (une seule « pièce », pas de ndc). Il montre la reproductibilité sur une longueur. Le lien avec le TP R\&R est naturel.
+\item \textbf{Test du biais} : le livret prévient qu'avec un étalon et un instrument de très bonne qualité ($s$ petit), le test peut déclarer significatif un biais techniquement négligeable (annexe C.1). C'est $C_{gk}$, rapporté à la tolérance, qui tranche.
+\end{itemize}
+
+\titre{5. Réponses attendues}
+\begin{description}[leftmargin=0pt,style=nextline,itemsep=3pt]
+\item[Q1 (fiche stagiaire p. 3)] Lecture de $C_g$ et $C_{gk}$ dans la page, atelier 1. Capable si les deux atteignent 1,33 (livret § 4.1). Faire justifier par les deux indices.
+\item[Q2 (p. 3)] Un handicap : les écarts entre opérateurs s'ajoutent à la dispersion de l'instrument, $s$ grossit, $C_g$ et $C_{gk}$ baissent. Un micromètre qui passe malgré cela est d'autant plus sûr. Chiffrer avec l'atelier 3 : « Cg du groupe » contre « Cg sans les opérateurs ».
+\item[Q3 (p. 3)] Lecture du tableau de l'atelier 2. Significatif si la colonne l'indique ($\lvert\text{biais}\rvert/s > 0{,}715$). Pour la butée, un biais de quelques µm ne gêne pas : il faudrait $\lvert\text{biais}\rvert$ proche de $0{,}1\,T = 15$ µm pour faire tomber $C_{gk}$.
+\item[Q4 (p. 3)] Colonne « 20 − 10 » et pentes du graphique. Un biais qui change avec la longueur signale un défaut de linéarité : erreur de pas de la vis micrométrique, touches non parallèles, zéro décalé qui ne compense qu'une longueur. Le livret note que plusieurs études de type 1 ne renseignent que sur les points testés, pas entre eux (§ 4.4, note 1).
+\item[Q5 (p. 3)] Colonne « T min ». Ordre de grandeur : avec $s = 0{,}5$ µm et un biais de 1 µm, $T_{\min} = 0{,}010 + 0{,}020 = 0{,}030$ mm, bien sous 0,15 mm : la butée est à sa portée.
+\item[Q6 (p. 3)] $F > F$ crit : les moyennes diffèrent plus que le hasard ne l'explique. Causes : force de serrage (cliquet non utilisé ou trop de tours), cale mal posée sur les touches, cale tenue en main et réchauffée, erreur de lecture.
+\item[Q7 (p. 3)] L'écart entre les deux $C_g$ mesure le poids des opérateurs. Pour un instrument partagé, il faut une méthode écrite commune (cliquet, nombre de tours, positionnement) et une étude avec opérateurs : c'est le R\&R.
+\item[Q8 (p. 3)] La cale 10 : c'est la plus proche de 12 mm, et le livret demande un étalon proche du milieu de la tolérance de la cote mesurée (§ 4.1). Les cales 20 et 30 renseignent sur d'autres longueurs.
+\item[Défi (p. 3)] b. Pile = $x_{m,10} + x_{m,20}$ ; écart attendu $x_{m,10} + x_{m,20} - x_{m,30}$, nul avec les nominales.
+c. $0{,}20 + 0{,}30 + 0{,}40 = 0{,}90$ µm au pire. Sur une lecture, invisible. Sur deux moyennes de 10 mesures, l'écart minimal détectable vaut environ $t_{18;\,0{,}975}\, s\sqrt{2/10} \approx 2{,}1 \times 0{,}5 \times 0{,}45 \approx 0{,}5$ µm si $s \approx 0{,}5$ µm. Un écart significatif peut donc venir des cales elles-mêmes : d'où l'intérêt des valeurs certifiées.
+d. Alterner répartit la dérive (échauffement, zéro) sur les deux séries : elle ne se confond pas avec l'écart cherché.
+e. Page, volet « Défi » : test de Student à 5 \%. Écart significatif : adhérence ratée (poussière, film d'huile), cales réchauffées, face usée.
+\end{description}
+
+\titre{6. Si le résultat surprend}
+\begin{itemize}
+\item \textbf{Biais de plusieurs µm sur une cale} : vérifier le zéro du micromètre et la valeur saisie pour $x_m$. Pour le 25-50, vérifier le réglage sur la cale de 25 mm.
+\item \textbf{$s = 0$ pour un stagiaire} : il retrouve toujours la même valeur. La résolution masque la dispersion, ou la cale n'a pas été retirée entre les mesures.
+\item \textbf{Mesures qui montent au fil de la série} : la cale chauffe dans la main. Le voir sur le graphique « Les mesures dans l'ordre » de l'atelier 1.
+\end{itemize}
+
+\vfill
+{\footnotesize\color{uimm}\textbf{Sources.} Robert Bosch GmbH, \emph{Booklet 10 : Capability of Measurement and Test Processes}, édition novembre 2019 : § 4.1 (procédure 1, choix et incertitude de l'étalon, écarts au protocole), fig. 3, § 4.4 (note 1), annexes C.1 et C.2. Tolérances des cales : tableau « Gauge Blocks Tolerances Specifications » (JIS B 7506, déclarée équivalente à DIN 861), engineersedge.com. Calculs de la page vérifiés indépendamment (Python, SciPy).}
+\end{document}

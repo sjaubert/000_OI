@@ -1,0 +1,497 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>L'opérateur compte-t-il ?</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --papier:#F6F8F7; --encre:#17324D; --trait:#5B6B7A; --grille:#D9E2E0; --fond:#E9EEED; --carte:#FFFFFF;
+  --ok:#2E7D32; --okfond:#E3F1E4; --ko:#B3261E; --kofond:#FBE4E2; --moyen:#B4530F; --moyenfond:#FCEBDD;
+  --accent:#1F4E79; --accentfond:#DCE7F2;
+  --opA:#2D6A9F; --opB:#B4530F; --opC:#2E7D32;
+  --f-titre:"Barlow Semi Condensed","Arial Narrow",Arial,sans-serif;
+  --f-texte:"Source Sans 3","Segoe UI",Arial,sans-serif;
+  --f-chiffre:"IBM Plex Mono",Consolas,"Courier New",monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --papier:#16201F; --encre:#DCE8F2; --trait:#9AABB8; --grille:#26332F; --fond:#0F1716; --carte:#1B2625;
+  --ok:#7CC283; --okfond:#1D3322; --ko:#F2877E; --kofond:#3A1E1C; --moyen:#F08A4B; --moyenfond:#3A2716;
+  --accent:#8DB8E6; --accentfond:#1E3247; --opA:#6FA8DC; --opB:#F08A4B; --opC:#7CC283; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --papier:#16201F; --encre:#DCE8F2; --trait:#9AABB8; --grille:#26332F; --fond:#0F1716; --carte:#1B2625;
+  --ok:#7CC283; --okfond:#1D3322; --ko:#F2877E; --kofond:#3A1E1C; --moyen:#F08A4B; --moyenfond:#3A2716;
+  --accent:#8DB8E6; --accentfond:#1E3247; --opA:#6FA8DC; --opB:#F08A4B; --opC:#7CC283; color-scheme:dark}
+body{background:var(--fond);color:var(--encre);font-family:var(--f-texte);font-size:16px;line-height:1.45}
+.page{max-width:1180px;margin:0 auto;padding-block:20px 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:16px}
+.page>*{min-width:0}
+h1{font-family:var(--f-titre);font-weight:700;font-size:clamp(1.7rem,3.2vw,2.3rem);line-height:1.05;margin:0;text-wrap:balance}
+.sous{margin:4px 0 0;color:var(--trait);font-size:.95rem}
+.principe{background:var(--carte);border-left:4px solid var(--accent);border-radius:0 8px 8px 0;padding:12px 16px;display:grid;gap:6px}
+.principe h2{font-family:var(--f-titre);font-weight:700;font-size:1.35rem;margin:0}
+.principe p{margin:0}
+.formules{display:flex;flex-wrap:wrap;gap:8px 28px;font-family:var(--f-chiffre);font-size:.93rem;background:var(--papier);border:1px solid var(--grille);border-radius:6px;padding:8px 12px}
+.panneau{background:var(--carte);border:1px solid var(--grille);border-radius:8px;padding:16px;display:grid;gap:12px;min-width:0}
+.panneau h3{font-family:var(--f-titre);font-weight:600;font-size:1.2rem;margin:0}
+.champs{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+label{display:grid;gap:4px;font-size:.92rem;font-weight:600}
+label small{font-weight:400;color:var(--trait)}
+input,select{font:inherit;color:var(--encre);background:var(--papier);border:1.5px solid var(--grille);border-radius:6px;padding:6px 8px;min-width:0}
+input{font-family:var(--f-chiffre)}
+input:focus-visible,button:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.btn{font:inherit;border:none;border-radius:6px;padding:9px 15px;cursor:pointer;font-family:var(--f-titre);font-weight:600;font-size:1.02rem;letter-spacing:.02em}
+.btn.principal{background:var(--accent);color:var(--carte)}
+.btn.second{background:transparent;color:var(--accent);border:1.5px solid var(--accent)}
+.note{font-size:.85rem;color:var(--trait)}
+.tableau{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{padding:5px 6px;border-bottom:1px solid var(--grille);text-align:left;vertical-align:middle}
+th{font-family:var(--f-titre);font-weight:600;font-size:.95rem}
+td.n,th.n{text-align:right;font-family:var(--f-chiffre);font-variant-numeric:tabular-nums}
+table.grille input{width:100%;min-width:76px;box-sizing:border-box;text-align:right;padding:5px 6px}
+table.grille th{text-align:center}
+.opA{color:var(--opA)} .opB{color:var(--opB)} .opC{color:var(--opC)}
+.ordre{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px}
+.ordre div{background:var(--papier);border:1px solid var(--grille);border-radius:6px;padding:7px 10px;font-family:var(--f-chiffre);font-size:.9rem}
+.ordre b{font-family:var(--f-titre);font-size:1rem}
+.chiffres{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+.chiffre{background:var(--papier);border:1px solid var(--grille);border-radius:6px;padding:7px 10px}
+.chiffre span{display:block;font-size:.75rem;color:var(--trait);text-transform:uppercase;letter-spacing:.05em}
+.chiffre b{font-family:var(--f-chiffre);font-weight:500;font-size:1.08rem}
+.chiffre.fort b{font-size:1.5rem}
+.chiffre.bon{border-color:var(--ok);background:var(--okfond)}
+.chiffre.moyen{border-color:var(--moyen);background:var(--moyenfond)}
+.chiffre.mauvais{border-color:var(--ko);background:var(--kofond)}
+.verdict{border-radius:6px;padding:12px 14px;display:grid;gap:4px}
+.verdict.bon{background:var(--okfond);border:1px solid var(--ok)}
+.verdict.moyen{background:var(--moyenfond);border:1px solid var(--moyen)}
+.verdict.mauvais{background:var(--kofond);border:1px solid var(--ko)}
+.verdict strong{font-family:var(--f-titre);font-size:1.2rem}
+.alerte{font-size:.9rem;color:var(--ko);margin:0}
+.duo{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}
+@media (max-width:860px){.duo{grid-template-columns:1fr}}
+svg{display:block;width:100%;height:auto}
+.legende{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.82rem;color:var(--trait)}
+.legende i{display:inline-block;width:18px;height:3px;vertical-align:middle;margin-right:5px}
+.memo{background:var(--carte);border:1px solid var(--grille);border-radius:8px;padding:10px 14px}
+.memo summary{cursor:pointer;font-family:var(--f-titre);font-weight:600;font-size:1.1rem}
+.quiz{display:grid;gap:10px;margin-top:8px}
+.q p{margin:0 0 6px}
+.choix{display:grid;gap:6px}
+.choix button{font:inherit;text-align:left;background:var(--papier);color:var(--encre);border:1.5px solid var(--grille);border-radius:6px;padding:8px 10px;cursor:pointer}
+.choix button.juste{border-color:var(--ok);background:var(--okfond)}
+.choix button.faux{border-color:var(--ko);background:var(--kofond)}
+.explic{font-size:.9rem;border-radius:6px;padding:7px 10px;margin-top:6px}
+.explic.bon{background:var(--okfond)} .explic.mauvais{background:var(--kofond)}
+.sources{font-size:.82rem;color:var(--trait)}
+.sources a{color:var(--accent)}
+.pile{display:grid;gap:12px}
+.etapes{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px}
+@media (max-width:860px){.etapes{grid-template-columns:1fr}}
+.etape{background:var(--papier);border:1px solid var(--grille);border-radius:8px;padding:12px;display:grid;gap:6px;align-content:start}
+.etape h4{margin:0;font-family:var(--f-titre);font-weight:600;font-size:1.08rem;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.etape h4 span{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--accent);color:var(--carte);font-size:.9rem}
+.etape h4 small{font-family:var(--f-texte);font-weight:400;color:var(--trait);font-size:.85rem}
+.etape p{margin:0;font-size:.93rem}
+
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+
+
+<div class="page">
+  <header>
+    <h1>L'opérateur compte-t-il ?</h1>
+    <p class="sous">Étude R&amp;R (répétabilité et reproductibilité), procédure 2 de la méthode Bosch.</p>
+  </header>
+
+  <section class="principe">
+    <h2>Le principe</h2>
+    <p>Trois opérateurs mesurent les mêmes 10 pièces, deux fois chacun, dans un ordre tiré au sort. On sépare ensuite deux causes d'écart : <b>l'instrument</b> (le même opérateur ne retrouve pas la même valeur : <b>répétabilité</b>) et <b>les opérateurs</b> (ils ne trouvent pas la même chose entre eux : <b>reproductibilité</b>).</p>
+    <p>On compare l'ensemble, le GRR, à la tolérance. La page fait tous les calculs.</p>
+    <div class="formules"><span>%GRR = 6 × GRR / T</span><span>≤ 10 % : capable</span><span>10 à 30 % : capable sous conditions</span><span>&gt; 30 % : non capable</span></div>
+  </section>
+
+  <section class="panneau" aria-label="Réglages">
+    <h3>1. Les réglages</h3>
+    <div class="champs">
+      <label for="inT"><span>Tolérance T (mm)</span><input id="inT" inputmode="decimal" value="0,15"></label>
+      <label for="inRes"><span>Résolution (mm)</span><input id="inRes" inputmode="decimal" value="0,001"></label>
+      <label for="opA"><span class="opA">Opérateur A</span><input id="opA" value="A"></label>
+      <label for="opB"><span class="opB">Opérateur B</span><input id="opB" value="B"></label>
+      <label for="opC"><span class="opC">Opérateur C</span><input id="opC" value="C"></label>
+    </div>
+    <div class="actions">
+      <button class="btn second" id="btnOrdre" type="button">Tirer l'ordre de mesure au sort</button>
+      <span class="note">À donner aux deux stagiaires secrétaires. Chaque opérateur a son ordre, différent à chaque série.</span>
+    </div>
+    <div class="ordre" id="ordre" hidden></div>
+  </section>
+
+  <section class="panneau" aria-label="Saisie des mesures">
+    <h3>2. Les mesures (mm)</h3>
+    <p class="note">Une ligne par pièce. Vous pouvez coller d'un coup un tableau copié depuis Excel (10 lignes, 6 colonnes) dans la première case.</p>
+    <div class="tableau"><table class="grille" id="grille"></table></div>
+    <div class="actions">
+      <button class="btn principal" id="btnCalc" type="button">Calculer</button>
+      <button class="btn second" id="btnBosch" type="button">Exemple du livret Bosch</button>
+      <button class="btn second" id="btnSim" type="button">Exemple simulé</button>
+      <button class="btn second" id="btnVide" type="button">Effacer</button>
+      <span class="note" id="compte">0 / 60 mesures</span>
+    </div>
+    <p class="note" id="noteEx" hidden></p>
+  </section>
+
+  <section class="panneau" aria-label="Résultats" aria-live="polite">
+    <h3>3. Le résultat</h3>
+    <div id="vide" class="note">Saisissez les 60 mesures puis cliquez sur Calculer.</div>
+    <div id="res" class="pile" hidden>
+      <div id="verdict" class="verdict"></div>
+      <div class="chiffres" id="chiffres"></div>
+      <div id="alertes"></div>
+      <div class="duo">
+        <div>
+          <svg id="svgBarres" viewBox="0 0 520 250" role="img" aria-label="Part de chaque cause dans la tolérance"></svg>
+        </div>
+        <div>
+          <svg id="svgOps" viewBox="0 0 520 250" role="img" aria-label="Moyenne de chaque opérateur pour chaque pièce"></svg>
+          <div class="legende" id="legOps"></div>
+        </div>
+      </div>
+      <details class="memo" id="detAnova">
+        <summary>Pour aller plus loin : le tableau d'analyse de variance</summary>
+        <div class="tableau"><table id="tabAnova"></table></div>
+        <p class="note" id="noteAnova"></p>
+      </details>
+    </div>
+  </section>
+
+  <section class="panneau" id="comprendre" aria-label="Comprendre d'où vient le GRR" hidden>
+    <h3>4. Comprendre d'où vient le GRR</h3>
+    <p class="note">Une lecture intuitive, faite sur vos propres mesures, en quatre étapes. Les chiffres exacts restent ceux du cadre « Le résultat », calculés par l'analyse de variance.</p>
+    <div class="etapes">
+      <div class="etape">
+        <h4><span>1</span>Est-ce que je me répète ? <small>La répétabilité</small></h4>
+        <svg id="svgEcarts" viewBox="0 0 520 210" role="img" aria-label="Écart entre les deux séries pour chaque pièce et chaque opérateur"></svg>
+        <p id="txtEcarts"></p>
+      </div>
+      <div class="etape">
+        <h4><span>2</span>Sommes-nous d'accord entre nous ? <small>La reproductibilité</small></h4>
+        <svg id="svgRegle" viewBox="0 0 520 150" role="img" aria-label="Moyennes des trois opérateurs sur une règle"></svg>
+        <p id="txtRegle"></p>
+      </div>
+      <div class="etape">
+        <h4><span>3</span>Comment additionner les deux ? <small>Le triangle</small></h4>
+        <svg id="svgTriangle" viewBox="0 0 520 220" role="img" aria-label="Triangle rectangle : répétabilité, reproductibilité, GRR"></svg>
+        <p id="txtTriangle"></p>
+      </div>
+      <div class="etape">
+        <h4><span>4</span>Qu'est-ce que ça change au poste ? <small>Le flou dans le garage</small></h4>
+        <svg id="svgFlou" viewBox="0 0 520 190" role="img" aria-label="Flou de la mesure et zones de doute aux limites de tolérance"></svg>
+        <p id="txtFlou"></p>
+      </div>
+    </div>
+  </section>
+
+  <details class="memo">
+    <summary>Lire le résultat</summary>
+    <div class="tableau"><table>
+      <tr><td><b>Répétabilité (EV)</b></td><td>Le même opérateur mesure deux fois la même pièce et trouve deux valeurs différentes. Cause : l'instrument, ou la façon de le poser.</td></tr>
+      <tr><td><b>Reproductibilité (AV)</b></td><td>Les opérateurs ne trouvent pas la même moyenne. Cause : chacun a sa méthode (force de serrage, endroit mesuré, lecture). Remède : harmoniser la méthode, former.</td></tr>
+      <tr><td><b>Interaction</b></td><td>Un opérateur se trompe sur certaines pièces seulement. Si elle n'est pas significative, la page la regroupe avec la répétabilité, comme le prévoit le livret.</td></tr>
+      <tr><td><b>ndc</b></td><td>Nombre de catégories distinctes : combien de « classes » de pièces l'instrument sait distinguer. Le manuel MSA de l'AIAG demande au moins 5.</td></tr>
+    </table></div>
+  </details>
+
+  <details class="memo">
+    <summary>Quatre questions pour vérifier</summary>
+    <div class="quiz" id="quiz"></div>
+  </details>
+
+  <p class="sources"><b>Source :</b> Robert Bosch GmbH, <i>Booklet 10 : Capability of Measurement and Test Processes</i>, édition novembre 2019 : § 4.2 (procédure 2, au moins 10 pièces, 3 opérateurs, 2 séries, seuils de %GRR), annexe D.1 (ndc) et annexe D.2 (analyse de variance, regroupement de l'interaction au risque de 5 %),
+  <a href="https://assets.bosch.com/media/global/bosch_group/purchasing_and_logistics/information_for_business_partners/downloads/quality_docs/general_regulations/bosch_publications/booklet-no10-capability-of-measurement-and-test-processes_en.pdf" target="_blank" rel="noopener">PDF sur assets.bosch.com</a>.
+  Sur les données de l'exemple du livret (p. 14), la page retrouve GRR = 0,0017954 mm et %GRR = 17,95 %.</p>
+</div>
+
+<script>
+(function(){
+"use strict";
+var $=function(id){return document.getElementById(id);};
+var N=10, K=3, R=2;
+function lire(v){ v=String(v==null?"":v).trim().replace(/\s/g,"").replace(",","."); return v===""?NaN:Number(v); }
+function fr(x,d){ return x.toFixed(d).replace(".",","); }
+function nomOp(j){ return ($(["opA","opB","opC"][j]).value.trim()||"ABC"[j]); }
+var COUL=["var(--opA)","var(--opB)","var(--opC)"];
+
+/* ---------- grille ---------- */
+function construireGrille(){
+  var t=$("grille"), h='<thead><tr><th>Pièce</th>';
+  for(var j=0;j<K;j++) for(var m=0;m<R;m++) h+='<th class="'+["opA","opB","opC"][j]+'"><span data-op="'+j+'">'+nomOp(j)+'</span> · série '+(m+1)+'</th>';
+  h+='</tr></thead><tbody>';
+  for(var i=0;i<N;i++){ h+='<tr><th>'+(i+1)+'</th>'; for(j=0;j<K;j++) for(m=0;m<R;m++) h+='<td><input inputmode="decimal" data-i="'+i+'" data-j="'+j+'" data-m="'+m+'" aria-label="Pièce '+(i+1)+', opérateur '+"ABC"[j]+', série '+(m+1)+'"></td>'; h+='</tr>'; }
+  t.innerHTML=h+'</tbody>';
+  t.querySelectorAll("input").forEach(function(inp){
+    inp.addEventListener("input",majCompte);
+    inp.addEventListener("paste",function(e){
+      var txt=(e.clipboardData||window.clipboardData).getData("text"); if(!/[\t\n]/.test(txt)) return;
+      e.preventDefault(); var lignes=txt.replace(/\r/g,"").split("\n").filter(function(l){return l.trim()!=="";});
+      var i0=+inp.dataset.i, c0=(+inp.dataset.j)*R+(+inp.dataset.m);
+      lignes.forEach(function(l,di){ l.split("\t").forEach(function(v,dc){ var i=i0+di, c=c0+dc; if(i<N&&c<K*R) cellule(i,Math.floor(c/R),c%R).value=v.trim(); }); });
+      majCompte();
+    });
+  });
+}
+function cellule(i,j,m){ return $("grille").querySelector('input[data-i="'+i+'"][data-j="'+j+'"][data-m="'+m+'"]'); }
+function lireGrille(){ var x=[], manque=0; for(var i=0;i<N;i++){ x.push([]); for(var j=0;j<K;j++){ x[i].push([]); for(var m=0;m<R;m++){ var v=lire(cellule(i,j,m).value); if(!isFinite(v)) manque++; x[i][j].push(v); } } } return {x:x,manque:manque}; }
+function majCompte(){ var g=lireGrille(); $("compte").textContent=(N*K*R-g.manque)+" / "+(N*K*R)+" mesures"; }
+["opA","opB","opC"].forEach(function(id,j){ $(id).addEventListener("input",function(){ document.querySelectorAll('[data-op="'+j+'"]').forEach(function(s){ s.textContent=nomOp(j); }); }); });
+
+/* ---------- ordre au sort ---------- */
+function melanger(t){ for(var i=t.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var x=t[i];t[i]=t[j];t[j]=x;} return t; }
+$("btnOrdre").addEventListener("click",function(){
+  var h=""; for(var m=0;m<R;m++) for(var j=0;j<K;j++){ var o=melanger([1,2,3,4,5,6,7,8,9,10]); h+='<div><b class="'+["opA","opB","opC"][j]+'">'+nomOp(j)+' · série '+(m+1)+'</b><br>'+o.join(" · ")+'</div>'; }
+  $("ordre").innerHTML=h; $("ordre").hidden=false;
+});
+
+/* ---------- loi de Fisher (quantile) ---------- */
+function lgamma(x){ var c=[76.18009172947146,-86.50532032941677,24.01409824083091,-1.231739572450155,0.1208650973866179e-2,-0.5395239384953e-5];
+  var y=x, t=x+5.5; t-=(x+0.5)*Math.log(t); var s=1.000000000190015; for(var j=0;j<6;j++) s+=c[j]/++y; return -t+Math.log(2.5066282746310005*s/x); }
+function betacf(a,b,x){ var MAXIT=300,EPS=3e-14,FPMIN=1e-300,qab=a+b,qap=a+1,qam=a-1,c=1,d=1-qab*x/qap; if(Math.abs(d)<FPMIN)d=FPMIN; d=1/d; var h=d;
+  for(var m=1;m<=MAXIT;m++){ var m2=2*m, aa=m*(b-m)*x/((qam+m2)*(a+m2)); d=1+aa*d; if(Math.abs(d)<FPMIN)d=FPMIN; c=1+aa/c; if(Math.abs(c)<FPMIN)c=FPMIN; d=1/d; h*=d*c;
+    aa=-(a+m)*(qab+m)*x/((a+m2)*(qap+m2)); d=1+aa*d; if(Math.abs(d)<FPMIN)d=FPMIN; c=1+aa/c; if(Math.abs(c)<FPMIN)c=FPMIN; d=1/d; var del=d*c; h*=del; if(Math.abs(del-1)<EPS) break; } return h; }
+function ibeta(a,b,x){ if(x<=0) return 0; if(x>=1) return 1; var bt=Math.exp(lgamma(a+b)-lgamma(a)-lgamma(b)+a*Math.log(x)+b*Math.log(1-x));
+  return x<(a+1)/(a+b+2) ? bt*betacf(a,b,x)/a : 1-bt*betacf(b,a,1-x)/b; }
+function fcdf(f,d1,d2){ return f<=0?0:ibeta(d1/2,d2/2,d1*f/(d1*f+d2)); }
+function fquant(p,d1,d2){ var lo=0,hi=1; while(fcdf(hi,d1,d2)<p) hi*=2; for(var it=0;it<200;it++){ var mid=(lo+hi)/2; if(fcdf(mid,d1,d2)<p) lo=mid; else hi=mid; } return (lo+hi)/2; }
+
+/* ---------- analyse de variance (annexe D.2) ---------- */
+function anova(x){
+  var n=x.length,k=x[0].length,r=x[0][0].length,g=0,i,j,m;
+  var xi=[],xj=[],xij=[]; for(i=0;i<n;i++){ xij.push([]); xi.push(0); } for(j=0;j<k;j++) xj.push(0);
+  for(i=0;i<n;i++) for(j=0;j<k;j++){ var s=0; for(m=0;m<r;m++){ s+=x[i][j][m]; g+=x[i][j][m]; } xij[i].push(s/r); xi[i]+=s; xj[j]+=s; }
+  g/=n*k*r; xi=xi.map(function(v){return v/(k*r);}); xj=xj.map(function(v){return v/(n*r);});
+  var SSP=0,SSA=0,SSAP=0,SSE=0;
+  for(i=0;i<n;i++) SSP+=k*r*Math.pow(xi[i]-g,2);
+  for(j=0;j<k;j++) SSA+=n*r*Math.pow(xj[j]-g,2);
+  for(i=0;i<n;i++) for(j=0;j<k;j++){ SSAP+=r*Math.pow(xij[i][j]-xi[i]-xj[j]+g,2); for(m=0;m<r;m++) SSE+=Math.pow(x[i][j][m]-xij[i][j],2); }
+  var dP=n-1,dA=k-1,dAP=(n-1)*(k-1),dE=n*k*(r-1);
+  var MSP=SSP/dP,MSA=SSA/dA,MSAP=SSAP/dAP,MSE=SSE/dE;
+  var FAP=MSE>0?MSAP/MSE:Infinity, cAP=fquant(0.95,dAP,dE), regroupe=!(FAP>cAP);
+  var res={n:n,k:k,r:r,g:g,xij:xij,xj:xj,SSP:SSP,SSA:SSA,SSAP:SSAP,SSE:SSE,dP:dP,dA:dA,dAP:dAP,dE:dE,MSP:MSP,MSA:MSA,MSAP:MSAP,MSE:MSE,FAP:FAP,cAP:cAP,regroupe:regroupe};
+  var PV2,AV2,INT2,EV2;
+  if(regroupe){ var dEs=dE+dAP, MSEs=(SSE+SSAP)/dEs; res.MSEs=MSEs; res.dEs=dEs;
+    res.FP=MSP/MSEs; res.cP=fquant(0.95,dP,dEs); res.FA=MSA/MSEs; res.cA=fquant(0.95,dA,dEs);
+    PV2=(MSP-MSEs)/(k*r); AV2=(MSA-MSEs)/(n*r); INT2=0; EV2=MSEs; }
+  else { res.FP=MSP/MSAP; res.cP=fquant(0.95,dP,dAP); res.FA=MSA/MSAP; res.cA=fquant(0.95,dA,dAP);
+    PV2=(MSP-MSAP)/(k*r); AV2=(MSA-MSAP)/(n*r); INT2=(MSAP-MSE)/r; EV2=MSE; }
+  res.AVneg=AV2<0; res.PV=Math.sqrt(Math.max(0,PV2)); res.AV=Math.sqrt(Math.max(0,AV2)); res.INT=Math.sqrt(Math.max(0,INT2)); res.EV=Math.sqrt(Math.max(0,EV2));
+  res.GRR=Math.sqrt(res.EV*res.EV+res.AV*res.AV+res.INT*res.INT); res.TV=Math.sqrt(res.GRR*res.GRR+res.PV*res.PV);
+  res.ndc=res.GRR>0?Math.floor(1.41*res.PV/res.GRR):Infinity;
+  return res;
+}
+
+/* ---------- calcul et affichage ---------- */
+function calculer(){
+  var T=lire($("inT").value), RES=lire($("inRes").value), g=lireGrille(), al=[];
+  if(!(T>0)) al.push("Indiquez la tolérance T.");
+  if(g.manque) al.push("Il manque "+g.manque+" mesure"+(g.manque>1?"s":"")+" dans le tableau.");
+  if(al.length){ $("vide").hidden=false; $("vide").innerHTML='<span class="alerte">'+al.join(" ")+'</span>'; $("res").hidden=true; $("comprendre").hidden=true; return; }
+  var a=anova(g.x), pG=600*a.GRR/T, pEV=600*a.EV/T, pAV=600*a.AV/T, pINT=600*a.INT/T, dec=Math.max(4, isFinite(RES)&&RES>0?Math.ceil(-Math.log10(RES))+3:6);
+  var cls=pG<=10?"bon":(pG<=30?"moyen":"mauvais");
+  var cause = a.EV>=Math.max(a.AV,a.INT) ? "instrument" : (a.AV>=a.INT ? "operateurs" : "interaction");
+  var txtCause={instrument:"La plus grande part vient de l'<b>instrument</b> (répétabilité) : un même opérateur ne retrouve pas la même valeur. Vérifier l'instrument, son état, la façon de poser la pièce.",
+    operateurs:"La plus grande part vient des <b>opérateurs</b> (reproductibilité) : ils ne mesurent pas de la même façon. Comparer leurs méthodes (endroit mesuré, serrage, lecture), écrire une instruction commune, former.",
+    interaction:"La plus grande part vient de l'<b>interaction</b> : certains opérateurs se trompent sur certaines pièces seulement. Regarder le graphique des moyennes pour repérer lesquelles."}[cause];
+  var titre={bon:"Système de mesure capable.",moyen:"Système de mesure capable sous conditions.",mauvais:"Système de mesure non capable."}[cls];
+  $("verdict").className="verdict "+cls;
+  $("verdict").innerHTML="<strong>"+titre+"\u00a0%GRR = "+fr(pG,2)+"\u00a0%</strong><span>"+txtCause+"</span>"+(cls==="moyen"?"<span class=\"note\">Sous conditions : utilisable si l'on accepte le risque, par exemple loin des limites de tolérance. À améliorer.</span>":"");
+  var ndcCls=a.ndc>=5?"bon":"mauvais";
+  $("chiffres").innerHTML=[
+    ["%GRR",fr(pG,2)+"\u00a0%","fort "+cls],["Répétabilité EV",fr(a.EV,dec)+" mm",""],["%EV",fr(pEV,1)+"\u00a0%",""],
+    ["Reproductibilité AV",fr(a.AV,dec)+" mm",""],["%AV",fr(pAV,1)+"\u00a0%",""],
+    ["Interaction",a.regroupe?"regroupée":fr(a.INT,dec)+" mm",""],["GRR",fr(a.GRR,dec)+" mm",""],["ndc",isFinite(a.ndc)?String(a.ndc):"—",ndcCls]
+  ].map(function(c){ return '<div class="chiffre '+c[2]+'"><span>'+c[0]+'</span><b>'+c[1]+'</b></div>'; }).join("");
+  var a2=[];
+  var pRes=isFinite(RES)&&RES>0?100*RES/T:NaN;
+  if(isFinite(pRes)&&pRes>=5) a2.push("Résolution à "+fr(pRes,1)+"\u00a0% de T : au-dessus de 5 %, l'instrument est trop grossier pour cette tolérance (livret, fig. 3).");
+  if(a.AVneg) a2.push("La part des opérateurs est si faible qu'elle est inférieure au bruit de mesure : elle est comptée comme nulle.");
+  if(isFinite(a.ndc)&&a.ndc<5) a2.push("ndc = "+a.ndc+" : l'instrument distingue moins de 5 catégories de pièces. Les pièces choisies sont peut-être trop semblables, ou l'instrument trop peu précis.");
+  $("alertes").innerHTML=a2.map(function(t){return '<p class="alerte">'+t+'</p>';}).join("");
+  barres(pEV,pAV,pINT,pG,a.regroupe); opsGraph(a,dec); tableAnova(a); comprendre(a,g.x,T,dec);
+  $("vide").hidden=true; $("res").hidden=false;
+}
+
+var SVGNS="http://www.w3.org/2000/svg";
+function el(nom,att,p){ var e=document.createElementNS(SVGNS,nom); for(var k in att) e.setAttribute(k,att[k]); if(p) p.appendChild(e); return e; }
+function txt(p,x,y,t,att){ var e=el("text",Object.assign({x:x,y:y,"font-size":12,fill:"var(--trait)","font-family":"IBM Plex Mono, Consolas, monospace"},att||{}),p); e.textContent=t; return e; }
+function vider(s){ while(s.firstChild) s.removeChild(s.firstChild); }
+function barres(pEV,pAV,pINT,pG,regroupe){
+  var svg=$("svgBarres"); vider(svg); var W=520,H=250,g={l:44,r:16,t:30,b:40};
+  var items=[["Instrument",pEV,"var(--opA)"],["Opérateurs",pAV,"var(--opB)"]]; if(!regroupe) items.push(["Interaction",pINT,"var(--trait)"]); items.push(["GRR total",pG,"var(--encre)"]);
+  var vmax=Math.max(35,pG*1.15), Y=function(v){ return H-g.b-(v/vmax)*(H-g.t-g.b); }, bw=(W-g.l-g.r)/items.length;
+  el("rect",{x:g.l,y:g.t,width:W-g.l-g.r,height:H-g.t-g.b,fill:"var(--papier)",stroke:"var(--grille)"},svg);
+  [[10,"var(--ok)"],[30,"var(--ko)"]].forEach(function(s){ if(s[0]<=vmax){ el("line",{x1:g.l,x2:W-g.r,y1:Y(s[0]),y2:Y(s[0]),stroke:s[1],"stroke-width":1.5,"stroke-dasharray":"6 4"},svg); txt(svg,g.l-6,Y(s[0])+4,s[0]+"\u00a0%",{"text-anchor":"end",fill:s[1]}); } });
+  items.forEach(function(it,k){ var x=g.l+k*bw+bw*0.2, w=bw*0.6;
+    el("rect",{x:x,y:Y(it[1]),width:w,height:Math.max(0,H-g.b-Y(it[1])),fill:it[2],rx:3,opacity:k===items.length-1?1:.85},svg);
+    txt(svg,x+w/2,Y(it[1])-6,fr(it[1],2)+"\u00a0%",{"text-anchor":"middle",fill:"var(--encre)",stroke:"var(--papier)","stroke-width":4,"paint-order":"stroke"});
+    txt(svg,x+w/2,H-g.b+16,it[0],{"text-anchor":"middle","font-size":12,"font-family":"Source Sans 3, Segoe UI, sans-serif",fill:"var(--encre)"}); });
+  txt(svg,g.l,18,"Part de la tolérance « mangée » par la mesure (6 × écart-type / T)",{"font-size":12.5,fill:"var(--encre)","font-family":"Barlow Semi Condensed, Arial Narrow, sans-serif","font-weight":"600"});
+}
+function opsGraph(a,dec){
+  var svg=$("svgOps"); vider(svg); var W=520,H=250,g={l:16,r:16,t:30,b:30};
+  var all=[]; a.xij.forEach(function(r){ r.forEach(function(v){ all.push(v); }); });
+  var lo=Math.min.apply(null,all), hi=Math.max.apply(null,all), pad=(hi-lo)*0.1||1e-3; lo-=pad; hi+=pad;
+  var X=function(i){ return g.l+20+i*(W-g.l-g.r-40)/(a.n-1); }, Y=function(v){ return g.t+(hi-v)*(H-g.t-g.b)/(hi-lo); };
+  el("rect",{x:g.l,y:g.t,width:W-g.l-g.r,height:H-g.t-g.b,fill:"var(--papier)",stroke:"var(--grille)"},svg);
+  for(var j=0;j<a.k;j++){
+    el("polyline",{points:a.xij.map(function(r,i){return X(i)+","+Y(r[j]);}).join(" "),fill:"none",stroke:COUL[j],"stroke-width":1.6,opacity:.9},svg);
+    a.xij.forEach(function(r,i){ el("circle",{cx:X(i),cy:Y(r[j]),r:3.6,fill:COUL[j]},svg); });
+  }
+  for(var i=0;i<a.n;i++) txt(svg,X(i),H-g.b+16,String(i+1),{"text-anchor":"middle","font-size":11});
+  txt(svg,g.l,18,"Moyenne de chaque opérateur, pièce par pièce",{"font-size":12.5,fill:"var(--encre)","font-family":"Barlow Semi Condensed, Arial Narrow, sans-serif","font-weight":"600"});
+  $("legOps").innerHTML=[0,1,2].map(function(j){ return '<span><i style="background:'+COUL[j]+'"></i>'+nomOp(j)+' : moyenne '+fr(a.xj[j],dec-2)+' mm</span>'; }).join("")+'<span>Si les trois courbes se superposent, les opérateurs mesurent pareil.</span>';
+}
+function tableAnova(a){
+  var f=function(v,d){ return isFinite(v)?fr(v,d===undefined?6:d):"—"; }, sig=function(F,c){ return F>c?"significatif":"non significatif"; };
+  var h='<thead><tr><th>Source</th><th class="n">SS</th><th class="n">DF</th><th class="n">MS</th><th class="n">F</th><th class="n">F crit (5 %)</th><th></th></tr></thead><tbody>';
+  h+='<tr><td>Pièces</td><td class="n">'+f(a.SSP,8)+'</td><td class="n">'+a.dP+'</td><td class="n">'+f(a.MSP,8)+'</td><td class="n">'+f(a.FP,2)+'</td><td class="n">'+f(a.cP,3)+'</td><td>'+sig(a.FP,a.cP)+'</td></tr>';
+  h+='<tr><td>Opérateurs</td><td class="n">'+f(a.SSA,8)+'</td><td class="n">'+a.dA+'</td><td class="n">'+f(a.MSA,8)+'</td><td class="n">'+f(a.FA,2)+'</td><td class="n">'+f(a.cA,3)+'</td><td>'+sig(a.FA,a.cA)+'</td></tr>';
+  h+='<tr><td>Interaction</td><td class="n">'+f(a.SSAP,8)+'</td><td class="n">'+a.dAP+'</td><td class="n">'+f(a.MSAP,8)+'</td><td class="n">'+f(a.FAP,2)+'</td><td class="n">'+f(a.cAP,3)+'</td><td>'+sig(a.FAP,a.cAP)+'</td></tr>';
+  h+='<tr><td>Instrument (erreur)</td><td class="n">'+f(a.SSE,8)+'</td><td class="n">'+a.dE+'</td><td class="n">'+f(a.MSE,8)+'</td><td></td><td></td><td></td></tr>';
+  if(a.regroupe) h+='<tr><td>Instrument + interaction</td><td class="n">'+f(a.SSE+a.SSAP,8)+'</td><td class="n">'+a.dEs+'</td><td class="n">'+f(a.MSEs,8)+'</td><td></td><td></td><td>regroupés</td></tr>';
+  $("tabAnova").innerHTML=h+'</tbody>';
+  $("noteAnova").textContent = a.regroupe
+    ? "L'interaction n'est pas significative au risque de 5 % : elle est regroupée avec l'erreur de l'instrument, et les tests des pièces et des opérateurs utilisent ce carré moyen regroupé (livret, annexe D.2)."
+    : "L'interaction est significative au risque de 5 % : elle est gardée dans le modèle, et les tests des pièces et des opérateurs utilisent son carré moyen (livret, annexe D.2).";
+}
+
+
+/* ---------- comprendre (lecture intuitive) ---------- */
+function comprendre(a,x,T,dec){
+  dec=Math.max(3,dec-2);
+  var n=a.n,k=a.k,r=a.r,i,j,m;
+  // étape 1 : écarts entre séries
+  var ec=[], moyOp=[], tot=0;
+  for(j=0;j<k;j++){ var sj=0; ec.push([]); for(i=0;i<n;i++){ var v=x[i][j], e=Math.max.apply(null,v)-Math.min.apply(null,v); ec[j].push(e); sj+=e; } moyOp.push(sj/n); tot+=sj; }
+  var Rbar=tot/(n*k), emax=0; ec.forEach(function(l){ l.forEach(function(e){ emax=Math.max(emax,e); }); });
+  var svg=$("svgEcarts"); vider(svg); var W=520,H=210,g={l:12,r:12,t:26,b:30};
+  el("rect",{x:g.l,y:g.t,width:W-g.l-g.r,height:H-g.t-g.b,fill:"var(--carte)",stroke:"var(--grille)"},svg);
+  var hmax=emax>0?emax*1.15:1, bloc=(W-g.l-g.r)/k, bw=bloc/(n+2);
+  var Y=function(v){ return H-g.b-(v/hmax)*(H-g.t-g.b); };
+  for(j=0;j<k;j++){ var x0=g.l+j*bloc;
+    for(i=0;i<n;i++) el("rect",{x:x0+bw*(i+1),y:Y(ec[j][i]),width:bw*0.75,height:Math.max(1,H-g.b-Y(ec[j][i])),fill:COUL[j],rx:1.5},svg);
+    el("line",{x1:x0+bw*0.6,x2:x0+bw*(n+1.4),y1:Y(moyOp[j]),y2:Y(moyOp[j]),stroke:"var(--encre)","stroke-width":1.5,"stroke-dasharray":"4 3"},svg);
+    txt(svg,x0+bloc/2,H-g.b+16,nomOp(j)+" : "+fr(moyOp[j],dec),{"text-anchor":"middle",fill:COUL[j],"font-size":11.5});
+    if(j>0) el("line",{x1:x0,x2:x0,y1:g.t,y2:H-g.b,stroke:"var(--grille)"},svg); }
+  txt(svg,g.l,16,"Écart entre "+(r===2?"la série 1 et la série 2":"la plus grande et la plus petite mesure")+", pièce par pièce (mm)",{"font-size":12.5,fill:"var(--encre)","font-family":"Barlow Semi Condensed, Arial Narrow, sans-serif","font-weight":"600"});
+  var pire=0,pj=0,pi=0; for(j=0;j<k;j++) for(i=0;i<n;i++) if(ec[j][i]>pire){ pire=ec[j][i]; pj=j; pi=i; }
+  $("txtEcarts").innerHTML="Chaque barre est l'écart entre deux mesures de la <b>même pièce</b> par la <b>même personne</b>. En moyenne, un opérateur se contredit de <b>"+fr(Rbar,dec)+" mm</b> (trait pointillé). Le plus grand écart : "+nomOp(pj)+", pièce "+(pi+1)+", "+fr(pire,dec)+" mm. "+
+    "La page calcule exactement la répétabilité EV : <b>"+fr(a.EV,dec)+" mm</b>. C'est le même ordre de grandeur.";
+  // étape 2 : règle des moyennes
+  svg=$("svgRegle"); vider(svg); W=520; H=150;
+  var lo=Math.min.apply(null,a.xj), hi=Math.max.apply(null,a.xj), etendue=hi-lo, span=Math.max(etendue*1.6, 6*a.EV, 1e-6), mid=(lo+hi)/2;
+  var X=function(v){ return 40+(v-(mid-span/2))*(W-80)/span; };
+  el("line",{x1:30,x2:W-30,y1:80,y2:80,stroke:"var(--trait)","stroke-width":1.5},svg);
+  for(var t=0;t<=10;t++){ var xv=30+t*(W-60)/10; el("line",{x1:xv,x2:xv,y1:74,y2:86,stroke:"var(--trait)"},svg); }
+  if(etendue>0){ el("rect",{x:X(lo),y:66,width:X(hi)-X(lo),height:28,fill:"var(--moyenfond)",stroke:"var(--moyen)",rx:3},svg);
+    txt(svg,(X(lo)+X(hi))/2,118,"écart entre opérateurs : "+fr(etendue,dec)+" mm",{"text-anchor":"middle",fill:"var(--moyen)","font-size":12}); }
+  var ordre=[0,1,2].sort(function(p,q){ return a.xj[p]-a.xj[q]; });
+  ordre.forEach(function(jj,rang){ el("circle",{cx:X(a.xj[jj]),cy:80,r:7,fill:COUL[jj],stroke:"var(--carte)","stroke-width":2},svg);
+    txt(svg,X(a.xj[jj]),rang%2===0?52:42,nomOp(jj),{"text-anchor":"middle",fill:COUL[jj],"font-size":12.5,"font-weight":"600"}); });
+  txt(svg,30,18,"Moyenne de chaque opérateur sur les "+n+" pièces (mm)",{"font-size":12.5,fill:"var(--encre)","font-family":"Barlow Semi Condensed, Arial Narrow, sans-serif","font-weight":"600"});
+  txt(svg,W/2,140,"une graduation = "+fr(span/10,dec+1)+" mm",{"text-anchor":"middle","font-size":11});
+  $("txtRegle").innerHTML="Si les trois points se superposaient, tout le monde mesurerait pareil. Ici, les moyennes s'étalent sur <b>"+fr(etendue,dec)+" mm</b>. "+
+    (a.AVneg?"Cet écart est plus petit que ce que le hasard des mesures produit à lui seul : la reproductibilité est comptée comme nulle.":"Après avoir retiré la part due au hasard des mesures, la reproductibilité AV vaut <b>"+fr(a.AV,dec)+" mm</b>.");
+  // étape 3 : triangle
+  svg=$("svgTriangle"); vider(svg); W=520; H=220;
+  var cotH=Math.sqrt(a.EV*a.EV+a.INT*a.INT), cotV=a.AV, sc=Math.min(300/Math.max(cotH,1e-12), 150/Math.max(cotV,1e-12)), ox=70, oy=180;
+  var px=ox+cotH*sc, py=oy-cotV*sc;
+  el("polygon",{points:ox+","+oy+" "+px+","+oy+" "+px+","+py,fill:"var(--accentfond)",stroke:"none"},svg);
+  el("line",{x1:ox,y1:oy,x2:px,y2:oy,stroke:"var(--opA)","stroke-width":5,"stroke-linecap":"round"},svg);
+  if(cotV>0) el("line",{x1:px,y1:oy,x2:px,y2:py,stroke:"var(--opB)","stroke-width":5,"stroke-linecap":"round"},svg);
+  el("line",{x1:ox,y1:oy,x2:px,y2:py,stroke:"var(--encre)","stroke-width":5,"stroke-linecap":"round"},svg);
+  if(cotV>0) el("rect",{x:px-12,y:oy-12,width:12,height:12,fill:"none",stroke:"var(--trait)"},svg);
+  txt(svg,(ox+px)/2,oy+22,(a.INT>0?"instrument + interaction ":"instrument EV ")+fr(cotH,dec),{"text-anchor":"middle",fill:"var(--opA)","font-size":12});
+  if(cotV>0) txt(svg,px+8,(oy+py)/2+4,"opérateurs AV "+fr(cotV,dec),{fill:"var(--opB)","font-size":12});
+  txt(svg,(ox+px)/2-14,(oy+py)/2-10,"GRR "+fr(a.GRR,dec),{"text-anchor":"end",fill:"var(--encre)","font-size":12.5,"font-weight":"600"});
+  txt(svg,20,18,"GRR² = EV² + AV²"+(a.INT>0?" + interaction²":"")+" : comme les côtés d'un triangle rectangle",{"font-size":12.5,fill:"var(--encre)","font-family":"Barlow Semi Condensed, Arial Narrow, sans-serif","font-weight":"600"});
+  var pEV=600*a.EV/T, pAV=600*a.AV/T, pG=600*a.GRR/T;
+  $("txtTriangle").innerHTML="Les deux causes ne s'ajoutent pas comme des longueurs mises bout à bout, mais comme les côtés d'un triangle rectangle. "+
+    "Voilà pourquoi "+fr(pEV,2)+"\u00a0% + "+fr(pAV,2)+"\u00a0% ne donnent pas "+fr(pEV+pAV,2)+"\u00a0%, mais <b>"+fr(pG,2)+"\u00a0%</b> : √("+fr(pEV,2)+"² + "+fr(pAV,2)+"²) = "+fr(Math.sqrt(pEV*pEV+pAV*pAV),2)+(a.INT>0?" (sans compter l'interaction).":".");
+  // étape 4 : flou dans le garage
+  svg=$("svgFlou"); vider(svg); W=520; H=190;
+  var butee=Math.abs(T-0.15)<1e-9, TI=butee?11.85:0, TS=TI+T, f3=3*a.GRR, marge=Math.max(T*0.12,f3*1.6);
+  var X2=function(v){ return 30+(v-(TI-marge))*(W-60)/(T+2*marge); };
+  el("rect",{x:X2(TI),y:40,width:X2(TS)-X2(TI),height:90,fill:"var(--okfond)",stroke:"none"},svg);
+  [TI,TS].forEach(function(L){ el("rect",{x:X2(L-f3),y:40,width:X2(L+f3)-X2(L-f3),height:90,fill:"var(--moyenfond)",opacity:.95},svg); });
+  [TI,TS].forEach(function(L,q){ el("line",{x1:X2(L),x2:X2(L),y1:30,y2:140,stroke:"var(--ko)","stroke-width":3},svg); txt(svg,X2(L),156,(q?"TS":"TI")+(butee?" "+fr(L,2):""),{"text-anchor":"middle",fill:"var(--ko)","font-size":12}); });
+  txt(svg,(X2(TI)+X2(TS))/2,62,"zone sûre",{"text-anchor":"middle",fill:"var(--ok)","font-size":12.5,"font-weight":"600"});
+  txt(svg,X2(TS),34,"zone de doute",{"text-anchor":"middle",fill:"var(--moyen)","font-size":11.5});
+  var lue=TS-f3/1.5;
+  el("rect",{x:X2(lue-f3),y:92,width:X2(lue+f3)-X2(lue-f3),height:18,fill:"var(--opA)",opacity:.75,rx:9},svg);
+  el("line",{x1:X2(lue),x2:X2(lue),y1:86,y2:116,stroke:"var(--encre)","stroke-width":2},svg);
+  txt(svg,X2(lue-f3)-6,105,"lu "+(butee?fr(lue,3):"TS − "+fr(f3/1.5,dec)),{"text-anchor":"end",fill:"var(--encre)","font-size":11.5});
+  txt(svg,20,18,"Le flou de la mesure (± 3 GRR) remis dans le garage de la tolérance",{"font-size":12.5,fill:"var(--encre)","font-family":"Barlow Semi Condensed, Arial Narrow, sans-serif","font-weight":"600"});
+  txt(svg,W/2,182,"6 × GRR = "+fr(6*a.GRR,dec)+" mm, soit "+fr(pG,2)+"\u00a0% de la tolérance",{"text-anchor":"middle","font-size":12,fill:"var(--encre)"});
+  $("txtFlou").innerHTML="Une valeur lue n'est pas un point, c'est un petit intervalle : environ <b>± "+fr(f3,dec)+" mm</b> autour de la lecture (barre bleue). "+
+    "Le %GRR est la part du garage « mangée » par ce flou. Près des limites, l'instrument ne sait pas trancher : une pièce lue à "+(butee?fr(lue,3)+" mm":"TS − "+fr(f3/1.5,dec)+" mm")+
+    " paraît bonne, mais sa vraie valeur peut dépasser TS. C'est la <b>zone de doute</b> (en orange) : on risque d'accepter une pièce mauvaise ou de refuser une bonne.";
+  $("comprendre").hidden=false;
+}
+/* ---------- exemples ---------- */
+var BOSCH=[[6.029,6.030,6.033,6.032,6.031,6.030],[6.019,6.020,6.020,6.019,6.020,6.020],[6.004,6.003,6.007,6.007,6.010,6.006],[5.982,5.982,5.985,5.986,5.984,5.984],[6.009,6.009,6.014,6.014,6.015,6.014],[5.971,5.972,5.973,5.972,5.975,5.974],[5.995,5.997,5.997,5.996,5.995,5.994],[6.014,6.018,6.019,6.015,6.016,6.015],[5.985,5.987,5.987,5.986,5.987,5.986],[6.024,6.028,6.029,6.025,6.026,6.025]];
+function remplir(tab,dec){ for(var i=0;i<N;i++) for(var j=0;j<K;j++) for(var m=0;m<R;m++) cellule(i,j,m).value=fr(tab[i][j*R+m],dec); majCompte(); }
+$("btnBosch").addEventListener("click",function(){
+  $("inT").value="0,060"; $("inRes").value="0,001"; remplir(BOSCH,3);
+  var n=$("noteEx"); n.hidden=false; n.textContent="Données du livret Bosch, p. 14 (diamètre de corps d'injecteur, T = 0,060 mm). Le tableau imprimé du livret porte 6,030 pour la pièce 3, opérateur A, série 2 ; la moyenne (6,0035) et l'écart-type (0,0007) imprimés à côté imposent 6,003. C'est cette valeur qui redonne les résultats du livret.";
+  calculer();
+});
+function gauss(){ var u=0,v=0; while(u===0)u=Math.random(); while(v===0)v=Math.random(); return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v); }
+$("btnSim").addEventListener("click",function(){
+  var T=lire($("inT").value); if(!(T>0)){ T=0.15; $("inT").value="0,15"; }
+  var res=lire($("inRes").value); if(!(res>0)){ res=0.001; $("inRes").value="0,001"; }
+  var dec=Math.max(3,Math.ceil(-Math.log10(res)));
+  var pieces=[], ops=[], cas=Math.random();
+  var sEV=T*(0.006+Math.random()*0.012), sAV= cas<0.5 ? T*(0.002+Math.random()*0.004) : T*(0.012+Math.random()*0.02);
+  for(var i=0;i<N;i++) pieces.push(11.85+T*(0.15+0.7*Math.random()));
+  for(var j=0;j<K;j++) ops.push(sAV*gauss());
+  var tab=[]; for(i=0;i<N;i++){ tab.push([]); for(j=0;j<K;j++) for(var m=0;m<R;m++){ var y=pieces[i]+ops[j]+sEV*gauss(); tab[i].push(Math.round(y/res)*res); } }
+  remplir(tab,dec);
+  var n=$("noteEx"); n.hidden=false; n.textContent="Données simulées (butées 11,85 / 12,00 mm). Elles ne remplacent pas vos propres mesures.";
+  calculer();
+});
+$("btnVide").addEventListener("click",function(){ $("grille").querySelectorAll("input").forEach(function(i){ i.value=""; }); $("noteEx").hidden=true; majCompte(); $("res").hidden=true; $("comprendre").hidden=true; $("vide").hidden=false; $("vide").textContent="Saisissez les 60 mesures puis cliquez sur Calculer."; });
+$("btnCalc").addEventListener("click",calculer);
+
+/* ---------- quiz ---------- */
+var QUIZ=[
+  {q:"%GRR = 22 %. Le système de mesure est :",o:["capable","capable sous conditions","non capable"],r:1,e:"Entre 10 et 30 % : capable sous conditions (livret, § 4.2). On peut l'utiliser en acceptant un risque, mais il faut l'améliorer."},
+  {q:"La reproductibilité (AV) est bien plus grande que la répétabilité (EV). Que faire en premier ?",o:["Changer l'instrument","Harmoniser la méthode de mesure entre opérateurs","Recalculer avec plus de pièces"],r:1,e:"Les opérateurs ne mesurent pas de la même façon. Le remède est une méthode commune (endroit mesuré, serrage, lecture), écrite et partagée."},
+  {q:"Pourquoi tirer l'ordre des pièces au sort pour chaque série ?",o:["Pour que l'opérateur ne se souvienne pas de sa première valeur","Pour aller plus vite","Parce que c'est plus joli"],r:0,e:"Si l'opérateur reconnaît la pièce, il risque de retrouver sa valeur de mémoire : on sous-estimerait la répétabilité."},
+  {q:"Quelle étude le livret Bosch impose-t-il avant le R&R ?",o:["Aucune","L'étude de type 1 (Cg, Cgk) sur un étalon","Une carte de contrôle"],r:1,e:"Le livret demande la procédure 1 avant les procédures 2 ou 3 : on vérifie d'abord l'instrument seul sur un étalon."}
+];
+var box=$("quiz");
+QUIZ.forEach(function(s,k){
+  var d=document.createElement("div"); d.className="q"; d.innerHTML="<p><b>"+(k+1)+".</b> "+s.q+"</p>";
+  var c=document.createElement("div"); c.className="choix"; var ex=document.createElement("div"); ex.className="explic"; ex.hidden=true;
+  s.o.forEach(function(lib,i){ var b=document.createElement("button"); b.type="button"; b.textContent=lib;
+    b.addEventListener("click",function(){ if(c.dataset.fait) return; c.dataset.fait="1";
+      c.querySelectorAll("button").forEach(function(x,j){ x.disabled=true; if(j===s.r) x.classList.add("juste"); else if(j===i) x.classList.add("faux"); });
+      ex.className="explic "+(i===s.r?"bon":"mauvais"); ex.textContent=(i===s.r?"Juste. ":"Non. ")+s.e; ex.hidden=false; });
+    c.appendChild(b); });
+  d.appendChild(c); d.appendChild(ex); box.appendChild(d);
+});
+
+construireGrille(); majCompte();
+window.__rr={anova:anova,fquant:fquant};
+})();
+</script>
+
+</body>
+</html>

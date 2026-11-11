@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>L'instrument est-il capable ?</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --papier:#F6F8F7; --encre:#17324D; --trait:#5B6B7A; --grille:#D9E2E0; --fond:#E9EEED; --carte:#FFFFFF;
+  --limite:#B4530F; --ok:#2E7D32; --okfond:#E3F1E4; --ko:#B3261E; --kofond:#FBE4E2; --accent:#1F4E79; --accentfond:#DCE7F2;
+  --zone:rgba(46,125,50,.14); --voiture:#2D6A9F;
+  --f-titre:"Barlow Semi Condensed","Arial Narrow",Arial,sans-serif;
+  --f-texte:"Source Sans 3","Segoe UI",Arial,sans-serif;
+  --f-chiffre:"IBM Plex Mono",Consolas,"Courier New",monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --papier:#16201F; --encre:#DCE8F2; --trait:#9AABB8; --grille:#26332F; --fond:#0F1716; --carte:#1B2625;
+  --limite:#F08A4B; --ok:#7CC283; --okfond:#1D3322; --ko:#F2877E; --kofond:#3A1E1C; --accent:#8DB8E6; --accentfond:#1E3247;
+  --zone:rgba(124,194,131,.16); --voiture:#6FA8DC; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --papier:#16201F; --encre:#DCE8F2; --trait:#9AABB8; --grille:#26332F; --fond:#0F1716; --carte:#1B2625;
+  --limite:#F08A4B; --ok:#7CC283; --okfond:#1D3322; --ko:#F2877E; --kofond:#3A1E1C; --accent:#8DB8E6; --accentfond:#1E3247;
+  --zone:rgba(124,194,131,.16); --voiture:#6FA8DC; color-scheme:dark}
+body{background:var(--fond);color:var(--encre);font-family:var(--f-texte);font-size:16px;line-height:1.45}
+.page{max-width:1180px;margin:0 auto;padding-block:20px 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:16px}
+.page>*{min-width:0}
+h1{font-family:var(--f-titre);font-weight:700;font-size:clamp(1.7rem,3.2vw,2.3rem);line-height:1.05;margin:0;text-wrap:balance}
+.sous{margin:4px 0 0;color:var(--trait);font-size:.95rem}
+.principe{background:var(--carte);border-left:4px solid var(--accent);border-radius:0 8px 8px 0;padding:12px 16px;display:grid;gap:6px}
+.principe h2{font-family:var(--f-titre);font-weight:700;font-size:1.35rem;margin:0}
+.principe p{margin:0}
+.formules{display:flex;flex-wrap:wrap;gap:8px 28px;font-family:var(--f-chiffre);font-size:.95rem;background:var(--papier);border:1px solid var(--grille);border-radius:6px;padding:8px 12px}
+.poste{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.45fr);gap:16px;align-items:start}
+@media (max-width:860px){.poste{grid-template-columns:1fr}}
+.panneau{background:var(--carte);border:1px solid var(--grille);border-radius:8px;padding:16px;display:grid;gap:12px;min-width:0}
+.panneau h3{font-family:var(--f-titre);font-weight:600;font-size:1.2rem;margin:0}
+.champs{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+label{display:grid;gap:4px;font-size:.92rem;font-weight:600}
+label small{font-weight:400;color:var(--trait)}
+input,textarea,select{font:inherit;color:var(--encre);background:var(--papier);border:1.5px solid var(--grille);border-radius:6px;padding:7px 9px;min-width:0}
+input,textarea{font-family:var(--f-chiffre)}
+textarea{min-height:170px;resize:vertical;width:100%;box-sizing:border-box}
+input:focus-visible,textarea:focus-visible,button:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.btn{font:inherit;border:none;border-radius:6px;padding:10px 16px;cursor:pointer;font-family:var(--f-titre);font-weight:600;font-size:1.05rem;letter-spacing:.02em}
+.btn.principal{background:var(--accent);color:var(--carte)}
+.btn.second{background:transparent;color:var(--accent);border:1.5px solid var(--accent)}
+.note{font-size:.85rem;color:var(--trait)}
+.chiffres{display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:8px}
+.chiffre{background:var(--papier);border:1px solid var(--grille);border-radius:6px;padding:7px 10px}
+.chiffre span{display:block;font-size:.75rem;color:var(--trait);text-transform:uppercase;letter-spacing:.05em}
+.chiffre b{font-family:var(--f-chiffre);font-weight:500;font-size:1.1rem}
+.chiffre.fort b{font-size:1.45rem}
+.chiffre.bon{border-color:var(--ok);background:var(--okfond)}
+.chiffre.mauvais{border-color:var(--ko);background:var(--kofond)}
+.verdict{border-radius:6px;padding:12px 14px;display:grid;gap:4px}
+.verdict.bon{background:var(--okfond);border:1px solid var(--ok)}
+.verdict.mauvais{background:var(--kofond);border:1px solid var(--ko)}
+.verdict strong{font-family:var(--f-titre);font-size:1.2rem}
+.alerte{font-size:.9rem;color:var(--ko)}
+svg{display:block;width:100%;height:auto}
+.legende{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.82rem;color:var(--trait)}
+.legende i{display:inline-block;width:20px;height:10px;vertical-align:middle;margin-right:5px;border-radius:2px}
+.memo{background:var(--carte);border:1px solid var(--grille);border-radius:8px;padding:10px 14px}
+.memo summary{cursor:pointer;font-family:var(--f-titre);font-weight:600;font-size:1.1rem}
+.quiz{display:grid;gap:10px;margin-top:8px}
+.q p{margin:0 0 6px}
+.choix{display:grid;gap:6px}
+.choix button{font:inherit;text-align:left;background:var(--papier);color:var(--encre);border:1.5px solid var(--grille);border-radius:6px;padding:8px 10px;cursor:pointer}
+.choix button.juste{border-color:var(--ok);background:var(--okfond)}
+.choix button.faux{border-color:var(--ko);background:var(--kofond)}
+.explic{font-size:.9rem;border-radius:6px;padding:7px 10px;margin-top:6px}
+.explic.bon{background:var(--okfond)} .explic.mauvais{background:var(--kofond)}
+.sources{font-size:.82rem;color:var(--trait)}
+.sources a{color:var(--accent)}
+</style>
+</head>
+<body>
+
+
+<div class="page">
+  <header>
+    <h1>L'instrument est-il capable ?</h1>
+    <p class="sous">Étude de type 1, méthode Bosch. On mesure une cale étalon et on calcule Cg et Cgk.</p>
+  </header>
+
+  <section class="principe">
+    <h2>Le principe</h2>
+    <p>On mesure plusieurs fois une <b>cale étalon</b> dont on connaît la vraie valeur x<sub>m</sub>. Deux questions : les mesures sont-elles <b>groupées</b> (fidélité, Cg) ? Tombent-elles sur la <b>vraie valeur</b> (justesse, Cgk) ?</p>
+    <p>Dans le garage de la tolérance, l'instrument n'a droit qu'à <b>20 % de la largeur</b> : une zone de ± 0,1 T autour de la vraie valeur.</p>
+    <div class="formules"><span>Cg = 0,2 T / (6 s)</span><span>Cgk = (0,1 T − |x̄ − x<sub>m</sub>|) / (3 s)</span><span>Capable si Cg ≥ 1,33 et Cgk ≥ 1,33</span></div>
+  </section>
+
+  <div class="poste">
+    <section class="panneau" aria-label="Saisie">
+      <h3>1. Les données</h3>
+      <div class="champs">
+        <label for="inT"><span>Tolérance T (mm)</span><small>de la cote à contrôler</small><input id="inT" inputmode="decimal" value="0,15"></label>
+        <label for="inXm"><span>Valeur certifiée x<sub>m</sub> (mm)</span><small>lue sur le certificat</small><input id="inXm" inputmode="decimal" placeholder="ex. 12,000"></label>
+        <label for="inRes"><span>Résolution (mm)</span><small>plus petit pas affiché</small><input id="inRes" inputmode="decimal" value="0,001"></label>
+      </div>
+      <label for="inMes"><span>Mesures (mm)</span><small>une par ligne, ou séparées par des espaces. Virgule ou point.</small><textarea id="inMes" spellcheck="false" placeholder="12,001&#10;11,999&#10;12,000&#10;…"></textarea></label>
+      <div class="actions">
+        <button class="btn principal" id="btnCalc" type="button">Calculer</button>
+        <button class="btn second" id="btnEx" type="button">Exemple simulé</button>
+        <span class="note" id="compte">0 mesure</span>
+      </div>
+      <p class="note">Protocole : 50 mesures (au moins 25). Retirer puis remettre la cale avant chaque mesure. Ne supprimer aucune valeur.</p>
+    </section>
+
+    <section class="panneau" aria-label="Résultats" aria-live="polite">
+      <h3>2. Le résultat</h3>
+      <div id="vide" class="note">Saisissez T, la valeur certifiée et les mesures, puis cliquez sur Calculer.</div>
+      <div id="res" hidden>
+        <div class="chiffres" id="chiffres"></div>
+        <div id="alertes"></div>
+        <svg id="svgGarage" viewBox="0 0 640 150" role="img" aria-label="Zone de l'instrument et étendue des mesures"></svg>
+        <div class="legende"><span><i style="background:var(--zone);border:1px solid var(--ok)"></i>zone de l'instrument : x<sub>m</sub> ± 0,1 T</span><span><i style="background:var(--voiture)"></i>étendue des mesures : x̄ ± 3 s</span></div>
+        <svg id="svgSuite" viewBox="0 0 640 200" role="img" aria-label="Mesures dans l'ordre"></svg>
+        <div id="verdict" class="verdict"></div>
+      </div>
+    </section>
+  </div>
+
+  <details class="memo">
+    <summary>Lire le résultat</summary>
+    <table style="width:100%;border-collapse:collapse;font-size:.93rem;margin-top:8px">
+      <tr><td style="padding:6px;border-bottom:1px solid var(--grille)"><b>Cg ≥ 1,33 et Cgk ≥ 1,33</b></td><td style="padding:6px;border-bottom:1px solid var(--grille)">Instrument capable pour cette tolérance.</td></tr>
+      <tr><td style="padding:6px;border-bottom:1px solid var(--grille)"><b>Cg ≥ 1,33 mais Cgk &lt; 1,33</b></td><td style="padding:6px;border-bottom:1px solid var(--grille)">Mesures groupées mais décalées : problème de justesse. Vérifier le réglage, l'étalonnage, la méthode.</td></tr>
+      <tr><td style="padding:6px"><b>Cg &lt; 1,33</b></td><td style="padding:6px">Mesures trop dispersées : problème de fidélité. Instrument trop grossier, usé, ou méthode à revoir.</td></tr>
+    </table>
+    <p class="note">Avant tout calcul, la résolution doit rester sous 5 % de T. Pour la butée (T = 0,15 mm) : micromètre au 0,001 mm, 0,7 % ; pied à coulisse au 1/50 (0,02 mm), 13 %.</p>
+  </details>
+
+  <details class="memo">
+    <summary>Quatre questions pour vérifier</summary>
+    <div class="quiz" id="quiz"></div>
+  </details>
+
+  <p class="sources"><b>Source :</b> Robert Bosch GmbH, <i>Booklet 10 : Capability of Measurement and Test Processes</i>, édition novembre 2019, § 4.1 (procédure 1) et fig. 3,
+  <a href="https://assets.bosch.com/media/global/bosch_group/purchasing_and_logistics/information_for_business_partners/downloads/quality_docs/general_regulations/bosch_publications/booklet-no10-capability-of-measurement-and-test-processes_en.pdf" target="_blank" rel="noopener">PDF sur assets.bosch.com</a>.
+  L'exemple du livret (T = 0,060, s = 0,00099488, |biais| = 0,0011) donne Cg = 2,01 et Cgk = 1,64 : la page retrouve ces valeurs.</p>
+</div>
+
+<script>
+(function(){
+"use strict";
+var $=function(id){return document.getElementById(id);};
+function lire(v){ if(v===undefined||v===null) return NaN; v=String(v).trim().replace(/\s/g,"").replace(",","."); return v===""?NaN:Number(v); }
+function fr(x,d){ return x.toFixed(d).replace(".",","); }
+function mesures(){ return $("inMes").value.split(/[\s;]+/).map(function(t){return t.trim();}).filter(Boolean).map(lire).filter(function(x){return isFinite(x);}); }
+function majCompte(){ var n=mesures().length; $("compte").textContent=n+" mesure"+(n>1?"s":""); }
+$("inMes").addEventListener("input", majCompte);
+var SVGNS="http://www.w3.org/2000/svg";
+function el(nom,att,p){ var e=document.createElementNS(SVGNS,nom); for(var k in att) e.setAttribute(k,att[k]); if(p) p.appendChild(e); return e; }
+function txt(p,x,y,t,att){ var e=el("text",Object.assign({x:x,y:y,"font-size":12,fill:"var(--trait)","font-family":"IBM Plex Mono, Consolas, monospace"},att||{}),p); e.textContent=t; return e; }
+function vider(s){ while(s.firstChild) s.removeChild(s.firstChild); }
+
+function calculer(){
+  var T=lire($("inT").value), xm=lire($("inXm").value), res=lire($("inRes").value), x=mesures();
+  var al=[];
+  if(!(T>0)){ al.push("Indiquez la tolérance T (nombre positif)."); }
+  if(!isFinite(xm)){ al.push("Indiquez la valeur certifiée de la cale."); }
+  if(x.length<2){ al.push("Il faut au moins 2 mesures pour calculer un écart-type."); }
+  if(al.length){ $("vide").hidden=false; $("vide").innerHTML='<span class="alerte">'+al.join(" ")+'</span>'; $("res").hidden=true; return; }
+  var n=x.length, m=x.reduce(function(a,b){return a+b;},0)/n;
+  var s=Math.sqrt(x.reduce(function(a,b){return a+(b-m)*(b-m);},0)/(n-1));
+  var biais=m-xm, dec=Math.max(3, isFinite(res)&&res>0 ? Math.ceil(-Math.log10(res))+1 : 4);
+  var cg = s>0 ? 0.2*T/(6*s) : Infinity, cgk = s>0 ? (0.1*T-Math.abs(biais))/(3*s) : (Math.abs(biais)<=0.1*T?Infinity:-Infinity);
+  var pRes = isFinite(res)&&res>0 ? 100*res/T : NaN;
+  var okG=cg>=1.33, okGk=cgk>=1.33;
+  var affC=function(c){ return isFinite(c)? fr(c,2) : (c>0?"∞":"−∞"); };
+  $("chiffres").innerHTML=[
+    ["Mesures",String(n),""],["Moyenne x̄",fr(m,dec)+" mm",""],["Écart-type s",fr(s,dec+1)+" mm",""],["Biais x̄ − xm",(biais>=0?"+":"−")+fr(Math.abs(biais),dec)+" mm",""],
+    ["Résolution",isFinite(pRes)?fr(pRes,1)+" % de T":"—", isFinite(pRes)?(pRes<5?"bon":"mauvais"):""],
+    ["Cg",affC(cg),"fort "+(okG?"bon":"mauvais")],["Cgk",affC(cgk),"fort "+(okGk?"bon":"mauvais")]
+  ].map(function(c){ return '<div class="chiffre '+c[2]+'"><span>'+c[0]+'</span><b>'+c[1]+'</b></div>'; }).join("");
+  var a2=[];
+  if(n<25) a2.push("Seulement "+n+" mesures : le livret demande 50 mesures, au moins 25. Le résultat est indicatif.");
+  if(isFinite(pRes) && pRes>=5) a2.push("Résolution à "+fr(pRes,1)+" % de T : au-dessus de 5 %, l'instrument est trop grossier pour cette tolérance, quel que soit Cg.");
+  if(s===0) a2.push("Toutes les mesures sont identiques : la résolution est trop grossière pour voir la dispersion.");
+  $("alertes").innerHTML=a2.map(function(t){return '<p class="alerte">'+t+'</p>';}).join("");
+  // verdict
+  var v=$("verdict"), bon=okG&&okGk&&!(isFinite(pRes)&&pRes>=5);
+  v.className="verdict "+(bon?"bon":"mauvais");
+  var msg;
+  if(bon) msg="<strong>Instrument capable.</strong><span>Les mesures sont groupées (Cg = "+affC(cg)+") et assez proches de la vraie valeur (Cgk = "+affC(cgk)+"). Il peut servir à contrôler une tolérance de "+fr(T,3)+" mm.</span>";
+  else if(okG && !okGk) msg="<strong>Problème de justesse.</strong><span>Les mesures sont groupées (Cg = "+affC(cg)+") mais décalées de "+fr(Math.abs(biais),dec)+" mm par rapport à la vraie valeur, ce qui fait tomber Cgk à "+affC(cgk)+". Vérifier le zéro, le réglage, l'étalonnage, la façon de mesurer.</span>";
+  else if(!okG) msg="<strong>Problème de fidélité.</strong><span>Les mesures sont trop dispersées : 6 s = "+fr(6*s,dec)+" mm, alors que l'instrument n'a droit qu'à 0,2 T = "+fr(0.2*T,dec)+" mm (Cg = "+affC(cg)+"). Instrument trop grossier ou usé, ou méthode de mesure à revoir.</span>";
+  else msg="<strong>Instrument non retenu.</strong><span>Cg et Cgk passent, mais la résolution dépasse 5 % de T.</span>";
+  v.innerHTML=msg;
+  dessinerGarage(T,xm,m,s,dec); dessinerSuite(x,T,xm,m,dec);
+  $("vide").hidden=true; $("res").hidden=false;
+}
+
+function dessinerGarage(T,xm,m,s,dec){
+  var svg=$("svgGarage"); vider(svg);
+  var W=640, g=30, zg=xm-0.1*T, zd=xm+0.1*T, cg=m-3*s, cd=m+3*s;
+  var lo=Math.min(zg,cg), hi=Math.max(zd,cd), marge=(hi-lo)*0.12||0.1*T; lo-=marge; hi+=marge;
+  var X=function(v){ return g+(v-lo)*(W-2*g)/(hi-lo); };
+  el("rect",{x:X(zg),y:24,width:X(zd)-X(zg),height:78,fill:"var(--zone)",stroke:"var(--ok)","stroke-width":1.5,rx:3},svg);
+  el("line",{x1:X(zg),x2:X(zg),y1:16,y2:110,stroke:"var(--ok)","stroke-width":3},svg);
+  el("line",{x1:X(zd),x2:X(zd),y1:16,y2:110,stroke:"var(--ok)","stroke-width":3},svg);
+  el("line",{x1:X(xm),x2:X(xm),y1:20,y2:106,stroke:"var(--ok)","stroke-dasharray":"4 4"},svg);
+  var hors = cg<zg || cd>zd;
+  el("rect",{x:X(cg),y:48,width:Math.max(2,X(cd)-X(cg)),height:30,fill:"var(--voiture)",opacity:.85,rx:6},svg);
+  if(hors){ if(cg<zg) el("rect",{x:X(cg),y:48,width:Math.max(0,X(Math.min(zg,cd))-X(cg)),height:30,fill:"var(--ko)",opacity:.85,rx:6},svg);
+            if(cd>zd) el("rect",{x:X(Math.max(zd,cg)),y:48,width:Math.max(0,X(cd)-X(Math.max(zd,cg))),height:30,fill:"var(--ko)",opacity:.85,rx:6},svg); }
+  el("line",{x1:X(m),x2:X(m),y1:44,y2:82,stroke:"var(--carte)","stroke-width":2},svg);
+  txt(svg,X(zg),130,fr(zg,dec),{"text-anchor":"middle",fill:"var(--ok)"});
+  txt(svg,X(zd),130,fr(zd,dec),{"text-anchor":"middle",fill:"var(--ok)"});
+  txt(svg,X(xm),14,"xm "+fr(xm,dec),{"text-anchor":"middle",fill:"var(--ok)"});
+  txt(svg,X(m),98,"x̄",{"text-anchor":"middle",fill:"var(--encre)","font-size":13});
+  txt(svg,W/2,147,hors?"Les mesures débordent de la zone de l'instrument.":"Les mesures restent dans la zone de l'instrument.",{"text-anchor":"middle","font-size":12.5,fill:hors?"var(--ko)":"var(--ok)","font-family":"Source Sans 3, Segoe UI, sans-serif"});
+}
+
+function dessinerSuite(x,T,xm,m,dec){
+  var svg=$("svgSuite"); vider(svg);
+  var W=640,H=200,g={l:16,r:96,t:22,b:24}, n=x.length;
+  var lo=Math.min(xm-0.12*T, Math.min.apply(null,x)), hi=Math.max(xm+0.12*T, Math.max.apply(null,x));
+  var X=function(i){ return g.l+10+(n>1? i*(W-g.l-g.r-20)/(n-1) : (W-g.l-g.r-20)/2); }, Y=function(v){ return g.t+(hi-v)*(H-g.t-g.b)/(hi-lo); };
+  el("rect",{x:g.l,y:g.t,width:W-g.l-g.r,height:H-g.t-g.b,fill:"var(--papier)",stroke:"var(--grille)"},svg);
+  el("rect",{x:g.l,y:Y(xm+0.1*T),width:W-g.l-g.r,height:Y(xm-0.1*T)-Y(xm+0.1*T),fill:"var(--zone)"},svg);
+  [[xm+0.1*T,"xm+0,1T","var(--ok)"],[xm,"xm","var(--ok)"],[xm-0.1*T,"xm−0,1T","var(--ok)"],[m,"x̄","var(--encre)"]].forEach(function(l){
+    el("line",{x1:g.l,x2:W-g.r,y1:Y(l[0]),y2:Y(l[0]),stroke:l[2],"stroke-width":l[1]==="x̄"?1.2:1.5,"stroke-dasharray":l[1]==="xm"||l[1]==="x̄"?"5 4":"none"},svg);
+    txt(svg,W-g.r+6,Y(l[0])+4,l[1],{fill:l[2],"font-size":11.5}); });
+  el("polyline",{points:x.map(function(v,i){return X(i)+","+Y(v);}).join(" "),fill:"none",stroke:"var(--voiture)","stroke-width":1.3},svg);
+  x.forEach(function(v,i){ el("circle",{cx:X(i),cy:Y(v),r:3,fill:"var(--voiture)"},svg); });
+  txt(svg,g.l+4,15,"Les mesures dans l'ordre",{"font-size":13,fill:"var(--encre)","font-family":"Barlow Semi Condensed, Arial Narrow, sans-serif","font-weight":"600"});
+  txt(svg,g.l+6,H-8,"mesure 1",{"font-size":10.5}); txt(svg,W-g.r-4,H-8,"mesure "+n,{"font-size":10.5,"text-anchor":"end"});
+}
+
+function gauss(){ var u=0,v=0; while(u===0)u=Math.random(); while(v===0)v=Math.random(); return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v); }
+$("btnEx").addEventListener("click",function(){
+  var T=lire($("inT").value); if(!(T>0)){ T=0.15; $("inT").value="0,15"; }
+  var res=lire($("inRes").value); if(!(res>0)){ res=0.001; $("inRes").value="0,001"; }
+  var xm=12, biais=(Math.random()<0.5?1:-1)*res*Math.round(Math.random()*2), s=Math.max(res*0.8, T*0.2/(6*(1.4+Math.random()*1.4)));
+  $("inXm").value="12,000";
+  var dec=Math.max(3,Math.ceil(-Math.log10(res)));
+  var v=[]; for(var i=0;i<50;i++){ var y=xm+biais+s*gauss(); y=Math.round(y/res)*res; v.push(fr(y,dec)); }
+  $("inMes").value=v.join("\n"); majCompte(); calculer();
+  $("vide").hidden=true;
+});
+$("btnCalc").addEventListener("click",calculer);
+
+var QUIZ=[
+  {q:"Cg = 2,1 et Cgk = 0,9. Que se passe-t-il ?",o:["Les mesures sont trop dispersées","Les mesures sont groupées mais décalées de la vraie valeur","L'instrument est capable"],r:1,e:"Cg est bon : les mesures sont groupées. Cgk est faible : elles sont décalées. C'est un problème de justesse (zéro, réglage, étalonnage)."},
+  {q:"Pour la butée (T = 0,15 mm), le pied à coulisse au 1/50 convient-il ?",o:["Oui, si Cg dépasse 1,33","Non : sa résolution (0,02 mm) fait 13 % de T, au-dessus de 5 %","Oui, c'est un instrument certifié"],r:1,e:"On vérifie la résolution avant tout calcul. 0,02 / 0,15 = 13 % : l'instrument est trop grossier pour cette tolérance."},
+  {q:"Pourquoi retirer puis remettre la cale avant chaque mesure ?",o:["Pour aller plus vite","Pour reproduire les conditions réelles de mesure","Pour avoir des mesures identiques"],r:1,e:"Le positionnement fait partie de la mesure. Sans cette étape, on sous-estime la dispersion."},
+  {q:"Une mesure semble bizarre. Que fait-on ?",o:["On la supprime","On la garde et on cherche pourquoi","On la remplace par la moyenne"],r:1,e:"Le livret Bosch demande de ne supprimer aucune valeur. Une mesure bizarre est une information sur l'instrument ou la méthode."}
+];
+var box=$("quiz");
+QUIZ.forEach(function(s,k){
+  var d=document.createElement("div"); d.className="q"; d.innerHTML="<p><b>"+(k+1)+".</b> "+s.q+"</p>";
+  var c=document.createElement("div"); c.className="choix"; var ex=document.createElement("div"); ex.className="explic"; ex.hidden=true;
+  s.o.forEach(function(lib,i){ var b=document.createElement("button"); b.type="button"; b.textContent=lib;
+    b.addEventListener("click",function(){ if(c.dataset.fait) return; c.dataset.fait="1";
+      c.querySelectorAll("button").forEach(function(x,j){ x.disabled=true; if(j===s.r) x.classList.add("juste"); else if(j===i) x.classList.add("faux"); });
+      ex.className="explic "+(i===s.r?"bon":"mauvais"); ex.textContent=(i===s.r?"Juste. ":"Non. ")+s.e; ex.hidden=false; });
+    c.appendChild(b); });
+  d.appendChild(c); d.appendChild(ex); box.appendChild(d);
+});
+window.__instr={calculer:calculer};
+})();
+</script>
+
+</body>
+</html>

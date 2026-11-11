@@ -1,0 +1,27 @@
+\documentclass[10pt,a4paper]{article}
+\input{commun.tex}
+\pied{Base SPC · fiche M1 · La résolution d'abord}
+\begin{document}
+\thispagestyle{fancy}
+\entete{M1}{La résolution d'abord}{Cet instrument est-il assez fin pour cette tolérance ?}{Le moyen de mesure}{15 min}{en binôme}{1}
+\begin{tcolorbox}[boite]\textbf{Le but.} Lire la résolution d'un instrument et la comparer à la tolérance, avant toute mesure.\par\textbf{Il vous faut.} Un réglet, un pied à coulisse au 1/50, un micromètre · Une calculatrice\end{tcolorbox}
+\begin{tcolorbox}[pred]Pour contrôler une butée de tolérance 0,15 mm, lesquels de ces trois instruments conviennent ?\reponse\end{tcolorbox}
+\titre{À faire}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{\arabic*.}},leftmargin=15pt,itemsep=1.5pt]
+\item Pour chaque instrument, trouver le plus petit pas affiché ou gravé : c'est sa \textbf{résolution}. La noter dans le tableau.
+\item Calculer la résolution en pourcentage de la tolérance : $(\text{résolution} / T) \times 100$.
+\item Règle : l'instrument convient si ce pourcentage est \textbf{au plus 5 \%}. Entourer les cases qui conviennent.
+\end{enumerate}
+\vspace{3pt}{\renewcommand{\arraystretch}{1.5}\begin{tabularx}{\linewidth}{|l|*{4}{>{\centering\arraybackslash}X|}}\hline
+\textbf{Instrument} & \textbf{Résolution (mm)} & \textbf{T = 0,15 mm} & \textbf{T = 0,05 mm} & \textbf{T = 0,01 mm}\\\hline
+Réglet &  &  &  & \\\hline
+Pied à coulisse &  &  &  & \\\hline
+Micromètre &  &  &  & \\\hline
+\end{tabularx}}\par
+\titre{J'observe, je décide}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{Q\arabic*.}},leftmargin=22pt]
+\item Quel instrument choisir pour la butée ($T = 0{,}15$ mm) ? Et pour une tolérance de 0,01 mm ?\reponse[2]
+\item Un instrument trop grossier donne toujours la même valeur. Est-ce une preuve de qualité ?\reponse[2]
+\end{enumerate}
+\begin{tcolorbox}[retenir]Avant de mesurer, on vérifie la résolution : au plus 5 \% de la tolérance. Sinon l'instrument est écarté, quel que soit le reste.\end{tcolorbox}
+\end{document}

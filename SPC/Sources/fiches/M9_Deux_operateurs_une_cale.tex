@@ -1,0 +1,39 @@
+\documentclass[10pt,a4paper]{article}
+\input{commun.tex}
+\pied{Base SPC · fiche M9 · Deux opérateurs, une cale}
+\begin{document}
+\thispagestyle{fancy}
+\entete{M9}{Deux opérateurs, une cale}{Mon collègue et moi, trouvons-nous la même chose ?}{Le moyen de mesure}{30 min}{en binôme}{2}
+\begin{tcolorbox}[boite]\textbf{Le but.} Voir si deux personnes obtiennent la même moyenne avec le même instrument sur la même cale.\par\textbf{Il vous faut.} Un seul micromètre 0-25 mm pour les deux · Une cale étalon de 10 mm · Un cache pour les valeurs\end{tcolorbox}
+\begin{tcolorbox}[pred]Même cale, même micromètre, deux personnes. Les deux moyennes seront-elles égales au micromètre près ?\reponse\end{tcolorbox}
+\titre{À faire}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{\arabic*.}},leftmargin=15pt,itemsep=1.5pt]
+\item L'opérateur A mesure la cale 15 fois. Une troisième personne note, ou A note lui-même sans montrer ses valeurs.
+\item L'opérateur B mesure la même cale 15 fois avec le même micromètre, \textbf{sans avoir vu} les valeurs de A.
+\item \tagW\ Coller les deux séries dans la page « Comparer deux séries de mesures », avec la valeur de la cale.
+\end{enumerate}
+\vspace{3pt}\begin{minipage}[t]{0.485\linewidth}\textbf{Opérateur A (mm)}\par\vspace{2pt}
+{\renewcommand{\arraystretch}{1.4}\begin{tabularx}{\linewidth}{|*{3}{>{\centering\arraybackslash}p{5mm}|>{\centering\arraybackslash}X|}}\hline
+\scriptsize 1 &  & \scriptsize 2 &  & \scriptsize 3 & \\\hline
+\scriptsize 4 &  & \scriptsize 5 &  & \scriptsize 6 & \\\hline
+\scriptsize 7 &  & \scriptsize 8 &  & \scriptsize 9 & \\\hline
+\scriptsize 10 &  & \scriptsize 11 &  & \scriptsize 12 & \\\hline
+\scriptsize 13 &  & \scriptsize 14 &  & \scriptsize 15 & \\\hline
+\end{tabularx}}\end{minipage}\hfill\begin{minipage}[t]{0.485\linewidth}\textbf{Opérateur B (mm)}\par\vspace{2pt}
+{\renewcommand{\arraystretch}{1.4}\begin{tabularx}{\linewidth}{|*{3}{>{\centering\arraybackslash}p{5mm}|>{\centering\arraybackslash}X|}}\hline
+\scriptsize 1 &  & \scriptsize 2 &  & \scriptsize 3 & \\\hline
+\scriptsize 4 &  & \scriptsize 5 &  & \scriptsize 6 & \\\hline
+\scriptsize 7 &  & \scriptsize 8 &  & \scriptsize 9 & \\\hline
+\scriptsize 10 &  & \scriptsize 11 &  & \scriptsize 12 & \\\hline
+\scriptsize 13 &  & \scriptsize 14 &  & \scriptsize 15 & \\\hline
+\end{tabularx}}\end{minipage}\par
+\titre{J'observe, je décide}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{Q\arabic*.}},leftmargin=22pt]
+\item Écart entre les deux moyennes = \champ{18mm} mm. Est-il réel d'après la page ?\reponse[1]
+\item L'un des deux est-il plus dispersé que l'autre ?\reponse[1]
+\item Si l'écart est réel, d'où peut-il venir ? Si l'on vous demande lequel a raison, que répondre ?\reponse[2]
+\end{enumerate}
+\begin{tcolorbox}[retenir]Deux opérateurs qui ne trouvent pas la même moyenne : c'est un défaut de \textbf{reproductibilité}. Le remède est une méthode commune.\end{tcolorbox}
+\begin{tcolorbox}[plus]Mettez-vous d'accord sur une méthode écrite (cliquet, nombre de crans, pose de la cale), puis refaites 10 mesures chacun. L'écart a-t-il diminué ?\end{tcolorbox}
+\vfill{\footnotesize\color{uimm}\textbf{Ressources de la base :} Comparer deux séries de mesures · Données de secours.}
+\end{document}

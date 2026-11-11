@@ -1,0 +1,31 @@
+\documentclass[10pt,a4paper]{article}
+\input{commun.tex}
+\pied{Base SPC · fiche M7 · Jusqu'où peut-il aller ?}
+\begin{document}
+\thispagestyle{fancy}
+\entete{M7}{Jusqu'où peut-il aller ?}{Quelle est la plus petite tolérance que mon micromètre peut contrôler ?}{Le moyen de mesure}{20 min}{en binôme}{2}
+\begin{tcolorbox}[boite]\textbf{Le but.} Faire varier la tolérance dans une étude de justesse et trouver la limite de l'instrument.\par\textbf{Il vous faut.} L'étude de justesse de M3 (ou le jeu de secours)\end{tcolorbox}
+\begin{tcolorbox}[pred]Votre micromètre est capable pour $T = 0{,}15$ mm. Le sera-t-il encore pour 0,05 ? 0,02 ? 0,01 ?\reponse\end{tcolorbox}
+\titre{À faire}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{\arabic*.}},leftmargin=15pt,itemsep=1.5pt]
+\item \tagE\ Rouvrir l'étude \menu{Justesse} de M3.
+\item \tagE\ Changer la tolérance en gardant la cale au milieu : pour $T = 0{,}05$, saisir mini = cale $-$ 0,025 et maxi = cale + 0,025. Relever Cg et Cgk.
+\item \tagE\ Recommencer pour $T = 0{,}02$ puis $T = 0{,}01$.
+\item \tagE\ Relever la « tolérance mini » annoncée par Ellistat.
+\end{enumerate}
+\vspace{3pt}{\renewcommand{\arraystretch}{1.5}\begin{tabularx}{\linewidth}{|l|*{3}{>{\centering\arraybackslash}X|}}\hline
+\textbf{Tolérance T (mm)} & \textbf{Cg} & \textbf{Cgk} & \textbf{Capable ?}\\\hline
+0,15 &  &  & \\\hline
+0,05 &  &  & \\\hline
+0,02 &  &  & \\\hline
+0,01 &  &  & \\\hline
+\end{tabularx}}\par
+\titre{J'observe, je décide}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{Q\arabic*.}},leftmargin=22pt]
+\item Quelle est la plus petite tolérance du tableau pour laquelle le micromètre reste capable ?\reponse[1]
+\item À la main : $T_{\min} = 10 \times |\text{biais}| + 39{,}9 \times s$ = \champ{20mm} mm. Comparez avec la valeur d'Ellistat.\reponse[1]
+\item Quand la tolérance est divisée par 3, que devient Cg ?\reponse[1]
+\end{enumerate}
+\begin{tcolorbox}[retenir]Cg et Cgk sont proportionnels à la tolérance. Un même instrument passe pour une cote et échoue pour une autre.\end{tcolorbox}
+\vfill{\footnotesize\color{uimm}\textbf{Ressources de la base :} Données de secours.}
+\end{document}

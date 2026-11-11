@@ -1,0 +1,40 @@
+\documentclass[10pt,a4paper]{article}
+\input{commun.tex}
+\pied{Base SPC · fiche M4 · Pied à coulisse contre micromètre}
+\begin{document}
+\thispagestyle{fancy}
+\entete{M4}{Pied à coulisse contre micromètre}{Deux instruments, une cale : lequel croire ?}{Le moyen de mesure}{30 min}{en binôme}{2}
+\begin{tcolorbox}[boite]\textbf{Le but.} Comparer deux instruments sur la même cale : résolution, dispersion, décalage.\par\textbf{Il vous faut.} Un micromètre 0-25 mm · Un pied à coulisse au 1/50 · Une cale étalon de 10 mm\end{tcolorbox}
+\begin{tcolorbox}[pred]Lequel des deux instruments donnera les mesures les plus groupées ? De combien, à votre avis ?\reponse\end{tcolorbox}
+\titre{À faire}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{\arabic*.}},leftmargin=15pt,itemsep=1.5pt]
+\item Mesurer la cale 15 fois au micromètre (ou reprendre les mesures de M3), puis 15 fois au pied à coulisse. Retirer la cale à chaque fois.
+\item \tagE\ Deux colonnes dans une grille : « Micrometre » et « Pied\_a\_coulisse ».
+\item \tagE\ \menu{Gage R\&R} > \menu{Justesse} : une étude par instrument, avec la bonne résolution (0,001 puis 0,02). Tolérance 11,85 / 12,00.
+\item \tagW\ Coller les deux séries dans la page « Comparer deux séries de mesures ».
+\end{enumerate}
+\vspace{3pt}\begin{minipage}[t]{0.485\linewidth}\textbf{Micromètre (mm)}\par\vspace{2pt}
+{\renewcommand{\arraystretch}{1.4}\begin{tabularx}{\linewidth}{|*{3}{>{\centering\arraybackslash}p{5mm}|>{\centering\arraybackslash}X|}}\hline
+\scriptsize 1 &  & \scriptsize 2 &  & \scriptsize 3 & \\\hline
+\scriptsize 4 &  & \scriptsize 5 &  & \scriptsize 6 & \\\hline
+\scriptsize 7 &  & \scriptsize 8 &  & \scriptsize 9 & \\\hline
+\scriptsize 10 &  & \scriptsize 11 &  & \scriptsize 12 & \\\hline
+\scriptsize 13 &  & \scriptsize 14 &  & \scriptsize 15 & \\\hline
+\end{tabularx}}\end{minipage}\hfill\begin{minipage}[t]{0.485\linewidth}\textbf{Pied à coulisse (mm)}\par\vspace{2pt}
+{\renewcommand{\arraystretch}{1.4}\begin{tabularx}{\linewidth}{|*{3}{>{\centering\arraybackslash}p{5mm}|>{\centering\arraybackslash}X|}}\hline
+\scriptsize 1 &  & \scriptsize 2 &  & \scriptsize 3 & \\\hline
+\scriptsize 4 &  & \scriptsize 5 &  & \scriptsize 6 & \\\hline
+\scriptsize 7 &  & \scriptsize 8 &  & \scriptsize 9 & \\\hline
+\scriptsize 10 &  & \scriptsize 11 &  & \scriptsize 12 & \\\hline
+\scriptsize 13 &  & \scriptsize 14 &  & \scriptsize 15 & \\\hline
+\end{tabularx}}\end{minipage}\par
+\titre{J'observe, je décide}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{Q\arabic*.}},leftmargin=22pt]
+\item Micromètre : Cg = \champ{12mm} Cgk = \champ{12mm} \quad Pied à coulisse : Cg = \champ{12mm} Cgk = \champ{12mm}\par\vspace{5pt}
+\item Quel voyant d'Ellistat écarte le pied à coulisse avant même de regarder Cg ?\reponse[1]
+\item L'écart-type du pied à coulisse vaut combien de fois celui du micromètre ?\reponse[1]
+\item Le pied à coulisse est-il un mauvais instrument ? Pour quelle tolérance conviendrait-il ?\reponse[2]
+\end{enumerate}
+\begin{tcolorbox}[retenir]Un instrument n'est ni bon ni mauvais : il est capable ou non \textbf{pour une tolérance donnée}.\end{tcolorbox}
+\vfill{\footnotesize\color{uimm}\textbf{Ressources de la base :} Comparer deux séries de mesures · Données de secours.}
+\end{document}

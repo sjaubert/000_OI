@@ -1,0 +1,99 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[a4paper,margin=13mm,top=11mm,bottom=11mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{Liberation Sans}
+\usepackage{polyglossia}
+\setdefaultlanguage{french}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage[most]{tcolorbox}
+\usepackage{tabularx,booktabs,array}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\definecolor{uimm}{HTML}{005677}
+\definecolor{cyan}{HTML}{13A2DD}
+\definecolor{fond}{HTML}{E6F2FA}
+\definecolor{ok}{HTML}{2E7D32}
+\definecolor{ko}{HTML}{B3261E}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=12pt,label=\textcolor{cyan}{\textbullet}}
+\newcommand{\titre}[1]{\vspace{3pt}{\color{uimm}\large\bfseries #1}\par\vspace{-3pt}{\color{cyan}\rule{\linewidth}{1.2pt}}\par\vspace{-2pt}}
+\tcbset{boite/.style={colback=fond,colframe=uimm,boxrule=0.6pt,arc=2pt,left=6pt,right=6pt,top=4pt,bottom=4pt}}
+\begin{document}
+
+\begin{tcolorbox}[colback=uimm,colframe=uimm,arc=2pt,left=4pt,right=8pt,top=4pt,bottom=4pt]
+\begin{minipage}[c]{18mm}\setlength{\fboxsep}{1.2pt}\fcolorbox{white}{white}{\includegraphics[height=16.5mm]{logo_uimm.jpg}}\end{minipage}\hspace{4mm}%
+\begin{minipage}[c]{\dimexpr\linewidth-22mm\relax}\color{white}
+{\LARGE\bfseries Le moyen de mesure est-il capable ?}\\[2pt]
+{\large Étude de type 1 selon la méthode Bosch : Cg et Cgk}
+\end{minipage}
+\end{tcolorbox}
+
+\begin{tcolorbox}[boite]
+\textbf{L'idée.} Avant de juger une machine, on juge l'instrument qui la mesure. On mesure plusieurs fois une \textbf{cale étalon} dont on connaît la vraie valeur. Deux questions :
+\textbf{l'instrument est-il fidèle ?} (ses mesures sont-elles groupées) et \textbf{est-il juste ?} (tombent-elles sur la vraie valeur).
+Image à retenir : dans le garage de la tolérance, \textbf{l'instrument n'a droit qu'à 20 \% de la largeur}.
+\end{tcolorbox}
+
+\titre{1. Avant de commencer}
+\begin{itemize}
+\item \textbf{Résolution} de l'instrument : moins de 5 \% de la tolérance $T$ (livret, fig.~3).\\
+Butée \O{} 12 (0 ; $-0{,}15$) : $T = 0{,}15$ mm, donc résolution $\le 0{,}0075$ mm.
+Micromètre au 0,001 mm : 0,7 \% de $T$, \textcolor{ok}{\textbf{convient}}. Pied à coulisse au 1/50 (0,02 mm) : 13 \% de $T$, \textcolor{ko}{\textbf{trop grossier}}.
+\item \textbf{Étalon} : une cale certifiée, de valeur de référence $x_m$ connue, si possible au milieu de la tolérance.
+Son incertitude d'étalonnage doit rester inférieure à 10 \% de $T$ (idéalement 1 \%).
+\end{itemize}
+
+\titre{2. Le protocole}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{\arabic*.}},leftmargin=14pt]
+\item Mesurer la cale \textbf{50 fois} (au moins 25), dans les conditions habituelles du poste.
+\item \textbf{Retirer puis remettre} la cale avant chaque mesure.
+\item Noter toutes les valeurs. \textbf{Ne supprimer aucune mesure}, même « bizarre ».
+\end{enumerate}
+
+\titre{3. Les calculs}
+\begin{minipage}[c]{0.47\linewidth}
+Moyenne et écart-type des $n$ mesures :
+\[\bar x=\frac{1}{n}\sum_{i=1}^{n}x_i \qquad s=\sqrt{\frac{\sum (x_i-\bar x)^2}{n-1}}\]
+Biais (erreur de justesse) : \quad $\text{biais}=\bar x - x_m$
+\end{minipage}\hfill
+\begin{minipage}[c]{0.5\linewidth}
+\begin{tcolorbox}[boite]
+\[C_g=\frac{0{,}2\,T}{6\,s}\qquad\qquad C_{gk}=\frac{0{,}1\,T-\lvert\bar x-x_m\rvert}{3\,s}\]
+\centering\small Mnémotechnique : \textbf{« 0,2 sur 6, 0,1 sur 3 »}.\\
+$C_g$ voit la largeur. $C_{gk}$ voit la largeur \textbf{et} le décalage.
+\end{tcolorbox}
+\end{minipage}
+
+\titre{4. La décision}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabularx}{\linewidth}{@{}>{\bfseries}l >{\raggedright\arraybackslash}X@{}}
+\toprule
+$C_g \ge 1{,}33$ et $C_{gk} \ge 1{,}33$ & \textcolor{ok}{\textbf{Instrument capable}} pour cette tolérance.\\
+$C_g \ge 1{,}33$ mais $C_{gk} < 1{,}33$ & Mesures groupées mais décalées : \textbf{problème de justesse}. Vérifier le réglage, l'étalonnage, la méthode.\\
+$C_g < 1{,}33$ & Mesures trop dispersées : \textbf{problème de fidélité}. Instrument trop grossier, usé, ou méthode de mesure à revoir.\\
+\bottomrule
+\end{tabularx}
+{\small Seuil 1,33 : celui du livret à sa publication. Chaque entreprise peut fixer un seuil plus sévère.}
+
+\titre{5. Un exemple chiffré (livret Bosch, § 4.1)}
+$T = 0{,}060$ ; $n = 50$ ; $x_m = 6{,}002$ ; $\bar x = 6{,}00090$ ; $s = 0{,}00099488$, donc $\lvert\text{biais}\rvert = 0{,}0011$.
+\[C_g=\frac{0{,}2\times0{,}060}{6\times0{,}00099488}\approx \mathbf{2{,}01}\qquad
+C_{gk}=\frac{0{,}006-0{,}0011}{3\times0{,}00099488}\approx \mathbf{1{,}64}\]
+Les deux dépassent 1,33 : instrument \textcolor{ok}{\textbf{capable}}. Le biais fait perdre de la marge : $C_{gk}$ est nettement plus petit que $C_g$.
+
+\titre{6. Ce que l'étude de type 1 ne dit pas}
+\begin{itemize}
+\item Elle ne vaut que pour une \textbf{tolérance à deux limites} et suppose des mesures réparties selon une loi normale.
+\item Elle porte sur une seule cale et ne compare pas plusieurs opérateurs : elle \textbf{ne voit pas l'effet de l'opérateur}. Pour cela, on fait ensuite une étude de type 2 (R\&R : au moins 10 pièces, 3 opérateurs, 2 séries). Le livret impose le type 1 \textbf{avant} le type 2.
+\end{itemize}
+
+\vfill
+{\footnotesize\color{uimm}\rule{\linewidth}{0.4pt}\\
+\textbf{Sources.} Robert Bosch GmbH, \emph{Quality Management in the Bosch Group, Technical Statistics, Booklet 10 : Capability of Measurement and Test Processes}, édition novembre 2019, § 2, fig.~3, § 4.1 (procédure 1, exemple chiffré) et § 4.2 (procédure 2) :
+en ligne sur \href{https://assets.bosch.com/media/global/bosch_group/purchasing_and_logistics/information_for_business_partners/downloads/quality_docs/general_regulations/bosch_publications/booklet-no10-capability-of-measurement-and-test-processes_en.pdf}{\texttt{assets.bosch.com}} (fichier \texttt{booklet-no10-capability-of-measurement-and-test-processes\_en.pdf}).
+Version allemande : \emph{Heft Nr. 10, Fähigkeit von Mess- und Prüfprozessen}. Le livret indique être conforme au manuel MSA de l'AIAG. Consulté le 08/11/2026.}
+\end{document}

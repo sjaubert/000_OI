@@ -1,0 +1,23 @@
+\documentclass[10pt,a4paper]{article}
+\input{commun.tex}
+\pied{Base SPC · fiche M11 · L'opérateur compte-t-il ?}
+\begin{document}
+\thispagestyle{fancy}
+\entete{M11}{L'opérateur compte-t-il ?}{Trois personnes mesurent les mêmes butées : trouvent-elles la même chose ?}{Le moyen de mesure}{70 min}{en groupe}{3}
+\begin{tcolorbox}[boite]\textbf{Le but.} Mener une étude R\&R complète : 10 pièces, 3 opérateurs, 2 séries.\par\textbf{Il vous faut.} 10 butées numérotées, de diamètres étalés dans la tolérance · Un seul micromètre 0-25 mm · La fiche « L'opérateur compte-t-il ? » (3 pages)\end{tcolorbox}
+\begin{tcolorbox}[pred]Qui va peser le plus dans le flou de la mesure : l'instrument ou les opérateurs ?\reponse\end{tcolorbox}
+\titre{À faire}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{\arabic*.}},leftmargin=15pt,itemsep=1.5pt]
+\item Suivre la fiche « L'opérateur compte-t-il ? » : tirage de l'ordre, série 1, série 2, calculs à la main.
+\item \tagW\ Saisir les 60 valeurs dans la page « L'opérateur compte-t-il ? » et lire le \%GRR.
+\item \tagE\ \menu{Gage R\&R} > \menu{Mesures} > \menu{Ajouter un gage R\&R}, puis créer une grille vide : 10 pièces, 3 opérateurs, 2 répétitions. Saisir les mesures, méthode \textbf{ANOVA}.
+\end{enumerate}
+\titre{J'observe, je décide}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{Q\arabic*.}},leftmargin=22pt]
+\item \%GRR de la page = \champ{14mm} \quad \%GRR d'Ellistat = \champ{14mm} \quad ndc = \champ{10mm}\par\vspace{5pt}
+\item Les deux \%GRR sont-ils égaux ? Sinon, cherchez la raison avec le formateur.\reponse[2]
+\item Le système de mesure est-il capable, capable sous conditions ou non capable ?\reponse[1]
+\end{enumerate}
+\begin{tcolorbox}[retenir]Le GRR réunit l'instrument (répétabilité) et les opérateurs (reproductibilité). Jusqu'à 10 \% de la tolérance : capable ; au-delà de 30 \% : non capable.\end{tcolorbox}
+\vfill{\footnotesize\color{uimm}\textbf{Ressources de la base :} L'opérateur compte-t-il ? (page) · Fiche R\&R (PDF) · Exemple du livret Bosch.}
+\end{document}

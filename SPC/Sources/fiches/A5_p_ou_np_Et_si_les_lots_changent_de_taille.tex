@@ -1,0 +1,25 @@
+\documentclass[10pt,a4paper]{article}
+\input{commun.tex}
+\pied{Base SPC · fiche A5 · p ou np ? Et si les lots changent de taille ?}
+\begin{document}
+\thispagestyle{fancy}
+\entete{A5}{p ou np ? Et si les lots changent de taille ?}{Peut-on compter les pièces défectueuses quand les lots ne font pas tous la même taille ?}{Cartes aux attributs}{25 min}{en binôme}{2}
+\begin{tcolorbox}[boite]\textbf{Le but.} Comprendre pourquoi la carte np exige des lots de taille fixe, et lire une carte p à limites variables.\par\textbf{Il vous faut.} Le fichier Lots\_taille\_variable\_simule.xlsx ou la page « Données à copier » · Ellistat\end{tcolorbox}
+\begin{tcolorbox}[pred]Lot A : 9 défectueuses sur 200. Lot B : 9 défectueuses sur 400. Lequel est le plus mauvais ?\reponse\end{tcolorbox}
+\titre{À faire}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{\arabic*.}},leftmargin=15pt,itemsep=1.5pt]
+\item \tagE\ Nouvelle grille, coller le jeu « 25 lots de taille variable ».
+\item À la main : $\bar p$ = total des défectueuses / total des pièces. Puis la limite supérieure pour le lot 14 (80 pièces) et pour le lot 7 (400 pièces).
+\item \tagE\ \menu{Cartes de contrôle aux attributs}, carte \textbf{p}, taille de lot lue dans la colonne Taille\_lot.
+\item \tagE\ Observer la forme des limites.
+\end{enumerate}
+\titre{J'observe, je décide}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{Q\arabic*.}},leftmargin=22pt]
+\item $\bar p$ = \champ{16mm} \% \quad Limite supérieure, lot de 80 : \champ{16mm} \% \quad lot de 400 : \champ{16mm} \%\par\vspace{5pt}
+\item Pourquoi les limites sont-elles en escalier ? Pour quels lots sont-elles les plus serrées ?\reponse[2]
+\item Quel lot sort des limites ? Combien de défectueuses contient-il ?\reponse[1]
+\item Pourquoi la carte np n'a-t-elle pas de sens ici ?\reponse[2]
+\end{enumerate}
+\begin{tcolorbox}[retenir]Lots de taille variable : on suit la proportion (carte p), et chaque lot a ses propres limites. Plus le lot est grand, plus elles sont serrées.\end{tcolorbox}
+\vfill{\footnotesize\color{uimm}\textbf{Ressources de la base :} Données à copier.}
+\end{document}

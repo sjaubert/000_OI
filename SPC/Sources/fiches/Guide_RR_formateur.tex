@@ -1,0 +1,79 @@
+\documentclass[10pt,a4paper]{article}
+\input{charte.tex}
+\renewcommand{\bandeau}[3]{%
+\begin{tcolorbox}[colback=uimm,colframe=uimm,arc=2pt,left=4pt,right=8pt,top=4pt,bottom=4pt]
+\begin{minipage}[c]{18mm}\setlength{\fboxsep}{1.2pt}\fcolorbox{white}{white}{\includegraphics[height=16.5mm]{logo_uimm.jpg}}\end{minipage}\hspace{4mm}%
+\begin{minipage}[c]{\dimexpr\linewidth-22mm\relax}\color{white}
+{\small #1}\\[1pt]{\LARGE\bfseries #2}\\[2pt]{\large #3}
+\end{minipage}
+\end{tcolorbox}}
+\pied{TP R\&R · L'opérateur compte-t-il ? · guide formateur}
+\begin{document}
+\thispagestyle{fancy}
+\bandeau{Guide formateur · ne pas distribuer}{L'opérateur compte-t-il ?}{Étude R\&R, procédure 2 du livret Bosch n° 10}
+
+\titre{1. Préparation (la veille)}
+\begin{itemize}
+\item Choisir \textbf{10 butées} parmi les 20, de diamètres \textbf{étalés dans la tolérance} (11,85 à 12,00 mm). Le livret demande des pièces de série, « de préférence dans la tolérance » (§ 4.2). Des pièces trop semblables font chuter le ndc.
+\item Les numéroter de 1 à 10 de façon discrète et \textbf{tracer le trait repère} de mesure sur chacune.
+\item Un seul micromètre (résolution 0,001 mm), contrôlé au zéro. Ouvrir la page « L'opérateur compte-t-il ? » sur le poste projeté.
+\item Idéalement, faire une étude de justesse avant (activité M3) : le livret impose la procédure 1 avant la procédure 2.
+\end{itemize}
+
+\titre{2. Déroulé (environ 1 h 10)}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabularx}{\linewidth}{@{}l l X@{}}
+\toprule
+\textbf{Durée} & \textbf{Étape} & \textbf{Points d'attention}\\\midrule
+10 min & Principe, rôles & Fiche stagiaire p. 1, § 1 et 2. Mimer les images 1 et 2 avec un geste de mesure.\\
+5 min & Tirage de l'ordre & Bouton de la page, recopie dans la fiche p. 2, § 4.\\
+30 min & Séries 1 et 2 & L'opérateur ne voit pas les valeurs notées. Série 2 seulement quand les trois ont fini la série 1. Cliquet du micromètre, trait repère.\\
+10 min & Images 1 et 2 à la main & Grille p. 2, § 5 : chacun calcule ses écarts, entoure le plus grand, puis on compare les trois moyennes au tableau. Faire prédire : « qui va peser le plus, l'instrument ou les opérateurs ? »\\
+5 min & Saisie, calcul & Saisir dans la page (ou coller depuis Excel). Projeter le résultat, puis le volet « Comprendre d'où vient le GRR » : il confirme ce qu'ils ont vu à la main.\\
+10 min & Questions, bilan & Fiche stagiaire p. 3, § 6. Insister sur l'image 4 : la zone de doute est ce qui concerne directement le poste.\\
+\bottomrule
+\end{tabularx}
+
+\textbf{Rôles proposés.} Trois opérateurs parmi les stagiaires. Un stagiaire à l'aise peut être secrétaire : il note les valeurs, ce qui lui donne les données pour le défi (étendues moyennes) pendant que les autres mesurent.
+
+\titre{3. Repère de calibrage : l'exemple du livret}
+{\small La page affiche aussi un volet « Comprendre d'où vient le GRR » en quatre étapes (écarts, règle des moyennes, triangle, zone de doute). C'est une lecture intuitive : les chiffres exacts restent ceux de l'analyse de variance.}\par
+Le bouton « Exemple du livret Bosch » charge les données de la p. 14 du livret ($T = 0{,}060$ mm). La page doit afficher :
+\begin{center}
+\begin{tabular}{@{}lllllll@{}}
+\toprule
+EV & AV & GRR & \%EV & \%AV & \%GRR & ndc\\\midrule
+0,001535 & 0,000932 & 0,001795 & 15,3 \% & 9,3 \% & \textbf{17,95 \%} & 15\\
+\bottomrule
+\end{tabular}
+\end{center}
+Ce sont les valeurs imprimées dans le livret. L'interaction n'est pas significative ($F = 1{,}92 < 1{,}96$) : elle est regroupée avec la répétabilité (annexe D.2).
+{\small \textbf{Coquille du livret} : le tableau p. 14 porte 6,030 pour la pièce 3, opérateur A, série 2. La moyenne (6,0035) et l'écart-type (0,0007) imprimés à côté imposent 6,003. Avec 6,030, on ne retrouve pas les résultats du livret.}
+
+\titre{4. Réponses attendues}
+\begin{description}[leftmargin=0pt,style=nextline,itemsep=3pt]
+\item[Q1 (fiche stagiaire p. 3)] $0{,}001 / 0{,}15 = 0{,}67$ \% de $T$, très en dessous de 5 \% : acceptable (livret, fig. 3).
+\item[Q2 (p. 3)] Lecture directe du cadre « Le résultat » de la page. Seuils : livret § 4.2.
+\item[Q3 (p. 3)] \%EV plus grand : l'instrument ou la façon de le poser (cliquet non utilisé, pièce mal tenue, trait repère non respecté). \%AV plus grand : les opérateurs n'ont pas la même méthode. Le calcul à la main (grille p. 2) devait le laisser prévoir : de grands écarts entre séries annoncent un \%EV fort ; des moyennes d'opérateurs éloignées, un \%AV fort.
+\item[Q4 (p. 3)] Une courbe décalée sur toutes les pièces signale un opérateur qui mesure systématiquement plus (ou moins) : serrage plus fort, lecture, endroit mesuré. Une courbe qui ne décroche que sur quelques pièces signale une interaction.
+\item[Q5 (p. 3)] Les deux causes s'assemblent comme les côtés d'un triangle rectangle ($GRR^2 = EV^2 + AV^2$), pas bout à bout. Exemple du livret : 15,35 \% et 9,32 \% donnent $\sqrt{15{,}35^2 + 9{,}32^2} = 17{,}95$ \%, et non 24,7 \%. Image 3 de la fiche p. 1 et étape 3 de la page.
+\item[Q6 (p. 3)] La vraie valeur est dans un intervalle d'environ $\pm\,3\,GRR$ autour de la lecture. Il manque $12{,}000 - 11{,}996 = 0{,}004$ mm pour atteindre la limite : on ne peut pas être sûr dès que $3\,GRR > 0{,}004$ mm, soit $GRR > 0{,}0013$ mm, soit \%GRR $>$ 5,3 \%. Avec le GRR de l'exemple du livret (0,0018 mm), la vraie valeur peut aller jusqu'à 12,0014 mm : pas sûr. Image 4 de la fiche p. 1 et étape 4 de la page.
+\item[Q7 (p. 3)] Exemples : instruction de mesure écrite (endroit, cliquet, nombre de tours), formation commune, gabarit de positionnement, instrument plus adapté, contrôle du zéro.
+\item[Défi (p. 3)] Avec les données du livret :
+$\bar R = 0{,}001367$ ; $EV = 0{,}8862 \times \bar R = 0{,}001211$ ;
+moyennes A, B, C : 6,00390 ; 6,00580 ; 6,00535, donc $R_{\bar x} = 0{,}0019$ ;
+$AV = \sqrt{(0{,}5231 \times 0{,}0019)^2 - 0{,}001211^2/20} = 0{,}000956$ ;
+$GRR = 0{,}001543$, soit \textbf{\%GRR = 15,4 \%} contre 17,95 \% par l'analyse de variance.
+Les étendues n'utilisent que la plus grande et la plus petite valeur de chaque groupe et la méthode ignore l'interaction ; c'est pourquoi le livret la juge dépassée (annexe D.3).
+\end{description}
+
+\titre{5. Si le résultat surprend}
+\begin{itemize}
+\item \textbf{\%GRR $>$ 30 \%} : vérifier d'abord la saisie (une virgule décalée suffit), puis le trait repère. Le livret rappelle qu'un R\&R non capable peut venir de pièces irrégulières (§ 4.2).
+\item \textbf{ndc $<$ 5} : les 10 butées sont trop semblables entre elles. Ce n'est pas l'instrument qui est en cause.
+\item \textbf{AV compté comme nul} : la différence entre opérateurs est plus petite que le bruit de mesure. C'est une bonne nouvelle.
+\end{itemize}
+
+\vfill
+{\footnotesize\color{uimm}\textbf{Sources.} Robert Bosch GmbH, \emph{Booklet 10 : Capability of Measurement and Test Processes}, édition novembre 2019 : § 4.2, fig. 3, annexes D.1 à D.4, exemple p. 14. Calculs de ce guide refaits indépendamment (Python) sur les données du livret.}
+\end{document}

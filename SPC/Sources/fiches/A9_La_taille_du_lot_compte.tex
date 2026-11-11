@@ -1,0 +1,28 @@
+\documentclass[10pt,a4paper]{article}
+\input{commun.tex}
+\pied{Base SPC · fiche A9 · La taille du lot compte}
+\begin{document}
+\thispagestyle{fancy}
+\entete{A9}{La taille du lot compte}{Contrôler 50 pièces ou 500 : qu'est-ce que ça change ?}{Cartes aux attributs}{20 min}{en binôme}{2}
+\begin{tcolorbox}[boite]\textbf{Le but.} Voir que de grands lots donnent des limites serrées et une carte plus sensible.\par\textbf{Il vous faut.} La page « Tirer un lot » · Une calculatrice\end{tcolorbox}
+\begin{tcolorbox}[pred]Même production, même taux de défauts. Avec des lots de 500 au lieu de 50, les limites seront-elles plus larges ou plus serrées ?\reponse\end{tcolorbox}
+\titre{À faire}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{\arabic*.}},leftmargin=15pt,itemsep=1.5pt]
+\item \tagW\ Page « Tirer un lot », scénario A, taille 50 : tirer 20 lots (4 fois « Tirer 5 lots »). Ouvrir la carte calculée et relever les limites.
+\item \tagW\ Même scénario, taille 500 : tirer 20 lots. Relever les limites.
+\item \tagW\ Scénario B, taille 500 : tirer 25 lots, limites sur les lots 1 à 20. Noter le premier lot hors limites.
+\end{enumerate}
+\vspace{3pt}{\renewcommand{\arraystretch}{1.5}\begin{tabularx}{\linewidth}{|l|*{4}{>{\centering\arraybackslash}X|}}\hline
+\textbf{Taille du lot} & \textbf{$\bar p$} & \textbf{Limite inférieure} & \textbf{Limite supérieure} & \textbf{Largeur}\\\hline
+50 pièces &  &  &  & \\\hline
+500 pièces &  &  &  & \\\hline
+\end{tabularx}}\par
+\titre{J'observe, je décide}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{Q\arabic*.}},leftmargin=22pt]
+\item Par combien la largeur des limites est-elle divisée quand le lot est 10 fois plus grand ?\reponse[1]
+\item Avec des lots de 500, la limite inférieure n'est plus nulle. Que signifierait un point en dessous ?\reponse[2]
+\item Avec le scénario B et des lots de 500, au bout de combien de lots la carte sonne-t-elle ? Comparez avec A4.\reponse[1]
+\end{enumerate}
+\begin{tcolorbox}[retenir]Plus le lot est grand, plus la carte est sensible. Avec de petits lots, seuls les gros dérèglements se voient.\end{tcolorbox}
+\vfill{\footnotesize\color{uimm}\textbf{Ressources de la base :} Tirer un lot.}
+\end{document}

@@ -1,0 +1,27 @@
+\documentclass[10pt,a4paper]{article}
+\input{commun.tex}
+\pied{Base SPC · fiche C6 · Cinquante butées qui dérivent}
+\begin{document}
+\thispagestyle{fancy}
+\entete{C6}{Cinquante butées qui dérivent}{Peut-on annoncer une capabilité au client ?}{Cartes aux mesures et capabilité}{30 min}{en binôme}{2}
+\begin{tcolorbox}[boite]\textbf{Le but.} Lire ensemble une carte et des indices de capabilité, et décider ce que l'on peut annoncer.\par\textbf{Il vous faut.} Le fichier Butees\_10x5.xlsx ou la page « Données à copier »\end{tcolorbox}
+\begin{tcolorbox}[pred]Cp = 1,34 : le client demande 1,33. Peut-on signer ?\reponse\end{tcolorbox}
+\titre{À faire}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{\arabic*.}},leftmargin=15pt,itemsep=1.5pt]
+\item \tagE\ Nouvelle grille, coller le jeu « 50 butées, 10 sous-groupes de 5 ». Colonne P1 : \menu{Répétition} = 5, tolérance 11,85 / 12,00.
+\item \tagE\ \menu{Stats Desc.} > \menu{Détail} : regarder la carte des moyennes, puis le tableau des capabilités.
+\end{enumerate}
+\vspace{3pt}{\renewcommand{\arraystretch}{1.5}\begin{tabularx}{\linewidth}{|l|*{5}{>{\centering\arraybackslash}X|}}\hline
+\textbf{Cp} & \textbf{Cpk} & \textbf{Pp} & \textbf{Ppk} & \textbf{Rs} & \textbf{Rr}\\\hline
+ &  &  &  &  & \\\hline
+\end{tabularx}}\par
+\titre{J'observe, je décide}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{Q\arabic*.}},leftmargin=22pt]
+\item Quels sous-groupes sortent des limites ? Quelle forme a la courbe des moyennes ?\reponse[2]
+\item Quelle cause peut-on imaginer au poste ?\reponse[1]
+\item Pourquoi ne peut-on annoncer aucune capabilité tant que la carte n'est pas sous contrôle ?\reponse[2]
+\item Calculez Pp / Cp et Ppk / Pp. Comparez avec Rs et Rr.\reponse[1]
+\end{enumerate}
+\begin{tcolorbox}[retenir]Une capabilité ne s'annonce que sur un procédé sous contrôle. Cp dit ce que la machine sait faire, Ppk ce qui a vraiment été livré.\end{tcolorbox}
+\vfill{\footnotesize\color{uimm}\textbf{Ressources de la base :} Données à copier.}
+\end{document}

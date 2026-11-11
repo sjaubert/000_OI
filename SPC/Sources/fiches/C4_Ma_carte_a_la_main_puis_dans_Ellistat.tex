@@ -1,0 +1,36 @@
+\documentclass[10pt,a4paper]{article}
+\input{commun.tex}
+\pied{Base SPC · fiche C4 · Ma carte, à la main puis dans Ellistat}
+\begin{document}
+\thispagestyle{fancy}
+\entete{C4}{Ma carte, à la main puis dans Ellistat}{La carte d'Ellistat dit-elle la même chose que la mienne ?}{Cartes aux mesures et capabilité}{60 min}{en binôme}{2}
+\begin{tcolorbox}[boite]\textbf{Le but.} Calculer les limites d'une carte des moyennes et des étendues, puis les comparer à celles d'Ellistat.\par\textbf{Il vous faut.} La grille des 30 butées en 6 sous-groupes (activité E5) · Une calculatrice\end{tcolorbox}
+\begin{tcolorbox}[pred]Un logiciel et un calcul à la main peuvent-ils donner des limites légèrement différentes et avoir raison tous les deux ?\reponse\end{tcolorbox}
+\titre{À faire}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{\arabic*.}},leftmargin=15pt,itemsep=1.5pt]
+\item Calculer la moyenne et l'étendue de chacun des 6 sous-groupes, puis $\bar{\bar X}$ et $\bar R$.
+\item Limites : $LCS = \bar{\bar X} + 0{,}577\,\bar R$ ; $LCI = \bar{\bar X} - 0{,}577\,\bar R$ ; pour les étendues $LCS_R = 2{,}114\,\bar R$.
+\item Écart-type court terme : $\bar R / 2{,}326$. Puis $Cp = 0{,}15 / (6 \times \text{écart-type})$.
+\item \tagE\ \menu{Stats Desc.} > \menu{Détail}, référentiel \menu{Centré Moyenne}. Relever les limites, l'écart-type court terme, Cp, Cpk, Pp, Ppk.
+\end{enumerate}
+\vspace{3pt}{\renewcommand{\arraystretch}{1.45}\begin{tabularx}{\linewidth}{|l|*{6}{>{\centering\arraybackslash}X|}}\hline
+\textbf{Sous-groupe} & 1 & 2 & 3 & 4 & 5 & 6\\\hline Moyenne & & & & & & \\\hline Étendue $R$ & & & & & & \\\hline\end{tabularx}}\par\vspace{3pt}
+{\renewcommand{\arraystretch}{1.4}\begin{tabularx}{\linewidth}{|X|c|c|}\hline & \textbf{À la main} & \textbf{Ellistat}\\\hline
+Moyenne générale $\bar{\bar X}$ \quad / \quad étendue moyenne $\bar R$ & \hspace{28mm} & \hspace{28mm}\\\hline
+Limite supérieure des moyennes & \hspace{28mm} & \hspace{28mm}\\\hline
+Limite inférieure des moyennes & \hspace{28mm} & \hspace{28mm}\\\hline
+Limite supérieure des étendues & \hspace{28mm} & \hspace{28mm}\\\hline
+Écart-type court terme & \hspace{28mm} & \hspace{28mm}\\\hline
+Cp \quad / \quad Cpk & \hspace{28mm} & \hspace{28mm}\\\hline
+Pp \quad / \quad Ppk & \hspace{28mm} & \hspace{28mm}\\\hline
+\end{tabularx}}\par
+\titre{J'observe, je décide}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{Q\arabic*.}},leftmargin=22pt]
+\item Les mêmes points sortent-ils des limites dans les deux calculs ?\reponse[1]
+\item Ellistat utilise toutes les mesures de chaque sous-groupe, l'étendue seulement deux. Lequel est le plus précis ?\reponse[1]
+\item Cp est correct mais Cpk est faible. Que montre l'histogramme ? Passez en \menu{Centré Cible}.\reponse[2]
+\item Pp est plus petit que Cp. Que s'est-il passé entre les sous-groupes ?\reponse[1]
+\end{enumerate}
+\begin{tcolorbox}[retenir]Deux méthodes, deux chiffres voisins, une même décision. Cp regarde l'intérieur des sous-groupes, Pp toute la période.\end{tcolorbox}
+\vfill{\footnotesize\color{uimm}\textbf{Ressources de la base :} Données à copier.}
+\end{document}

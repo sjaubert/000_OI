@@ -1,0 +1,30 @@
+\documentclass[10pt,a4paper]{article}
+\input{commun.tex}
+\pied{Base SPC · fiche M13 · Bon ou mauvais : sommes-nous d'accord ?}
+\begin{document}
+\thispagestyle{fancy}
+\entete{M13}{Bon ou mauvais : sommes-nous d'accord ?}{Quand on trie des pièces, tout le monde prend-il la même décision ?}{Le moyen de mesure}{45 min}{en groupe}{3}
+\begin{tcolorbox}[boite]\textbf{Le but.} Qualifier un contrôle par tri (bon ou mauvais) : les contrôleurs sont-ils d'accord entre eux et avec la référence ?\par\textbf{Il vous faut.} 20 butées numérotées, dont plusieurs proches des limites 11,85 et 12,00 · Un pied à coulisse par contrôleur · Un micromètre pour le formateur (référence)\end{tcolorbox}
+\begin{tcolorbox}[pred]Sur 20 butées triées deux fois par chacun, combien de pièces recevront toujours la même décision ?\reponse\end{tcolorbox}
+\titre{À faire}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{\arabic*.}},leftmargin=15pt,itemsep=1.5pt]
+\item Le formateur a classé chaque butée au micromètre : c'est la \textbf{référence}, gardée cachée.
+\item Chaque contrôleur mesure les 20 butées au pied à coulisse et note sa décision : B (bonne, entre 11,85 et 12,00) ou M (mauvaise). Ordre mélangé.
+\item Deuxième passage : même tri, dans un autre ordre, sans regarder ses premières réponses.
+\item \tagE\ \menu{Gage R\&R} > \menu{Attributs} : saisir la référence et les décisions (un clic = OK, Ctrl + clic = KO).
+\end{enumerate}
+\vspace{3pt}{\renewcommand{\arraystretch}{1.45}\small\setlength{\tabcolsep}{2pt}\begin{tabularx}{\linewidth}{|l|*{20}{>{\centering\arraybackslash}X|}}\hline
+\textbf{Butée} & \scriptsize 1 & \scriptsize 2 & \scriptsize 3 & \scriptsize 4 & \scriptsize 5 & \scriptsize 6 & \scriptsize 7 & \scriptsize 8 & \scriptsize 9 & \scriptsize 10 & \scriptsize 11 & \scriptsize 12 & \scriptsize 13 & \scriptsize 14 & \scriptsize 15 & \scriptsize 16 & \scriptsize 17 & \scriptsize 18 & \scriptsize 19 & \scriptsize 20\\\hline
+Passage 1 &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \\\hline
+Passage 2 &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \\\hline
+Référence &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \\\hline
+\end{tabularx}}\par{\small B = bonne, M = mauvaise. La ligne « Référence » se remplit à la fin, avec le formateur.}\par
+\titre{J'observe, je décide}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{Q\arabic*.}},leftmargin=22pt]
+\item Sur combien de pièces vous êtes-vous contredit entre vos deux passages ?\reponse[1]
+\item Sur combien de pièces le groupe entier est-il d'accord avec la référence ?\reponse[1]
+\item Les désaccords portent-ils sur n'importe quelles pièces, ou sur des pièces particulières ? Lesquelles ?\reponse[2]
+\item Ellistat affiche un indice kappa. Dépasse-t-il 0,75 ?\reponse[1]
+\end{enumerate}
+\begin{tcolorbox}[retenir]Un tri bon ou mauvais a lui aussi sa capabilité. Les erreurs se concentrent près des limites : c'est la zone de doute de l'instrument.\end{tcolorbox}
+\end{document}

@@ -1,0 +1,136 @@
+\documentclass[10pt,a4paper]{article}
+\input{charte.tex}
+\renewcommand{\bandeau}[3]{%
+\begin{tcolorbox}[colback=uimm,colframe=uimm,arc=2pt,left=4pt,right=8pt,top=4pt,bottom=4pt]
+\begin{minipage}[c]{18mm}\setlength{\fboxsep}{1.2pt}\fcolorbox{white}{white}{\includegraphics[height=16.5mm]{logo_uimm.jpg}}\end{minipage}\hspace{4mm}%
+\begin{minipage}[c]{\dimexpr\linewidth-22mm\relax}\color{white}
+{\small #1}\\[1pt]{\LARGE\bfseries #2}\\[2pt]{\large #3}
+\end{minipage}
+\end{tcolorbox}}
+\usepackage{tikz}
+\usepackage{colortbl}
+\pied{TP R\&R · L'opérateur compte-t-il ? · fiche stagiaire}
+\begin{document}
+\thispagestyle{fancy}
+\bandeau{Travaux pratiques · Capabilité du moyen de mesure}{L'opérateur compte-t-il ?}{Étude R\&R (répétabilité et reproductibilité), méthode Bosch}
+
+\begin{tcolorbox}[boite]
+\textbf{La question.} Trois personnes mesurent les mêmes butées avec le même micromètre. Trouvent-elles la même chose ?
+Si non, l'écart vient-il de \textbf{l'instrument} (une même personne ne retrouve pas sa valeur) ou \textbf{des opérateurs} (chacun mesure à sa façon) ?
+\end{tcolorbox}
+
+\titre{1. Le GRR en quatre images}
+\begin{minipage}[t]{0.70\linewidth}
+\begin{enumerate}[label=\textcolor{white}{\colorbox{uimm}{\textbf{\arabic*}}},leftmargin=20pt,itemsep=3pt]
+\item \textbf{Est-ce que je me répète ?} Je mesure deux fois la même butée : l'écart entre mes deux valeurs, c'est la \textbf{répétabilité} (EV). Elle dépend surtout de l'instrument et de la façon de le poser.
+\item \textbf{Sommes-nous d'accord ?} On compare la moyenne de chaque opérateur : l'écart entre ces moyennes, c'est la \textbf{reproductibilité} (AV). Elle vient des méthodes de chacun.
+\item \textbf{Comment additionner ?} Les deux causes s'assemblent comme les côtés d'un \textbf{triangle rectangle} : $GRR^2 = EV^2 + AV^2$. Les pourcentages ne s'ajoutent donc pas.
+\item \textbf{Qu'est-ce que ça change au poste ?} Une valeur lue n'est pas un point, c'est un intervalle d'environ $\pm\,3\,GRR$. Près des limites de tolérance, l'instrument ne sait plus trancher : c'est la \textbf{zone de doute}.
+\end{enumerate}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.27\linewidth}\vspace{4pt}\centering
+\begin{tikzpicture}[scale=0.95]
+\fill[fond] (0,0)--(3,0)--(3,1.8)--cycle;
+\draw[line width=2.2pt,color=cyan!70!blue] (0,0)--(3,0) node[midway,below,font=\scriptsize]{EV (instrument)};
+\draw[line width=2.2pt,color=orange!80!black] (3,0)--(3,1.8) node[midway,right,font=\scriptsize,align=left]{AV\\(opérateurs)};
+\draw[line width=2.2pt,color=uimm] (0,0)--(3,1.8) node[midway,above left,font=\scriptsize\bfseries]{GRR};
+\draw (2.8,0)--(2.8,0.2)--(3,0.2);
+\end{tikzpicture}\\[6pt]
+{\small Le \%GRR compare le flou de la mesure à la tolérance :}
+\[\%GRR=\frac{6\,GRR}{T}\times100\ \%\]
+\end{minipage}
+
+\renewcommand{\arraystretch}{1.2}
+\begin{tabularx}{\linewidth}{@{}l X@{}}
+\toprule
+\textcolor{ok}{\textbf{\%GRR $\le$ 10 \%}} & Système de mesure \textbf{capable}.\\
+\textbf{10 \% $<$ \%GRR $\le$ 30 \%} & \textbf{Capable sous conditions} : utilisable en acceptant un risque, à améliorer.\\
+\textcolor{ko}{\textbf{\%GRR $>$ 30 \%}} & \textbf{Non capable}.\\
+\bottomrule
+\end{tabularx}
+
+\titre{2. Le matériel et les rôles}
+\begin{itemize}
+\item 10 butées numérotées de 1 à 10, mesurées au \textbf{trait repère}. Un micromètre (résolution 0,001 mm). Tolérance de la butée : 11,85 à 12,00 mm, soit $T = 0{,}15$ mm.
+\item \textbf{3 opérateurs} (A, B, C) mesurent. \textbf{2 secrétaires} : le premier donne les butées dans l'ordre tiré au sort, le second note les valeurs.
+\item La page web \textbf{« L'opérateur compte-t-il ? »} : elle tire l'ordre au sort et fait tous les calculs.
+\end{itemize}
+
+\titre{3. Le protocole}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{\arabic*.}},leftmargin=15pt]
+\item Sur la page, cliquer sur « Tirer l'ordre de mesure au sort ». Recopier les six ordres page 2.
+\item \textbf{Série 1.} L'opérateur A mesure les 10 butées dans son ordre. Puis B, puis C. L'opérateur \textbf{ne voit pas} ce que le secrétaire note.
+\item \textbf{Série 2.} On recommence seulement quand les trois ont fini la série 1, chacun avec son nouvel ordre.
+\item Toujours au trait repère, même serrage (cliquet du micromètre). Noter toutes les valeurs, \textbf{n'en supprimer aucune}.
+\item \textbf{Avant de calculer, à la main} (grille page 2) : chaque opérateur calcule ses 10 écarts entre série 1 et série 2 et \textbf{entoure le plus grand} (image 1). Puis on calcule la moyenne de chaque opérateur et on les compare (image 2).
+\item Saisir les 60 valeurs dans la page, cliquer sur « Calculer », puis ouvrir le volet « Comprendre d'où vient le GRR ».
+\end{enumerate}
+{\small\textbf{Pourquoi tirer au sort ?} Si l'opérateur reconnaît la pièce, il risque de retrouver sa première valeur de mémoire : on croirait l'instrument meilleur qu'il n'est.}
+
+\newpage
+\titre{4. L'ordre de passage (à recopier depuis la page)}
+\renewcommand{\arraystretch}{1.45}
+\begin{tabularx}{\linewidth}{|l|*{10}{>{\centering\arraybackslash}X|}}
+\hline
+\textbf{Opérateur · série} & \textbf{1\textsuperscript{re}} & \textbf{2\textsuperscript{e}} & \textbf{3\textsuperscript{e}} & \textbf{4\textsuperscript{e}} & \textbf{5\textsuperscript{e}} & \textbf{6\textsuperscript{e}} & \textbf{7\textsuperscript{e}} & \textbf{8\textsuperscript{e}} & \textbf{9\textsuperscript{e}} & \textbf{10\textsuperscript{e}}\\\hline
+A · série 1 & & & & & & & & & & \\\hline
+B · série 1 & & & & & & & & & & \\\hline
+C · série 1 & & & & & & & & & & \\\hline
+A · série 2 & & & & & & & & & & \\\hline
+B · série 2 & & & & & & & & & & \\\hline
+C · série 2 & & & & & & & & & & \\\hline
+\end{tabularx}
+
+\titre{5. La grille de relevé (mm)}
+\renewcommand{\arraystretch}{1.6}
+\begin{tabularx}{\linewidth}{|c|*{9}{>{\centering\arraybackslash}X|}}
+\hline
+\multirow{2}{*}{\textbf{Butée}} & \multicolumn{3}{c|}{\textbf{Opérateur A :} \rule{16mm}{0.3pt}} & \multicolumn{3}{c|}{\textbf{Opérateur B :} \rule{16mm}{0.3pt}} & \multicolumn{3}{c|}{\textbf{Opérateur C :} \rule{16mm}{0.3pt}}\\
+\cline{2-10}
+ & Série 1 & Série 2 & \textbf{Écart} & Série 1 & Série 2 & \textbf{Écart} & Série 1 & Série 2 & \textbf{Écart}\\\hline
+1 & & & & & & & & & \\\hline
+2 & & & & & & & & & \\\hline
+3 & & & & & & & & & \\\hline
+4 & & & & & & & & & \\\hline
+5 & & & & & & & & & \\\hline
+6 & & & & & & & & & \\\hline
+7 & & & & & & & & & \\\hline
+8 & & & & & & & & & \\\hline
+9 & & & & & & & & & \\\hline
+10 & & & & & & & & & \\\hline
+\textbf{Moyenne} & \multicolumn{2}{c|}{} & & \multicolumn{2}{c|}{} & & \multicolumn{2}{c|}{} & \\\hline
+\end{tabularx}
+
+\vspace{3pt}{\small Ligne « Moyenne » : sous les séries, la moyenne des 20 mesures de l'opérateur (image 2) ; dans la colonne « Écart », la moyenne de ses 10 écarts (image 1).}
+
+\begin{tcolorbox}[boite]
+\textbf{À savoir.} Le livret Bosch impose une étude de type 1 (Cg, Cgk sur un étalon) \textbf{avant} le R\&R.
+Un R\&R non capable n'accuse pas forcément l'instrument : des pièces irrégulières (diamètre qui varie selon l'endroit mesuré) donnent le même symptôme. D'où le trait repère.
+\end{tcolorbox}
+
+\newpage
+\titre{6. Les questions}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{Q\arabic*.}},leftmargin=22pt]
+\item La résolution du micromètre représente quel pourcentage de $T$ ? Est-ce acceptable (moins de 5 \%) ?\reponse
+\item Quel est le \%GRR ? Le système de mesure est-il capable, capable sous conditions, ou non capable ?\reponse
+\item Quelle part est la plus grande : celle de l'instrument (\%EV) ou celle des opérateurs (\%AV) ? Votre calcul à la main (écarts et moyennes, page 2) le laissait-il prévoir ?\reponse[2]
+\item Sur le graphique « Moyenne de chaque opérateur », un opérateur se détache-t-il ? Quelle explication voyez-vous ?\reponse[2]
+\item Le \%EV et le \%AV ajoutés donnent plus que le \%GRR. Pourquoi ? (image 3)\reponse[2]
+\item Une butée est lue à 11,996 mm. Avec votre GRR, peut-on être sûr qu'elle est dans la tolérance ? (image 4)\reponse[2]
+\item Proposez une action concrète pour faire baisser le \%GRR.\reponse[2]
+\end{enumerate}
+
+\begin{tcolorbox}[defi]
+\textbf{Calcul à la main par la méthode des étendues moyennes} (livret, annexe D.3). Le livret la juge dépassée et recommande l'analyse de variance faite par la page, mais elle montre l'idée.
+\begin{enumerate}[label=\textbf{\alph*.},leftmargin=14pt]
+\item Faire la moyenne des 30 écarts de la grille : $\bar R$.
+\item Répétabilité : $EV = 0{,}8862 \times \bar R$.
+\item Prendre les trois moyennes d'opérateurs et l'écart $R_{\bar x}$ entre la plus grande et la plus petite.
+\item Reproductibilité : $AV=\sqrt{(0{,}5231\times R_{\bar x})^2 - EV^2/20}$ (si le nombre sous la racine est négatif, $AV = 0$).
+\item $GRR=\sqrt{EV^2+AV^2}$, puis \%GRR. Comparer avec la page. Pourquoi les deux résultats diffèrent-ils ?
+\end{enumerate}
+\end{tcolorbox}
+
+\vfill
+{\footnotesize\color{uimm}\textbf{Source.} Robert Bosch GmbH, \emph{Booklet 10 : Capability of Measurement and Test Processes}, édition novembre 2019 : § 4.2 (procédure 2 : au moins 10 pièces, 3 opérateurs, 2 séries ; seuils du \%GRR), annexes D.2 (analyse de variance), D.3 et D.4 (étendues moyennes, facteurs $K_1 = 0{,}8862$ et $K_2 = 0{,}5231$).}
+\end{document}

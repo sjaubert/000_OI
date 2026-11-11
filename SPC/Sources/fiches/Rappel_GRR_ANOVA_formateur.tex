@@ -1,0 +1,117 @@
+\documentclass[10pt,a4paper]{article}
+\input{charte.tex}
+\renewcommand{\bandeau}[3]{%
+\begin{tcolorbox}[colback=uimm,colframe=uimm,arc=2pt,left=4pt,right=8pt,top=4pt,bottom=4pt]
+\begin{minipage}[c]{18mm}\setlength{\fboxsep}{1.2pt}\fcolorbox{white}{white}{\includegraphics[height=16.5mm]{logo_uimm.jpg}}\end{minipage}\hspace{4mm}%
+\begin{minipage}[c]{\dimexpr\linewidth-22mm\relax}\color{white}
+{\small #1}\\[1pt]{\LARGE\bfseries #2}\\[2pt]{\large #3}
+\end{minipage}
+\end{tcolorbox}}
+\newgeometry{margin=13mm,top=11mm,bottom=13mm}
+\setlength{\parskip}{2pt}
+\pied{Rappel formateur · GRR et analyse de variance}
+\newcommand{\num}[1]{\ensuremath{#1}}
+\begin{document}
+\thispagestyle{fancy}
+\bandeau{Guide formateur · ne pas distribuer}{GRR et analyse de variance}{Pour expliquer le tableau de la page R\&R}
+
+\begin{tcolorbox}[boite]
+\textbf{En deux phrases, pour les stagiaires.} Le tableau sépare l'écart total entre les mesures en quatre morceaux : les pièces sont différentes, les opérateurs ne mesurent pas pareil, certains se trompent sur certaines pièces, et l'instrument ne se répète pas. Pour chaque morceau, la colonne F dit s'il est plus grand que ce que le hasard des mesures produirait à lui seul.
+\end{tcolorbox}
+
+Toutes les valeurs de ce rappel sont celles de l'exemple du livret Bosch (p. 14), chargé par le bouton « Exemple du livret Bosch » : $n = 10$ pièces, $k = 3$ opérateurs, $r = 2$ séries, $T = 0{,}060$ mm. Elles ont été recalculées indépendamment.
+
+\titre{1. Le modèle}
+Chaque mesure $x_{ijm}$ (pièce $i$, opérateur $j$, série $m$) est vue comme une somme (livret, annexe D.2) :
+\[x_{ijm}=\mu+\alpha_i+\beta_j+(\alpha\beta)_{ij}+\varepsilon_{ijm}\]
+\begin{tabularx}{\linewidth}{@{}l l X@{}}
+$\mu$ & moyenne générale & ici $\bar x_{\cdots} = 6{,}005017$ mm\\
+$\alpha_i$ & effet de la pièce $i$ & variance $\sigma_P^2$ : les pièces sont différentes (c'est voulu)\\
+$\beta_j$ & effet de l'opérateur $j$ & variance $\sigma_A^2$ : reproductibilité\\
+$(\alpha\beta)_{ij}$ & interaction & variance $\sigma_{AP}^2$ : tel opérateur se trompe sur telle pièce\\
+$\varepsilon_{ijm}$ & erreur aléatoire & variance $\sigma_E^2$ : répétabilité de l'instrument\\
+\end{tabularx}
+
+
+Les effets sont supposés aléatoires, indépendants et de loi normale centrée. Le but est d'estimer les quatre variances.
+
+\titre{2. La colonne SS : les sommes de carrés}
+On note $\bar x_{i\cdot\cdot}$ la moyenne de la pièce $i$, $\bar x_{\cdot j\cdot}$ celle de l'opérateur $j$, $\bar x_{ij\cdot}$ celle du couple (pièce, opérateur).
+\begin{align*}
+SS_P&=kr\sum_i(\bar x_{i\cdot\cdot}-\bar x_{\cdots})^2 & SS_A&=nr\sum_j(\bar x_{\cdot j\cdot}-\bar x_{\cdots})^2\\
+SS_{AP}&=r\sum_{i,j}(\bar x_{ij\cdot}-\bar x_{i\cdot\cdot}-\bar x_{\cdot j\cdot}+\bar x_{\cdots})^2 & SS_E&=\sum_{i,j,m}(x_{ijm}-\bar x_{ij\cdot})^2
+\end{align*}
+Chaque SS mesure la dispersion d'un « étage » de moyennes : moyennes des pièces, des opérateurs, ce qui reste des couples une fois retirés ces deux effets, et enfin les écarts entre séries. Leur somme redonne exactement la dispersion totale :
+\[TSS=\sum_{i,j,m}(x_{ijm}-\bar x_{\cdots})^2=SS_P+SS_A+SS_{AP}+SS_E=0{,}02073898.\]
+{\small Les SS ne se comparent pas entre elles directement : elles ne portent pas sur le même nombre de termes. C'est le rôle des colonnes suivantes.}
+
+\titre{3. Les colonnes DF et MS : degrés de liberté et carrés moyens}
+\renewcommand{\arraystretch}{1.2}
+\begin{tabularx}{\linewidth}{@{}l c c X@{}}
+\toprule
+\textbf{Source} & \textbf{DF} & \textbf{Ici} & \textbf{Pourquoi}\\\midrule
+Pièces & $n-1$ & 9 & 10 moyennes de pièces, liées par la moyenne générale\\
+Opérateurs & $k-1$ & 2 & 3 moyennes d'opérateurs, même raison\\
+Interaction & $(n-1)(k-1)$ & 18 & ce qui reste des 30 couples une fois les deux effets retirés\\
+Instrument & $nk(r-1)$ & 30 & dans chacun des 30 couples, 2 mesures donnent 1 écart libre\\
+Total & $nkr-1$ & 59 & $9+2+18+30=59$\\
+\bottomrule
+\end{tabularx}
+Le carré moyen est $MS = SS/DF$ : c'est une variance, dispersion « par degré de liberté ». Toutes les lignes deviennent comparables.
+
+\titre{4. Ce que chaque MS estime}
+C'est la clé du tableau. Dans ce modèle à effets aléatoires, les espérances des carrés moyens sont (résultat classique, cohérent avec les formules de l'annexe D.2) :
+\begin{align*}
+E[MS_E]&=\sigma_E^2 & E[MS_{AP}]&=\sigma_E^2+r\,\sigma_{AP}^2\\
+E[MS_A]&=\sigma_E^2+r\,\sigma_{AP}^2+nr\,\sigma_A^2 & E[MS_P]&=\sigma_E^2+r\,\sigma_{AP}^2+kr\,\sigma_P^2
+\end{align*}
+Chaque MS contient le bruit de l'instrument, plus sa propre contribution multipliée par le nombre de mesures qui la portent. On en tire deux choses :
+\begin{itemize}
+\item \textbf{les estimateurs} : par différence de deux MS, on isole une variance (§ 6) ;
+\item \textbf{les tests} : si une variance est nulle, deux MS ont la même espérance, et leur rapport F doit être voisin de 1 (§ 5).
+\end{itemize}
+
+\titre{5. Les colonnes F et F crit : les tests}
+\textbf{Le principe.} $F$ est un rapport de deux carrés moyens qui, si l'effet testé est nul, ont la même espérance. Sous cette hypothèse, $F$ suit une loi de Fisher. On compare $F$ au quantile à 95 \% de cette loi, \emph{F crit} : au-dessus, l'effet est jugé significatif au risque de 5 \% (livret, annexe D.2). Dans Excel : \texttt{=INVERSE.LOI.F.DROITE(0,05 ; DF1 ; DF2)}.
+
+\textbf{Étape 1 : l'interaction.} $F_{AP}=MS_{AP}/MS_E = 0{,}00000336/0{,}00000175 = 1{,}92$, comparé à $F_{0{,}95}(18 ; 30) = 1{,}960$. Non significatif (probabilité critique 0,055 : c'est juste).
+
+\textbf{Étape 2 : le regroupement.} L'interaction n'étant pas significative, le livret la retire du modèle et la verse dans l'erreur :
+\[SS_E^*=SS_E+SS_{AP}=0{,}00011307,\qquad DF^*=30+18=48,\qquad MS_E^*=\frac{SS_E^*}{48}=0{,}00000236.\]
+C'est la dernière ligne du tableau (« Instrument + interaction, regroupés »).
+
+\textbf{Étape 3 : pièces et opérateurs}, testés contre $MS_E^*$ :
+\begin{itemize}
+\item $F_P = 0{,}00228739/0{,}00000236 = 971{,}06 > F_{0{,}95}(9 ; 48) = 2{,}082$ : significatif. \textbf{C'est une bonne nouvelle} : l'instrument voit bien que les pièces sont différentes.
+\item $F_A = 0{,}00001972/0{,}00000236 = 8{,}37 > F_{0{,}95}(2 ; 48) = 3{,}191$ : significatif. Les opérateurs ne mesurent pas pareil ; les moyennes sont 6,00390 (A), 6,00580 (B), 6,00535 (C).
+\end{itemize}
+{\small Si l'interaction avait été significative, on l'aurait gardée et les pièces et opérateurs auraient été testés contre $MS_{AP}$ (livret, annexe D.2).}
+
+\titre{6. Des MS aux composantes du GRR}
+Avec l'interaction regroupée, les formules du § 4 donnent (livret, annexe D.2) :
+
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\linewidth}{@{}l l X@{}}
+\toprule
+Répétabilité & $EV^2 = MS_E^*$ & $= 0{,}0000023556$, donc $EV = 0{,}0015348$ mm\\
+Reproductibilité & $AV^2 = \dfrac{MS_A - MS_E^*}{nr}$ & $= \dfrac{0{,}00001972-0{,}00000236}{20}=0{,}00000086806$, donc $AV = 0{,}00093169$ mm\\
+Pièces & $PV^2 = \dfrac{MS_P - MS_E^*}{kr}$ & $= \dfrac{0{,}00228739-0{,}00000236}{6}=0{,}00038084$, donc $PV = 0{,}019515$ mm\\
+GRR & $GRR^2 = EV^2 + AV^2$ & $GRR = 0{,}0017954$ mm\\
+\bottomrule
+\end{tabularx}
+\[\%GRR=\frac{6\times GRR}{T}=\frac{6\times0{,}0017954}{0{,}060}=17{,}95\ \%,\qquad ndc=1{,}41\,\frac{PV}{GRR}=15{,}3\ \to\ 15.\]
+Ce sont exactement les valeurs imprimées dans le livret (p. 14). Si une différence de MS est négative (par exemple $MS_A < MS_E^*$), la variance correspondante est prise égale à 0 : l'effet est plus petit que le bruit.
+
+\titre{7. Les questions qu'on peut vous poser}
+\begin{description}[leftmargin=0pt,style=nextline,itemsep=3pt]
+\item[« Pourquoi 6 × GRR ? »] Pour une loi normale, $\pm 3\sigma$ contient 99,73 \% des valeurs : $6\,GRR$ est la largeur du flou de mesure. Le livret note que la 3\textsuperscript{e} édition du manuel MSA de l'AIAG utilisait 5,15 (99 \%), corrigé dans la 4\textsuperscript{e} édition ; il retient 6 partout (annexe D.2, note 2).
+\item[« Pourquoi 15,3 \% + 9,3 \% ne font pas 17,95 \% ? »] Ce sont les variances qui s'additionnent, pas les écarts-types : $GRR^2=EV^2+AV^2$, le triangle rectangle.
+\item[« Que se passerait-il sans regroupement ? »] On estimerait $EV^2 = MS_E$, $INT^2 = (MS_{AP}-MS_E)/r$ et $AV^2 = (MS_A-MS_{AP})/(nr)$. Ici, \%GRR = 18,37 \% au lieu de 17,95 \%. Le choix pèse peu, même quand le test est limite comme ici.
+\item[« Pourquoi pas la méthode des étendues ? »] Elle n'utilise que le plus grand et le plus petit écart de chaque groupe et ignore l'interaction. Le livret la juge dépassée (annexe D.3). Sur cet exemple elle donne 15,4 \%.
+\item[« Le test des pièces est significatif, c'est grave ? »] Non, c'est souhaité : on a choisi des pièces différentes, et l'instrument les distingue. Un ndc d'au moins 5 le confirme.
+\item[« Le test des opérateurs est significatif : le système est-il non capable ? »] Non. Le test dit que l'écart entre opérateurs existe, pas qu'il est gênant. C'est le \%GRR, rapporté à la tolérance, qui juge la capabilité.
+\end{description}
+
+\vspace{2pt}
+{\footnotesize\color{uimm}\textbf{Sources.} Robert Bosch GmbH, \emph{Booklet 10 : Capability of Measurement and Test Processes}, édition novembre 2019 : § 4.2, annexes D.1 (ndc), D.2 (analyse de variance, regroupement, note 2 sur le facteur 6), D.3 (étendues moyennes), exemple p. 14. Les espérances des carrés moyens (§ 4) sont le résultat classique du modèle à deux facteurs aléatoires croisés ; les estimateurs du livret en découlent. Calculs vérifiés en Python (SciPy).}
+\end{document}

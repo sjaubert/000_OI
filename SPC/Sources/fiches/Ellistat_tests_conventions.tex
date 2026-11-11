@@ -1,0 +1,71 @@
+\documentclass[10pt,a4paper]{article}
+\input{charte.tex}
+\renewcommand{\bandeau}[3]{%
+\begin{tcolorbox}[colback=uimm,colframe=uimm,arc=2pt,left=4pt,right=8pt,top=4pt,bottom=4pt]
+\begin{minipage}[c]{18mm}\setlength{\fboxsep}{1.2pt}\fcolorbox{white}{white}{\includegraphics[height=16.5mm]{logo_uimm.jpg}}\end{minipage}\hspace{4mm}%
+\begin{minipage}[c]{\dimexpr\linewidth-22mm\relax}\color{white}
+{\small #1}\\[1pt]{\LARGE\bfseries #2}\\[2pt]{\large #3}
+\end{minipage}
+\end{tcolorbox}}
+\newgeometry{margin=13mm,top=10mm,bottom=13mm}
+\pied{Ellistat · deux tests de conventions · formateur}
+\begin{document}
+\thispagestyle{fancy}
+\bandeau{Guide formateur · vérification du logiciel}{Ellistat : deux tests de conventions}{Justesse et R\&R sur les exemples du livret Bosch (p. 11 et p. 14)}
+
+\begin{tcolorbox}[boite]
+\textbf{Le but.} Faire passer dans Ellistat deux exemples dont on connaît les résultats, et lire quelle convention le logiciel applique. Il suffit de comparer ses valeurs aux colonnes ci-dessous. Valeurs attendues recalculées en Python.
+\end{tcolorbox}
+
+\titre{1. Justesse : Cg en 6\,s ou en 4\,s ?}
+\textbf{Fichier} : \texttt{Justesse\_Bosch\_p11.xlsx} (une colonne « Mesure », 50 valeurs). Data Analysis > Gage R\&R > Justesse.\\
+\textbf{Saisies} : valeur vraie $X_0 = 6{,}002$ ; tolérance min 5,970, max 6,030 ($T = 0{,}060$) ; résolution 0,001.
+
+\renewcommand{\arraystretch}{1.1}
+\begin{tabularx}{\linewidth}{@{}X c c c c@{}}
+\toprule
+\textbf{Indicateur} & \textbf{6\,s (Bosch)} & \textbf{4\,s} & \textbf{6\,s, écart-type en $n$} & \textbf{Ellistat}\\\midrule
+Moyenne & \multicolumn{3}{c}{6,0009} & \rule{18mm}{0.3pt}\\
+Écart-type & \multicolumn{2}{c}{0,00099488} & 0,00098488 & \rule{18mm}{0.3pt}\\
+Écart de justesse & \multicolumn{3}{c}{$-0{,}0011$} & \rule{18mm}{0.3pt}\\
+$C_g$ & \textbf{2,01} & 3,02 & 2,03 & \rule{18mm}{0.3pt}\\
+$C_{gk}$ & \textbf{1,64} & 2,46 & 1,66 & \rule{18mm}{0.3pt}\\
+Tolérance mini pour $C_{gk} = 1{,}33$ & 0,0507 & 0,0375 & 0,0503 & \rule{18mm}{0.3pt}\\
+Inertie $\sqrt{\text{écart}^2 + s^2}$ & \multicolumn{3}{c}{0,00148} & \rule{18mm}{0.3pt}\\
+\bottomrule
+\end{tabularx}
+{\small Le livret imprime $C_g = 2{,}01$ et $C_{gk} = 1{,}64$ (p. 11). Le biais y est jugé significatif : $\lvert\text{biais}\rvert / s = 1{,}11 > 0{,}284$ (annexe C.1).}
+
+\titre{2. R\&R : facteur 6 ou 5,15 ? interaction regroupée ou non ?}
+\textbf{Fichier} : \texttt{RR\_Bosch\_p14.xlsx} (colonne « Piece », puis A\_r1, A\_r2, B\_r1, B\_r2, C\_r1, C\_r2). Data Analysis > Gage R\&R > Mesures > créer à partir de la grille. Ne pas sélectionner la colonne « Piece » comme mesure.\\
+\textbf{Saisies} : 10 pièces, 3 opérateurs, 2 répétitions ; tolérance min 5,970, max 6,030 ; méthode \textbf{ANOVA} ; « Production standard deviation » laissé vide.
+
+\begin{tabularx}{\linewidth}{@{}X c c c c c@{}}
+\toprule
+ & \multicolumn{2}{c}{\textbf{Interaction regroupée}} & \multicolumn{2}{c}{\textbf{Interaction gardée}} & \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+\textbf{Indicateur} & \textbf{facteur 6} & facteur 5,15 & facteur 6 & facteur 5,15 & \textbf{Ellistat}\\\midrule
+Répétabilité EV & \multicolumn{2}{c}{0,001535} & \multicolumn{2}{c}{0,001323} & \rule{16mm}{0.3pt}\\
+Reproductibilité AV & \multicolumn{2}{c}{0,000932} & \multicolumn{2}{c}{0,000904} & \rule{16mm}{0.3pt}\\
+Interaction & \multicolumn{2}{c}{0} & \multicolumn{2}{c}{0,000899} & \rule{16mm}{0.3pt}\\
+GRR (écart-type) & \multicolumn{2}{c}{0,001795} & \multicolumn{2}{c}{0,001837} & \rule{16mm}{0.3pt}\\
+\%GRR rapporté à $T$ & \textbf{17,95 \%} & 15,41 \% & 18,37 \% & 15,77 \% & \rule{16mm}{0.3pt}\\
+Cpc $= T / (k\cdot\text{GRR})$ & 5,57 & 6,49 & 5,44 & 6,34 & \rule{16mm}{0.3pt}\\
+ndc $= 1{,}41\,PV/\text{GRR}$ & \multicolumn{2}{c}{15,3} & \multicolumn{2}{c}{15,0} & \rule{16mm}{0.3pt}\\
+\%GRR rapporté au procédé (GRR / TV) & \multicolumn{2}{c}{9,16 \%} & \multicolumn{2}{c}{9,37 \%} & \rule{16mm}{0.3pt}\\
+\bottomrule
+\end{tabularx}
+{\small Le livret donne la colonne en gras (p. 14 et annexe D.2) : interaction testée au risque de 5 \%, $F = 1{,}92 < F_{0{,}95}(18 ; 30) = 1{,}96$, donc regroupée. Le test est limite ($p \approx 0{,}055$) : un logiciel qui garde l'interaction ou qui regroupe avec un autre seuil donne les colonnes de droite. Cpc $= 100 / \%GRR$, la relation écrite par Ellistat.}
+
+\begin{tcolorbox}[boite]
+\textbf{Piège.} La méthode des étendues moyennes donne 15,43 \% avec le facteur 6, presque la même valeur que l'ANOVA regroupée avec 5,15 (15,41 \%). Pour trancher, lire EV : 0,001211 par les étendues, 0,001535 par l'ANOVA. Vérifier aussi que la méthode choisie est bien l'ANOVA.
+\end{tcolorbox}
+
+\titre{3. Conclusion à noter}
+Justesse : Ellistat compte la dispersion en \rule{20mm}{0.3pt}, écart-type en \rule{12mm}{0.3pt}.\\[3pt]
+R\&R : facteur \rule{12mm}{0.3pt} ; interaction \rule{25mm}{0.3pt} ; ndc arrondi à \rule{10mm}{0.3pt}.\\[3pt]
+Autres observations : \rule{0.72\linewidth}{0.3pt}
+
+\vspace{4pt}
+{\footnotesize\color{uimm}\textbf{Sources.} Robert Bosch GmbH, \emph{Booklet 10 : Capability of Measurement and Test Processes}, édition novembre 2019 : exemple de la procédure 1 p. 11 (50 mesures, $x_m = 6{,}002$, $T = 0{,}060$), exemple de la procédure 2 p. 14, annexes C.1 et D.2. Coquille du livret corrigée dans le fichier R\&R : pièce 3, opérateur A, série 2 imprimée 6,030, ramenée à 6,003 (seule valeur cohérente avec la moyenne et l'écart-type imprimés). Valeurs attendues recalculées en Python (NumPy, SciPy).}
+\end{document}

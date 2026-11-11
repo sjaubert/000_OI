@@ -1,0 +1,32 @@
+\documentclass[10pt,a4paper]{article}
+\input{commun.tex}
+\pied{Base SPC · fiche M8 · Juste partout ?}
+\begin{document}
+\thispagestyle{fancy}
+\entete{M8}{Juste partout ?}{Mon micromètre est-il aussi juste à 5 mm qu'à 25 mm ?}{Le moyen de mesure}{45 min}{en binôme}{3}
+\begin{tcolorbox}[boite]\textbf{Le but.} Mesurer cinq cales de longueurs différentes et voir si l'erreur dépend de la longueur.\par\textbf{Il vous faut.} Un micromètre 0-25 mm · Cinq cales : 5, 10, 15, 20 et 25 mm\end{tcolorbox}
+\begin{tcolorbox}[pred]Un micromètre juste sur la cale de 10 mm l'est-il forcément sur celle de 25 mm ?\reponse\end{tcolorbox}
+\titre{À faire}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{\arabic*.}},leftmargin=15pt,itemsep=1.5pt]
+\item Mesurer chaque cale 10 fois, au cliquet, en la retirant à chaque fois. Remplir le tableau.
+\item Calculer le biais de chaque cale : moyenne des 10 mesures moins valeur de la cale.
+\item \tagE\ \menu{Gage R\&R} > \menu{Linéarité} : 5 produits, 10 valeurs par produit. Pour chaque cale, saisir sa valeur vraie puis ses 10 mesures.
+\item \tagE\ Lire la pente, la justesse, et ce qu'Ellistat en dit (significatif ou non).
+\end{enumerate}
+\vspace{3pt}{\renewcommand{\arraystretch}{1.45}\small\begin{tabularx}{\linewidth}{|l|*{10}{>{\centering\arraybackslash}X|}p{15mm}|p{15mm}|}\hline
+\textbf{Cale} & \scriptsize 1 & \scriptsize 2 & \scriptsize 3 & \scriptsize 4 & \scriptsize 5 & \scriptsize 6 & \scriptsize 7 & \scriptsize 8 & \scriptsize 9 & \scriptsize 10 & \textbf{\scriptsize Moyenne} & \textbf{\scriptsize Biais (µm)}\\\hline
+5 mm &  &  &  &  &  &  &  &  &  &  &  & \\\hline
+10 mm &  &  &  &  &  &  &  &  &  &  &  & \\\hline
+15 mm &  &  &  &  &  &  &  &  &  &  &  & \\\hline
+20 mm &  &  &  &  &  &  &  &  &  &  &  & \\\hline
+25 mm &  &  &  &  &  &  &  &  &  &  &  & \\\hline
+\end{tabularx}}\par{\small Biais = moyenne $-$ valeur de la cale. 1 µm = 0,001 mm.}\par
+\titre{J'observe, je décide}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{Q\arabic*.}},leftmargin=22pt]
+\item Le biais est-il le même pour les cinq cales ? Monte-t-il, descend-il avec la longueur ?\reponse[2]
+\item Ellistat juge-t-il la pente significative ? Et la justesse ?\reponse[1]
+\item Biais constant : que faire ? Biais qui change avec la longueur : que faire ?\reponse[2]
+\end{enumerate}
+\begin{tcolorbox}[retenir]Un décalage constant se corrige par un réglage. Une erreur qui change avec la longueur est un défaut de \textbf{linéarité} : on restreint la plage ou on change d'instrument.\end{tcolorbox}
+\vfill{\footnotesize\color{uimm}\textbf{Ressources de la base :} Données de secours.}
+\end{document}

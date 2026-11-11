@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Tirer un lot</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --papier:#F6F8F7; --encre:#17324D; --trait:#5B6B7A; --grille:#D9E2E0; --fond:#E9EEED; --carte:#FFFFFF;
+  --limite:#B4530F; --ok:#2E7D32; --okfond:#E3F1E4; --ko:#B3261E; --kofond:#FBE4E2; --accent:#1F4E79; --accentfond:#DCE7F2;
+  --zone:rgba(46,125,50,.14); --voiture:#2D6A9F;
+  --f-titre:"Barlow Semi Condensed","Arial Narrow",Arial,sans-serif;
+  --f-texte:"Source Sans 3","Segoe UI",Arial,sans-serif;
+  --f-chiffre:"IBM Plex Mono",Consolas,"Courier New",monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --papier:#16201F; --encre:#DCE8F2; --trait:#9AABB8; --grille:#26332F; --fond:#0F1716; --carte:#1B2625;
+  --limite:#F08A4B; --ok:#7CC283; --okfond:#1D3322; --ko:#F2877E; --kofond:#3A1E1C; --accent:#8DB8E6; --accentfond:#1E3247;
+  --zone:rgba(124,194,131,.16); --voiture:#6FA8DC; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --papier:#16201F; --encre:#DCE8F2; --trait:#9AABB8; --grille:#26332F; --fond:#0F1716; --carte:#1B2625;
+  --limite:#F08A4B; --ok:#7CC283; --okfond:#1D3322; --ko:#F2877E; --kofond:#3A1E1C; --accent:#8DB8E6; --accentfond:#1E3247;
+  --zone:rgba(124,194,131,.16); --voiture:#6FA8DC; color-scheme:dark}
+body{background:var(--fond);color:var(--encre);font-family:var(--f-texte);font-size:16px;line-height:1.45}
+.page{max-width:1180px;margin:0 auto;padding-block:20px 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:16px}
+.page>*{min-width:0}
+h1{font-family:var(--f-titre);font-weight:700;font-size:clamp(1.7rem,3.2vw,2.3rem);line-height:1.05;margin:0;text-wrap:balance}
+.sous{margin:4px 0 0;color:var(--trait);font-size:.95rem}
+.principe{background:var(--carte);border-left:4px solid var(--accent);border-radius:0 8px 8px 0;padding:12px 16px;display:grid;gap:6px}
+.principe h2{font-family:var(--f-titre);font-weight:700;font-size:1.35rem;margin:0}
+.principe p{margin:0}
+.formules{display:flex;flex-wrap:wrap;gap:8px 28px;font-family:var(--f-chiffre);font-size:.95rem;background:var(--papier);border:1px solid var(--grille);border-radius:6px;padding:8px 12px}
+.poste{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.45fr);gap:16px;align-items:start}
+@media (max-width:860px){.poste{grid-template-columns:1fr}}
+.panneau{background:var(--carte);border:1px solid var(--grille);border-radius:8px;padding:16px;display:grid;gap:12px;min-width:0}
+.panneau h3{font-family:var(--f-titre);font-weight:600;font-size:1.2rem;margin:0}
+.champs{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+label{display:grid;gap:4px;font-size:.92rem;font-weight:600}
+label small{font-weight:400;color:var(--trait)}
+input,textarea,select{font:inherit;color:var(--encre);background:var(--papier);border:1.5px solid var(--grille);border-radius:6px;padding:7px 9px;min-width:0}
+input,textarea{font-family:var(--f-chiffre)}
+textarea{min-height:170px;resize:vertical;width:100%;box-sizing:border-box}
+input:focus-visible,textarea:focus-visible,button:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.btn{font:inherit;border:none;border-radius:6px;padding:10px 16px;cursor:pointer;font-family:var(--f-titre);font-weight:600;font-size:1.05rem;letter-spacing:.02em}
+.btn.principal{background:var(--accent);color:var(--carte)}
+.btn.second{background:transparent;color:var(--accent);border:1.5px solid var(--accent)}
+.note{font-size:.85rem;color:var(--trait)}
+.chiffres{display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:8px}
+.chiffre{background:var(--papier);border:1px solid var(--grille);border-radius:6px;padding:7px 10px}
+.chiffre span{display:block;font-size:.75rem;color:var(--trait);text-transform:uppercase;letter-spacing:.05em}
+.chiffre b{font-family:var(--f-chiffre);font-weight:500;font-size:1.1rem}
+.chiffre.fort b{font-size:1.45rem}
+.chiffre.bon{border-color:var(--ok);background:var(--okfond)}
+.chiffre.mauvais{border-color:var(--ko);background:var(--kofond)}
+.verdict{border-radius:6px;padding:12px 14px;display:grid;gap:4px}
+.verdict.bon{background:var(--okfond);border:1px solid var(--ok)}
+.verdict.mauvais{background:var(--kofond);border:1px solid var(--ko)}
+.verdict strong{font-family:var(--f-titre);font-size:1.2rem}
+.alerte{font-size:.9rem;color:var(--ko)}
+svg{display:block;width:100%;height:auto}
+.legende{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.82rem;color:var(--trait)}
+.legende i{display:inline-block;width:20px;height:10px;vertical-align:middle;margin-right:5px;border-radius:2px}
+.memo{background:var(--carte);border:1px solid var(--grille);border-radius:8px;padding:10px 14px}
+.memo summary{cursor:pointer;font-family:var(--f-titre);font-weight:600;font-size:1.1rem}
+.quiz{display:grid;gap:10px;margin-top:8px}
+.q p{margin:0 0 6px}
+.choix{display:grid;gap:6px}
+.choix button{font:inherit;text-align:left;background:var(--papier);color:var(--encre);border:1.5px solid var(--grille);border-radius:6px;padding:8px 10px;cursor:pointer}
+.choix button.juste{border-color:var(--ok);background:var(--okfond)}
+.choix button.faux{border-color:var(--ko);background:var(--kofond)}
+.explic{font-size:.9rem;border-radius:6px;padding:7px 10px;margin-top:6px}
+.explic.bon{background:var(--okfond)} .explic.mauvais{background:var(--kofond)}
+.sources{font-size:.82rem;color:var(--trait)}
+.sources a{color:var(--accent)}
+</style>
+<style>
+.lot{display:flex;flex-wrap:wrap;gap:3px;padding:10px;background:var(--papier);border:1px solid var(--grille);border-radius:6px;min-height:60px}
+.lot i{width:14px;height:14px;border-radius:3px;background:var(--grille);display:block}
+.lot i.ko{background:var(--ko)}
+.grand{font-family:var(--f-titre);font-size:1.5rem;font-weight:700}
+table.lots{border-collapse:collapse;width:100%;font-size:.92rem}
+table.lots th,table.lots td{padding:4px 8px;border-bottom:1px solid var(--grille);text-align:right;font-family:var(--f-chiffre)}
+table.lots th{font-family:var(--f-texte);color:var(--trait);font-weight:600;position:sticky;top:0;background:var(--carte)}
+.liste{max-height:340px;overflow:auto;border:1px solid var(--grille);border-radius:6px}
+.btn.discret{background:transparent;color:var(--trait);border:1.5px solid var(--grille)}
+.okmsg{color:var(--ok);font-size:.88rem}
+.secret{background:var(--kofond);border:1px solid var(--ko);border-radius:6px;padding:8px 12px;font-size:.92rem}
+</style>
+<div class="page">
+  <header>
+    <h1>Tirer un lot</h1>
+    <p class="sous">Un poste de contrôle simulé : on prélève des lots, on compte, on remplit sa carte de contrôle aux attributs.</p>
+  </header>
+
+  <section class="principe">
+    <h2>Le principe</h2>
+    <p>À chaque clic, la page prélève un lot dans une production dont le <b>taux de défauts est caché</b>. Vous comptez, vous notez, vous tracez votre carte à la main ou dans Ellistat. La carte calculée par la page reste masquée tant que vous ne la demandez pas.</p>
+    <p>Le formateur choisit le scénario. Certains scénarios se dérèglent en cours de route : votre carte le verra-t-elle ?</p>
+  </section>
+
+  <div class="poste">
+    <section class="panneau" aria-label="Réglages et tirage">
+      <h3>1. Le poste de contrôle</h3>
+      <div class="champs">
+        <label for="inMode"><span>On compte</span><select id="inMode"><option value="p">des pièces défectueuses</option><option value="c">des défauts par unité</option></select></label>
+        <label for="inN" id="labN"><span>Taille du lot</span><small>pièces contrôlées par lot</small><input id="inN" inputmode="numeric" value="50"></label>
+        <label for="inSc"><span>Scénario</span><small>donné par le formateur</small><select id="inSc"><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option></select></label>
+        <label for="inCode"><span>Numéro de poste</span><small>même numéro, mêmes tirages</small><input id="inCode" inputmode="numeric" value="1"></label>
+      </div>
+      <div class="actions">
+        <button class="btn principal" id="btnUn" type="button">Tirer un lot</button>
+        <button class="btn second" id="btnCinq" type="button">Tirer 5 lots</button>
+        <button class="btn discret" id="btnRaz" type="button">Recommencer</button>
+      </div>
+      <div id="dernier" hidden>
+        <p style="margin:0 0 6px"><span class="grand" id="dTitre"></span> <span id="dTexte"></span></p>
+        <div class="lot" id="dLot" aria-hidden="true"></div>
+        <div id="dUniteBoite" hidden><svg id="dUnite" viewBox="0 0 640 150" role="img" aria-label="Une unité et ses défauts"></svg></div>
+      </div>
+      <p class="note">Changer un réglage remet le poste à zéro. Deux postes qui ont le même scénario et le même numéro obtiennent les mêmes lots.</p>
+    </section>
+
+    <section class="panneau" aria-label="Relevé">
+      <h3>2. Le relevé</h3>
+      <div class="actions">
+        <button class="btn second" id="btnCopier" type="button">Copier le tableau</button>
+        <label style="display:inline-flex;gap:6px;align-items:center;font-weight:400" for="inSep">Décimales : <select id="inSep"><option value=",">virgule</option><option value=".">point</option></select></label>
+        <span class="okmsg" id="msg" aria-live="polite"></span>
+      </div>
+      <div class="liste"><table class="lots" id="tab"></table></div>
+      <p class="note" id="total"></p>
+    </section>
+  </div>
+
+  <details class="memo" id="detCarte">
+    <summary>Afficher la carte calculée par la page (après avoir fait la vôtre)</summary>
+    <div class="champs" style="margin-top:8px">
+      <label for="inRef"><span>Lots de référence</span><small>les limites sont calculées sur les lots 1 à…</small><input id="inRef" inputmode="numeric" value="20"></label>
+    </div>
+    <div class="chiffres" id="chiffres" style="margin-top:8px"></div>
+    <svg id="svgCarte" viewBox="0 0 640 260" role="img" aria-label="Carte de contrôle aux attributs"></svg>
+    <p class="note" id="noteCarte"></p>
+  </details>
+
+  <details class="memo">
+    <summary>Les formules</summary>
+    <ul>
+      <li><b>Carte p</b> (proportion de pièces défectueuses, lots de n pièces) : p̄ = total des défectueuses / total des pièces ; limites p̄ ± 3 √( p̄ (1 − p̄) / n ).</li>
+      <li><b>Carte np</b> (nombre de pièces défectueuses, lots de taille fixe) : n p̄ ± 3 √( n p̄ (1 − p̄) ).</li>
+      <li><b>Carte c</b> (nombre de défauts par unité) : c̄ ± 3 √c̄.</li>
+      <li>Une limite inférieure négative est ramenée à 0.</li>
+      <li>Les limites se calculent sur une période de référence stable, puis elles sont figées.</li>
+    </ul>
+  </details>
+
+  <details class="memo" id="detForm">
+    <summary>Formateur : révéler le scénario</summary>
+    <div class="actions" style="margin-top:8px"><button class="btn discret" id="btnRev" type="button">Révéler le taux caché</button></div>
+    <div class="secret" id="secret" hidden></div>
+  </details>
+
+  <p class="sources">Données simulées : tirage binomial (pièces défectueuses) ou de Poisson (défauts par unité). Formules des cartes p, np et c : limites à trois écarts-types (cartes de Shewhart aux attributs).</p>
+</div>
+
+<script>
+(function(){
+"use strict";
+var $=function(id){return document.getElementById(id);};
+function fr(x,d){ return x.toFixed(d).replace(".",","); }
+var lots=[], rnd=null, cfg=null;
+function mulberry(a){ return function(){ a|=0; a=a+0x6D2B79F5|0; var t=Math.imul(a^a>>>15,1|a); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
+/* taux caché selon le scénario et le numéro du lot (1, 2, 3…) */
+function taux(sc,mode,i){
+  var b=mode==="p"?0.04:3;
+  if(sc==="A") return b;
+  if(sc==="B") return i>=21?(mode==="p"?0.10:6):b;
+  if(sc==="C") return i>=16?(mode==="p"?Math.min(0.20,b+0.004*(i-15)):Math.min(9,b+0.2*(i-15))):b;
+  if(sc==="D") return i>=21?(mode==="p"?0.015:1.2):b;
+  if(sc==="E") return i===18?(mode==="p"?0.15:9):b;
+  return b;
+}
+function lireCfg(){ var n=Math.round(Number($("inN").value)); if(!(n>=5)) n=5; if(n>500) n=500;
+  var code=Math.round(Number($("inCode").value)); if(!isFinite(code)) code=1;
+  return {mode:$("inMode").value,n:n,sc:$("inSc").value,code:code}; }
+function raz(){ cfg=lireCfg(); $("inN").value=cfg.n; lots=[];
+  var graine=(cfg.code*7919+cfg.sc.charCodeAt(0)*104729+(cfg.mode==="p"?17:91)+cfg.n*31)>>>0; rnd=mulberry(graine);
+  $("labN").hidden=cfg.mode!=="p"; $("dernier").hidden=true; $("secret").hidden=true; $("btnRev").textContent="Révéler le taux caché"; arme=false; maj(); }
+function poisson(l){ var L=Math.exp(-l),k=0,p=1; do{ k++; p*=rnd(); }while(p>L); return k-1; }
+function tirer(){
+  var i=lots.length+1, t=taux(cfg.sc,cfg.mode,i), x, pos=[];
+  if(cfg.mode==="p"){ x=0; for(var j=0;j<cfg.n;j++){ var ko=rnd()<t; if(ko) x++; pos.push(ko); } }
+  else { x=poisson(t); for(var q=0;q<x;q++) pos.push([rnd(),rnd()]); }
+  lots.push({i:i,n:cfg.mode==="p"?cfg.n:1,x:x,pos:pos}); return lots[lots.length-1];
+}
+function montrer(l){
+  $("dernier").hidden=false; $("dTitre").textContent=(cfg.mode==="p"?"Lot ":"Unité ")+l.i+" :";
+  if(cfg.mode==="p"){ $("dTexte").textContent=l.x+" pièce"+(l.x>1?"s":"")+" défectueuse"+(l.x>1?"s":"")+" sur "+l.n;
+    $("dLot").hidden=false; $("dUniteBoite").hidden=true; $("dLot").innerHTML=l.pos.map(function(k){return '<i'+(k?' class="ko"':'')+'></i>';}).join(""); }
+  else { $("dTexte").textContent=l.x+" défaut"+(l.x>1?"s":"")+" relevé"+(l.x>1?"s":"");
+    $("dLot").hidden=true; $("dUniteBoite").hidden=false; var s=$("dUnite"); while(s.firstChild) s.removeChild(s.firstChild);
+    el("rect",{x:4,y:4,width:632,height:142,rx:6,fill:"var(--papier)",stroke:"var(--trait)"},s);
+    l.pos.forEach(function(p){ var x=20+p[0]*600,y=18+p[1]*114; el("line",{x1:x-6,y1:y-6,x2:x+6,y2:y+6,stroke:"var(--ko)","stroke-width":2.5},s); el("line",{x1:x-6,y1:y+6,x2:x+6,y2:y-6,stroke:"var(--ko)","stroke-width":2.5},s); }); }
+}
+function entetes(){ return cfg.mode==="p"?["Lot","Taille_lot","Defectueuses"]:["Unite","Defauts"]; }
+function maj(){
+  var h='<thead><tr>'+(cfg.mode==="p"?'<th>Lot</th><th>Taille</th><th>Défectueuses</th><th>Proportion</th>':'<th>Unité</th><th>Défauts</th>')+'</tr></thead><tbody>';
+  lots.forEach(function(l){ h+='<tr><td>'+l.i+'</td>'+(cfg.mode==="p"?'<td>'+l.n+'</td><td>'+l.x+'</td><td>'+fr(100*l.x/l.n,1)+' %</td>':'<td>'+l.x+'</td>')+'</tr>'; });
+  $("tab").innerHTML=h+'</tbody>';
+  var sx=lots.reduce(function(a,l){return a+l.x;},0), sn=lots.reduce(function(a,l){return a+l.n;},0);
+  $("total").textContent=lots.length?(cfg.mode==="p"?lots.length+" lots, "+sn+" pièces contrôlées, "+sx+" défectueuses.":lots.length+" unités, "+sx+" défauts."):"Aucun lot tiré pour l'instant.";
+  var b=$("tab").parentNode; b.scrollTop=b.scrollHeight; carte();
+}
+function tsv(){ return [entetes().join("\t")].concat(lots.map(function(l){ return cfg.mode==="p"?[l.i,l.n,l.x].join("\t"):[l.i,l.x].join("\t"); })).join("\n"); }
+var SVGNS="http://www.w3.org/2000/svg";
+function el(nom,att,p){ var e=document.createElementNS(SVGNS,nom); for(var k in att) e.setAttribute(k,att[k]); if(p) p.appendChild(e); return e; }
+function txt(p,x,y,t,att){ var e=el("text",Object.assign({x:x,y:y,"font-size":11.5,fill:"var(--trait)","font-family":"IBM Plex Mono, Consolas, monospace"},att||{}),p); e.textContent=t; return e; }
+function limites(){
+  var k=Math.round(Number($("inRef").value)); if(!(k>=2)) k=2; k=Math.min(k,lots.length); if(k<2) return null;
+  var ref=lots.slice(0,k), sx=ref.reduce(function(a,l){return a+l.x;},0), sn=ref.reduce(function(a,l){return a+l.n;},0), o={k:k};
+  if(cfg.mode==="p"){ var p=sx/sn, s=Math.sqrt(p*(1-p)/cfg.n); o.c=p; o.lcs=p+3*s; o.lci=Math.max(0,p-3*s); o.val=function(l){return l.x/l.n;}; }
+  else { var c=sx/k; o.c=c; o.lcs=c+3*Math.sqrt(c); o.lci=Math.max(0,c-3*Math.sqrt(c)); o.val=function(l){return l.x;}; }
+  o.hors=lots.filter(function(l){ var v=o.val(l); return v>o.lcs+1e-12||v<o.lci-1e-12; }).map(function(l){return l.i;});
+  return o;
+}
+function carte(){
+  var s=$("svgCarte"); while(s.firstChild) s.removeChild(s.firstChild);
+  var L=limites(); if(!L){ $("chiffres").innerHTML=""; $("noteCarte").textContent="Tirez au moins 2 lots."; return null; }
+  var pc=cfg.mode==="p", f=function(v){ return pc?fr(100*v,2)+" %":fr(v,2); };
+  $("chiffres").innerHTML=[[pc?"p̄":"c̄",f(L.c)],["Limite supérieure",f(L.lcs)],["Limite inférieure",f(L.lci)],["Hors limites",L.hors.length?L.hors.join(", "):"aucun"]].map(function(c){ return '<div class="chiffre"><span>'+c[0]+'</span><b>'+c[1]+'</b></div>'; }).join("")
+    +(pc?'<div class="chiffre"><span>Carte np : limite sup.</span><b>'+fr(cfg.n*L.lcs,2)+'</b></div>':'');
+  var W=640,H=260,g={l:14,r:86,t:16,b:26}, vals=lots.map(L.val), hi=Math.max(L.lcs,Math.max.apply(null,vals))*1.1||1, lo=0, n=lots.length;
+  var X=function(i){ return g.l+10+(n>1?i*(W-g.l-g.r-20)/(n-1):0); }, Y=function(v){ return g.t+(hi-v)*(H-g.t-g.b)/(hi-lo); };
+  el("rect",{x:g.l,y:g.t,width:W-g.l-g.r,height:H-g.t-g.b,fill:"var(--papier)",stroke:"var(--grille)"},s);
+  if(L.k<n){ var xr=(X(L.k-1)+X(L.k))/2; el("line",{x1:xr,x2:xr,y1:g.t,y2:H-g.b,stroke:"var(--trait)","stroke-dasharray":"3 4"},s); txt(s,xr-4,g.t+12,"référence",{"text-anchor":"end","font-size":10.5}); }
+  [[L.lcs,"LCS","var(--ko)"],[L.c,pc?"p̄":"c̄","var(--ok)"],[L.lci,"LCI","var(--ko)"]].forEach(function(q){ el("line",{x1:g.l,x2:W-g.r,y1:Y(q[0]),y2:Y(q[0]),stroke:q[2],"stroke-width":1.5,"stroke-dasharray":q[1].length<3?"5 4":"none"},s); txt(s,W-g.r+6,Y(q[0])+4,q[1]+" "+f(q[0]),{fill:q[2]}); });
+  el("polyline",{points:vals.map(function(v,i){return X(i)+","+Y(v);}).join(" "),fill:"none",stroke:"var(--voiture)","stroke-width":1.3},s);
+  vals.forEach(function(v,i){ var h=L.hors.indexOf(lots[i].i)>=0; el("circle",{cx:X(i),cy:Y(v),r:h?5:3.2,fill:h?"var(--ko)":"var(--voiture)"},s); });
+  txt(s,g.l+6,H-8,"1",{"font-size":10.5}); txt(s,W-g.r-4,H-8,String(n),{"font-size":10.5,"text-anchor":"end"});
+  $("noteCarte").textContent="Limites calculées sur les "+(pc?"lots":"unités")+" 1 à "+L.k+", puis appliquées à tous les points.";
+  return L;
+}
+function copier(t){ var m=$("msg"); function fini(x){ m.textContent=x; setTimeout(function(){ m.textContent=""; },2500); }
+  function secours(){ var a=document.createElement("textarea"); a.value=t; a.setAttribute("readonly",""); a.style.position="fixed"; a.style.opacity="0"; document.body.appendChild(a); a.select(); try{ document.execCommand("copy"); fini("Copié."); }catch(e){ fini("Copie impossible."); } document.body.removeChild(a); }
+  if(navigator.clipboard&&window.isSecureContext) navigator.clipboard.writeText(t).then(function(){ fini("Copié."); },secours); else secours(); }
+$("btnUn").addEventListener("click",function(){ montrer(tirer()); maj(); });
+$("btnCinq").addEventListener("click",function(){ var l; for(var i=0;i<5;i++) l=tirer(); montrer(l); maj(); });
+$("btnRaz").addEventListener("click",raz);
+["inMode","inN","inSc","inCode"].forEach(function(i){ $(i).addEventListener("change",raz); });
+$("inRef").addEventListener("input",carte);
+$("btnCopier").addEventListener("click",function(){ if(lots.length) copier(tsv()); });
+var arme=false;
+$("btnRev").addEventListener("click",function(){
+  if(!arme){ arme=true; this.textContent="Confirmer : révéler"; return; }
+  var pc=cfg.mode==="p", f=function(v){ return pc?fr(100*v,1)+" %":fr(v,1)+" défauts par unité"; }, n=Math.max(lots.length,40), seg=[], prec=null;
+  for(var i=1;i<=n;i++){ var t=taux(cfg.sc,cfg.mode,i); if(prec===null||Math.abs(t-prec.t)>1e-12){ prec={a:i,b:i,t:t}; seg.push(prec); } else prec.b=i; }
+  var derive=cfg.sc==="C";
+  this.textContent="Taux révélé"; $("secret").hidden=false; $("secret").innerHTML="<b>Scénario "+cfg.sc+".</b> "+(derive?"Taux de "+f(taux("C",cfg.mode,1))+" jusqu'au n° 15, puis dérive régulière : "+f(taux("C",cfg.mode,20))+" au n° 20, "+f(taux("C",cfg.mode,30))+" au n° 30.":seg.map(function(q){ return (q.a===q.b?"n° "+q.a:"n° "+q.a+" à "+(q.b===n?"la fin":q.b))+" : "+f(q.t); }).join(" ; ")+".");
+});
+raz();
+window.__tirer={tirer:function(k){ for(var i=0;i<k;i++) tirer(); maj(); },lots:function(){return lots;},carte:carte,tsv:tsv,taux:taux};
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>La carte sonne-t-elle ?</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Mise en page : un poste de contrôle. À gauche le papier d'enregistreur (cartes X̄ et R), à droite le pupitre de décision. */
+:root{
+  --papier:#F6F8F7; --encre:#17324D; --trait:#5B6B7A; --grille:#D9E2E0; --fond:#E9EEED; --carte:#FFFFFF;
+  --limite:#B4530F; --ok:#2E7D32; --okfond:#E3F1E4; --ko:#B3261E; --kofond:#FBE4E2; --accent:#1F4E79; --accentfond:#DCE7F2;
+  --surbrillance:rgba(180,83,15,.14);
+  --f-titre:"Barlow Semi Condensed","Arial Narrow",Arial,sans-serif;
+  --f-texte:"Source Sans 3","Segoe UI",Arial,sans-serif;
+  --f-chiffre:"IBM Plex Mono",Consolas,"Courier New",monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --papier:#16201F; --encre:#DCE8F2; --trait:#9AABB8; --grille:#26332F; --fond:#0F1716; --carte:#1B2625;
+  --limite:#F08A4B; --ok:#7CC283; --okfond:#1D3322; --ko:#F2877E; --kofond:#3A1E1C; --accent:#8DB8E6; --accentfond:#1E3247;
+  --surbrillance:rgba(240,138,75,.18); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --papier:#16201F; --encre:#DCE8F2; --trait:#9AABB8; --grille:#26332F; --fond:#0F1716; --carte:#1B2625;
+  --limite:#F08A4B; --ok:#7CC283; --okfond:#1D3322; --ko:#F2877E; --kofond:#3A1E1C; --accent:#8DB8E6; --accentfond:#1E3247;
+  --surbrillance:rgba(240,138,75,.18); color-scheme:dark}
+body{background:var(--fond);color:var(--encre);font-family:var(--f-texte);font-size:16px;line-height:1.45}
+.page{max-width:1180px;margin:0 auto;padding-block:20px 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:16px}
+header{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:flex-end;justify-content:space-between}
+h1{font-family:var(--f-titre);font-weight:700;font-size:clamp(1.7rem,3.2vw,2.3rem);line-height:1.05;margin:0;letter-spacing:.01em;text-wrap:balance}
+.sous{margin:4px 0 0;color:var(--trait);font-size:.95rem}
+.compteur{display:flex;gap:10px;flex-wrap:wrap}
+.pastille{font-family:var(--f-chiffre);font-size:.9rem;background:var(--carte);border:1px solid var(--grille);border-radius:6px;padding:6px 10px;white-space:nowrap}
+.pastille b{font-weight:500;color:var(--accent)}
+.barre-outils{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;font-size:.95rem}
+.barre-outils label{color:var(--trait)}
+select,button{font:inherit}
+select{background:var(--carte);color:var(--encre);border:1px solid var(--grille);border-radius:6px;padding:6px 8px;max-width:100%}
+.poste{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:860px){.poste{grid-template-columns:1fr}}
+.enregistreur{background:var(--papier);border:1px solid var(--grille);border-radius:8px;padding:14px 14px 8px;min-width:0}
+.contexte{display:flex;flex-wrap:wrap;gap:4px 14px;align-items:baseline;margin-bottom:6px}
+.contexte h2{font-family:var(--f-titre);font-weight:600;font-size:1.25rem;margin:0}
+.contexte span{color:var(--trait);font-size:.9rem}
+svg{display:block;width:100%;height:auto}
+.legende{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:.82rem;color:var(--trait);padding:4px 2px 6px}
+.legende i{display:inline-block;width:22px;height:0;border-top:2px solid var(--encre);vertical-align:middle;margin-right:6px}
+.legende i.lim{border-top:2px dashed var(--limite)}
+.legende i.lc{border-top:1.5px solid var(--trait)}
+.pupitre{background:var(--carte);border:1px solid var(--grille);border-radius:8px;padding:16px;display:grid;gap:14px;min-width:0}
+.question{display:grid;gap:6px}
+.question h3{font-family:var(--f-titre);font-weight:600;font-size:1.05rem;margin:0;letter-spacing:.02em}
+.question h3 small{font-family:var(--f-texte);font-weight:400;color:var(--trait);font-size:.85rem;letter-spacing:0}
+.choix{display:grid;gap:6px}
+.choix.deux{grid-template-columns:1fr 1fr}
+.choix button{text-align:left;background:var(--papier);color:var(--encre);border:1.5px solid var(--grille);border-radius:6px;padding:8px 10px;cursor:pointer;line-height:1.25}
+.choix button:hover{border-color:var(--accent)}
+.choix button[aria-pressed="true"]{border-color:var(--accent);background:var(--accentfond);font-weight:600}
+.choix button.juste{border-color:var(--ok);background:var(--okfond)}
+.choix button.faux{border-color:var(--ko);background:var(--kofond)}
+.choix button:disabled{cursor:default}
+button:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+.btn{border:none;border-radius:6px;padding:10px 16px;cursor:pointer;font-family:var(--f-titre);font-weight:600;font-size:1.05rem;letter-spacing:.02em}
+.btn.principal{background:var(--accent);color:var(--carte)}
+.btn.principal:disabled{opacity:.45;cursor:not-allowed}
+.btn.second{background:transparent;color:var(--accent);border:1.5px solid var(--accent)}
+.retour{border-radius:6px;padding:12px 14px;display:grid;gap:6px;font-size:.95rem}
+.retour.bon{background:var(--okfond);border:1px solid var(--ok)}
+.retour.mauvais{background:var(--kofond);border:1px solid var(--ko)}
+.retour strong{font-family:var(--f-titre);font-size:1.15rem;font-weight:700}
+.retour ul{margin:0;padding-left:18px}
+.memo{background:var(--carte);border:1px solid var(--grille);border-radius:8px;padding:10px 14px}
+.memo summary{cursor:pointer;font-family:var(--f-titre);font-weight:600;font-size:1.1rem}
+.memo-table{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.92rem;margin-top:8px}
+th,td{text-align:left;vertical-align:top;padding:7px 8px;border-bottom:1px solid var(--grille)}
+th{font-family:var(--f-titre);font-weight:600;font-size:.95rem}
+.bilan{background:var(--carte);border:2px solid var(--accent);border-radius:8px;padding:16px;display:grid;gap:8px}
+.bilan h2{font-family:var(--f-titre);margin:0;font-size:1.5rem}
+.note{font-size:.85rem;color:var(--trait)}
+.num{font-family:var(--f-chiffre);font-variant-numeric:tabular-nums}
+@media (prefers-reduced-motion:no-preference){.retour,.bilan{animation:entree .25s ease-out}@keyframes entree{from{transform:translateY(4px);opacity:.6}to{transform:none;opacity:1}}}
+</style>
+</head>
+<body>
+
+<div class="page">
+  <header>
+    <div>
+      <h1>La carte sonne-t-elle ?</h1>
+      <p class="sous">Entraînement à la lecture des cartes X̄ et R. Chaque carte est tirée au hasard : 20 prélèvements de 5 pièces.</p>
+    </div>
+    <div class="compteur" aria-live="polite">
+      <span class="pastille">Carte <b id="numCarte">1</b> / 10</span>
+      <span class="pastille">Points <b id="score">0</b> / <span id="scoreMax">0</span></span>
+      <span class="pastille">Série en cours <b id="serie">0</b></span>
+    </div>
+  </header>
+
+  <div class="barre-outils">
+    <label for="mode">Mode</label>
+    <select id="mode">
+      <option value="serie">Série de 10 cartes au hasard</option>
+      <option value="normal">Démonstration : procédé normal</option>
+      <option value="R1h">Démonstration : 1 point au-dessus de LSC</option>
+      <option value="R1b">Démonstration : 1 point au-dessous de LIC</option>
+      <option value="R2h">Démonstration : 7 points au-dessus de LC</option>
+      <option value="R2b">Démonstration : 7 points au-dessous de LC</option>
+      <option value="R3m">Démonstration : 6 points qui montent</option>
+      <option value="R3d">Démonstration : 6 points qui descendent</option>
+      <option value="RR">Démonstration : carte R hors limite</option>
+      <option value="pPres">Piège : point proche d'une limite</option>
+      <option value="p5">Piège : 5 points qui montent seulement</option>
+      <option value="p6">Piège : 6 points du même côté seulement</option>
+    </select>
+    <span class="note">Les démonstrations ne comptent pas dans le score.</span>
+  </div>
+
+  <div class="poste">
+    <section class="enregistreur" aria-label="Cartes de contrôle">
+      <div class="contexte"><h2 id="ctxNom">Diamètre de butée</h2><span id="ctxInfo"></span></div>
+      <svg id="svgX" viewBox="0 0 720 250" role="img" aria-label="Carte des moyennes X̄"></svg>
+      <svg id="svgR" viewBox="0 0 720 170" role="img" aria-label="Carte des étendues R"></svg>
+      <div class="legende"><span><i></i>points mesurés</span><span><i class="lc"></i>ligne centrale</span><span><i class="lim"></i>limites de contrôle (pas des tolérances)</span></div>
+    </section>
+
+    <section class="pupitre" aria-label="Votre décision">
+      <div class="question">
+        <h3>1. La carte sonne-t-elle ?</h3>
+        <div class="choix deux" data-q="verdict"></div>
+      </div>
+      <div class="question">
+        <h3>2. Quelle règle ? <small>(Aucune si tout est normal)</small></h3>
+        <div class="choix" data-q="regle"></div>
+      </div>
+      <div class="question">
+        <h3>3. Que faites-vous ?</h3>
+        <div class="choix" data-q="reaction"></div>
+      </div>
+      <div class="actions">
+        <button class="btn principal" id="valider" disabled>Valider</button>
+        <button class="btn second" id="suivante" hidden>Carte suivante</button>
+      </div>
+      <div id="retour" class="retour" hidden aria-live="polite"></div>
+    </section>
+  </div>
+
+  <div id="bilan" class="bilan" hidden></div>
+
+  <details class="memo">
+    <summary>Aide-mémoire : lire une carte et réagir</summary>
+    <div class="memo-table">
+    <table>
+      <thead><tr><th>Ce qu'on voit</th><th>Ce que ça veut dire</th><th>Ce qu'on fait</th></tr></thead>
+      <tbody>
+        <tr><td>Aucune règle déclenchée</td><td>Le procédé ne varie que par le hasard.</td><td>On ne touche à rien. Régler sans raison augmente la dispersion.</td></tr>
+        <tr><td>1 point hors des limites de la carte X̄</td><td>Cause spéciale probable : quelque chose a changé.</td><td>On applique le plan de réaction du poste : isoler les pièces, vérifier la mesure, chercher la cause. Arrêter ou non la machine dépend de l'entreprise.</td></tr>
+        <tr><td>7 points de suite du même côté de la ligne centrale</td><td>Le réglage a probablement bougé.</td><td>On cherche pourquoi, puis on recentre.</td></tr>
+        <tr><td>6 points de suite qui montent (ou qui descendent)</td><td>Dérive : usure d'outil, échauffement.</td><td>On prévoit l'intervention avant de sortir des limites.</td></tr>
+        <tr><td>Carte R : 1 point au-dessus de sa limite</td><td>La dispersion a changé : outil, matière, bridage, mesure.</td><td>On cherche ce qui a changé la dispersion. Régler ne suffit pas.</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="note">Les limites de contrôle disent ce que la machine fait d'habitude. Les tolérances disent ce que le client accepte. Ce ne sont pas les mêmes lignes. Sur la carte R, on n'applique ici que la règle du point au-dessus de la limite.</p>
+  </details>
+</div>
+
+<script>
+(function(){
+"use strict";
+/* ---------- paramètres du procédé (échelle interne) ---------- */
+var N = 20, n = 5, MU = 50, SIG = Math.sqrt(5);        // sigma des pièces : sigma de X̄ = 1
+var LSC = 53, LIC = 47, LC = 50;
+var D2 = 2.326, D4 = 2.114, RBAR = D2 * SIG, LSCR = D4 * RBAR;   // R̄ ≈ 5,20 ; limite R ≈ 11,0
+var CONTEXTES = [
+  {nom:"Diamètre de butée", unite:"mm", c0:11.925, k:0.01, dec:3, info:"5 butées mesurées au micromètre toutes les heures"},
+  {nom:"Remplissage de flacons", unite:"mL", c0:250, k:0.5, dec:1, info:"5 flacons pesés à chaque prélèvement"},
+  {nom:"Couple de serrage", unite:"N·m", c0:25, k:0.2, dec:2, info:"5 vis contrôlées en fin de poste"},
+  {nom:"Épaisseur de tôle", unite:"mm", c0:2, k:0.005, dec:3, info:"5 mesures par bobine"}
+];
+var REGLES = ["Aucune", "1 point hors des limites", "7 points du même côté", "6 points qui montent ou descendent", "Carte R : point au-dessus de la limite"];
+var REACTIONS = ["Ne toucher à rien", "Appliquer le plan de réaction du poste", "Chercher pourquoi le réglage a bougé, puis recentrer",
+                 "Prévoir l'intervention : usure ou échauffement", "Chercher ce qui a changé la dispersion"];
+var VERDICTS = ["Normal", "Alarme"];
+var TYPES = ["normal","R1h","R1b","R2h","R2b","R3m","R3d","RR","pPres","p5","p6"];
+var ATTENDU = {   // [verdict, règle, réaction] en indices
+  normal:[0,0,0], pPres:[0,0,0], p5:[0,0,0], p6:[0,0,0],
+  R1h:[1,1,1], R1b:[1,1,1], R2h:[1,2,2], R2b:[1,2,2], R3m:[1,3,3], R3d:[1,3,3], RR:[1,4,4]
+};
+
+/* ---------- hasard ---------- */
+function gauss(){ var u=0,v=0; while(u===0)u=Math.random(); while(v===0)v=Math.random(); return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v); }
+function unif(a,b){ return a + (b-a)*Math.random(); }
+function entier(a,b){ return Math.floor(unif(a,b+1)); }
+function melanger(t){ for(var i=t.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var x=t[i];t[i]=t[j];t[j]=x;} return t; }
+
+/* ---------- génération ---------- */
+function prelevements(){
+  var g=[]; for(var i=0;i<N;i++){ var p=[]; for(var k=0;k<n;k++) p.push(MU + SIG*gauss()); g.push(p); } return g;
+}
+function moyenne(p){ var s=0; p.forEach(function(x){s+=x;}); return s/p.length; }
+function etendue(p){ return Math.max.apply(null,p) - Math.min.apply(null,p); }
+function fixerMoyenne(p, cible){ var d = cible - moyenne(p); return p.map(function(x){return x+d;}); }
+function fixerEtendue(p, cible){ var m=moyenne(p), r=etendue(p); return p.map(function(x){return m + (x-m)*cible/r;}); }
+
+function analyse(xb, R){
+  var res = {R1:[], R2:[], R3:[], RR:[]};
+  xb.forEach(function(v,i){ if(v>LSC||v<LIC) res.R1.push([i]); });
+  var run=[0];
+  for(var i=1;i<N;i++){
+    if((xb[i]-LC)*(xb[i-1]-LC)>0) run.push(i); else { if(run.length>=7) res.R2.push(run.slice()); run=[i]; }
+  }
+  if(run.length>=7) res.R2.push(run.slice());
+  var up=[0], dn=[0];
+  for(i=1;i<N;i++){
+    if(xb[i]>xb[i-1]) up.push(i); else { if(up.length>=6) res.R3.push(up.slice()); up=[i]; }
+    if(xb[i]<xb[i-1]) dn.push(i); else { if(dn.length>=6) res.R3.push(dn.slice()); dn=[i]; }
+  }
+  if(up.length>=6) res.R3.push(up.slice());
+  if(dn.length>=6) res.R3.push(dn.slice());
+  R.forEach(function(v,i){ if(v>LSCR) res.RR.push([i]); });
+  return res;
+}
+function plusLonguesSeries(xb){
+  var cote=1, monte=1, best={cote:1, monte:1}, mi=1;
+  for(var i=1;i<N;i++){
+    cote = (xb[i]-LC)*(xb[i-1]-LC)>0 ? cote+1 : 1;
+    monte = xb[i]>xb[i-1] ? monte+1 : 1; mi = xb[i]<xb[i-1] ? mi+1 : 1;
+    best.cote=Math.max(best.cote,cote); best.monte=Math.max(best.monte,monte,mi);
+  }
+  return best;
+}
+
+function generer(type){
+  for(var essai=0; essai<5000; essai++){
+    var g = prelevements(), info = {};
+    var xb, i, s, L, a, pas, v;
+    if(type==="R1h"||type==="R1b"){
+      i = entier(8,19); info.i=i;
+      g[i] = fixerMoyenne(g[i], type==="R1h" ? LSC+unif(0.3,1.6) : LIC-unif(0.3,1.6));
+    } else if(type==="R2h"||type==="R2b"){
+      L = entier(7,9); s = entier(4, N-L); info.s=s; info.L=L;
+      for(i=s;i<s+L;i++){ v = unif(0.25,2.3); g[i] = fixerMoyenne(g[i], type==="R2h" ? LC+v : LC-v); }
+    } else if(type==="R3m"||type==="R3d"){
+      s = entier(6, N-6); info.s=s; a = unif(1.8,2.6); pas = unif(0.55,0.85);
+      for(i=0;i<6;i++){ v = (type==="R3m" ? LC-a+i*pas : LC+a-i*pas) + unif(-0.12,0.12); g[s+i] = fixerMoyenne(g[s+i], v); }
+    } else if(type==="RR"){
+      i = entier(6,19); info.i=i; g[i] = fixerEtendue(g[i], LSCR + unif(0.8,4));
+    } else if(type==="pPres"){
+      i = entier(5,18); info.i=i; info.haut = Math.random()<0.5;
+      g[i] = fixerMoyenne(g[i], info.haut ? LSC-unif(0.08,0.35) : LIC+unif(0.08,0.35));
+    } else if(type==="p5"){
+      s = entier(5, N-6); info.s=s; a = unif(1.2,1.8); pas = unif(0.5,0.75);
+      for(i=0;i<5;i++) g[s+i] = fixerMoyenne(g[s+i], LC-a+i*pas);
+      g[s+5] = fixerMoyenne(g[s+5], LC-a+3*pas - unif(0.3,0.8));
+    } else if(type==="p6"){
+      s = entier(4, N-7); info.s=s; var haut = Math.random()<0.5; info.haut=haut;
+      for(i=s;i<s+6;i++){ v=unif(0.3,1.9); g[i]=fixerMoyenne(g[i], haut?LC+v:LC-v); }
+      g[s+6] = fixerMoyenne(g[s+6], haut ? LC-unif(0.3,1.2) : LC+unif(0.3,1.2));
+      if(s>0) g[s-1] = fixerMoyenne(g[s-1], haut ? LC-unif(0.3,1.2) : LC+unif(0.3,1.2));
+    }
+    xb = g.map(moyenne); var R = g.map(etendue);
+    var an = analyse(xb, R);
+    var nb = {R1:an.R1.length, R2:an.R2.length, R3:an.R3.length, RR:an.RR.length};
+    var aucune = !nb.R1 && !nb.R2 && !nb.R3 && !nb.RR;
+    var ok = false, seule = function(k){ return nb[k]>0 && ["R1","R2","R3","RR"].every(function(x){ return x===k || nb[x]===0; }); };
+    var ls = plusLonguesSeries(xb);
+    if(type==="normal") ok = aucune && ls.cote<=5 && ls.monte<=4 && Math.max.apply(null,xb)<52.4 && Math.min.apply(null,xb)>47.6 && Math.max.apply(null,R)<LSCR-1;
+    else if(type==="R1h"||type==="R1b") ok = seule("R1") && nb.R1===1 && Math.max.apply(null,R)<LSCR-0.5;
+    else if(type==="R2h"||type==="R2b") ok = seule("R2") && nb.R2===1 && Math.max.apply(null,R)<LSCR-0.5;
+    else if(type==="R3m"||type==="R3d") ok = seule("R3") && nb.R3===1 && Math.max.apply(null,R)<LSCR-0.5;
+    else if(type==="RR") ok = seule("RR") && nb.RR===1;
+    else if(type==="pPres") ok = aucune && Math.max.apply(null,R)<LSCR-0.5 && xb.filter(function(x){return x>LSC-0.6||x<LIC+0.6;}).length===1;
+    else if(type==="p5") ok = aucune && ls.monte===5 && ls.cote<=6 && Math.max.apply(null,R)<LSCR-0.5;
+    else if(type==="p6") ok = aucune && ls.cote===6 && ls.monte<=4 && Math.max.apply(null,R)<LSCR-0.5;
+    if(ok) return {type:type, g:g, xb:xb, R:R, an:an, info:info};
+  }
+  throw new Error("génération impossible : "+type);
+}
+
+/* ---------- affichage ---------- */
+var ctx = CONTEXTES[0];
+function aff(v){ return (ctx.c0 + (v-LC)*ctx.k).toFixed(ctx.dec).replace(".", ","); }
+function affR(v){ return (v*ctx.k).toFixed(ctx.dec).replace(".", ","); }
+var SVGNS = "http://www.w3.org/2000/svg";
+function el(nom, att, parent){ var e=document.createElementNS(SVGNS,nom); for(var k in att) e.setAttribute(k, att[k]); if(parent) parent.appendChild(e); return e; }
+function texte(parent, x, y, t, att){ var e = el("text", Object.assign({x:x,y:y,"font-size":12,fill:"var(--trait)","font-family":"IBM Plex Mono, Consolas, monospace"}, att||{}), parent); e.textContent=t; return e; }
+
+function dessiner(svg, vals, opts){
+  while(svg.firstChild) svg.removeChild(svg.firstChild);
+  var W=720, H=opts.H, g={l:16, r:118, t:22, b:28};
+  var ymin=opts.ymin, ymax=opts.ymax;
+  var X=function(i){ return g.l + 14 + i*(W-g.l-g.r-28)/(N-1); };
+  var Y=function(v){ return g.t + (ymax-v)*(H-g.t-g.b)/(ymax-ymin); };
+  el("rect",{x:g.l,y:g.t,width:W-g.l-g.r,height:H-g.t-g.b,fill:"var(--papier)",stroke:"var(--grille)"},svg);
+  for(var i=0;i<N;i++) el("line",{x1:X(i),x2:X(i),y1:g.t,y2:H-g.b,stroke:"var(--grille)","stroke-width":1},svg);
+  for(var v=Math.ceil(ymin); v<=ymax; v+=opts.pasGrille) el("line",{x1:g.l,x2:W-g.r,y1:Y(v),y2:Y(v),stroke:"var(--grille)","stroke-width":1},svg);
+  // surbrillances
+  (opts.zones||[]).forEach(function(z){
+    el("rect",{x:X(z[0])-11,y:g.t,width:X(z[z.length-1])-X(z[0])+22,height:H-g.t-g.b,fill:"var(--surbrillance)",rx:4},svg);
+  });
+  // lignes
+  opts.lignes.forEach(function(l){
+    el("line",{x1:g.l,x2:W-g.r,y1:Y(l.v),y2:Y(l.v),stroke:l.lim?"var(--limite)":"var(--trait)","stroke-width":l.lim?2:1.5,"stroke-dasharray":l.lim?"7 5":"none"},svg);
+    texte(svg, W-g.r+8, Y(l.v)+4, l.nom+" "+l.lab, {fill:l.lim?"var(--limite)":"var(--trait)","font-size":12});
+  });
+  el("polyline",{points:vals.map(function(x,i){return X(i)+","+Y(x);}).join(" "),fill:"none",stroke:"var(--encre)","stroke-width":1.8,"stroke-linejoin":"round"},svg);
+  vals.forEach(function(x,i){
+    var marque = (opts.marques||[]).indexOf(i)>=0;
+    el("circle",{cx:X(i),cy:Y(x),r:marque?5.5:3.8,fill:marque?"var(--limite)":"var(--encre)",stroke:"var(--papier)","stroke-width":1.2},svg);
+    texte(svg, X(i), H-g.b+16, String(i+1), {"text-anchor":"middle","font-size":11});
+  });
+  (opts.numeros||[]).forEach(function(i,k){
+    texte(svg, X(i), Y(vals[i])-10, String(k+1), {"text-anchor":"middle","font-size":12,fill:"var(--limite)","font-weight":"600"});
+  });
+  (opts.etiquettes||[]).forEach(function(e){
+    texte(svg, X(e.i), Y(vals[e.i])+(e.dessous?20:-12), e.t, {"text-anchor":"middle","font-size":12,fill:"var(--limite)","font-weight":"600"});
+  });
+  texte(svg, g.l+4, 14, opts.titre, {"font-size":13,fill:"var(--encre)","font-family":"Barlow Semi Condensed, Arial Narrow, sans-serif","font-weight":"600"});
+}
+
+var carte=null, reponses={}, corrige=false;
+function tracer(surligner){
+  var xb=carte.xb, R=carte.R, o={zones:[],marques:[],numeros:[],etiquettes:[]}, oR={zones:[],marques:[],etiquettes:[]};
+  if(surligner){
+    var an=carte.an, t=carte.type, inf=carte.info;
+    if(an.R1.length){ o.marques=an.R1.map(function(z){return z[0];}); o.etiquettes=an.R1.map(function(z){return {i:z[0],t:"hors limite",dessous:xb[z[0]]<LC};}); }
+    if(an.R2.length){ o.zones=an.R2; o.marques=an.R2[0]; o.numeros=an.R2[0]; }
+    if(an.R3.length){ o.zones=an.R3; o.marques=an.R3[0]; o.numeros=an.R3[0]; }
+    if(an.RR.length){ oR.marques=an.RR.map(function(z){return z[0];}); oR.etiquettes=an.RR.map(function(z){return {i:z[0],t:"hors limite"};}); }
+    if(t==="pPres"){ o.marques=[inf.i]; o.etiquettes=[{i:inf.i,t:"dedans",dessous:!inf.haut}]; }
+    if(t==="p5"){ var z=[0,1,2,3,4].map(function(k){return inf.s+k;}); o.zones=[z]; o.marques=z; o.numeros=z; }
+    if(t==="p6"){ var z6=[0,1,2,3,4,5].map(function(k){return inf.s+k;}); o.zones=[z6]; o.marques=z6; o.numeros=z6; }
+  }
+  var lab=function(v){return aff(v);};
+  dessiner(document.getElementById("svgX"), xb, Object.assign({H:250, ymin:44.5, ymax:55.5, pasGrille:1, titre:"Carte X̄ : moyenne des 5 pièces ("+ctx.unite+")",
+    lignes:[{v:LSC,nom:"LSC",lab:lab(LSC),lim:true},{v:LC,nom:"LC",lab:lab(LC)},{v:LIC,nom:"LIC",lab:lab(LIC),lim:true}]}, o));
+  dessiner(document.getElementById("svgR"), R, Object.assign({H:170, ymin:0, ymax:16, pasGrille:2, titre:"Carte R : étendue des 5 pièces ("+ctx.unite+")",
+    lignes:[{v:LSCR,nom:"Lim. R",lab:affR(LSCR),lim:true},{v:RBAR,nom:"R̄",lab:affR(RBAR)}]}, oR));
+}
+
+/* ---------- questions ---------- */
+var LISTES = {verdict:VERDICTS, regle:REGLES, reaction:REACTIONS};
+function construireChoix(){
+  document.querySelectorAll(".choix").forEach(function(box){
+    var q = box.getAttribute("data-q"); box.innerHTML="";
+    LISTES[q].forEach(function(lib, k){
+      var b = document.createElement("button"); b.type="button"; b.textContent=lib; b.setAttribute("aria-pressed","false"); b.id="q-"+q+"-"+k;
+      b.addEventListener("click", function(){
+        if(corrige) return;
+        reponses[q]=k;
+        box.querySelectorAll("button").forEach(function(x){ x.setAttribute("aria-pressed", x===b ? "true":"false"); });
+        if(q==="verdict" && k===0){ choisir("regle",0); choisir("reaction",0); }
+        document.getElementById("valider").disabled = !(("verdict" in reponses)&&("regle" in reponses)&&("reaction" in reponses));
+      });
+      box.appendChild(b);
+    });
+  });
+}
+function choisir(q,k){ reponses[q]=k; document.querySelectorAll('[data-q="'+q+'"] button').forEach(function(x,i){ x.setAttribute("aria-pressed", i===k?"true":"false"); }); }
+
+/* ---------- explications ---------- */
+function explication(){
+  var t=carte.type, inf=carte.info, xb=carte.xb, R=carte.R, an=carte.an;
+  var n1=function(i){return "le prélèvement "+(i+1);};
+  switch(t){
+    case "normal": return "Aucune règle n'est déclenchée : tous les points sont entre LIC ("+aff(LIC)+") et LSC ("+aff(LSC)+"), pas de série de 7 du même côté, pas de série de 6 qui montent ou descendent, et la carte R reste sous sa limite. Le procédé ne varie que par le hasard : on ne touche à rien.";
+    case "R1h": case "R1b": var i=an.R1[0][0]; return "Pour "+n1(i)+", la moyenne vaut "+aff(xb[i])+" "+ctx.unite+", "+(xb[i]>LSC?"au-dessus de la LSC ("+aff(LSC)+")":"au-dessous de la LIC ("+aff(LIC)+")")+". Un seul point hors des limites suffit : cause spéciale probable. On applique le plan de réaction du poste : isoler les pièces produites depuis le dernier point sûr, vérifier la mesure, chercher la cause. Arrêter ou non la machine, c'est le plan de réaction de l'entreprise qui le dit.";
+    case "R2h": case "R2b": var z=an.R2[0]; return "Les prélèvements "+(z[0]+1)+" à "+(z[z.length-1]+1)+" sont tous "+(xb[z[0]]>LC?"au-dessus":"au-dessous")+" de la ligne centrale : "+z.length+" points de suite (la règle demande 7). Aucun n'est hors limites, mais le réglage a probablement bougé. On cherche pourquoi, puis on recentre.";
+    case "R3m": case "R3d": var z3=an.R3[0]; return "Les prélèvements "+(z3[0]+1)+" à "+(z3[z3.length-1]+1)+" "+(xb[z3[1]]>xb[z3[0]]?"montent":"descendent")+" sans interruption : "+z3.length+" points de suite. C'est une dérive (usure, échauffement). On prévoit l'intervention avant que la carte ne sorte des limites.";
+    case "RR": var j=an.RR[0][0]; return "La carte X̄ est calme, mais sur la carte R l'étendue du prélèvement "+(j+1)+" vaut "+affR(R[j])+" "+ctx.unite+", au-dessus de sa limite ("+affR(LSCR)+"). Les 5 pièces de ce prélèvement sont trop différentes entre elles : la dispersion a changé. Régler ne suffit pas, on cherche ce qui a changé (outil, matière, bridage, mesure).";
+    case "pPres": return "Piège : la moyenne du prélèvement "+(inf.i+1)+" vaut "+aff(xb[inf.i])+" "+ctx.unite+", tout près de la "+(inf.haut?"LSC ("+aff(LSC)+")":"LIC ("+aff(LIC)+")")+", mais elle est dedans. Proche d'une limite n'est pas une alarme. On ne touche à rien.";
+    case "p5": return "Piège : les prélèvements "+(inf.s+1)+" à "+(inf.s+5)+" montent, mais il n'y en a que 5 à la suite. La règle demande 6 points. Aucune autre règle n'est déclenchée : on ne touche à rien, en gardant un œil sur la carte.";
+    case "p6": return "Piège : les prélèvements "+(inf.s+1)+" à "+(inf.s+6)+" sont du même côté de la ligne centrale, mais il n'y en a que 6. La règle demande 7. On ne touche à rien.";
+  }
+  return "";
+}
+
+/* ---------- déroulé ---------- */
+var mode="serie", numero=1, score=0, scoreMax=0, serie=0, erreurs={};
+function nouvelleCarte(){
+  var type = mode==="serie" ? sac[numero-1] : mode;
+  ctx = CONTEXTES[Math.floor(Math.random()*CONTEXTES.length)];
+  carte = generer(type);
+  document.getElementById("ctxNom").textContent = ctx.nom;
+  document.getElementById("ctxInfo").textContent = ctx.info+" · cible "+aff(LC)+" "+ctx.unite;
+  reponses={}; corrige=false;
+  document.querySelectorAll(".choix button").forEach(function(b){ b.setAttribute("aria-pressed","false"); b.classList.remove("juste","faux"); b.disabled=false; });
+  document.getElementById("valider").disabled=true; document.getElementById("valider").hidden=false;
+  document.getElementById("suivante").hidden=true;
+  var r=document.getElementById("retour"); r.hidden=true; r.innerHTML="";
+  tracer(false);
+  majCompteur();
+}
+var sac=[];
+function nouvelleSerie(){
+  var t=melanger(TYPES.slice()).slice(0,10);
+  sac=t; numero=1; score=0; scoreMax=0; erreurs={};
+  document.getElementById("bilan").hidden=true;
+  nouvelleCarte();
+}
+function majCompteur(){
+  document.getElementById("numCarte").textContent = mode==="serie" ? numero : "démo";
+  document.getElementById("score").textContent = score;
+  document.getElementById("scoreMax").textContent = scoreMax;
+  document.getElementById("serie").textContent = serie;
+}
+function valider(){
+  if(corrige) return; corrige=true;
+  var att = ATTENDU[carte.type], qs=["verdict","regle","reaction"], pts=0;
+  qs.forEach(function(q,k){
+    var boutons=document.querySelectorAll('[data-q="'+q+'"] button');
+    boutons.forEach(function(b,i){ b.disabled=true; if(i===att[k]) b.classList.add("juste"); else if(i===reponses[q]) b.classList.add("faux"); });
+    if(reponses[q]===att[k]) pts++;
+  });
+  tracer(true);
+  var r=document.getElementById("retour"), bon = pts===3;
+  r.className = "retour " + (bon ? "bon" : "mauvais");
+  r.innerHTML = "<strong>"+(bon ? "Juste : 3 sur 3." : "À revoir : "+pts+" sur 3.")+"</strong><span>"+explication()+"</span>"+
+    (bon ? "" : "<span class=\"note\">Sur la carte, les points en cause sont marqués en orange.</span>");
+  r.hidden=false;
+  if(mode==="serie"){
+    score+=pts; scoreMax+=3; serie = bon ? serie+1 : 0;
+    if(!bon){ var cle = REGLES[att[1]] + (["pPres","p5","p6"].indexOf(carte.type)>=0 ? " (piège)" : ""); erreurs[cle]=(erreurs[cle]||0)+1; }
+  }
+  majCompteur();
+  document.getElementById("valider").hidden=true;
+  var s=document.getElementById("suivante"); s.hidden=false;
+  s.textContent = (mode==="serie" && numero===10) ? "Voir le bilan" : "Carte suivante";
+  s.focus();
+}
+function suivante(){
+  if(mode==="serie"){
+    if(numero===10){ bilan(); return; }
+    numero++;
+  }
+  nouvelleCarte();
+}
+function bilan(){
+  var b=document.getElementById("bilan");
+  var liste = Object.keys(erreurs).map(function(k){ return "<li>"+k+" : "+erreurs[k]+" carte"+(erreurs[k]>1?"s":"")+"</li>"; }).join("");
+  var msg = score>=27 ? "Vous êtes prêt pour le quiz." : score>=21 ? "Presque : refaites une série en vous aidant de l'aide-mémoire." : "Refaites une série avec l'aide-mémoire ouvert, puis une autre sans.";
+  b.innerHTML = "<h2>Bilan de la série : <span class=\"num\">"+score+" / 30</span></h2><p>"+msg+"</p>"+
+    (liste ? "<p>Les cas à retravailler :</p><ul>"+liste+"</ul>" : "<p>Aucune erreur.</p>")+
+    "<div class=\"actions\"><button class=\"btn principal\" id=\"rejouer\">Nouvelle série de 10</button></div>";
+  b.hidden=false;
+  document.getElementById("rejouer").addEventListener("click", function(){ nouvelleSerie(); window.scrollTo({top:0,behavior:"smooth"}); });
+  b.scrollIntoView({behavior:"smooth", block:"center"});
+}
+
+document.getElementById("valider").addEventListener("click", valider);
+document.getElementById("suivante").addEventListener("click", suivante);
+document.getElementById("mode").addEventListener("change", function(e){
+  mode=e.target.value;
+  document.getElementById("bilan").hidden=true;
+  if(mode==="serie") nouvelleSerie(); else nouvelleCarte();
+});
+construireChoix();
+nouvelleSerie();
+window.__carte = {generer:generer, analyse:analyse, TYPES:TYPES, LSCR:LSCR};
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+\documentclass[10pt,a4paper]{article}
+\input{commun.tex}
+\pied{Base SPC · fiche M6 · La cale dans la main}
+\begin{document}
+\thispagestyle{fancy}
+\entete{M6}{La cale dans la main}{La chaleur des doigts se voit-elle au micromètre ?}{Le moyen de mesure}{25 min}{en binôme}{2}
+\begin{tcolorbox}[boite]\textbf{Le but.} Voir l'effet de la température sur une mesure au millième.\par\textbf{Il vous faut.} Un micromètre 0-25 mm · Une cale étalon de 25 mm (ou la plus longue disponible) · Un chronomètre\end{tcolorbox}
+\begin{tcolorbox}[pred]Une cale d'acier de 25 mm tenue 3 minutes dans la main fermée s'allonge-t-elle ? De combien : 0,1 µm, 3 µm, 30 µm ?\reponse\end{tcolorbox}
+\titre{À faire}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{\arabic*.}},leftmargin=15pt,itemsep=1.5pt]
+\item Mesurer 3 fois la cale à la température de la salle. Noter la moyenne : c'est la référence.
+\item Garder la cale 3 minutes dans la main fermée.
+\item La poser et la mesurer aussitôt, puis toutes les 30 secondes pendant 5 minutes, sans la reprendre en main.
+\item Tracer les points sur le graphique : temps en abscisse, mesure en ordonnée.
+\end{enumerate}
+\vspace{3pt}Référence (moyenne de 3 mesures à la température de la salle) : \champ{22mm} mm\par\vspace{3pt}
+{\renewcommand{\arraystretch}{1.5}\small\begin{tabularx}{\linewidth}{|l|*{11}{>{\centering\arraybackslash}X|}}\hline
+\textbf{Temps (s)} & 0 & 30 & 60 & 90 & 120 & 150 & 180 & 210 & 240 & 270 & 300\\\hline
+\textbf{Mesure (mm)} &  &  &  &  &  &  &  &  &  &  & \\\hline\end{tabularx}}\par\vspace{4pt}
+\begin{center}\begin{tikzpicture}[x=1.45cm,y=0.5cm]\draw[gray!45,very thin] (0,0) grid (10,6);\draw[thick] (0,0)--(10,0);\draw[thick] (0,0)--(0,6);\node[below,font=\scriptsize] at (0,0) {0};\node[below,font=\scriptsize] at (1,0) {30};\node[below,font=\scriptsize] at (2,0) {60};\node[below,font=\scriptsize] at (3,0) {90};\node[below,font=\scriptsize] at (4,0) {120};\node[below,font=\scriptsize] at (5,0) {150};\node[below,font=\scriptsize] at (6,0) {180};\node[below,font=\scriptsize] at (7,0) {210};\node[below,font=\scriptsize] at (8,0) {240};\node[below,font=\scriptsize] at (9,0) {270};\node[below,font=\scriptsize] at (10,0) {300};\node[below,font=\scriptsize] at (5,-0.55) {temps (s)};\node[rotate=90,font=\scriptsize] at (-0.55,3) {mesure : un carreau = 0,001 mm};\end{tikzpicture}\end{center}
+\newpage
+\titre{J'observe, je décide}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{Q\arabic*.}},leftmargin=22pt]
+\item De combien la cale s'est-elle allongée ? En combien de temps revient-elle à sa longueur ?\reponse[2]
+\item L'acier s'allonge d'environ 11,5 µm par mètre et par degré. Pour 25 mm et 10 °C de plus, calculez l'allongement attendu.\reponse[2]
+\item Quelles précautions en tirer au poste de contrôle ?\reponse[2]
+\end{enumerate}
+\begin{tcolorbox}[retenir]Au millième, la température compte : pièces et instruments à la même température, et on ne garde pas la pièce dans la main.\end{tcolorbox}
+\begin{tcolorbox}[plus]Saisir les mesures dans Ellistat (une colonne, Répétition = 1) et regarder la carte : la dérive se voit-elle ?\end{tcolorbox}
+\vfill{\footnotesize\color{uimm}\textbf{Ressources de la base :} Données de secours.}
+\end{document}

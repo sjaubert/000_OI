@@ -1,0 +1,13 @@
+Base d'activités SPC : sources
+
+fiches/      Sources LaTeX (xelatex, police Liberation Sans). commun.tex et charte.tex portent la mise en page.
+             Une fiche = un fichier .tex. Compiler deux fois : xelatex E1_Mon_premier_projet.tex
+generateur/  Scripts Python qui ont produit les fiches, le guide et le catalogue.
+             acts_E.py, acts_M.py, acts_A.py, acts_C.py : le contenu des activités (une entrée par fiche).
+             gen.py : écrit les .tex des fiches, le corps du guide formateur et catalogue.json.
+             index_gen.py : écrit index.html à partir de catalogue.json.
+             data.py et donnees_page.py : jeux de données et page « Données à copier ».
+             Ces scripts ont été lancés dans un autre dossier de travail : adapter les chemins avant de les relancer.
+
+Pour modifier une fiche sans Python : éditer son .tex dans fiches/, recompiler, copier le PDF dans Activites/.
+Base construite le 11 novembre 2026.

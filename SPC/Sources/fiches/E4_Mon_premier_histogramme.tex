@@ -1,0 +1,24 @@
+\documentclass[10pt,a4paper]{article}
+\input{commun.tex}
+\pied{Base SPC · fiche E4 · Mon premier histogramme}
+\begin{document}
+\thispagestyle{fancy}
+\entete{E4}{Mon premier histogramme}{À quoi ressemblent nos 30 butées ?}{Prise en main d'Ellistat}{20 min}{seul}{1}
+\begin{tcolorbox}[boite]\textbf{Le but.} Tracer l'histogramme d'une colonne et lire où tombent les pièces par rapport à la tolérance.\par\textbf{Il vous faut.} La grille des 30 butées réglée en E3\end{tcolorbox}
+\begin{tcolorbox}[pred]Regardez la liste des 30 valeurs. Y a-t-il des pièces hors tolérance ? Combien, à vue d'œil ?\reponse\end{tcolorbox}
+\titre{À faire}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{\arabic*.}},leftmargin=15pt,itemsep=1.5pt]
+\item \tagE\ Menu \menu{Stats Desc.} (Statistique descriptive), onglet \menu{Détail}. Cocher la caractéristique « Diametre ».
+\item \tagE\ À droite, regarder l'\menu{Histogramme} : les barres, la courbe en cloche, les deux traits de la tolérance.
+\item \tagE\ Sous l'histogramme, lire le tableau des paramètres (nombre, moyenne, écart-type) et le bloc « \% hors tolérance ».
+\item \tagE\ Cliquer sur \menu{Droite de henry} : si les points suivent la droite, la cloche décrit bien les pièces.
+\end{enumerate}
+\titre{J'observe, je décide}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{Q\arabic*.}},leftmargin=22pt]
+\item Combien de pièces de l'échantillon sont sous 11,85 ? au-dessus de 12,00 ?\reponse[1]
+\item Ellistat annonce aussi un pourcentage hors tolérance pour la « population ». Pourquoi n'est-il pas égal à celui de l'échantillon ?\reponse[2]
+\item La cloche est-elle centrée dans la tolérance ? De quel côté le risque est-il le plus grand ?\reponse[1]
+\end{enumerate}
+\begin{tcolorbox}[retenir]L'histogramme montre ce qu'on a mesuré. La cloche dit ce que le procédé produira si rien ne change.\end{tcolorbox}
+\begin{tcolorbox}[plus]Dans une nouvelle grille, clic droit sur une case puis \menu{Ajouter des valeurs aléatoires}. Tracer l'histogramme de 20 valeurs, puis de 500. Lequel ressemble le plus à une cloche ?\end{tcolorbox}
+\end{document}

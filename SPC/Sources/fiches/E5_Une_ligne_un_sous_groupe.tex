@@ -1,0 +1,25 @@
+\documentclass[10pt,a4paper]{article}
+\input{commun.tex}
+\pied{Base SPC · fiche E5 · Une ligne, un sous-groupe}
+\begin{document}
+\thispagestyle{fancy}
+\entete{E5}{Une ligne, un sous-groupe}{Comment Ellistat lit-il 5 pièces prélevées ensemble ?}{Prise en main d'Ellistat}{20 min}{seul}{2}
+\begin{tcolorbox}[boite]\textbf{Le but.} Ranger les mesures par sous-groupes et obtenir une carte des moyennes.\par\textbf{Il vous faut.} Le fichier Butees\_6x5.xlsx ou la page « Données à copier »\end{tcolorbox}
+\begin{tcolorbox}[pred]On a prélevé 6 fois 5 pièces. Combien de points doit compter la carte des moyennes ?\reponse\end{tcolorbox}
+\titre{À faire}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{\arabic*.}},leftmargin=15pt,itemsep=1.5pt]
+\item \tagE\ Nouvelle grille, puis importer \fichier{Butees\_6x5.xlsx} (ou coller le jeu « 30 butées, 6 sous-groupes de 5 »). Vérifier : 6 lignes, colonnes Echantillon, P1 à P5.
+\item \tagE\ Panneau de la colonne \textbf{P1} : régler \menu{Répétition} sur 5, puis tolérance min 11,85 et max 12,00.
+\item \tagE\ \menu{Stats Desc.} > \menu{Détail} : cocher la caractéristique. Ne pas cocher « Echantillon », ce n'est qu'un numéro.
+\item \tagE\ Regarder la carte \menu{MOYENNE}, puis la carte \menu{ETENDUE}.
+\item \tagE\ Revenir à la grille, remettre \menu{Répétition} à 1 sur P1 et regarder de nouveau. Puis remettre 5.
+\end{enumerate}
+\titre{J'observe, je décide}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{Q\arabic*.}},leftmargin=22pt]
+\item Dans cette grille, que représente une ligne ? Que représente une colonne ?\reponse[2]
+\item Combien de points sur la carte des moyennes ? Que devient-elle avec Répétition = 1 ?\reponse[2]
+\item « Répétition » désigne d'habitude plusieurs mesures d'une même pièce. Pourquoi peut-on l'utiliser pour 5 pièces différentes ?\reponse[2]
+\end{enumerate}
+\begin{tcolorbox}[retenir]Une ligne de la grille = un sous-groupe, des pièces prélevées ensemble. « Répétition » dit combien de colonnes forment le sous-groupe.\end{tcolorbox}
+\vfill{\footnotesize\color{uimm}\textbf{Ressources de la base :} Données à copier.}
+\end{document}

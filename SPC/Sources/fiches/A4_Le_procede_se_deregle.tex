@@ -1,0 +1,38 @@
+\documentclass[10pt,a4paper]{article}
+\input{commun.tex}
+\pied{Base SPC · fiche A4 · Le procédé se dérègle}
+\begin{document}
+\thispagestyle{fancy}
+\entete{A4}{Le procédé se dérègle}{Ma carte voit-elle le changement, et au bout de combien de lots ?}{Cartes aux attributs}{30 min}{en binôme}{2}
+\begin{tcolorbox}[boite]\textbf{Le but.} Surveiller une production avec des limites figées et repérer un dérèglement.\par\textbf{Il vous faut.} La page « Tirer un lot », scénario donné par le formateur · La carte papier de A2 (ou une nouvelle)\end{tcolorbox}
+\begin{tcolorbox}[pred]Si le taux de défectueuses double, la carte sonnera-t-elle dès le premier lot ?\reponse\end{tcolorbox}
+\titre{À faire}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{\arabic*.}},leftmargin=15pt,itemsep=1.5pt]
+\item \tagW\ Page « Tirer un lot », nouveau scénario donné par le formateur, même taille de lot (50). Tirer 20 lots et calculer les limites comme en A2 : elles sont maintenant \textbf{figées}.
+\item Continuer : tirer les lots 21 à 35 un par un, placer chaque point, sans recalculer les limites.
+\item Noter le numéro du premier lot qui sort des limites.
+\item \tagE\ Coller les 35 lots dans Ellistat. Carte p avec la \menu{Phase I} du lot 1 au lot 20.
+\item \tagE\ Régler ensuite la Phase I sur les 35 lots. Regarder ce que deviennent les limites.
+\end{enumerate}
+\vspace{3pt}{\renewcommand{\arraystretch}{1.35}\small\begin{tabularx}{\linewidth}{|l|*{12}{>{\centering\arraybackslash}X|}}\hline
+\textbf{Lot} & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12\\\hline
+\textbf{Défectueuses} &  &  &  &  &  &  &  &  &  &  &  & \\\hline\end{tabularx}}\par\vspace{2pt}
+{\renewcommand{\arraystretch}{1.35}\small\begin{tabularx}{\linewidth}{|l|*{12}{>{\centering\arraybackslash}X|}}\hline
+\textbf{Lot} & 13 & 14 & 15 & 16 & 17 & 18 & 19 & 20 & 21 & 22 & 23 & 24\\\hline
+\textbf{Défectueuses} &  &  &  &  &  &  &  &  &  &  &  & \\\hline\end{tabularx}}\par\vspace{2pt}
+{\renewcommand{\arraystretch}{1.35}\small\begin{tabularx}{\linewidth}{|l|*{12}{>{\centering\arraybackslash}X|}}\hline
+\textbf{Lot} & 25 & 26 & 27 & 28 & 29 & 30 & 31 & 32 & 33 & 34 & 35 & \\\hline
+\textbf{Défectueuses} &  &  &  &  &  &  &  &  &  &  &  & \\\hline\end{tabularx}}\par\vspace{2pt}
+\begin{center}\begin{tikzpicture}[x=0.446cm,y=0.31cm]\draw[gray!45,very thin] (0,0) grid (35,12);\draw[thick] (0,0)--(35,0);\draw[thick] (0,0)--(0,12);\node[left,font=\scriptsize] at (0,0) {0};\node[left,font=\scriptsize] at (0,2) {2};\node[left,font=\scriptsize] at (0,4) {4};\node[left,font=\scriptsize] at (0,6) {6};\node[left,font=\scriptsize] at (0,8) {8};\node[left,font=\scriptsize] at (0,10) {10};\node[left,font=\scriptsize] at (0,12) {12};\node[below,font=\scriptsize] at (1,0) {1};\node[below,font=\scriptsize] at (5,0) {5};\node[below,font=\scriptsize] at (10,0) {10};\node[below,font=\scriptsize] at (15,0) {15};\node[below,font=\scriptsize] at (20,0) {20};\node[below,font=\scriptsize] at (25,0) {25};\node[below,font=\scriptsize] at (30,0) {30};\node[below,font=\scriptsize] at (35,0) {35};\node[right,font=\scriptsize] at (35,0) {0 \%};\node[right,font=\scriptsize] at (35,2) {4 \%};\node[right,font=\scriptsize] at (35,4) {8 \%};\node[right,font=\scriptsize] at (35,6) {12 \%};\node[right,font=\scriptsize] at (35,8) {16 \%};\node[right,font=\scriptsize] at (35,10) {20 \%};\node[right,font=\scriptsize] at (35,12) {24 \%};\node[rotate=90,font=\scriptsize] at (-2.47,6.0) {pièces défectueuses};\node[below,font=\scriptsize] at (17.5,-1.3) {lot};\end{tikzpicture}\end{center}
+\newpage
+\titre{J'observe, je décide}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{Q\arabic*.}},leftmargin=22pt]
+\item Premier lot hors limites : n° \champ{10mm}. Combien de lots se sont écoulés depuis le lot 21 ?\reponse[1]
+\item Avant ce lot, voyait-on déjà quelque chose sur la carte ? Quoi ?\reponse[2]
+\item Avec les limites calculées sur les 35 lots, combien de points sortent ? Pourquoi ?\reponse[2]
+\item Demandez au formateur de révéler le scénario. Votre carte avait-elle raison ?\reponse[1]
+\end{enumerate}
+\begin{tcolorbox}[retenir]On calcule les limites sur une période stable, puis on les fige. Recalculer avec des lots déréglés élargit les limites et cache le problème.\end{tcolorbox}
+\begin{tcolorbox}[plus]Variante aux dés : après 20 lancers, une pièce défectueuse devient « un 5 ou un 6 ». Combien de lancers avant l'alarme ?\end{tcolorbox}
+\vfill{\footnotesize\color{uimm}\textbf{Ressources de la base :} Tirer un lot · Jeu de secours.}
+\end{document}

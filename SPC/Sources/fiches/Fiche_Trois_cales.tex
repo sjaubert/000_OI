@@ -1,0 +1,133 @@
+\documentclass[10pt,a4paper]{article}
+\input{charte.tex}
+\renewcommand{\bandeau}[3]{%
+\begin{tcolorbox}[colback=uimm,colframe=uimm,arc=2pt,left=4pt,right=8pt,top=4pt,bottom=4pt]
+\begin{minipage}[c]{18mm}\setlength{\fboxsep}{1.2pt}\fcolorbox{white}{white}{\includegraphics[height=16.5mm]{logo_uimm.jpg}}\end{minipage}\hspace{4mm}%
+\begin{minipage}[c]{\dimexpr\linewidth-22mm\relax}\color{white}
+{\small #1}\\[1pt]{\LARGE\bfseries #2}\\[2pt]{\large #3}
+\end{minipage}
+\end{tcolorbox}}
+\pied{Trois cales, trois questions · fiche stagiaire}
+\begin{document}
+\thispagestyle{fancy}
+\bandeau{Travaux pratiques · Capabilité du moyen de mesure}{Trois cales, trois questions}{Ateliers sur cales étalons de 10, 20 et 30 mm, méthode Bosch (étude de type 1)}
+
+\begin{tcolorbox}[boite]
+\textbf{La question.} Nos micromètres sont-ils capables ? Une cale étalon a une longueur connue : en la mesurant plusieurs fois, on voit si l'instrument est \textbf{fidèle} (les mesures sont groupées) et \textbf{juste} (elles tombent sur la vraie valeur). Avec trois cales, on pose trois questions.
+\end{tcolorbox}
+
+\titre{1. Les trois ateliers}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabularx}{\linewidth}{@{}l l l X@{}}
+\toprule
+\textbf{Atelier} & \textbf{Cale} & \textbf{Instrument} & \textbf{La question}\\\midrule
+1 & 30 mm & micromètre 25-50 commun & Le micromètre 25-50 est-il capable ? On regroupe les 50 mesures du groupe.\\
+2 & 10 et 20 mm & mon micromètre 0-25 & Mon micromètre est-il juste ? Son biais est-il le même à 10 et à 20 mm ?\\
+3 & 30 mm & micromètre 25-50 commun & Et si c'était moi ? Même cale, même instrument : les opérateurs trouvent-ils la même chose ?\\
+\bottomrule
+\end{tabularx}
+
+\titre{2. Le rappel}
+\begin{minipage}[c]{0.50\linewidth}
+\[C_g=\frac{0{,}2\,T}{6\,s}\qquad C_{gk}=\frac{0{,}1\,T-\lvert\bar x-x_m\rvert}{3\,s}\]
+\end{minipage}\hfill
+\begin{minipage}[c]{0.47\linewidth}\small
+$\bar x$ : moyenne ; $s$ : écart-type ; $x_m$ : valeur de la cale ; $\bar x - x_m$ : le \textbf{biais}.\\
+\textbf{Capable si $C_g \ge 1{,}33$ et $C_{gk} \ge 1{,}33$.} Ici $T = 0{,}15$ mm, la tolérance de la butée.
+\end{minipage}
+
+\vspace{3pt}
+\begin{itemize}
+\item \textbf{D'abord, la résolution} (plus petit pas affiché), rapportée à la tolérance : $(\text{résolution} / T) \times 100$ doit rester \textbf{sous 5~\%} (livret, fig. 3). À calculer : micromètre (0,001 mm) : \rule{12mm}{0.3pt} \% ; pied à coulisse au 1/50 (0,02 mm) : \rule{12mm}{0.3pt} \%. Lequel peut servir pour la butée ?
+\item \textbf{Le biais est-il réel ?} Le livret le juge significatif si $\lvert\bar x-x_m\rvert / s$ dépasse un seuil : \textbf{0,715 pour 10 mesures}, 0,284 pour 50 mesures (annexe C.2).
+\item \textbf{La plus petite tolérance contrôlable} : $T_{\min} = 10\,\lvert\bar x - x_m\rvert + 39{,}9\,s$. Elle découle des deux conditions $C_g \ge 1{,}33$ et $C_{gk} \ge 1{,}33$.
+\end{itemize}
+
+\titre{3. Le matériel}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabularx}{\linewidth}{@{}l X@{}}
+Cale 10 mm & $x_m$ = \rule{22mm}{0.3pt} mm \quad (certificat ; à défaut 10,000)\\
+Cale 20 mm & $x_m$ = \rule{22mm}{0.3pt} mm \quad (certificat ; à défaut 20,000)\\
+Cale 30 mm & $x_m$ = \rule{22mm}{0.3pt} mm \quad (certificat ; à défaut 30,000)\\
+Micromètres & un 0-25 par stagiaire (noter son numéro page 2) ; un 25-50 commun, au poste 30 mm.\\
+Pied à coulisse & au 1/50, pour la démonstration sur la résolution.\\
+Calculs & Page web « Trois cales, trois questions ».\\
+\end{tabularx}
+
+\titre{4. Le protocole}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{\arabic*.}},leftmargin=15pt]
+\item Trois postes : 10 mm, 20 mm, 30 mm. À chaque tour, trois stagiaires mesurent (un par poste), les deux autres notent les valeurs.
+\item À chaque poste, mesurer la cale \textbf{10 fois}. \textbf{Retirer puis remettre} la cale avant chaque mesure. Toujours le cliquet.
+\item Tenir la cale par les bords, avec les gants ou la pince. \textbf{Ne pas la garder dans la main} : la chaleur des doigts l'allonge.
+\item Le mesureur annonce la valeur, le secrétaire la note. Noter toutes les valeurs, \textbf{n'en supprimer aucune}.
+\item À la fin, saisir les trois grilles dans la page et cliquer sur « Calculer ».
+\end{enumerate}
+
+\renewcommand{\arraystretch}{1.25}
+\begin{tabularx}{\linewidth}{@{}l *{5}{>{\centering\arraybackslash}X}@{}}
+\toprule
+\textbf{Poste} & \textbf{Tour 1} & \textbf{Tour 2} & \textbf{Tour 3} & \textbf{Tour 4} & \textbf{Tour 5}\\\midrule
+10 mm (son 0-25) & stagiaire 1 & stagiaire 2 & stagiaire 3 & stagiaire 4 & stagiaire 5\\
+20 mm (son 0-25) & stagiaire 5 & stagiaire 1 & stagiaire 2 & stagiaire 3 & stagiaire 4\\
+30 mm (25-50) & stagiaire 4 & stagiaire 5 & stagiaire 1 & stagiaire 2 & stagiaire 3\\
+\bottomrule
+\end{tabularx}
+{\small Chaque stagiaire passe une fois à chaque poste. Le plan s'adapte au nombre de présents dans la page web.}
+
+\newpage
+\titre{5. Les relevés (mm)}
+\newcommand{\grille}[2]{%
+\textbf{#1}\hfill{\small #2}\\[2pt]
+\renewcommand{\arraystretch}{1.55}%
+\begin{tabularx}{\linewidth}{|p{21mm}|p{14mm}|*{10}{>{\centering\arraybackslash}X|}}\hline
+\textbf{Stagiaire} & \textbf{Micro n°} & \scriptsize 1 & \scriptsize 2 & \scriptsize 3 & \scriptsize 4 & \scriptsize 5 & \scriptsize 6 & \scriptsize 7 & \scriptsize 8 & \scriptsize 9 & \scriptsize 10\\\hline
+1 & & & & & & & & & & & \\\hline
+2 & & & & & & & & & & & \\\hline
+3 & & & & & & & & & & & \\\hline
+4 & & & & & & & & & & & \\\hline
+5 & & & & & & & & & & & \\\hline
+\end{tabularx}\par\vspace{8pt}}
+\grille{Poste 10 mm}{chacun avec son micromètre 0-25}
+\grille{Poste 20 mm}{chacun avec son micromètre 0-25}
+\grille{Poste 30 mm}{micromètre 25-50 commun (colonne « Micro n° » : inutile)}
+
+\textbf{Défi : pile 10 + 20 et cale 30}\hfill{\small une seule personne, micromètre 25-50, mesures alternées}\\[2pt]
+\renewcommand{\arraystretch}{1.55}
+\begin{tabularx}{\linewidth}{|p{37.4mm}|*{10}{>{\centering\arraybackslash}X|}}\hline
+ & \scriptsize 1 & \scriptsize 2 & \scriptsize 3 & \scriptsize 4 & \scriptsize 5 & \scriptsize 6 & \scriptsize 7 & \scriptsize 8 & \scriptsize 9 & \scriptsize 10\\\hline
+Pile 10 + 20 & & & & & & & & & & \\\hline
+Cale 30 & & & & & & & & & & \\\hline
+\end{tabularx}
+
+\vspace{6pt}
+\begin{tcolorbox}[boite]
+\textbf{À savoir.} Le livret Bosch demande 50 mesures (au moins 25) par une étude de type 1, sur une cale proche du milieu de la tolérance (§ 4.1). Avec 10 mesures par personne, les résultats individuels sont \textbf{indicatifs}. Les écarts au protocole sont admis s'ils sont justifiés et notés (§ 4.1).
+\end{tcolorbox}
+
+\newpage
+\titre{6. Les questions}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{Q\arabic*.}},leftmargin=22pt]
+\item \textbf{Atelier 1.} Le micromètre 25-50 est-il capable pour $T = 0{,}15$ mm ? Justifiez avec $C_g$ et $C_{gk}$.\reponse
+\item \textbf{Atelier 1.} Les 50 mesures viennent de cinq personnes différentes. Est-ce un avantage ou un handicap pour le micromètre ? Pourquoi ?\reponse[2]
+\item \textbf{Atelier 2.} Quel micromètre a le plus grand biais ? Ce biais est-il significatif ? Gêne-t-il pour contrôler la butée ?\reponse[2]
+\item \textbf{Atelier 2.} Le biais de votre micromètre est-il le même à 10 et à 20 mm ? Que signifierait un biais qui change avec la longueur ?\reponse[2]
+\item \textbf{Atelier 2.} Quelle est la plus petite tolérance $T_{\min}$ que votre micromètre peut contrôler ? La butée est-elle à sa portée ?\reponse
+\item \textbf{Atelier 3.} Les opérateurs mesurent-ils pareil ? Comparez $F$ et $F$ crit. Si quelqu'un se détache, quelle explication voyez-vous ?\reponse[2]
+\item \textbf{Atelier 3.} Comparez « Cg du groupe » et « Cg sans les opérateurs ». Que retenir pour un instrument partagé par plusieurs personnes ?\reponse[2]
+\item La butée mesure environ 12 mm. Laquelle des trois cales renseigne le mieux sur sa mesure ? Pourquoi ?\reponse
+\end{enumerate}
+
+\begin{tcolorbox}[defi]
+\textbf{La pile 10 + 20 vaut-elle la cale 30 ?}
+\begin{enumerate}[label=\textbf{\alph*.},leftmargin=14pt]
+\item Nettoyer les deux cales, puis les \textbf{adhérer} : poser les faces l'une sur l'autre et les faire glisser en pressant légèrement jusqu'à ce qu'elles collent.
+\item Quelle longueur la pile doit-elle avoir, d'après les certificats ? Quel écart attend-on entre la pile et la cale 30 ?
+\item Les cales sont de classe 1 : la 10 est garantie à $\pm\,0{,}20$ µm, la 20 à $\pm\,0{,}30$ µm, la 30 à $\pm\,0{,}40$ µm. Avec les valeurs nominales, quel écart maximal peut venir des cales seules ? Le micromètre peut-il le voir ?
+\item Mesurer 10 fois la pile et 10 fois la cale 30, \textbf{en alternant}. Pourquoi alterner plutôt que faire deux séries ?
+\item Saisir dans le volet « Défi » de la page. La pile vaut-elle la cale 30 ? Sinon, quelles causes ?
+\end{enumerate}
+\end{tcolorbox}
+
+\vfill
+{\footnotesize\color{uimm}\textbf{Sources.} Robert Bosch GmbH, \emph{Booklet 10 : Capability of Measurement and Test Processes}, édition novembre 2019 : § 4.1 (procédure 1), fig. 3 (résolution), § 4.4 (plusieurs étalons), annexes C.1 et C.2 (significativité du biais). Tolérances des cales de classe 1 : tableau DIN 861 (repris d'une source secondaire), à confirmer sur le certificat des cales.}
+\end{document}

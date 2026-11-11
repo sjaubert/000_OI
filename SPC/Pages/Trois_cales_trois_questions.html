@@ -1,0 +1,545 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Trois cales, trois questions</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --papier:#F6F8F7; --encre:#17324D; --trait:#5B6B7A; --grille:#D9E2E0; --fond:#E9EEED; --carte:#FFFFFF;
+  --ok:#2E7D32; --okfond:#E3F1E4; --ko:#B3261E; --kofond:#FBE4E2; --accent:#1F4E79; --accentfond:#DCE7F2;
+  --zone:rgba(46,125,50,.14); --voiture:#2D6A9F;
+  --c0:#2D6A9F; --c1:#D9730D; --c2:#138A82; --c3:#7B4FBF; --c4:#C2417A; --c5:#6E7F1A; --c6:#8A5A2B; --c7:#4A5866;
+  --f-titre:"Barlow Semi Condensed","Arial Narrow",Arial,sans-serif;
+  --f-texte:"Source Sans 3","Segoe UI",Arial,sans-serif;
+  --f-chiffre:"IBM Plex Mono",Consolas,"Courier New",monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --papier:#16201F; --encre:#DCE8F2; --trait:#9AABB8; --grille:#2C3A36; --fond:#0F1716; --carte:#1B2625;
+  --ok:#7CC283; --okfond:#1D3322; --ko:#F2877E; --kofond:#3A1E1C; --accent:#8DB8E6; --accentfond:#1E3247;
+  --zone:rgba(124,194,131,.16); --voiture:#6FA8DC;
+  --c0:#6FA8DC; --c1:#F0A257; --c2:#4CC2B8; --c3:#B39AE6; --c4:#EB86B4; --c5:#B5C95A; --c6:#D19A66; --c7:#A9B6C2; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --papier:#16201F; --encre:#DCE8F2; --trait:#9AABB8; --grille:#2C3A36; --fond:#0F1716; --carte:#1B2625;
+  --ok:#7CC283; --okfond:#1D3322; --ko:#F2877E; --kofond:#3A1E1C; --accent:#8DB8E6; --accentfond:#1E3247;
+  --zone:rgba(124,194,131,.16); --voiture:#6FA8DC;
+  --c0:#6FA8DC; --c1:#F0A257; --c2:#4CC2B8; --c3:#B39AE6; --c4:#EB86B4; --c5:#B5C95A; --c6:#D19A66; --c7:#A9B6C2; color-scheme:dark}
+body{background:var(--fond);color:var(--encre);font-family:var(--f-texte);font-size:16px;line-height:1.45}
+.page{max-width:1180px;margin:0 auto;padding-block:20px 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:16px}
+.page>*{min-width:0}
+h1{font-family:var(--f-titre);font-weight:700;font-size:clamp(1.7rem,3.2vw,2.3rem);line-height:1.05;margin:0;text-wrap:balance}
+.sous{margin:4px 0 0;color:var(--trait);font-size:.95rem}
+.principe{background:var(--carte);border-left:4px solid var(--accent);border-radius:0 8px 8px 0;padding:12px 16px;display:grid;gap:8px}
+.principe h2{font-family:var(--f-titre);font-weight:700;font-size:1.35rem;margin:0}
+.principe p{margin:0}
+.trois{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.trois div{background:var(--papier);border:1px solid var(--grille);border-radius:6px;padding:8px 12px}
+.trois b{font-family:var(--f-titre);font-size:1.08rem;display:block}
+.trois small{color:var(--trait)}
+.formules{display:flex;flex-wrap:wrap;gap:6px 26px;font-family:var(--f-chiffre);font-size:.92rem;background:var(--papier);border:1px solid var(--grille);border-radius:6px;padding:8px 12px}
+.panneau{background:var(--carte);border:1px solid var(--grille);border-radius:8px;padding:16px;display:grid;gap:12px;min-width:0}
+.panneau h2,.panneau h3{font-family:var(--f-titre);font-weight:600;font-size:1.25rem;margin:0}
+.panneau h2{font-size:1.45rem;font-weight:700}
+.panneau h2 small{display:block;font-family:var(--f-texte);font-weight:400;font-size:.92rem;color:var(--trait)}
+.champs{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+label{display:grid;gap:4px;font-size:.92rem;font-weight:600}
+label small{font-weight:400;color:var(--trait)}
+input,select{font:inherit;color:var(--encre);background:var(--papier);border:1.5px solid var(--grille);border-radius:6px;padding:7px 9px;min-width:0}
+input{font-family:var(--f-chiffre)}
+input.nom{font-family:var(--f-texte)}
+input:focus-visible,button:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.defile{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--grille);border-radius:6px}
+table.saisie{border-collapse:collapse;width:100%;min-width:760px;font-size:.9rem}
+table.saisie th,table.saisie td{border-bottom:1px solid var(--grille);padding:3px 4px;text-align:center}
+table.saisie th{font-weight:600;color:var(--trait);background:var(--papier)}
+table.saisie th.qui{text-align:left;min-width:150px;color:var(--encre)}
+table.saisie th.qui small{display:block;font-weight:400;color:var(--trait)}
+table.saisie input{width:100%;box-sizing:border-box;min-width:64px;padding:5px 4px;text-align:center;font-size:.9rem}
+.pastille{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.btn{font:inherit;border:none;border-radius:6px;padding:10px 16px;cursor:pointer;font-family:var(--f-titre);font-weight:600;font-size:1.05rem;letter-spacing:.02em}
+.btn.principal{background:var(--accent);color:var(--carte)}
+.btn.second{background:transparent;color:var(--accent);border:1.5px solid var(--accent)}
+.btn.discret{background:transparent;color:var(--trait);border:1.5px solid var(--grille)}
+.note{font-size:.86rem;color:var(--trait);margin:0}
+.chiffres{display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:8px}
+.chiffre{background:var(--papier);border:1px solid var(--grille);border-radius:6px;padding:7px 10px}
+.chiffre span{display:block;font-size:.74rem;color:var(--trait);text-transform:uppercase;letter-spacing:.05em}
+.chiffre b{font-family:var(--f-chiffre);font-weight:500;font-size:1.08rem}
+.chiffre.fort b{font-size:1.4rem}
+.chiffre.bon{border-color:var(--ok);background:var(--okfond)}
+.chiffre.mauvais{border-color:var(--ko);background:var(--kofond)}
+.verdict{border-radius:6px;padding:12px 14px;display:grid;gap:4px}
+.verdict.bon{background:var(--okfond);border:1px solid var(--ok)}
+.verdict.mauvais{background:var(--kofond);border:1px solid var(--ko)}
+.verdict.neutre{background:var(--accentfond);border:1px solid var(--accent)}
+.verdict strong{font-family:var(--f-titre);font-size:1.2rem}
+.alerte{font-size:.9rem;color:var(--ko);margin:0}
+svg{display:block;width:100%;height:auto}
+.deux{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:860px){.deux{grid-template-columns:1fr}}
+.empile{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:16px;align-items:start}
+@media (max-width:1100px){.empile{grid-template-columns:1fr}.empile svg{max-width:760px}}
+table.res{border-collapse:collapse;width:100%;font-size:.88rem;min-width:600px}
+table.res th,table.res td{padding:5px 6px;border-bottom:1px solid var(--grille);text-align:right;font-family:var(--f-chiffre)}
+table.res th{font-family:var(--f-texte);font-weight:600;color:var(--trait);text-align:right;vertical-align:bottom}
+table.res td:first-child,table.res th:first-child{text-align:left;font-family:var(--f-texte)}
+td.oui{color:var(--ko);font-weight:600} td.non{color:var(--ok)}
+.rotation{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.rotation div{background:var(--papier);border:1px solid var(--grille);border-radius:6px;padding:6px 10px;font-size:.9rem}
+.rotation b{font-family:var(--f-titre)}
+.memo{background:var(--carte);border:1px solid var(--grille);border-radius:8px;padding:10px 14px}
+.memo summary{cursor:pointer;font-family:var(--f-titre);font-weight:600;font-size:1.1rem}
+.memo p,.memo li{font-size:.94rem}
+.sources{font-size:.82rem;color:var(--trait)}
+.sources a{color:var(--accent)}
+@media print{.btn,.actions,details.memo{display:none!important} body{background:#fff} .panneau{break-inside:avoid}}
+</style>
+
+<div class="page">
+  <header>
+    <h1>Trois cales, trois questions</h1>
+    <p class="sous">Capabilité du micromètre sur cales étalons de 10, 20 et 30 mm. Étude de type 1, méthode Bosch.</p>
+  </header>
+
+  <section class="principe">
+    <h2>Le principe</h2>
+    <p>Une cale étalon a une longueur connue x<sub>m</sub>. On la mesure 10 fois en la retirant et en la remettant à chaque fois. On compare ce que dit l'instrument à ce que l'on sait.</p>
+    <div class="trois">
+      <div><b>Atelier 1 · cale 30</b>Le micromètre 25-50 est-il capable ?<br><small>Les 50 mesures du groupe, Cg et Cgk.</small></div>
+      <div><b>Atelier 2 · cales 10 et 20</b>Mon micromètre est-il juste ?<br><small>Le biais de chaque micromètre 0-25, à deux longueurs.</small></div>
+      <div><b>Atelier 3 · cale 30</b>Et si c'était moi ?<br><small>Même instrument, même cale : les opérateurs se distinguent-ils ?</small></div>
+    </div>
+    <div class="formules"><span>D'abord : résolution / T × 100 &lt; 5 %</span><span>Cg = 0,2 T / (6 s)</span><span>Cgk = (0,1 T − |x̄ − x<sub>m</sub>|) / (3 s)</span><span>Capable si Cg ≥ 1,33 et Cgk ≥ 1,33</span></div>
+  </section>
+
+  <section class="panneau" aria-label="Réglages">
+    <h3>1. Les réglages</h3>
+    <div class="champs">
+      <label for="inT"><span>Tolérance T (mm)</span><small>de la cote à contrôler</small><input id="inT" inputmode="decimal"></label>
+      <label for="inRes"><span>Résolution (mm)</span><small>plus petit pas affiché</small><input id="inRes" inputmode="decimal"></label>
+      <label for="inXm10"><span>Cale 10 : x<sub>m</sub> (mm)</span><small>certificat, sinon nominal</small><input id="inXm10" inputmode="decimal"></label>
+      <label for="inXm20"><span>Cale 20 : x<sub>m</sub> (mm)</span><small>certificat, sinon nominal</small><input id="inXm20" inputmode="decimal"></label>
+      <label for="inXm30"><span>Cale 30 : x<sub>m</sub> (mm)</span><small>certificat, sinon nominal</small><input id="inXm30" inputmode="decimal"></label>
+      <label for="inNb"><span>Stagiaires</span><small>nombre d'opérateurs</small><select id="inNb"></select></label>
+    </div>
+    <div class="defile"><table class="saisie" id="tabNoms"></table></div>
+    <details class="memo" id="detRot">
+      <summary>Plan de rotation sur les trois postes</summary>
+      <p class="note" style="margin-top:6px">À chaque tour, trois stagiaires mesurent (un par poste), les autres notent. Chacun passe une fois à chaque poste.</p>
+      <div class="rotation" id="rotation" style="margin-top:8px"></div>
+    </details>
+  </section>
+
+  <section class="panneau" aria-label="Relevés">
+    <h3>2. Les relevés (mm)</h3>
+    <p class="note">On peut coller un bloc copié depuis Excel dans la première case : une ligne par stagiaire, une colonne par mesure. Les cases vides sont ignorées. Les données restent enregistrées dans ce navigateur.</p>
+    <div><b>Poste 10 mm</b> <span class="note">· chacun avec son micromètre 0-25</span></div>
+    <div class="defile"><table class="saisie" id="g10"></table></div>
+    <div><b>Poste 20 mm</b> <span class="note">· chacun avec son micromètre 0-25</span></div>
+    <div class="defile"><table class="saisie" id="g20"></table></div>
+    <div><b>Poste 30 mm</b> <span class="note">· tout le monde avec le micromètre 25-50 commun</span></div>
+    <div class="defile"><table class="saisie" id="g30"></table></div>
+    <details class="memo" id="detDefi">
+      <summary>Défi : la pile 10 + 20 vaut-elle la cale 30 ?</summary>
+      <p class="note" style="margin-top:6px">Une seule personne, micromètre 25-50. Adhérer la cale 10 sur la cale 20. Mesurer en alternant : pile, cale 30, pile, cale 30… 10 fois chacune.</p>
+      <label style="max-width:260px;margin:8px 0" for="inDefiNom"><span>Qui mesure ?</span><input id="inDefiNom" class="nom" placeholder="Prénom"></label>
+      <div class="defile"><table class="saisie" id="gDefi"></table></div>
+    </details>
+    <div class="actions">
+      <button class="btn principal" id="btnCalc" type="button">Calculer</button>
+      <button class="btn second" id="btnEx" type="button">Exemple simulé</button>
+      <button class="btn discret" id="btnEff" type="button">Tout effacer</button>
+      <span class="note" id="compte"></span>
+    </div>
+  </section>
+
+  <p class="note" id="vide">Saisissez les relevés puis cliquez sur Calculer.</p>
+
+  <section class="panneau" id="a1" hidden aria-live="polite">
+    <h2>Atelier 1 · Le micromètre 25-50 est-il capable ?<small>Cale de 30 mm, toutes les mesures du groupe.</small></h2>
+    <div class="chiffres" id="a1Chiffres"></div>
+    <div id="a1Alertes"></div>
+    <div class="deux">
+      <div><svg id="svgGarage" viewBox="0 0 640 150" role="img" aria-label="Zone de l'instrument et étendue des mesures"></svg>
+        <p class="note">Zone verte : x<sub>m</sub> ± 0,1 T, la part de la tolérance laissée à l'instrument. Barre bleue : x̄ ± 3 s, l'étendue des mesures.</p></div>
+      <div><svg id="svgSuite" viewBox="0 0 640 220" role="img" aria-label="Mesures dans l'ordre, par opérateur"></svg></div>
+    </div>
+    <div id="a1Verdict" class="verdict"></div>
+  </section>
+
+  <section class="panneau" id="a2" hidden aria-live="polite">
+    <h2>Atelier 2 · Mon micromètre est-il juste ?<small>Biais de chaque micromètre 0-25 sur les cales de 10 et 20 mm. 1 µm = 0,001 mm.</small></h2>
+    <div class="empile">
+      <div><svg id="svgPente" viewBox="0 0 640 260" role="img" aria-label="Biais de chaque micromètre à 10 et 20 mm"></svg>
+        <p class="note">Bande grisée : ± 1 pas de résolution. Un biais plus petit que cette bande ne se voit pas sur une lecture.</p></div>
+      <div class="defile" style="border:none"><table class="res" id="a2Tab"></table></div>
+    </div>
+    <div id="a2Verdict" class="verdict"></div>
+  </section>
+
+  <section class="panneau" id="a3" hidden aria-live="polite">
+    <h2>Atelier 3 · Et si c'était moi ?<small>Même cale de 30 mm, même micromètre 25-50 : seuls les opérateurs changent.</small></h2>
+    <div class="empile">
+      <div><svg id="svgOp" viewBox="0 0 640 260" role="img" aria-label="Mesures de chaque opérateur sur la cale 30"></svg>
+        <p class="note">Chaque point est une mesure. Le trait épais est la moyenne de l'opérateur. Le tireté vert est la vraie valeur x<sub>m</sub>.</p></div>
+      <div class="defile" style="border:none"><table class="res" id="a3Tab"></table></div>
+    </div>
+    <div class="chiffres" id="a3Chiffres"></div>
+    <div id="a3Verdict" class="verdict"></div>
+  </section>
+
+  <section class="panneau" id="aD" hidden aria-live="polite">
+    <h2>Défi · La pile 10 + 20 vaut-elle la cale 30 ?<small>Même personne, micromètre 25-50, mesures alternées.</small></h2>
+    <div class="chiffres" id="dChiffres"></div>
+    <div id="dVerdict" class="verdict"></div>
+  </section>
+
+  <details class="memo">
+    <summary>Lire les résultats</summary>
+    <ul>
+      <li><b>Résolution</b> : le plus petit pas affiché par l'instrument, rapporté à la tolérance. Résolution / T × 100 doit rester sous 5 % (livret, fig. 3), avant tout calcul. Micromètre au 0,001 mm et T = 0,15 mm : 0,001 / 0,15 × 100 = 0,67 %. Pied à coulisse au 1/50 : 0,02 / 0,15 × 100 = 13,3 %, il est écarté.</li>
+      <li><b>Cg</b> regarde si les mesures sont groupées (fidélité). <b>Cgk</b> regarde en plus si elles tombent sur la vraie valeur (justesse). Les deux doivent atteindre 1,33.</li>
+      <li><b>Biais significatif</b> : le livret compare |x̄ − x<sub>m</sub>| / s à un seuil qui dépend du nombre de mesures (0,715 pour 10 mesures, 0,284 pour 50). Au-dessus, le décalage n'est pas dû au hasard. Il peut rester sans importance pour la tolérance : c'est Cgk qui le dit.</li>
+      <li><b>T min</b> : la plus petite tolérance que l'instrument peut contrôler avec Cg et Cgk ≥ 1,33. T min = 10 |biais| + 39,9 s.</li>
+      <li><b>Atelier 3</b> : le test F compare l'écart entre les moyennes des opérateurs à la dispersion de chacun. F au-dessus de F crit : les opérateurs ne mesurent pas pareil.</li>
+      <li>Avec 10 mesures par personne, les résultats individuels sont indicatifs. Le livret demande 50 mesures (au moins 25) pour une étude de type 1.</li>
+    </ul>
+  </details>
+
+  <p class="sources"><b>Sources :</b> Robert Bosch GmbH, <i>Booklet 10 : Capability of Measurement and Test Processes</i>, édition novembre 2019, § 4.1 (procédure 1), fig. 3 (résolution), § 4.4 (linéarité), annexes C.1 et C.2 (significativité du biais, seuils selon n),
+  <a href="https://assets.bosch.com/media/global/bosch_group/purchasing_and_logistics/information_for_business_partners/downloads/quality_docs/general_regulations/bosch_publications/booklet-no10-capability-of-measurement-and-test-processes_en.pdf" target="_blank" rel="noopener">PDF sur assets.bosch.com</a>.
+  Tolérances des cales de classe 1 : DIN 861 / ISO 3650, valeurs reprises d'un tableau secondaire, à confirmer sur le certificat des cales.</p>
+</div>
+
+<script>
+(function(){
+"use strict";
+var $=function(id){return document.getElementById(id);};
+var NMAX=8, NMES=10, CLE="troisCales_v1";
+function lire(v){ if(v===undefined||v===null) return NaN; v=String(v).trim().replace(/\s/g,"").replace(",","."); return v===""?NaN:Number(v); }
+function fr(x,d){ if(!isFinite(x)) return x>0?"∞":(x<0?"−∞":"—"); var t=Math.abs(x).toFixed(d).replace(".",","); return (x<0&&Number(t.replace(",","."))!==0?"−":"")+t; }
+function frS(x,d){ return (x>0&&Number(Math.abs(x).toFixed(d))!==0?"+":"")+fr(x,d); }
+function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
+function vide10(){ var a=[]; for(var i=0;i<NMES;i++) a.push(""); return a; }
+function etatNeuf(){ var e={T:"0,15",res:"0,001",xm10:"10,000",xm20:"20,000",xm30:"30,000",nb:5,noms:[],micros:[],g10:[],g20:[],g30:[],pile:vide10(),c30:vide10(),defiNom:""};
+  for(var k=0;k<NMAX;k++){ e.noms.push(""); e.micros.push(""); e.g10.push(vide10()); e.g20.push(vide10()); e.g30.push(vide10()); } return e; }
+var etat=etatNeuf();
+try{ var s=localStorage.getItem(CLE); if(s){ var o=JSON.parse(s); if(o&&o.g10&&o.g10.length===NMAX) etat=Object.assign(etatNeuf(),o); } }catch(e){}
+function sauver(){ try{ localStorage.setItem(CLE,JSON.stringify(etat)); }catch(e){} }
+
+function nom(k){ var n=(etat.noms[k]||"").trim(); return n||("Stagiaire "+(k+1)); }
+function couleur(k){ return "var(--c"+(k%8)+")"; }
+
+/* ---------- construction de la saisie ---------- */
+var CHAMPS=[["inT","T"],["inRes","res"],["inXm10","xm10"],["inXm20","xm20"],["inXm30","xm30"]];
+CHAMPS.forEach(function(c){ $(c[0]).value=etat[c[1]]; $(c[0]).addEventListener("input",function(){ etat[c[1]]=this.value; sauver(); }); });
+(function(){ var h=""; for(var n=3;n<=NMAX;n++) h+='<option value="'+n+'">'+n+'</option>'; $("inNb").innerHTML=h; $("inNb").value=String(etat.nb); })();
+$("inNb").addEventListener("change",function(){ etat.nb=+this.value; sauver(); construire(); });
+$("inDefiNom").value=etat.defiNom; $("inDefiNom").addEventListener("input",function(){ etat.defiNom=this.value; sauver(); });
+
+function enteteMes(premier){ var h='<thead><tr><th class="qui">'+premier+'</th>'; for(var i=1;i<=NMES;i++) h+='<th>'+i+'</th>'; return h+'</tr></thead>'; }
+function construireNoms(){
+  var h='<thead><tr><th class="qui">Stagiaire</th><th>Prénom</th><th>N° de son micromètre 0-25</th></tr></thead><tbody>';
+  for(var k=0;k<etat.nb;k++) h+='<tr><th class="qui"><span class="pastille" style="background:'+couleur(k)+'"></span>'+(k+1)+'</th><td><input class="nom" data-k="'+k+'" data-c="noms" value="'+esc(etat.noms[k])+'" placeholder="Stagiaire '+(k+1)+'" aria-label="Prénom du stagiaire '+(k+1)+'"></td><td><input class="nom" data-k="'+k+'" data-c="micros" value="'+esc(etat.micros[k])+'" placeholder="ex. M'+(k+1)+'" aria-label="Numéro du micromètre du stagiaire '+(k+1)+'"></td></tr>';
+  $("tabNoms").innerHTML=h+'</tbody>';
+  $("tabNoms").querySelectorAll("input").forEach(function(inp){ inp.addEventListener("input",function(){ etat[this.dataset.c][+this.dataset.k]=this.value; sauver(); majLibelles(); }); });
+}
+function libelle(k,g){ var m=(etat.micros[k]||"").trim(); return '<span class="pastille" style="background:'+couleur(k)+'"></span><span data-nom="'+k+'">'+esc(nom(k))+'</span>'+(g!=="g30"?'<small data-micro="'+k+'">'+(m?"micromètre "+esc(m):"micromètre 0-25")+'</small>':'<small>micromètre 25-50</small>'); }
+function majLibelles(){
+  document.querySelectorAll("[data-nom]").forEach(function(s){ s.textContent=nom(+s.dataset.nom); });
+  document.querySelectorAll("[data-micro]").forEach(function(s){ var m=(etat.micros[+s.dataset.micro]||"").trim(); s.textContent=m?"micromètre "+m:"micromètre 0-25"; });
+  rotation();
+}
+function construireGrille(id){
+  var h=enteteMes("Stagiaire")+'<tbody>';
+  for(var k=0;k<etat.nb;k++){ h+='<tr><th class="qui">'+libelle(k,id)+'</th>'; for(var i=0;i<NMES;i++) h+='<td><input inputmode="decimal" data-g="'+id+'" data-k="'+k+'" data-i="'+i+'" value="'+esc(etat[id][k][i])+'" aria-label="'+id.slice(1)+' mm, stagiaire '+(k+1)+', mesure '+(i+1)+'"></td>'; h+='</tr>'; }
+  $(id).innerHTML=h+'</tbody>'; brancher($(id));
+}
+function construireDefi(){
+  var h=enteteMes("Mesure")+'<tbody>';
+  [["pile","Pile 10 + 20"],["c30","Cale 30"]].forEach(function(r,k){ h+='<tr><th class="qui">'+r[1]+'</th>'; for(var i=0;i<NMES;i++) h+='<td><input inputmode="decimal" data-g="'+r[0]+'" data-k="-1" data-i="'+i+'" value="'+esc(etat[r[0]][i])+'" aria-label="'+r[1]+', mesure '+(i+1)+'"></td>'; h+='</tr>'; });
+  $("gDefi").innerHTML=h+'</tbody>'; brancher($("gDefi"));
+}
+function ref(g,k){ return k<0?etat[g]:etat[g][k]; }
+function brancher(t){
+  t.querySelectorAll("input").forEach(function(inp){
+    inp.addEventListener("input",function(){ ref(this.dataset.g,+this.dataset.k)[+this.dataset.i]=this.value; sauver(); majCompte(); });
+    inp.addEventListener("paste",function(e){
+      var txt=(e.clipboardData||window.clipboardData).getData("text"); if(!/[\t\n]/.test(txt)) return;
+      e.preventDefault(); var lignes=txt.replace(/\r/g,"").split("\n").filter(function(l){return l.trim()!=="";});
+      var g=inp.dataset.g, k0=+inp.dataset.k, i0=+inp.dataset.i;
+      if(k0<0){ var lgn=["pile","c30"], r0=lgn.indexOf(g);
+        lignes.forEach(function(l,dk){ var r=r0+dk; if(r>1) return; l.split("\t").forEach(function(v,di){ if(i0+di<NMES) etat[lgn[r]][i0+di]=v.trim(); }); });
+        construireDefi(); }
+      else { lignes.forEach(function(l,dk){ var k=k0+dk; if(k>=etat.nb) return; l.split("\t").forEach(function(v,di){ if(i0+di<NMES) etat[g][k][i0+di]=v.trim(); }); });
+        construireGrille(g); }
+      sauver(); majCompte();
+    });
+  });
+}
+function rotation(){
+  var N=etat.nb, P=["10 mm","20 mm","30 mm"], h="";
+  for(var r=0;r<N;r++){ h+='<div><b>Tour '+(r+1)+'</b>'; for(var p=0;p<3;p++){ var k=((r-p)%N+N)%N; h+='<br>'+P[p]+' : '+esc(nom(k)); } h+='</div>'; }
+  $("rotation").innerHTML=h;
+}
+function nombres(a){ return a.map(lire).filter(function(x){return isFinite(x);}); }
+function majCompte(){ var n=0; for(var k=0;k<etat.nb;k++) ["g10","g20","g30"].forEach(function(g){ n+=nombres(etat[g][k]).length; }); $("compte").textContent=n+" / "+(etat.nb*NMES*3)+" mesures saisies"; }
+function construire(){ construireNoms(); ["g10","g20","g30"].forEach(construireGrille); construireDefi(); rotation(); majCompte(); }
+construire();
+
+/* ---------- statistiques ---------- */
+function stats(x){ var n=x.length; if(!n) return {n:0}; var m=x.reduce(function(a,b){return a+b;},0)/n;
+  var s=n>1?Math.sqrt(x.reduce(function(a,b){return a+(b-m)*(b-m);},0)/(n-1)):NaN; if(s<1e-12) s=0; return {n:n,m:m,s:s}; }
+function lgamma(x){ var c=[76.18009172947146,-86.50532032941677,24.01409824083091,-1.231739572450155,0.1208650973866179e-2,-0.5395239384953e-5];
+  var y=x, t=x+5.5; t-=(x+0.5)*Math.log(t); var s=1.000000000190015; for(var j=0;j<6;j++) s+=c[j]/++y; return -t+Math.log(2.5066282746310005*s/x); }
+function betacf(a,b,x){ var MAXIT=300,EPS=3e-14,FPMIN=1e-300,qab=a+b,qap=a+1,qam=a-1,c=1,d=1-qab*x/qap; if(Math.abs(d)<FPMIN)d=FPMIN; d=1/d; var h=d;
+  for(var m=1;m<=MAXIT;m++){ var m2=2*m, aa=m*(b-m)*x/((qam+m2)*(a+m2)); d=1+aa*d; if(Math.abs(d)<FPMIN)d=FPMIN; c=1+aa/c; if(Math.abs(c)<FPMIN)c=FPMIN; d=1/d; h*=d*c;
+    aa=-(a+m)*(qab+m)*x/((a+m2)*(qap+m2)); d=1+aa*d; if(Math.abs(d)<FPMIN)d=FPMIN; c=1+aa/c; if(Math.abs(c)<FPMIN)c=FPMIN; d=1/d; var del=d*c; h*=del; if(Math.abs(del-1)<EPS) break; } return h; }
+function ibeta(a,b,x){ if(x<=0) return 0; if(x>=1) return 1; var bt=Math.exp(lgamma(a+b)-lgamma(a)-lgamma(b)+a*Math.log(x)+b*Math.log(1-x));
+  return x<(a+1)/(a+b+2) ? bt*betacf(a,b,x)/a : 1-bt*betacf(b,a,1-x)/b; }
+function fcdf(f,d1,d2){ return f<=0?0:ibeta(d1/2,d2/2,d1*f/(d1*f+d2)); }
+function fquant(p,d1,d2){ var lo=0,hi=1; while(fcdf(hi,d1,d2)<p) hi*=2; for(var it=0;it<200;it++){ var mid=(lo+hi)/2; if(fcdf(mid,d1,d2)<p) lo=mid; else hi=mid; } return (lo+hi)/2; }
+function tcrit(df){ return Math.sqrt(fquant(0.95,1,df)); } /* quantile bilatéral à 95 % de la loi de Student */
+function seuilBiais(n){ return n>1? tcrit(n-1)/Math.sqrt(n) : NaN; } /* livret, annexe C.2 */
+function type1(x,xm,T){ var st=stats(x); if(st.n<2) return null; var b=st.m-xm, s=st.s;
+  return {n:st.n,m:st.m,s:s,b:b,cg:s>0?0.2*T/(6*s):Infinity,cgk:s>0?(0.1*T-Math.abs(b))/(3*s):(Math.abs(b)<=0.1*T?Infinity:-Infinity),
+    ratio:s>0?Math.abs(b)/s:(b===0?0:Infinity),seuil:seuilBiais(st.n),tmin:10*Math.abs(b)+39.9*s}; }
+
+/* ---------- SVG ---------- */
+var SVGNS="http://www.w3.org/2000/svg";
+function el(nomb,att,p){ var e=document.createElementNS(SVGNS,nomb); for(var k in att) e.setAttribute(k,att[k]); if(p) p.appendChild(e); return e; }
+function txt(p,x,y,t,att){ var e=el("text",Object.assign({x:x,y:y,"font-size":12,fill:"var(--trait)","font-family":"IBM Plex Mono, Consolas, monospace"},att||{}),p); e.textContent=t; return e; }
+function vider(s){ while(s.firstChild) s.removeChild(s.firstChild); }
+var SANS="Source Sans 3, Segoe UI, sans-serif";
+
+function dessinerGarage(T,xm,m,s,dec){
+  var svg=$("svgGarage"); vider(svg);
+  var W=640, g=30, zg=xm-0.1*T, zd=xm+0.1*T, cg=m-3*s, cd=m+3*s;
+  var lo=Math.min(zg,cg), hi=Math.max(zd,cd), marge=(hi-lo)*0.12||0.1*T; lo-=marge; hi+=marge;
+  var X=function(v){ return g+(v-lo)*(W-2*g)/(hi-lo); };
+  el("rect",{x:X(zg),y:24,width:X(zd)-X(zg),height:78,fill:"var(--zone)",stroke:"var(--ok)","stroke-width":1.5,rx:3},svg);
+  el("line",{x1:X(zg),x2:X(zg),y1:16,y2:110,stroke:"var(--ok)","stroke-width":3},svg);
+  el("line",{x1:X(zd),x2:X(zd),y1:16,y2:110,stroke:"var(--ok)","stroke-width":3},svg);
+  el("line",{x1:X(xm),x2:X(xm),y1:20,y2:106,stroke:"var(--ok)","stroke-dasharray":"4 4"},svg);
+  var hors=cg<zg||cd>zd;
+  el("rect",{x:X(cg),y:48,width:Math.max(3,X(cd)-X(cg)),height:30,fill:hors?"var(--ko)":"var(--voiture)",opacity:.85,rx:6},svg);
+  el("line",{x1:X(m),x2:X(m),y1:44,y2:82,stroke:"var(--encre)","stroke-width":2},svg);
+  txt(svg,X(zg),130,fr(zg,dec),{"text-anchor":"middle",fill:"var(--ok)"});
+  txt(svg,X(zd),130,fr(zd,dec),{"text-anchor":"middle",fill:"var(--ok)"});
+  txt(svg,X(xm),14,"xm "+fr(xm,dec),{"text-anchor":"middle",fill:"var(--ok)"});
+  txt(svg,W/2,147,hors?"Les mesures débordent de la zone de l'instrument.":"Les mesures restent dans la zone de l'instrument.",{"text-anchor":"middle","font-size":12.5,fill:hors?"var(--ko)":"var(--ok)","font-family":SANS});
+}
+
+function dessinerSuite(groupes,xm,res,dec){
+  var svg=$("svgSuite"); vider(svg);
+  var W=640,H=220,g={l:12,r:70,t:40,b:20}, tous=[]; groupes.forEach(function(gr){ gr.x.forEach(function(v){ tous.push(v); }); });
+  var n=tous.length, lo=Math.min(xm,Math.min.apply(null,tous))-res, hi=Math.max(xm,Math.max.apply(null,tous))+res;
+  var X=function(i){ return g.l+8+(n>1?i*(W-g.l-g.r-16)/(n-1):0); }, Y=function(v){ return g.t+(hi-v)*(H-g.t-g.b)/(hi-lo); };
+  el("rect",{x:g.l,y:g.t,width:W-g.l-g.r,height:H-g.t-g.b,fill:"var(--papier)",stroke:"var(--grille)"},svg);
+  el("line",{x1:g.l,x2:W-g.r,y1:Y(xm),y2:Y(xm),stroke:"var(--ok)","stroke-width":1.5,"stroke-dasharray":"5 4"},svg);
+  txt(svg,W-g.r+6,Y(xm)+4,"xm",{fill:"var(--ok)","font-size":11.5});
+  txt(svg,W-g.r+6,g.t+4,fr(hi,dec),{"font-size":10.5}); txt(svg,W-g.r+6,H-g.b,fr(lo,dec),{"font-size":10.5});
+  txt(svg,g.l,14,"Les mesures dans l'ordre, opérateur par opérateur",{"font-size":13,fill:"var(--encre)","font-family":"Barlow Semi Condensed, Arial Narrow, sans-serif","font-weight":"600"});
+  var i0=0;
+  groupes.forEach(function(gr,j){
+    var a=i0, b=i0+gr.x.length-1;
+    if(j>0) el("line",{x1:(X(a)+X(a-1))/2,x2:(X(a)+X(a-1))/2,y1:g.t,y2:H-g.b,stroke:"var(--grille)","stroke-width":1.5},svg);
+    txt(svg,(X(a)+X(b))/2,g.t-8,gr.nom.length>9?gr.nom.slice(0,8)+"…":gr.nom,{"text-anchor":"middle",fill:couleur(gr.k),"font-size":11.5,"font-family":SANS,"font-weight":"600"});
+    el("polyline",{points:gr.x.map(function(v,i){return X(a+i)+","+Y(v);}).join(" "),fill:"none",stroke:couleur(gr.k),"stroke-width":1.2,opacity:.7},svg);
+    gr.x.forEach(function(v,i){ el("circle",{cx:X(a+i),cy:Y(v),r:3.2,fill:couleur(gr.k)},svg); });
+    i0=b+1;
+  });
+}
+
+function dessinerPente(lignes,res){
+  var svg=$("svgPente"); vider(svg);
+  var W=640,H=260,g={l:56,r:150,t:34,b:34};
+  var v=[res*1000,-res*1000]; lignes.forEach(function(l){ if(l.b10!=null) v.push(l.b10); if(l.b20!=null) v.push(l.b20); });
+  var lo=Math.min.apply(null,v), hi=Math.max.apply(null,v), pad=(hi-lo)*0.12||0.5; lo-=pad; hi+=pad;
+  var X10=g.l+40, X20=W-g.r-40, Y=function(b){ return g.t+(hi-b)*(H-g.t-g.b)/(hi-lo); };
+  txt(svg,g.l-48,16,"Biais (µm) selon la longueur de la cale",{"font-size":13,fill:"var(--encre)","font-family":"Barlow Semi Condensed, Arial Narrow, sans-serif","font-weight":"600"});
+  el("rect",{x:g.l,y:Y(res*1000),width:W-g.l-g.r,height:Y(-res*1000)-Y(res*1000),fill:"var(--grille)",opacity:.6},svg);
+  el("line",{x1:g.l,x2:W-g.r,y1:Y(0),y2:Y(0),stroke:"var(--ok)","stroke-width":1.5,"stroke-dasharray":"5 4"},svg);
+  txt(svg,g.l-6,Y(0)+4,"0",{"text-anchor":"end",fill:"var(--ok)"});
+  txt(svg,g.l-6,Y(res*1000)+4,frS(res*1000,0),{"text-anchor":"end","font-size":10.5});
+  txt(svg,g.l-6,Y(-res*1000)+4,frS(-res*1000,0),{"text-anchor":"end","font-size":10.5});
+  [[X10,"cale 10 mm"],[X20,"cale 20 mm"]].forEach(function(a){ el("line",{x1:a[0],x2:a[0],y1:g.t,y2:H-g.b,stroke:"var(--grille)"},svg); txt(svg,a[0],H-12,a[1],{"text-anchor":"middle","font-family":SANS,"font-size":12.5}); });
+  var etiq=[];
+  lignes.forEach(function(l){
+    var c=couleur(l.k);
+    if(l.b10!=null&&l.b20!=null) el("line",{x1:X10,x2:X20,y1:Y(l.b10),y2:Y(l.b20),stroke:c,"stroke-width":2.2},svg);
+    if(l.b10!=null) el("circle",{cx:X10,cy:Y(l.b10),r:4.5,fill:c},svg);
+    if(l.b20!=null) el("circle",{cx:X20,cy:Y(l.b20),r:4.5,fill:c},svg);
+    var yb=l.b20!=null?l.b20:l.b10; etiq.push({y:Y(yb),t:l.lib,c:c});
+  });
+  etiq.sort(function(a,b){return a.y-b.y;}); for(var i=1;i<etiq.length;i++) if(etiq[i].y-etiq[i-1].y<15) etiq[i].y=etiq[i-1].y+15;
+  etiq.forEach(function(e){ txt(svg,X20+12,e.y+4,e.t.length>20?e.t.slice(0,19)+"…":e.t,{fill:e.c,"font-family":SANS,"font-size":12,"font-weight":"600"}); });
+}
+
+function dessinerOp(groupes,xm,res,dec){
+  var svg=$("svgOp"); vider(svg);
+  var W=640,H=260,g={l:70,r:16,t:30,b:36}, tous=[]; groupes.forEach(function(gr){ gr.x.forEach(function(v){tous.push(v);}); });
+  var lo=Math.min(xm,Math.min.apply(null,tous))-res, hi=Math.max(xm,Math.max.apply(null,tous))+res;
+  var Y=function(v){ return g.t+(hi-v)*(H-g.t-g.b)/(hi-lo); }, K=groupes.length, larg=(W-g.l-g.r)/K;
+  txt(svg,6,16,"Cale 30 mm : les mesures de chacun",{"font-size":13,fill:"var(--encre)","font-family":"Barlow Semi Condensed, Arial Narrow, sans-serif","font-weight":"600"});
+  var pas=res, nb=Math.round((hi-lo)/pas); while(nb>10){ pas*=2; nb=Math.round((hi-lo)/pas); }
+  for(var v=Math.ceil(lo/pas-1e-9)*pas; v<=hi+1e-12; v+=pas){ el("line",{x1:g.l,x2:W-g.r,y1:Y(v),y2:Y(v),stroke:"var(--grille)"},svg); txt(svg,g.l-6,Y(v)+4,fr(v,dec),{"text-anchor":"end","font-size":10.5}); }
+  el("line",{x1:g.l,x2:W-g.r,y1:Y(xm),y2:Y(xm),stroke:"var(--ok)","stroke-width":1.8,"stroke-dasharray":"6 4"},svg);
+  groupes.forEach(function(gr,j){
+    var cx=g.l+larg*(j+0.5), c=couleur(gr.k), cpt={};
+    gr.x.forEach(function(v){ var cle=v.toFixed(6), n=cpt[cle]||0; cpt[cle]=n+1; var dx=(n%2?1:-1)*Math.ceil(n/2)*7; el("circle",{cx:cx+dx,cy:Y(v),r:3.3,fill:c,opacity:.85},svg); });
+    var st=stats(gr.x); el("line",{x1:cx-larg*0.32,x2:cx+larg*0.32,y1:Y(st.m),y2:Y(st.m),stroke:c,"stroke-width":3.5},svg);
+    txt(svg,cx,H-14,gr.nom.length>11?gr.nom.slice(0,10)+"…":gr.nom,{"text-anchor":"middle",fill:c,"font-family":SANS,"font-size":12,"font-weight":"600"});
+  });
+}
+
+/* ---------- calcul ---------- */
+function carte(lib,val,cls){ return '<div class="chiffre '+(cls||"")+'"><span>'+lib+'</span><b>'+val+'</b></div>'; }
+function affC(c){ return fr(c,2); }
+var dernier=null;
+
+function calculer(){
+  var T=lire(etat.T), res=lire(etat.res), xm={10:lire(etat.xm10),20:lire(etat.xm20),30:lire(etat.xm30)};
+  var al=[]; if(!(T>0)) al.push("Indiquez la tolérance T."); if(!(res>0)) al.push("Indiquez la résolution.");
+  [10,20,30].forEach(function(L){ if(!isFinite(xm[L])) al.push("Indiquez la valeur de la cale "+L+"."); });
+  if(al.length){ $("vide").innerHTML='<span class="alerte">'+al.join(" ")+'</span>'; $("vide").hidden=false; ["a1","a2","a3","aD"].forEach(function(i){$(i).hidden=true;}); return null; }
+  var dec=Math.max(3,Math.ceil(-Math.log10(res)-1e-9)), pRes=100*res/T, R={T:T,res:res,xm:xm};
+  var n30=0; for(var k=0;k<etat.nb;k++) n30+=nombres(etat.g30[k]).length;
+
+  /* Atelier 1 */
+  var groupes=[], tous=[];
+  for(k=0;k<etat.nb;k++){ var x=nombres(etat.g30[k]); if(x.length){ groupes.push({k:k,nom:nom(k),x:x}); tous=tous.concat(x); } }
+  var r1=type1(tous,xm[30],T); R.a1=r1;
+  if(r1){
+    var okG=r1.cg>=1.33, okGk=r1.cgk>=1.33, okR=pRes<5, sig=r1.ratio>r1.seuil;
+    $("a1Chiffres").innerHTML=carte("Mesures",r1.n)+carte("Moyenne x̄",fr(r1.m,dec+1)+" mm")+carte("Écart-type s",fr(r1.s,dec+2)+" mm")+carte("Biais x̄ − xm",frS(r1.b,dec+1)+" mm")
+      +carte("Résolution / T",fr(pRes,2)+" %",okR?"bon":"mauvais")+carte("Cg",affC(r1.cg),"fort "+(okG?"bon":"mauvais"))+carte("Cgk",affC(r1.cgk),"fort "+(okGk?"bon":"mauvais"))+carte("T min",fr(r1.tmin,3)+" mm");
+    var a=[]; if(r1.n<25) a.push("Seulement "+r1.n+" mesures : le livret en demande 50, au moins 25. Résultat indicatif.");
+    if(!okR) a.push("Résolution au-dessus de 5 % de T : instrument trop grossier pour cette tolérance, quel que soit Cg.");
+    if(r1.s===0) a.push("Toutes les mesures sont identiques : la résolution masque la dispersion.");
+    $("a1Alertes").innerHTML=a.map(function(t){return '<p class="alerte">'+t+'</p>';}).join("");
+    var bon=okG&&okGk&&okR, v=$("a1Verdict");
+    v.className="verdict "+(bon?"bon":"mauvais");
+    v.innerHTML=(bon?"<strong>Le micromètre 25-50 est capable pour T = "+fr(T,3)+" mm.</strong>":"<strong>Le micromètre 25-50 n'est pas capable pour T = "+fr(T,3)+" mm.</strong>")
+      +"<span>Cg = "+affC(r1.cg)+" et Cgk = "+affC(r1.cgk)+". Le biais vaut "+frS(r1.b*1000,1)+" µm ; |biais| / s = "+fr(r1.ratio,3)+" pour un seuil de "+fr(r1.seuil,3)+" ("+r1.n+" mesures) : "
+      +(sig?"le biais est significatif, mais c'est Cgk qui dit s'il gêne.":"le biais n'est pas significatif.")+"</span>"
+      +"<span>Ces mesures viennent de "+groupes.length+" opérateurs : s contient aussi leurs différences (atelier 3). "+(bon?"Le micromètre passe malgré cela.":"Regarder l'atelier 3 avant d'accuser l'instrument.")+"</span>";
+    dessinerGarage(T,xm[30],r1.m,r1.s,dec); dessinerSuite(groupes,xm[30],res,dec);
+    $("a1").hidden=false;
+  } else $("a1").hidden=true;
+
+  /* Atelier 2 */
+  var lignes=[], h='<thead><tr><th>Stagiaire</th><th>Biais 10 (µm)</th><th>s 10 (µm)</th><th>Biais signif. ?</th><th>Biais 20 (µm)</th><th>s 20 (µm)</th><th>Biais signif. ?</th><th>20 − 10 (µm)</th><th>T min (mm)</th></tr></thead><tbody>';
+  R.a2=[];
+  for(k=0;k<etat.nb;k++){
+    var p=type1(nombres(etat.g10[k]),xm[10],T), q=type1(nombres(etat.g20[k]),xm[20],T); if(!p&&!q) continue;
+    var m=(etat.micros[k]||"").trim(), lib=nom(k)+(m?" ("+m+")":"");
+    var diff=null, diffSig=false;
+    if(p&&q){ diff=(q.b-p.b)*1000; var sp=Math.sqrt(((p.n-1)*p.s*p.s+(q.n-1)*q.s*q.s)/(p.n+q.n-2)), se=sp*Math.sqrt(1/p.n+1/q.n);
+      diffSig = se>0 ? Math.abs(q.b-p.b)/se>tcrit(p.n+q.n-2) : Math.abs(q.b-p.b)>res/2; }
+    var tmin=Math.max(p?p.tmin:0,q?q.tmin:0);
+    lignes.push({k:k,lib:lib,b10:p?p.b*1000:null,b20:q?q.b*1000:null});
+    R.a2.push({k:k,p:p,q:q,diff:diff,diffSig:diffSig,tmin:tmin});
+    var sg=function(r){ if(!r) return '<td>—</td>'; var o=r.ratio>r.seuil; return '<td class="'+(o?"oui":"non")+'">'+(o?"oui":"non")+'</td>'; };
+    h+='<tr><td><span class="pastille" style="background:'+couleur(k)+'"></span>'+esc(lib)+'</td>'
+      +'<td>'+(p?frS(p.b*1000,1):"—")+'</td><td>'+(p?fr(p.s*1000,2):"—")+'</td>'+sg(p)
+      +'<td>'+(q?frS(q.b*1000,1):"—")+'</td><td>'+(q?fr(q.s*1000,2):"—")+'</td>'+sg(q)
+      +'<td class="'+(diff===null?"":(diffSig?"oui":"non"))+'">'+(diff===null?"—":frS(diff,1))+'</td><td>'+fr(tmin,3)+'</td></tr>';
+  }
+  $("a2Tab").innerHTML=h+'</tbody>';
+  if(lignes.length){
+    dessinerPente(lignes,res);
+    var pire=R.a2.reduce(function(a,b){ return b.tmin>a.tmin?b:a; }), nsig=0, nlin=0;
+    R.a2.forEach(function(r){ if((r.p&&r.p.ratio>r.p.seuil)||(r.q&&r.q.ratio>r.q.seuil)) nsig++; if(r.diffSig) nlin++; });
+    var tousOk=pire.tmin<=T, v2=$("a2Verdict");
+    v2.className="verdict "+(tousOk?"bon":"mauvais");
+    v2.innerHTML="<strong>"+(tousOk?"Tous les micromètres 0-25 sont assez justes pour T = "+fr(T,3)+" mm.":"Au moins un micromètre ne tient pas T = "+fr(T,3)+" mm.")+"</strong>"
+      +"<span>"+nsig+" micromètre"+(nsig>1?"s ont":" a")+" un biais significatif sur au moins une cale. "
+      +(nlin?nlin+" micromètre"+(nlin>1?"s ont":" a")+" un biais qui change nettement entre 10 et 20 mm : l'erreur dépend de la longueur (linéarité).":"Aucun biais ne change nettement entre 10 et 20 mm.")+"</span>"
+      +"<span>Le micromètre le moins précis est celui de "+esc(nom(pire.k))+" : T min = "+fr(pire.tmin,3)+" mm. Chaque personne utilise son propre micromètre : le biais mesuré est celui du couple micromètre et utilisateur.</span>";
+    $("a2").hidden=false;
+  } else $("a2").hidden=true;
+
+  /* Atelier 3 : analyse de variance à un facteur sur la cale 30 */
+  var gv=groupes.filter(function(gr){ return gr.x.length>=2; });
+  if(gv.length>=2){
+    var N=0, Sx=0; gv.forEach(function(gr){ N+=gr.x.length; Sx+=gr.x.reduce(function(a,b){return a+b;},0); }); var mg=Sx/N;
+    var SSB=0, SSW=0, sumn2=0;
+    gv.forEach(function(gr){ var st=stats(gr.x); gr.st=st; SSB+=st.n*(st.m-mg)*(st.m-mg); gr.x.forEach(function(v){ SSW+=(v-st.m)*(v-st.m); }); sumn2+=st.n*st.n; });
+    if(SSW<1e-18) SSW=0; if(SSB<1e-18) SSB=0;
+    var K=gv.length, dfB=K-1, dfW=N-K, MSB=SSB/dfB, MSW=SSW/dfW, F=MSW>0?MSB/MSW:(MSB>0?Infinity:0), Fc=fquant(0.95,dfB,dfW);
+    var n0=(N-sumn2/N)/(K-1), EV=Math.sqrt(MSW), AV2=Math.max(0,(MSB-MSW)/n0), AV=Math.sqrt(AV2), part=EV*EV+AV2>0?100*AV2/(EV*EV+AV2):0;
+    var cgSeul=EV>0?0.2*T/(6*EV):Infinity, signif=F>Fc;
+    R.a3={N:N,K:K,SSB:SSB,SSW:SSW,MSB:MSB,MSW:MSW,F:F,Fc:Fc,EV:EV,AV:AV,part:part,cgSeul:cgSeul};
+    var h3='<thead><tr><th>Opérateur</th><th>n</th><th>Moyenne (mm)</th><th>Écart à xm (µm)</th><th>s (µm)</th><th>Cg seul</th></tr></thead><tbody>';
+    gv.forEach(function(gr){ var st=gr.st; h3+='<tr><td><span class="pastille" style="background:'+couleur(gr.k)+'"></span>'+esc(gr.nom)+'</td><td>'+st.n+'</td><td>'+fr(st.m,dec+1)+'</td><td>'+frS((st.m-xm[30])*1000,1)+'</td><td>'+fr(st.s*1000,2)+'</td><td>'+(st.s>0?fr(0.2*T/(6*st.s),1):"∞")+'</td></tr>'; });
+    $("a3Tab").innerHTML=h3+'</tbody>';
+    $("a3Chiffres").innerHTML=carte("F calculé",fr(F,2),"fort "+(signif?"mauvais":"bon"))+carte("F crit (5 %)",fr(Fc,3))+carte("Répétabilité EV",fr(EV*1000,2)+" µm")+carte("Écart opérateurs AV",fr(AV*1000,2)+" µm")
+      +carte("Part des opérateurs",fr(part,0)+" %")+carte("Cg du groupe",r1?affC(r1.cg):"—")+carte("Cg sans les opérateurs",affC(cgSeul));
+    var v3=$("a3Verdict"); v3.className="verdict "+(signif?"mauvais":"bon");
+    v3.innerHTML=(signif?"<strong>Les opérateurs ne mesurent pas pareil.</strong><span>F = "+fr(F,2)+" dépasse F crit = "+fr(Fc,3)+" : l'écart entre les moyennes est trop grand pour venir du seul hasard des mesures.":"<strong>Pas d'écart démontré entre les opérateurs.</strong><span>F = "+fr(F,2)+" reste sous F crit = "+fr(Fc,3)+" : les écarts entre moyennes peuvent venir du seul hasard des mesures.")
+      +" Les opérateurs pèsent "+fr(part,0)+" % de la variance totale.</span>"+(EV===0?"<span>Chacun retrouve toujours la même valeur : la résolution est trop grossière pour voir la répétabilité. Résultat à prendre avec prudence.</span>":"")+"<span>Sans l'effet opérateur, le micromètre aurait Cg ≈ "+affC(cgSeul)+(r1?" au lieu de "+affC(r1.cg):"")+".</span>";
+    dessinerOp(gv,xm[30],res,dec);
+    $("a3").hidden=false;
+  } else { $("a3").hidden=true; R.a3=null; }
+
+  /* Défi */
+  var P=nombres(etat.pile), Q=nombres(etat.c30);
+  if(P.length>=2&&Q.length>=2){
+    var sP=stats(P), sQ=stats(Q), d=sP.m-sQ.m, d0=xm[10]+xm[20]-xm[30], df=sP.n+sQ.n-2;
+    var spool=Math.sqrt(((sP.n-1)*sP.s*sP.s+(sQ.n-1)*sQ.s*sQ.s)/df), se=spool*Math.sqrt(1/sP.n+1/sQ.n), tc=tcrit(df), tt=se>0?Math.abs(d-d0)/se:(Math.abs(d-d0)>res/2?Infinity:0);
+    var sigD=tt>tc;
+    R.defi={mP:sP.m,mQ:sQ.m,d:d,d0:d0,t:tt,tc:tc};
+    $("dChiffres").innerHTML=carte("Moyenne pile",fr(sP.m,dec+1)+" mm")+carte("Moyenne cale 30",fr(sQ.m,dec+1)+" mm")+carte("Écart mesuré",frS(d*1000,1)+" µm","fort")+carte("Écart attendu",frS(d0*1000,1)+" µm")+carte("t calculé",fr(tt,2),sigD?"mauvais":"bon")+carte("t crit (5 %)",fr(tc,3));
+    var vD=$("dVerdict"); vD.className="verdict "+(sigD?"mauvais":"bon");
+    vD.innerHTML=(sigD?"<strong>La pile ne vaut pas la cale 30.</strong><span>L'écart de "+frS((d-d0)*1000,1)+" µm par rapport à l'attendu est trop grand pour le hasard. Pistes : adhérence ratée (poussière, film d'huile), cales réchauffées par la main, cale usée, ou simplement l'écart réel entre les cales si l'on a saisi les valeurs nominales.":"<strong>La pile vaut la cale 30, à la précision du micromètre.</strong><span>L'écart de "+frS((d-d0)*1000,1)+" µm par rapport à l'attendu peut venir du seul hasard des mesures.")
+      +"</span><span>Rappel : en classe 1, la cale 10 est garantie à ± 0,20 µm, la 20 à ± 0,30 µm, la 30 à ± 0,40 µm. Si l'on prend les valeurs nominales, un écart réel jusqu'à 0,9 µm peut venir des cales elles-mêmes.</span>";
+    $("aD").hidden=false;
+  } else { $("aD").hidden=true; R.defi=null; }
+
+  $("vide").hidden=!(!R.a1&&!R.a2.length&&!R.a3);
+  if(!$("vide").hidden) $("vide").innerHTML="Pas assez de mesures pour calculer : au moins 2 valeurs par stagiaire et par cale.";
+  dernier=R; return R;
+}
+
+/* ---------- exemple simulé ---------- */
+function gauss(){ var u=0,v=0; while(u===0)u=Math.random(); while(v===0)v=Math.random(); return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v); }
+function arrondi(y,res,dec){ return fr(Math.round(y/res)*res,dec); }
+$("btnEx").addEventListener("click",function(){
+  var res=lire(etat.res); if(!(res>0)){ res=0.001; etat.res="0,001"; $("inRes").value="0,001"; }
+  if(!(lire(etat.T)>0)){ etat.T="0,15"; $("inT").value="0,15"; }
+  var dec=Math.max(3,Math.ceil(-Math.log10(res)-1e-9)), xm={10:lire(etat.xm10)||10,20:lire(etat.xm20)||20,30:lire(etat.xm30)||30};
+  var prenoms=["Alex","Camille","Dominique","Lou","Sacha","Charlie","Noa","Eden"], b30=(Math.random()-0.5)*0.0016;
+  for(var k=0;k<etat.nb;k++){
+    if(!etat.noms[k]) etat.noms[k]=prenoms[k]; if(!etat.micros[k]) etat.micros[k]="M"+(k+1);
+    var b10=(Math.random()-0.5)*0.0016, pente=(Math.random()-0.5)*0.0012, s=0.00035+Math.random()*0.0003, op=(Math.random()-0.5)*0.0014;
+    for(var i=0;i<NMES;i++){
+      etat.g10[k][i]=arrondi(xm[10]+b10+s*gauss(),res,dec);
+      etat.g20[k][i]=arrondi(xm[20]+b10+pente+s*gauss(),res,dec);
+      etat.g30[k][i]=arrondi(xm[30]+b30+op+0.0004*gauss(),res,dec);
+    }
+  }
+  for(i=0;i<NMES;i++){ etat.pile[i]=arrondi(xm[30]+b30+0.0004*gauss(),res,dec); etat.c30[i]=arrondi(xm[30]+b30+0.0004*gauss(),res,dec); }
+  if(!etat.defiNom) etat.defiNom=etat.noms[0]; $("inDefiNom").value=etat.defiNom;
+  sauver(); construire(); calculer();
+});
+var armer=false;
+$("btnEff").addEventListener("click",function(){
+  if(!armer){ armer=true; this.textContent="Confirmer l'effacement"; var b=this; setTimeout(function(){ armer=false; b.textContent="Tout effacer"; },4000); return; }
+  armer=false; this.textContent="Tout effacer";
+  var nb=etat.nb; etat=etatNeuf(); etat.nb=nb; sauver();
+  CHAMPS.forEach(function(c){ $(c[0]).value=etat[c[1]]; }); $("inDefiNom").value="";
+  construire(); ["a1","a2","a3","aD"].forEach(function(i){$(i).hidden=true;}); $("vide").hidden=false; $("vide").textContent="Saisissez les relevés puis cliquez sur Calculer.";
+});
+$("btnCalc").addEventListener("click",function(){ calculer(); var c=$("a1"); if(!c.hidden) c.scrollIntoView({behavior:"smooth",block:"start"}); });
+window.__cales={calculer:calculer,etat:function(){return etat;},fquant:fquant};
+})();
+</script>
+
+</body>
+</html>

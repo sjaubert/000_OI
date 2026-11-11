@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>La machine est-elle capable ?</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Mise en page : même poste de contrôle que « La carte sonne-t-elle ? ». À gauche l'histogramme dans le garage, à droite le pupitre de calcul et de décision. */
+:root{
+  --papier:#F6F8F7; --encre:#17324D; --trait:#5B6B7A; --grille:#D9E2E0; --fond:#E9EEED; --carte:#FFFFFF;
+  --tol:#B3261E; --voiture:#1F4E79; --voiturefond:rgba(31,78,121,.12); --barre:#8FA9BF;
+  --ok:#2E7D32; --okfond:#E3F1E4; --ko:#B3261E; --kofond:#FBE4E2; --accent:#1F4E79; --accentfond:#DCE7F2; --orange:#B4530F;
+  --carrosserie:#2D6A9F; --carrosserie2:#1F4E79; --vitre:#BFD3E3; --pneu:#23292E; --feu:#D9432F; --plaque:#FFFFFF; --mur:#C9CFCC; --murbord:#8E9894; --interieur:#E1E6E4; --sol:#8E9894;
+  --f-titre:"Barlow Semi Condensed","Arial Narrow",Arial,sans-serif;
+  --f-texte:"Source Sans 3","Segoe UI",Arial,sans-serif;
+  --f-chiffre:"IBM Plex Mono",Consolas,"Courier New",monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --papier:#16201F; --encre:#DCE8F2; --trait:#9AABB8; --grille:#26332F; --fond:#0F1716; --carte:#1B2625;
+  --tol:#F2877E; --voiture:#8DB8E6; --voiturefond:rgba(141,184,230,.16); --barre:#4E6A82;
+  --ok:#7CC283; --okfond:#1D3322; --ko:#F2877E; --kofond:#3A1E1C; --accent:#8DB8E6; --accentfond:#1E3247; --orange:#F08A4B;
+  --carrosserie:#4F8CC4; --carrosserie2:#9CC2E6; --vitre:#28394A; --pneu:#0A0D0F; --feu:#F06B55; --plaque:#E9EEF2; --mur:#3A4542; --murbord:#6E7C77; --interieur:#121A19; --sol:#6E7C77; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --papier:#16201F; --encre:#DCE8F2; --trait:#9AABB8; --grille:#26332F; --fond:#0F1716; --carte:#1B2625;
+  --tol:#F2877E; --voiture:#8DB8E6; --voiturefond:rgba(141,184,230,.16); --barre:#4E6A82;
+  --ok:#7CC283; --okfond:#1D3322; --ko:#F2877E; --kofond:#3A1E1C; --accent:#8DB8E6; --accentfond:#1E3247; --orange:#F08A4B;
+  --carrosserie:#4F8CC4; --carrosserie2:#9CC2E6; --vitre:#28394A; --pneu:#0A0D0F; --feu:#F06B55; --plaque:#E9EEF2; --mur:#3A4542; --murbord:#6E7C77; --interieur:#121A19; --sol:#6E7C77; color-scheme:dark}
+body{background:var(--fond);color:var(--encre);font-family:var(--f-texte);font-size:16px;line-height:1.45}
+.page>*{min-width:0}
+.page{max-width:1180px;margin:0 auto;padding-block:20px 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:16px}
+header{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:flex-end;justify-content:space-between}
+h1{font-family:var(--f-titre);font-weight:700;font-size:clamp(1.7rem,3.2vw,2.3rem);line-height:1.05;margin:0;text-wrap:balance}
+.sous{margin:4px 0 0;color:var(--trait);font-size:.95rem}
+.compteur{display:flex;gap:10px;flex-wrap:wrap}
+.pastille{font-family:var(--f-chiffre);font-size:.9rem;background:var(--carte);border:1px solid var(--grille);border-radius:6px;padding:6px 10px;white-space:nowrap}
+.pastille b{font-weight:500;color:var(--accent)}
+.barre-outils{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;font-size:.95rem}
+.barre-outils label{color:var(--trait)}
+select,button,input{font:inherit}
+select{background:var(--carte);color:var(--encre);border:1px solid var(--grille);border-radius:6px;padding:6px 8px;max-width:100%}
+.poste{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:860px){.poste{grid-template-columns:1fr}}
+.atelier{background:var(--papier);border:1px solid var(--grille);border-radius:8px;padding:14px;min-width:0;display:grid;gap:10px}
+.contexte{display:flex;flex-wrap:wrap;gap:4px 14px;align-items:baseline}
+.contexte h2{font-family:var(--f-titre);font-weight:600;font-size:1.25rem;margin:0}
+.contexte span{color:var(--trait);font-size:.9rem}
+svg{display:block;width:100%;height:auto}
+.donnees{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+@media (max-width:520px){.donnees{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.donnee{background:var(--carte);border:1px solid var(--grille);border-radius:6px;padding:8px 10px;min-width:0}
+.donnee span{display:block;font-size:.78rem;color:var(--trait);letter-spacing:.04em;text-transform:uppercase}
+.donnee b{font-family:var(--f-chiffre);font-weight:500;font-size:1.1rem;font-variant-numeric:tabular-nums}
+.pupitre{background:var(--carte);border:1px solid var(--grille);border-radius:8px;padding:16px;display:grid;gap:14px;min-width:0}
+.question{display:grid;gap:6px}
+.question h3{font-family:var(--f-titre);font-weight:600;font-size:1.05rem;margin:0;letter-spacing:.02em}
+.question h3 small{font-family:var(--f-texte);font-weight:400;color:var(--trait);font-size:.85rem;letter-spacing:0}
+.saisie{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.saisie input{width:7.5em;background:var(--papier);color:var(--encre);border:1.5px solid var(--grille);border-radius:6px;padding:7px 9px;font-family:var(--f-chiffre)}
+.saisie input.juste{border-color:var(--ok);background:var(--okfond)}
+.saisie input.faux{border-color:var(--ko);background:var(--kofond)}
+.saisie .attendu{font-family:var(--f-chiffre);font-size:.9rem;color:var(--trait)}
+.choix{display:grid;gap:6px}
+.choix.deux{grid-template-columns:1fr 1fr}
+.choix button{text-align:left;background:var(--papier);color:var(--encre);border:1.5px solid var(--grille);border-radius:6px;padding:8px 10px;cursor:pointer;line-height:1.25}
+.choix button:hover{border-color:var(--accent)}
+.choix button[aria-pressed="true"]{border-color:var(--accent);background:var(--accentfond);font-weight:600}
+.choix button.juste{border-color:var(--ok);background:var(--okfond)}
+.choix button.faux{border-color:var(--ko);background:var(--kofond)}
+.choix button:disabled{cursor:default}
+button:focus-visible,select:focus-visible,summary:focus-visible,input:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+.btn{border:none;border-radius:6px;padding:10px 16px;cursor:pointer;font-family:var(--f-titre);font-weight:600;font-size:1.05rem;letter-spacing:.02em}
+.btn.principal{background:var(--accent);color:var(--carte)}
+.btn.principal:disabled{opacity:.45;cursor:not-allowed}
+.btn.second{background:transparent;color:var(--accent);border:1.5px solid var(--accent)}
+.retour{border-radius:6px;padding:12px 14px;display:grid;gap:6px;font-size:.95rem}
+.retour.bon{background:var(--okfond);border:1px solid var(--ok)}
+.retour.mauvais{background:var(--kofond);border:1px solid var(--ko)}
+.retour strong{font-family:var(--f-titre);font-size:1.15rem;font-weight:700}
+.calcul{font-family:var(--f-chiffre);font-size:.88rem;line-height:1.55;overflow-x:auto}
+.memo{background:var(--carte);border:1px solid var(--grille);border-radius:8px;padding:10px 14px}
+.memo summary{cursor:pointer;font-family:var(--f-titre);font-weight:600;font-size:1.1rem}
+.memo-table{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.92rem;margin-top:8px}
+th,td{text-align:left;vertical-align:top;padding:7px 8px;border-bottom:1px solid var(--grille)}
+th{font-family:var(--f-titre);font-weight:600;font-size:.95rem}
+.formules{display:flex;flex-wrap:wrap;gap:8px 28px;font-family:var(--f-chiffre);font-size:.95rem;margin:10px 0 4px}
+.bilan{background:var(--carte);border:2px solid var(--accent);border-radius:8px;padding:16px;display:grid;gap:8px}
+.bilan h2{font-family:var(--f-titre);margin:0;font-size:1.5rem}
+.note{font-size:.85rem;color:var(--trait)}
+.num{font-family:var(--f-chiffre);font-variant-numeric:tabular-nums}
+@media (prefers-reduced-motion:no-preference){.retour,.bilan{animation:entree .25s ease-out}@keyframes entree{from{transform:translateY(4px);opacity:.6}to{transform:none;opacity:1}}}
+</style>
+</head>
+<body>
+
+<div class="page">
+  <header>
+    <div>
+      <h1>La machine est-elle capable ?</h1>
+      <p class="sous">Entraînement à la capabilité : 100 pièces mesurées, une tolérance, un client qui exige Cpk ≥ 1,33.</p>
+    </div>
+    <div class="compteur" aria-live="polite">
+      <span class="pastille">Cas <b id="numCas">1</b> / 8</span>
+      <span class="pastille">Points <b id="score">0</b> / <span id="scoreMax">0</span></span>
+      <span class="pastille">Série en cours <b id="serie">0</b></span>
+    </div>
+  </header>
+
+  <div class="barre-outils">
+    <label for="mode">Mode</label>
+    <select id="mode">
+      <option value="calcul">Série de 8 cas : je calcule Cp et Cpk</option>
+      <option value="lecture">Série de 8 cas : Cp et Cpk sont donnés</option>
+      <option value="A">Démonstration : capable et centré</option>
+      <option value="B">Démonstration : bonne dispersion, mal centré</option>
+      <option value="C">Démonstration : centré, trop dispersé</option>
+      <option value="D">Démonstration : trop dispersé et mal centré</option>
+      <option value="E">Piège : Cp bon, Cpk juste sous 1,33</option>
+      <option value="F">Piège : toutes les pièces sont bonnes, et pourtant</option>
+      <option value="G">Piège : décentré, mais Cpk ≥ 1,33</option>
+    </select>
+    <span class="note">Les démonstrations ne comptent pas dans le score.</span>
+  </div>
+
+  <div class="poste">
+    <section class="atelier" aria-label="Les mesures">
+      <div class="contexte"><h2 id="ctxNom">Diamètre de butée</h2><span id="ctxInfo"></span></div>
+      <svg id="histo" viewBox="0 0 720 440" role="img" aria-label="Histogramme des 100 pièces, et la voiture de largeur 6 s qui entre dans le garage de la tolérance"></svg>
+      <div class="donnees">
+        <div class="donnee"><span>TI</span><b id="dTI"></b></div>
+        <div class="donnee"><span>TS</span><b id="dTS"></b></div>
+        <div class="donnee"><span>Moyenne m</span><b id="dM"></b></div>
+        <div class="donnee"><span>Écart-type s</span><b id="dS"></b></div>
+      </div>
+      <p class="note" id="lecture-note">Le garage : l'intervalle de tolérance IT = TS − TI. La voiture, vue de l'arrière quand elle entre : sa largeur est celle qu'occupent les pièces, 6 s (de m − 3 s à m + 3 s). Si elle dépasse un mur, ça frotte : des pièces sortent de la tolérance.</p>
+    </section>
+
+    <section class="pupitre" aria-label="Votre analyse">
+      <div class="question" id="blocCp">
+        <h3>1. Cp <small>= IT / (6 × s), la voiture tient-elle dans le garage ?</small></h3>
+        <div class="saisie"><input id="inCp" inputmode="decimal" autocomplete="off" placeholder="ex. 1,45" aria-label="Votre Cp"><span class="attendu" id="attCp"></span></div>
+      </div>
+      <div class="question" id="blocCpk">
+        <h3>2. Cpk <small>= distance de m au mur le plus proche / (3 × s)</small></h3>
+        <div class="saisie"><input id="inCpk" inputmode="decimal" autocomplete="off" placeholder="ex. 1,10" aria-label="Votre Cpk"><span class="attendu" id="attCpk"></span></div>
+      </div>
+      <div class="question" id="blocDonnes" hidden>
+        <h3>Les indices</h3>
+        <div class="donnees" style="grid-template-columns:1fr 1fr"><div class="donnee"><span>Cp</span><b id="gCp"></b></div><div class="donnee"><span>Cpk</span><b id="gCpk"></b></div></div>
+      </div>
+      <div class="question">
+        <h3><span id="nDiag">3</span>. Qu'est-ce qui ne va pas ?</h3>
+        <div class="choix deux" data-q="diag"></div>
+      </div>
+      <div class="question">
+        <h3><span id="nDec">4</span>. Votre décision</h3>
+        <div class="choix" data-q="dec"></div>
+      </div>
+      <div class="actions">
+        <button class="btn principal" id="valider" disabled>Valider</button>
+        <button class="btn second" id="suivante" hidden>Cas suivant</button>
+      </div>
+      <div id="retour" class="retour" hidden aria-live="polite"></div>
+    </section>
+  </div>
+
+  <div id="bilan" class="bilan" hidden></div>
+
+  <details class="memo">
+    <summary>Aide-mémoire : Cp, Cpk et décision</summary>
+    <div class="formules"><span>Cp = (TS − TI) / (6 × s)</span><span>Cpk = min(TS − m ; m − TI) / (3 × s)</span><span>Seuil client : 1,33</span></div>
+    <div class="memo-table">
+    <table>
+      <thead><tr><th>Ce qu'on trouve</th><th>Ce que ça veut dire</th><th>Ce qu'on fait</th></tr></thead>
+      <tbody>
+        <tr><td>Cp ≥ 1,33 et Cpk ≥ 1,33</td><td>La voiture est assez étroite et bien garée.</td><td>On valide la production.</td></tr>
+        <tr><td>Cp ≥ 1,33 mais Cpk &lt; 1,33</td><td>La voiture tient dans le garage, mais elle est garée trop près d'un mur : le procédé est décentré.</td><td>On règle : on recentre sur le milieu de la tolérance.</td></tr>
+        <tr><td>Cp &lt; 1,33</td><td>La voiture est trop large pour le garage : le procédé est trop dispersé. Bien la garer ne suffira pas.</td><td>On réduit la dispersion : machine, outil, bridage, méthode. Régler ne suffit pas.</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="note">Cpk n'est jamais plus grand que Cp. Les deux sont égaux quand la moyenne est au milieu de la tolérance. Des pièces toutes bonnes aujourd'hui ne prouvent pas que la machine est capable : c'est Cpk qui dit ce qui arrivera sur les prochaines.</p>
+  </details>
+</div>
+
+<script>
+(function(){
+"use strict";
+var CONTEXTES = [
+  {nom:"Diamètre de butée", unite:"mm", TI:11.85, TS:12.00, dec:3, info:"téton Ø 12 −0,15, 100 butées mesurées au micromètre"},
+  {nom:"Remplissage de flacons", unite:"mL", TI:245, TS:255, dec:2, info:"100 flacons pesés sur une journée"},
+  {nom:"Couple de serrage", unite:"N·m", TI:23, TS:27, dec:3, info:"100 vis contrôlées à la clé dynamométrique"},
+  {nom:"Épaisseur de tôle", unite:"mm", TI:1.97, TS:2.03, dec:4, info:"100 mesures au micromètre sur la bobine"}
+];
+var DIAGS = ["Tout va bien", "Mal centré", "Trop dispersé", "Trop dispersé et mal centré"];
+var DECS = ["Valider la production", "Recentrer le réglage", "Réduire la dispersion : machine, outil, méthode. Régler ne suffit pas"];
+// cible [Cp min, Cp max, Cpk min, Cpk max] et réponses attendues [diag, décision]
+var CAS = {
+  A:{cp:[1.45,2.1], cpk:null, centre:true, att:[0,0]},
+  B:{cp:[1.45,2.1], cpk:[0.6,1.15], att:[1,1]},
+  C:{cp:[0.6,1.15], cpk:null, centre:true, att:[2,2]},
+  D:{cp:[0.7,1.2], cpk:[0.3,0.75], att:[3,2]},
+  E:{cp:[1.45,1.9], cpk:[1.2,1.27], att:[1,1]},
+  F:{cp:[1.35,1.6], cpk:[1.0,1.15], att:[1,1], toutesBonnes:true},
+  G:{cp:[1.65,2.1], cpk:[1.38,1.5], att:[0,0]}
+};
+var TYPES = ["A","B","C","D","E","F","G"];
+
+function gauss(){ var u=0,v=0; while(u===0)u=Math.random(); while(v===0)v=Math.random(); return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v); }
+function unif(a,b){ return a+(b-a)*Math.random(); }
+function melanger(t){ for(var i=t.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var x=t[i];t[i]=t[j];t[j]=x;} return t; }
+function arr(x,d){ return Math.round(x*Math.pow(10,d))/Math.pow(10,d); }
+function fr(x,d){ return x.toFixed(d).replace(".", ","); }
+function indices(m,s,TI,TS){ return {cp:(TS-TI)/(6*s), cpk:Math.min(TS-m, m-TI)/(3*s)}; }
+
+function generer(type){
+  var K = CAS[type];
+  for(var essai=0; essai<3000; essai++){
+    var c = CONTEXTES[Math.floor(Math.random()*CONTEXTES.length)];
+    var IT = c.TS-c.TI, mil = (c.TS+c.TI)/2;
+    var cp = unif(K.cp[0],K.cp[1]);
+    var cpk = K.cpk ? unif(K.cpk[0], Math.min(K.cpk[1], cp-0.05)) : cp*unif(0.97,1);
+    var s = IT/(6*cp), dec = (cp-cpk)*3*s, signe = Math.random()<0.5?-1:1;
+    var m = mil + signe*dec;
+    var md = arr(m, c.dec), sd = arr(s, c.dec+1);
+    var ind = indices(md, sd, c.TI, c.TS);
+    var cpR = arr(ind.cp,2), cpkR = arr(ind.cpk,2);
+    // contrôle de la catégorie avec les valeurs affichées
+    var ok = true;
+    if(Math.abs(ind.cp-1.33)<0.04 || Math.abs(ind.cpk-1.33)<0.03) ok=false;
+    var diag = ind.cp>=1.33 ? (ind.cpk>=1.33 ? 0 : 1) : (Math.abs(md-mil)/(IT/2) < 0.12 ? 2 : 3);
+    if(type==="C" && Math.abs(md-mil)/(IT/2) > 0.05) ok=false;
+    if(type==="D" && Math.abs(md-mil)/(IT/2) < 0.2) ok=false;
+    if(diag!==K.att[0]) ok=false;
+    if(!ok) continue;
+    // 100 pièces : tirage normal, recalé exactement sur m et s, arrondi à la résolution
+    var p=[], i, mm=0, ss=0;
+    for(i=0;i<100;i++) p.push(gauss());
+    p.forEach(function(x){mm+=x;}); mm/=100; p.forEach(function(x){ss+=(x-mm)*(x-mm);}); ss=Math.sqrt(ss/99);
+    p = p.map(function(x){ return md + (x-mm)/ss*sd; });
+    var hors = p.filter(function(x){ return x<c.TI || x>c.TS; }).length;
+    if(K.toutesBonnes && hors>0) continue;
+    return {type:type, c:c, m:md, s:sd, cp:cpR, cpk:cpkR, cpE:ind.cp, cpkE:ind.cpk, p:p, hors:hors, mil:mil, IT:IT};
+  }
+  throw new Error("génération impossible : "+type);
+}
+
+/* ---------- histogramme ---------- */
+var SVGNS="http://www.w3.org/2000/svg";
+function el(nom,att,parent){ var e=document.createElementNS(SVGNS,nom); for(var k in att) e.setAttribute(k,att[k]); if(parent) parent.appendChild(e); return e; }
+function texte(parent,x,y,t,att){ var e=el("text",Object.assign({x:x,y:y,"font-size":12,fill:"var(--trait)","font-family":"IBM Plex Mono, Consolas, monospace"},att||{}),parent); e.textContent=t; return e; }
+function dessiner(cas, montrerCalcul){
+  var svg=document.getElementById("histo"); while(svg.firstChild) svg.removeChild(svg.firstChild);
+  var c=cas.c, W=720, H=440, g={l:20,r:20,t:56,b:200};
+  var larg = cas.IT/12;   // classes calées sur TI et TS : une classe est toute dedans ou toute dehors
+  var lo0 = Math.min(c.TI - 0.25*cas.IT, cas.m-3.6*cas.s, Math.min.apply(null,cas.p)), hi0 = Math.max(c.TS + 0.25*cas.IT, cas.m+3.6*cas.s, Math.max.apply(null,cas.p));
+  var lo = c.TI - Math.ceil((c.TI-lo0)/larg)*larg, hi = c.TS + Math.ceil((hi0-c.TS)/larg)*larg;
+  var X=function(v){ return g.l + (v-lo)*(W-g.l-g.r)/(hi-lo); };
+  var nb=Math.round((hi-lo)/larg), comptes=new Array(nb).fill(0);
+  cas.p.forEach(function(x){ var k=Math.min(nb-1,Math.max(0,Math.floor((x-lo)/larg))); comptes[k]++; });
+  var cmax=Math.max.apply(null,comptes), Ybase=H-g.b, Y=function(n){ return Ybase - n*(Ybase-g.t-6)/Math.max(cmax,1); };
+  el("rect",{x:g.l,y:g.t-10,width:W-g.l-g.r,height:Ybase-g.t+10,fill:"var(--papier)"},svg);
+  // garage
+  el("rect",{x:X(c.TI),y:g.t-10,width:X(c.TS)-X(c.TI),height:Ybase-g.t+10,fill:"var(--carte)",stroke:"none"},svg);
+  comptes.forEach(function(n,k){
+    if(!n) return;
+    var x0=lo+k*larg, xm=x0+larg/2, dehors = (xm<c.TI) || (xm>c.TS);
+    el("rect",{x:X(x0)+1,y:Y(n),width:X(x0+larg)-X(x0)-2,height:Ybase-Y(n),fill:dehors?"var(--tol)":"var(--barre)",rx:1.5},svg);
+  });
+  el("line",{x1:g.l,x2:W-g.r,y1:Ybase,y2:Ybase,stroke:"var(--trait)","stroke-width":1},svg);
+  // murs du garage = tolérances
+  [["TI",c.TI],["TS",c.TS]].forEach(function(t){
+    el("line",{x1:X(t[1]),x2:X(t[1]),y1:g.t-14,y2:Ybase,stroke:"var(--tol)","stroke-width":3},svg);
+    texte(svg,X(t[1]),g.t-20,t[0]+" "+fr(t[1],c.dec),{"text-anchor":(t[0]==="TI"?"end":"start"),dx:(t[0]==="TI"?4:-4),fill:"var(--tol)","font-weight":"600"});
+  });
+  el("line",{x1:X(cas.mil),x2:X(cas.mil),y1:g.t,y2:Ybase,stroke:"var(--trait)","stroke-width":1,"stroke-dasharray":"3 4"},svg);
+  // le garage vu de face : les murs sont TI et TS
+  var sol=H-22, haut=Ybase+30, ep=10, xi=X(c.TI), xs=X(c.TS);
+  el("line",{x1:g.l,x2:W-g.r,y1:sol,y2:sol,stroke:"var(--sol)","stroke-width":2},svg);
+  for(var hx=g.l+4; hx<W-g.r; hx+=14) el("line",{x1:hx,x2:hx-8,y1:sol+2,y2:sol+9,stroke:"var(--sol)","stroke-width":1},svg);
+  el("rect",{x:xi,y:haut+16,width:xs-xi,height:sol-haut-16,fill:"var(--interieur)"},svg);
+  el("rect",{x:xi-ep,y:haut,width:xs-xi+2*ep,height:16,fill:"var(--mur)",stroke:"var(--murbord)"},svg);
+  el("rect",{x:xi-ep,y:haut+16,width:ep,height:sol-haut-16,fill:"var(--mur)",stroke:"var(--murbord)"},svg);
+  el("rect",{x:xs,y:haut+16,width:ep,height:sol-haut-16,fill:"var(--mur)",stroke:"var(--murbord)"},svg);
+  el("line",{x1:xi,x2:xi,y1:haut+16,y2:sol,stroke:"var(--tol)","stroke-width":3},svg);
+  el("line",{x1:xs,x2:xs,y1:haut+16,y2:sol,stroke:"var(--tol)","stroke-width":3},svg);
+  texte(svg,(xi+xs)/2,haut+12,"GARAGE · IT = "+fr(cas.IT,c.dec)+" "+c.unite,{"text-anchor":"middle","font-size":11,fill:"var(--encre)","font-weight":"600"});
+  // la voiture vue de l'arrière : largeur 6 s, centrée sur m
+  var x0=X(cas.m-3*cas.s), x1=X(cas.m+3*cas.s), w=x1-x0, xc=(x0+x1)/2;
+  var bas=sol, hCaisse=46, yCaisse=bas-12-hCaisse, yToit=yCaisse-30;
+  var tw=Math.max(8,0.13*w);
+  el("rect",{x:x0+0.05*w,y:bas-22,width:tw,height:22,rx:3,fill:"var(--pneu)"},svg);
+  el("rect",{x:x1-0.05*w-tw,y:bas-22,width:tw,height:22,rx:3,fill:"var(--pneu)"},svg);
+  var cab="M"+(x0+0.15*w)+","+(yCaisse+2)+" L"+(x0+0.25*w)+","+yToit+" Q"+xc+","+(yToit-4)+" "+(x1-0.25*w)+","+yToit+" L"+(x1-0.15*w)+","+(yCaisse+2)+" Z";
+  el("path",{d:cab,fill:"var(--carrosserie)",stroke:"var(--carrosserie2)","stroke-width":1.5},svg);
+  var vit="M"+(x0+0.2*w)+","+(yCaisse-1)+" L"+(x0+0.275*w)+","+(yToit+5)+" L"+(x1-0.275*w)+","+(yToit+5)+" L"+(x1-0.2*w)+","+(yCaisse-1)+" Z";
+  el("path",{d:vit,fill:"var(--vitre)"},svg);
+  el("rect",{x:x0,y:yCaisse,width:w,height:hCaisse,rx:12,fill:"var(--carrosserie)",stroke:"var(--carrosserie2)","stroke-width":1.5},svg);
+  el("rect",{x:x0+0.03*w,y:yCaisse+8,width:0.12*w,height:9,rx:3,fill:"var(--feu)"},svg);
+  el("rect",{x:x1-0.03*w-0.12*w,y:yCaisse+8,width:0.12*w,height:9,rx:3,fill:"var(--feu)"},svg);
+  el("rect",{x:x0+0.02*w,y:yCaisse+hCaisse-11,width:0.96*w,height:9,rx:4,fill:"var(--carrosserie2)"},svg);
+  var pw=Math.min(0.3*w,66);
+  el("rect",{x:xc-pw/2,y:yCaisse+16,width:pw,height:15,rx:2,fill:"var(--plaque)",stroke:"var(--carrosserie2)"},svg);
+  texte(svg,xc,yCaisse+27.5,"6 s",{"text-anchor":"middle","font-size":11,fill:"#17324D","font-weight":"600"});
+  // ce qui dépasse du garage
+  [[x0,Math.min(xi,x1)],[Math.max(xs,x0),x1]].forEach(function(z){
+    if(z[1]-z[0]>0.5){
+      el("rect",{x:z[0],y:yToit-2,width:z[1]-z[0],height:bas-yToit+2,fill:"var(--tol)",opacity:.28},svg);
+      texte(svg,(z[0]+z[1])/2,yToit-8,"ça frotte",{"text-anchor":"middle","font-size":11,fill:"var(--tol)","font-weight":"600"});
+    }
+  });
+  el("line",{x1:X(cas.m),x2:X(cas.m),y1:g.t,y2:Ybase,stroke:"var(--voiture)","stroke-width":1.5},svg);
+  el("line",{x1:X(cas.m),x2:X(cas.m),y1:Ybase,y2:yToit-14,stroke:"var(--voiture)","stroke-width":1,"stroke-dasharray":"3 3"},svg);
+  texte(svg,X(cas.m),Ybase+14,"m",{"text-anchor":"middle",fill:"var(--voiture)","font-weight":"600"});
+  if(montrerCalcul){
+    var proche = (c.TS-cas.m) < (cas.m-c.TI) ? c.TS : c.TI;
+    el("line",{x1:X(cas.m),x2:X(proche),y1:g.t+8,y2:g.t+8,stroke:"var(--orange)","stroke-width":2.5,"marker-end":"none"},svg);
+    texte(svg,(X(cas.m)+X(proche))/2,g.t+4,"mur le plus proche",{"text-anchor":"middle",fill:"var(--orange)","font-size":11,"font-weight":"600"});
+  }
+  texte(svg,g.l+4,16,"100 pièces mesurées ("+c.unite+")",{"font-size":13,fill:"var(--encre)","font-family":"Barlow Semi Condensed, Arial Narrow, sans-serif","font-weight":"600"});
+  if(cas.hors) texte(svg,W-g.r-4,16,cas.hors+" pièce"+(cas.hors>1?"s":"")+" hors tolérance (en rouge)",{"text-anchor":"end","font-size":12,fill:"var(--tol)"});
+  else texte(svg,W-g.r-4,16,"aucune pièce hors tolérance",{"text-anchor":"end","font-size":12,fill:"var(--trait)"});
+}
+
+/* ---------- questions ---------- */
+var LISTES={diag:DIAGS, dec:DECS}, reponses={}, corrige=false;
+function construireChoix(){
+  document.querySelectorAll(".choix").forEach(function(box){
+    var q=box.getAttribute("data-q"); box.innerHTML="";
+    LISTES[q].forEach(function(lib,k){
+      var b=document.createElement("button"); b.type="button"; b.textContent=lib; b.id="q-"+q+"-"+k; b.setAttribute("aria-pressed","false");
+      b.addEventListener("click",function(){ if(corrige) return; reponses[q]=k;
+        box.querySelectorAll("button").forEach(function(x){ x.setAttribute("aria-pressed", x===b?"true":"false"); }); majValider(); });
+      box.appendChild(b);
+    });
+  });
+}
+function lire(id){ var v=document.getElementById(id).value.trim().replace(",", "."); if(v==="") return null; var x=parseFloat(v); return isNaN(x)?null:x; }
+function majValider(){
+  var calc = modeCalcul();
+  var pret = ("diag" in reponses) && ("dec" in reponses) && (!calc || (lire("inCp")!==null && lire("inCpk")!==null));
+  document.getElementById("valider").disabled = !pret;
+}
+["inCp","inCpk"].forEach(function(id){ document.getElementById(id).addEventListener("input", majValider); });
+
+/* ---------- déroulé ---------- */
+var mode="calcul", numero=1, score=0, scoreMax=0, serie=0, erreurs={}, sac=[], cas=null;
+function modeCalcul(){ return mode!=="lecture"; }
+function nouveauCas(){
+  var type = (mode==="calcul"||mode==="lecture") ? sac[numero-1] : mode;
+  cas = generer(type);
+  var c=cas.c;
+  document.getElementById("ctxNom").textContent=c.nom;
+  document.getElementById("ctxInfo").textContent=c.info;
+  document.getElementById("dTI").textContent=fr(c.TI,c.dec)+" "+c.unite;
+  document.getElementById("dTS").textContent=fr(c.TS,c.dec)+" "+c.unite;
+  document.getElementById("dM").textContent=fr(cas.m,c.dec)+" "+c.unite;
+  document.getElementById("dS").textContent=fr(cas.s,c.dec+1)+" "+c.unite;
+  var calc = modeCalcul();
+  document.getElementById("blocCp").hidden=!calc; document.getElementById("blocCpk").hidden=!calc;
+  document.getElementById("blocDonnes").hidden=calc;
+  document.getElementById("gCp").textContent=fr(cas.cp,2); document.getElementById("gCpk").textContent=fr(cas.cpk,2);
+  document.getElementById("nDiag").textContent = calc?"3":"1"; document.getElementById("nDec").textContent = calc?"4":"2";
+  ["inCp","inCpk"].forEach(function(id){ var i=document.getElementById(id); i.value=""; i.disabled=false; i.classList.remove("juste","faux"); });
+  document.getElementById("attCp").textContent=""; document.getElementById("attCpk").textContent="";
+  reponses={}; corrige=false;
+  document.querySelectorAll(".choix button").forEach(function(b){ b.setAttribute("aria-pressed","false"); b.classList.remove("juste","faux"); b.disabled=false; });
+  document.getElementById("valider").disabled=true; document.getElementById("valider").hidden=false;
+  document.getElementById("suivante").hidden=true;
+  var r=document.getElementById("retour"); r.hidden=true; r.innerHTML="";
+  dessiner(cas,false); majCompteur();
+}
+function nouvelleSerie(){
+  var t = melanger(TYPES.slice()); t.push(["A","B","C"][Math.floor(Math.random()*3)]); sac = melanger(t);
+  numero=1; score=0; scoreMax=0; erreurs={}; document.getElementById("bilan").hidden=true; nouveauCas();
+}
+function majCompteur(){
+  var serieMode = (mode==="calcul"||mode==="lecture");
+  document.getElementById("numCas").textContent = serieMode ? numero : "démo";
+  document.getElementById("score").textContent=score; document.getElementById("scoreMax").textContent=scoreMax;
+  document.getElementById("serie").textContent=serie;
+}
+function explication(){
+  var c=cas.c, d=c.dec, s3=fr(3*cas.s,d+1), s6=fr(6*cas.s,d+1);
+  var dS=cas.c.TS-cas.m, dI=cas.m-cas.c.TI, proche = dS<dI ? "TS − m = "+fr(dS,d) : "m − TI = "+fr(dI,d);
+  var lignes = "<div class=\"calcul\">Cp = IT / (6 × s) = "+fr(cas.IT,d)+" / "+s6+" = "+fr(cas.cp,2)+"<br>"+
+    "Cpk = min(TS − m ; m − TI) / (3 × s)<br>&nbsp;&nbsp;&nbsp;&nbsp;= min("+fr(dS,d)+" ; "+fr(dI,d)+") / "+s3+" = "+fr(cas.cpk,2)+"</div>";
+  var t=cas.type, phrase="";
+  if(t==="A") phrase="Cp et Cpk dépassent 1,33 : la voiture est assez étroite et bien garée. On valide.";
+  if(t==="B") phrase="Cp ≥ 1,33 : la dispersion est bonne. Mais Cpk < 1,33 : la moyenne est trop près d'un mur ("+proche+"). Il suffit de recentrer le réglage sur "+fr(cas.mil,d)+".";
+  if(t==="C") phrase="Le procédé est bien centré (Cp et Cpk presque égaux), mais Cp < 1,33 : la voiture est trop large pour le garage. Régler ne changera rien : il faut réduire la dispersion.";
+  if(t==="D") phrase="Cp < 1,33 : trop dispersé. Et Cpk est nettement plus petit que Cp : mal centré aussi. Recentrer aidera un peu, mais ne suffira pas : il faut d'abord réduire la dispersion.";
+  if(t==="E") phrase="Piège : Cp est bon, mais Cpk = "+fr(cas.cpk,2)+", juste sous 1,33. Le client exige 1,33 : on ne valide pas. Un simple recentrage suffit.";
+  if(t==="F") phrase="Piège : aucune pièce n'est hors tolérance, et pourtant Cpk = "+fr(cas.cpk,2)+" < 1,33. Sur une production plus longue, des pièces sortiront du côté du mur le plus proche. On recentre.";
+  if(t==="G") phrase="Piège : la moyenne n'est pas au milieu, mais Cpk = "+fr(cas.cpk,2)+" reste ≥ 1,33. Le client est satisfait : on valide. On peut recentrer plus tard pour gagner de la marge, ce n'est pas une obligation.";
+  return "<span>"+phrase+"</span>"+lignes;
+}
+function valider(){
+  if(corrige) return; corrige=true;
+  var calc=modeCalcul(), pts=0, max=calc?4:2, att=CAS[cas.type].att;
+  if(calc){
+    [["inCp",cas.cp,"attCp"],["inCpk",cas.cpk,"attCpk"]].forEach(function(z){
+      var v=lire(z[0]), i=document.getElementById(z[0]), bon = v!==null && Math.abs(v-z[1])<=0.03;
+      i.classList.add(bon?"juste":"faux"); i.disabled=true; if(bon) pts++;
+      document.getElementById(z[2]).textContent = bon ? "juste" : "attendu : "+fr(z[1],2);
+    });
+  }
+  ["diag","dec"].forEach(function(q,k){
+    document.querySelectorAll('[data-q="'+q+'"] button').forEach(function(b,i){ b.disabled=true; if(i===att[k]) b.classList.add("juste"); else if(i===reponses[q]) b.classList.add("faux"); });
+    if(reponses[q]===att[k]) pts++;
+  });
+  dessiner(cas,true);
+  var bon=pts===max, r=document.getElementById("retour");
+  r.className="retour "+(bon?"bon":"mauvais");
+  r.innerHTML="<strong>"+(bon?"Juste : "+pts+" sur "+max+".":"À revoir : "+pts+" sur "+max+".")+"</strong>"+explication();
+  r.hidden=false;
+  if(mode==="calcul"||mode==="lecture"){
+    score+=pts; scoreMax+=max; serie = bon ? serie+1 : 0;
+    if(!bon){ var cle={A:"Capable et centré",B:"Mal centré",C:"Trop dispersé",D:"Trop dispersé et mal centré",E:"Piège : Cpk juste sous 1,33",F:"Piège : pièces toutes bonnes",G:"Piège : décentré mais capable"}[cas.type]; erreurs[cle]=(erreurs[cle]||0)+1; }
+  }
+  majCompteur();
+  document.getElementById("valider").hidden=true;
+  var s=document.getElementById("suivante"); s.hidden=false;
+  s.textContent = ((mode==="calcul"||mode==="lecture") && numero===8) ? "Voir le bilan" : "Cas suivant"; s.focus();
+}
+function suivante(){
+  if(mode==="calcul"||mode==="lecture"){ if(numero===8){ bilan(); return; } numero++; }
+  nouveauCas();
+}
+function bilan(){
+  var b=document.getElementById("bilan"), max=scoreMax, taux=score/max;
+  var liste=Object.keys(erreurs).map(function(k){ return "<li>"+k+" : "+erreurs[k]+" cas</li>"; }).join("");
+  var msg = taux>=0.9 ? "Très bien : vous savez lire une capabilité et décider." : taux>=0.7 ? "Presque : refaites une série en gardant l'aide-mémoire ouvert." : "Refaites une série en mode « Cp et Cpk sont donnés » pour vous concentrer sur la décision, puis revenez au calcul.";
+  b.innerHTML="<h2>Bilan de la série : <span class=\"num\">"+score+" / "+max+"</span></h2><p>"+msg+"</p>"+
+    (liste?"<p>Les cas à retravailler :</p><ul>"+liste+"</ul>":"<p>Aucune erreur.</p>")+
+    "<div class=\"actions\"><button class=\"btn principal\" id=\"rejouer\">Nouvelle série de 8</button></div>";
+  b.hidden=false;
+  document.getElementById("rejouer").addEventListener("click",function(){ nouvelleSerie(); window.scrollTo({top:0,behavior:"smooth"}); });
+  b.scrollIntoView({behavior:"smooth",block:"center"});
+}
+document.getElementById("valider").addEventListener("click",valider);
+document.getElementById("suivante").addEventListener("click",suivante);
+document.getElementById("mode").addEventListener("change",function(e){
+  mode=e.target.value; document.getElementById("bilan").hidden=true;
+  if(mode==="calcul"||mode==="lecture") nouvelleSerie(); else nouveauCas();
+});
+construireChoix(); nouvelleSerie();
+window.__cap={generer:generer, TYPES:TYPES, CAS:CAS, indices:indices};
+})();
+</script>
+</body>
+</html>

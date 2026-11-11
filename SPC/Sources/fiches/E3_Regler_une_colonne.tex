@@ -1,0 +1,25 @@
+\documentclass[10pt,a4paper]{article}
+\input{commun.tex}
+\pied{Base SPC · fiche E3 · Régler une colonne}
+\begin{document}
+\thispagestyle{fancy}
+\entete{E3}{Régler une colonne}{Où dit-on à Ellistat ce que l'on mesure ?}{Prise en main d'Ellistat}{15 min}{seul}{1}
+\begin{tcolorbox}[boite]\textbf{Le but.} Nommer une colonne, fixer ses décimales et saisir sa tolérance.\par\textbf{Il vous faut.} La grille des 30 butées (E2)\end{tcolorbox}
+\begin{tcolorbox}[pred]La butée doit mesurer entre 11,85 et 12,00 mm. Ellistat peut-il le deviner à partir des mesures ?\reponse\end{tcolorbox}
+\titre{À faire}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{\arabic*.}},leftmargin=15pt,itemsep=1.5pt]
+\item \tagE\ Par sécurité, \menu{Dupliquer la grille} avant d'essayer : la copie devient la grille active.
+\item \tagE\ Cliquer sur la colonne des diamètres. À droite, le panneau de colonne s'ouvre sur l'onglet \menu{Informations}.
+\item \tagE\ Régler : nom « Diametre », nombre de décimales 2, tolérance min 11,85, tolérance max 12,00.
+\item \tagE\ Ouvrir l'onglet \menu{Stats} du panneau : relever la moyenne et l'écart-type.
+\item \tagE\ Passer sur l'onglet \menu{données} (à côté de l'onglet \menu{grille}) : la liste des colonnes et leurs statistiques, en lecture seule.
+\end{enumerate}
+\titre{J'observe, je décide}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{Q\arabic*.}},leftmargin=22pt]
+\item Moyenne = \champ{20mm} mm \quad Écart-type = \champ{20mm} mm. La moyenne est-elle au milieu de la tolérance (11,925) ?\reponse[1]
+\item Sans tolérance saisie, la page de capabilité reste vide. Pourquoi Ellistat en a-t-il besoin ?\reponse[2]
+\item À quoi sert de dupliquer une grille avant un essai ?\reponse[1]
+\end{enumerate}
+\begin{tcolorbox}[retenir]Les mesures sont dans les cases, mais ce qu'elles signifient (nom, tolérance) se règle dans le panneau de colonne.\end{tcolorbox}
+\begin{tcolorbox}[plus]Cliquer sur le badge de type de la colonne : numérique, texte ou date. Pourquoi un numéro de pièce doit-il être du texte ?\end{tcolorbox}
+\end{document}

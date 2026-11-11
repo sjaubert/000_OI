@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;font:14px system-ui,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Comparer deux séries de mesures</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --papier:#F6F8F7; --encre:#17324D; --trait:#5B6B7A; --grille:#D9E2E0; --fond:#E9EEED; --carte:#FFFFFF;
+  --limite:#B4530F; --ok:#2E7D32; --okfond:#E3F1E4; --ko:#B3261E; --kofond:#FBE4E2; --accent:#1F4E79; --accentfond:#DCE7F2;
+  --zone:rgba(46,125,50,.14); --voiture:#2D6A9F;
+  --f-titre:"Barlow Semi Condensed","Arial Narrow",Arial,sans-serif;
+  --f-texte:"Source Sans 3","Segoe UI",Arial,sans-serif;
+  --f-chiffre:"IBM Plex Mono",Consolas,"Courier New",monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --papier:#16201F; --encre:#DCE8F2; --trait:#9AABB8; --grille:#26332F; --fond:#0F1716; --carte:#1B2625;
+  --limite:#F08A4B; --ok:#7CC283; --okfond:#1D3322; --ko:#F2877E; --kofond:#3A1E1C; --accent:#8DB8E6; --accentfond:#1E3247;
+  --zone:rgba(124,194,131,.16); --voiture:#6FA8DC; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --papier:#16201F; --encre:#DCE8F2; --trait:#9AABB8; --grille:#26332F; --fond:#0F1716; --carte:#1B2625;
+  --limite:#F08A4B; --ok:#7CC283; --okfond:#1D3322; --ko:#F2877E; --kofond:#3A1E1C; --accent:#8DB8E6; --accentfond:#1E3247;
+  --zone:rgba(124,194,131,.16); --voiture:#6FA8DC; color-scheme:dark}
+body{background:var(--fond);color:var(--encre);font-family:var(--f-texte);font-size:16px;line-height:1.45}
+.page{max-width:1180px;margin:0 auto;padding-block:20px 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:16px}
+.page>*{min-width:0}
+h1{font-family:var(--f-titre);font-weight:700;font-size:clamp(1.7rem,3.2vw,2.3rem);line-height:1.05;margin:0;text-wrap:balance}
+.sous{margin:4px 0 0;color:var(--trait);font-size:.95rem}
+.principe{background:var(--carte);border-left:4px solid var(--accent);border-radius:0 8px 8px 0;padding:12px 16px;display:grid;gap:6px}
+.principe h2{font-family:var(--f-titre);font-weight:700;font-size:1.35rem;margin:0}
+.principe p{margin:0}
+.formules{display:flex;flex-wrap:wrap;gap:8px 28px;font-family:var(--f-chiffre);font-size:.95rem;background:var(--papier);border:1px solid var(--grille);border-radius:6px;padding:8px 12px}
+.poste{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.45fr);gap:16px;align-items:start}
+@media (max-width:860px){.poste{grid-template-columns:1fr}}
+.panneau{background:var(--carte);border:1px solid var(--grille);border-radius:8px;padding:16px;display:grid;gap:12px;min-width:0}
+.panneau h3{font-family:var(--f-titre);font-weight:600;font-size:1.2rem;margin:0}
+.champs{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+label{display:grid;gap:4px;font-size:.92rem;font-weight:600}
+label small{font-weight:400;color:var(--trait)}
+input,textarea,select{font:inherit;color:var(--encre);background:var(--papier);border:1.5px solid var(--grille);border-radius:6px;padding:7px 9px;min-width:0}
+input,textarea{font-family:var(--f-chiffre)}
+textarea{min-height:170px;resize:vertical;width:100%;box-sizing:border-box}
+input:focus-visible,textarea:focus-visible,button:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.btn{font:inherit;border:none;border-radius:6px;padding:10px 16px;cursor:pointer;font-family:var(--f-titre);font-weight:600;font-size:1.05rem;letter-spacing:.02em}
+.btn.principal{background:var(--accent);color:var(--carte)}
+.btn.second{background:transparent;color:var(--accent);border:1.5px solid var(--accent)}
+.note{font-size:.85rem;color:var(--trait)}
+.chiffres{display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:8px}
+.chiffre{background:var(--papier);border:1px solid var(--grille);border-radius:6px;padding:7px 10px}
+.chiffre span{display:block;font-size:.75rem;color:var(--trait);text-transform:uppercase;letter-spacing:.05em}
+.chiffre b{font-family:var(--f-chiffre);font-weight:500;font-size:1.1rem}
+.chiffre.fort b{font-size:1.45rem}
+.chiffre.bon{border-color:var(--ok);background:var(--okfond)}
+.chiffre.mauvais{border-color:var(--ko);background:var(--kofond)}
+.verdict{border-radius:6px;padding:12px 14px;display:grid;gap:4px}
+.verdict.bon{background:var(--okfond);border:1px solid var(--ok)}
+.verdict.mauvais{background:var(--kofond);border:1px solid var(--ko)}
+.verdict strong{font-family:var(--f-titre);font-size:1.2rem}
+.alerte{font-size:.9rem;color:var(--ko)}
+svg{display:block;width:100%;height:auto}
+.legende{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.82rem;color:var(--trait)}
+.legende i{display:inline-block;width:20px;height:10px;vertical-align:middle;margin-right:5px;border-radius:2px}
+.memo{background:var(--carte);border:1px solid var(--grille);border-radius:8px;padding:10px 14px}
+.memo summary{cursor:pointer;font-family:var(--f-titre);font-weight:600;font-size:1.1rem}
+.quiz{display:grid;gap:10px;margin-top:8px}
+.q p{margin:0 0 6px}
+.choix{display:grid;gap:6px}
+.choix button{font:inherit;text-align:left;background:var(--papier);color:var(--encre);border:1.5px solid var(--grille);border-radius:6px;padding:8px 10px;cursor:pointer}
+.choix button.juste{border-color:var(--ok);background:var(--okfond)}
+.choix button.faux{border-color:var(--ko);background:var(--kofond)}
+.explic{font-size:.9rem;border-radius:6px;padding:7px 10px;margin-top:6px}
+.explic.bon{background:var(--okfond)} .explic.mauvais{background:var(--kofond)}
+.sources{font-size:.82rem;color:var(--trait)}
+.sources a{color:var(--accent)}
+</style>
+<style>
+.deuxcol{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}
+@media (max-width:700px){.deuxcol{grid-template-columns:1fr}}
+textarea{min-height:200px}
+table.res{border-collapse:collapse;width:100%;font-size:.95rem}
+table.res th,table.res td{padding:6px 8px;border-bottom:1px solid var(--grille);text-align:right;font-family:var(--f-chiffre)}
+table.res th{font-family:var(--f-texte);color:var(--trait);font-weight:600}
+table.res td:first-child,table.res th:first-child{text-align:left;font-family:var(--f-texte)}
+.serieA{color:#2D6A9F}.serieB{color:#C2610F}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .serieA{color:#6FA8DC}:root:not([data-theme="light"]) .serieB{color:#F0A257}}
+.verdict.neutre{background:var(--accentfond);border:1px solid var(--accent)}
+.defile{overflow-x:auto}
+</style>
+<div class="page">
+  <header>
+    <h1>Comparer deux séries de mesures</h1>
+    <p class="sous">Deux instruments, deux méthodes ou deux opérateurs sur la même pièce : la différence est-elle réelle ?</p>
+  </header>
+
+  <section class="principe">
+    <h2>Le principe</h2>
+    <p>On mesure la <b>même pièce</b> (une cale étalon de préférence) dans deux situations, A et B. Tout le reste ne change pas. On compare ensuite deux choses : les <b>moyennes</b> (l'une des séries est-elle décalée ?) et les <b>dispersions</b> (l'une des séries est-elle plus étalée ?).</p>
+    <p>Deux séries ne sont jamais identiques. La page dit si l'écart observé est trop grand pour venir du seul hasard des mesures.</p>
+  </section>
+
+  <section class="panneau" aria-label="Saisie">
+    <h3>1. Les données</h3>
+    <div class="champs">
+      <label for="inXm"><span>Valeur de la cale x<sub>m</sub> (mm)</span><small>facultatif</small><input id="inXm" inputmode="decimal" placeholder="ex. 10,000"></label>
+      <label for="inT"><span>Tolérance T (mm)</span><small>facultatif, pour Cg et Cgk</small><input id="inT" inputmode="decimal" placeholder="ex. 0,15"></label>
+    </div>
+    <div class="deuxcol">
+      <div style="display:grid;gap:8px">
+        <label for="nomA"><span class="serieA">Série A : son nom</span><input id="nomA" style="font-family:var(--f-texte)" value="Série A"></label>
+        <label for="mesA"><span>Mesures de A (mm)</span><small>une par ligne ou séparées par des espaces</small><textarea id="mesA" spellcheck="false"></textarea></label>
+      </div>
+      <div style="display:grid;gap:8px">
+        <label for="nomB"><span class="serieB">Série B : son nom</span><input id="nomB" style="font-family:var(--f-texte)" value="Série B"></label>
+        <label for="mesB"><span>Mesures de B (mm)</span><small>une par ligne ou séparées par des espaces</small><textarea id="mesB" spellcheck="false"></textarea></label>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="btn principal" id="btnCalc" type="button">Comparer</button>
+      <button class="btn second" id="btnEx" type="button">Exemple simulé</button>
+      <span class="note" id="compte"></span>
+    </div>
+  </section>
+
+  <p class="note" id="vide">Saisissez au moins 3 mesures par série, puis cliquez sur Comparer.</p>
+
+  <section class="panneau" id="res" hidden aria-live="polite">
+    <h3>2. Le résultat</h3>
+    <svg id="svgPoints" viewBox="0 0 640 210" role="img" aria-label="Les mesures des deux séries sur un même axe"></svg>
+    <p class="note">Chaque point est une mesure. Le trait épais est la moyenne de la série. Le tireté vert est la valeur de la cale.</p>
+    <div class="defile"><table class="res" id="tab"></table></div>
+    <div id="vMoy" class="verdict"></div>
+    <div id="vDisp" class="verdict"></div>
+  </section>
+
+  <details class="memo">
+    <summary>Lire le résultat</summary>
+    <ul>
+      <li><b>Moyennes.</b> La page calcule l'écart entre les deux moyennes et le compare à ce que le hasard produit avec de telles dispersions (test de Student, risque de 5 %). Un écart « réel » est un écart de <b>justesse</b> entre A et B.</li>
+      <li><b>Dispersions.</b> La page compare les deux écarts-types (test de Fisher, risque de 5 %). Une série nettement plus étalée a une moins bonne <b>fidélité</b>.</li>
+      <li><b>Peu de mesures, peu de certitudes.</b> Avec 10 mesures par série, seules les grosses différences se voient. Viser 15 à 25 mesures.</li>
+      <li><b>Toutes les valeurs identiques ?</b> L'instrument n'est pas parfait : sa résolution est trop grossière pour montrer la dispersion.</li>
+      <li><b>Cg et Cgk</b> (si la cale et la tolérance sont saisies) : Cg = 0,2 T / (6 s) ; Cgk = (0,1 T − |x̄ − x<sub>m</sub>|) / (3 s). Capable si les deux atteignent 1,33.</li>
+    </ul>
+  </details>
+
+  <p class="sources"><b>Sources :</b> formules de Cg et Cgk : Robert Bosch GmbH, <i>Booklet 10 : Capability of Measurement and Test Processes</i>, édition novembre 2019, § 4.1. Comparaison des moyennes : test de Student à variances inégales (Welch). Comparaison des dispersions : test de Fisher bilatéral.</p>
+</div>
+
+<script>
+(function(){
+"use strict";
+var $=function(id){return document.getElementById(id);};
+function lire(v){ if(v===undefined||v===null) return NaN; v=String(v).trim().replace(/\s/g,"").replace(",","."); return v===""?NaN:Number(v); }
+function fr(x,d){ if(!isFinite(x)) return x>0?"∞":(x<0?"−∞":"—"); var t=Math.abs(x).toFixed(d).replace(".",","); return (x<0&&Number(t.replace(",","."))!==0?"−":"")+t; }
+function frS(x,d){ return (x>0&&Number(Math.abs(x).toFixed(d))!==0?"+":"")+fr(x,d); }
+function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
+function serie(id){ return $(id).value.split(/[\s;]+/).filter(Boolean).map(lire).filter(function(x){return isFinite(x);}); }
+function decimales(id){ var d=0; $(id).value.split(/[\s;]+/).filter(Boolean).forEach(function(t){ var m=t.replace(",",".").split(".")[1]; if(m) d=Math.max(d,m.length); }); return d; }
+function majCompte(){ $("compte").textContent=serie("mesA").length+" mesure(s) en A, "+serie("mesB").length+" en B"; }
+["mesA","mesB"].forEach(function(i){ $(i).addEventListener("input",majCompte); });
+function stats(x){ var n=x.length, m=x.reduce(function(a,b){return a+b;},0)/n, s=n>1?Math.sqrt(x.reduce(function(a,b){return a+(b-m)*(b-m);},0)/(n-1)):NaN; if(s<1e-12) s=0;
+  return {n:n,m:m,s:s,min:Math.min.apply(null,x),max:Math.max.apply(null,x)}; }
+function lgamma(x){ var c=[76.18009172947146,-86.50532032941677,24.01409824083091,-1.231739572450155,0.1208650973866179e-2,-0.5395239384953e-5];
+  var y=x, t=x+5.5; t-=(x+0.5)*Math.log(t); var s=1.000000000190015; for(var j=0;j<6;j++) s+=c[j]/++y; return -t+Math.log(2.5066282746310005*s/x); }
+function betacf(a,b,x){ var MAXIT=300,EPS=3e-14,FPMIN=1e-300,qab=a+b,qap=a+1,qam=a-1,c=1,d=1-qab*x/qap; if(Math.abs(d)<FPMIN)d=FPMIN; d=1/d; var h=d;
+  for(var m=1;m<=MAXIT;m++){ var m2=2*m, aa=m*(b-m)*x/((qam+m2)*(a+m2)); d=1+aa*d; if(Math.abs(d)<FPMIN)d=FPMIN; c=1+aa/c; if(Math.abs(c)<FPMIN)c=FPMIN; d=1/d; h*=d*c;
+    aa=-(a+m)*(qab+m)*x/((a+m2)*(qap+m2)); d=1+aa*d; if(Math.abs(d)<FPMIN)d=FPMIN; c=1+aa/c; if(Math.abs(c)<FPMIN)c=FPMIN; d=1/d; var del=d*c; h*=del; if(Math.abs(del-1)<EPS) break; } return h; }
+function ibeta(a,b,x){ if(x<=0) return 0; if(x>=1) return 1; var bt=Math.exp(lgamma(a+b)-lgamma(a)-lgamma(b)+a*Math.log(x)+b*Math.log(1-x));
+  return x<(a+1)/(a+b+2) ? bt*betacf(a,b,x)/a : 1-bt*betacf(b,a,1-x)/b; }
+function fcdf(f,d1,d2){ return f<=0?0:ibeta(d1/2,d2/2,d1*f/(d1*f+d2)); }
+function fquant(p,d1,d2){ var lo=0,hi=1; while(fcdf(hi,d1,d2)<p) hi*=2; for(var it=0;it<200;it++){ var mid=(lo+hi)/2; if(fcdf(mid,d1,d2)<p) lo=mid; else hi=mid; } return (lo+hi)/2; }
+var SVGNS="http://www.w3.org/2000/svg";
+function el(nom,att,p){ var e=document.createElementNS(SVGNS,nom); for(var k in att) e.setAttribute(k,att[k]); if(p) p.appendChild(e); return e; }
+function txt(p,x,y,t,att){ var e=el("text",Object.assign({x:x,y:y,"font-size":12,fill:"var(--trait)","font-family":"IBM Plex Mono, Consolas, monospace"},att||{}),p); e.textContent=t; return e; }
+var COUL=["#2D6A9F","#C2610F"];
+
+function comparer(){
+  var A=serie("mesA"), B=serie("mesB"), xm=lire($("inXm").value), T=lire($("inT").value);
+  if(A.length<3||B.length<3){ $("vide").hidden=false; $("vide").innerHTML='<span class="alerte">Il faut au moins 3 mesures dans chaque série.</span>'; $("res").hidden=true; return null; }
+  var a=stats(A), b=stats(B), dec=Math.max(2,decimales("mesA"),decimales("mesB")), nA=$("nomA").value.trim()||"Série A", nB=$("nomB").value.trim()||"Série B";
+  var aXm=isFinite(xm), aT=isFinite(xm)&&T>0;
+  function cg(s){ return s.s>0?0.2*T/(6*s.s):Infinity; }
+  function cgk(s){ var bi=Math.abs(s.m-xm); return s.s>0?(0.1*T-bi)/(3*s.s):(bi<=0.1*T?Infinity:-Infinity); }
+  var L=[["Nombre de mesures",String(a.n),String(b.n)],["Moyenne (mm)",fr(a.m,dec+1),fr(b.m,dec+1)],["Écart-type s (mm)",fr(a.s,dec+2),fr(b.s,dec+2)],["Étendue (mm)",fr(a.max-a.min,dec),fr(b.max-b.min,dec)]];
+  if(aXm) L.push(["Biais : moyenne − x<sub>m</sub> (mm)",frS(a.m-xm,dec+1),frS(b.m-xm,dec+1)]);
+  if(aT){ L.push(["Cg",fr(cg(a),2),fr(cg(b),2)]); L.push(["Cgk",fr(cgk(a),2),fr(cgk(b),2)]); }
+  $("tab").innerHTML='<thead><tr><th></th><th class="serieA">'+esc(nA)+'</th><th class="serieB">'+esc(nB)+'</th></tr></thead><tbody>'+L.map(function(r){return '<tr><td>'+r[0]+'</td><td>'+r[1]+'</td><td>'+r[2]+'</td></tr>';}).join("")+'</tbody>';
+  /* moyennes : Welch */
+  var va=a.s*a.s/a.n, vb=b.s*b.s/b.n, se=Math.sqrt(va+vb), d=b.m-a.m, R={a:a,b:b,d:d};
+  var vm=$("vMoy");
+  if(se===0){ var diff=Math.abs(d)>1e-12; R.t=diff?Infinity:0; R.sigM=diff;
+    vm.className="verdict neutre";
+    vm.innerHTML="<strong>Moyennes : "+(diff?"les deux séries ne donnent pas la même valeur.":"exactement la même valeur.")+"</strong><span>Toutes les mesures de chaque série sont identiques : la résolution masque la dispersion. Écart entre les moyennes : "+frS(d,dec+1)+" mm.</span>"; }
+  else { var df=(va+vb)*(va+vb)/((va*va)/(a.n-1)+(vb*vb)/(b.n-1)), t=Math.abs(d)/se, tc=Math.sqrt(fquant(0.95,1,df)); R.t=t; R.tc=tc; R.df=df; R.sigM=t>tc;
+    vm.className="verdict "+(R.sigM?"neutre":"bon");
+    vm.innerHTML="<strong>Moyennes : "+(R.sigM?"l'écart est réel.":"pas d'écart démontré.")+"</strong><span>"+esc(nB)+" donne en moyenne "+frS(d,dec+1)+" mm par rapport à "+esc(nA)+". "
+      +(R.sigM?"C'est trop pour venir du seul hasard des mesures":"Un tel écart peut venir du seul hasard des mesures")+" (t = "+fr(t,2)+", seuil "+fr(tc,2)+").</span>"; }
+  /* dispersions : Fisher bilatéral */
+  var vd=$("vDisp");
+  if(a.s===0&&b.s===0){ R.sigD=false; vd.className="verdict neutre"; vd.innerHTML="<strong>Dispersions : impossible de conclure.</strong><span>Les deux séries ne montrent aucune dispersion. L'instrument est sans doute trop grossier pour la voir.</span>"; }
+  else { var grand=a.s>=b.s?a:b, petit=a.s>=b.s?b:a, nG=a.s>=b.s?nA:nB, nP=a.s>=b.s?nB:nA;
+    if(petit.s===0){ R.F=Infinity; R.sigD=true; vd.className="verdict neutre"; vd.innerHTML="<strong>Dispersions : "+esc(nG)+" est plus dispersée.</strong><span>"+esc(nP)+" donne toujours la même valeur, "+esc(nG)+" non. Attention : une série sans dispersion peut cacher une résolution trop grossière.</span>"; }
+    else { var F=grand.s*grand.s/(petit.s*petit.s), Fc=fquant(0.975,grand.n-1,petit.n-1); R.F=F; R.Fc=Fc; R.sigD=F>Fc;
+      vd.className="verdict "+(R.sigD?"neutre":"bon");
+      vd.innerHTML="<strong>Dispersions : "+(R.sigD?esc(nG)+" est nettement plus dispersée.":"pas de différence démontrée.")+"</strong><span>L'écart-type de "+esc(nG)+" vaut "+fr(grand.s/petit.s,1)+" fois celui de "+esc(nP)+". "
+        +(R.sigD?"C'est trop pour venir du hasard":"Un tel rapport peut venir du hasard")+" (F = "+fr(F,2)+", seuil "+fr(Fc,2)+").</span>"; } }
+  dessiner(A,B,a,b,xm,T,dec,nA,nB);
+  $("vide").hidden=true; $("res").hidden=false; return R;
+}
+function dessiner(A,B,a,b,xm,T,dec,nA,nB){
+  var svg=$("svgPoints"); while(svg.firstChild) svg.removeChild(svg.firstChild);
+  var W=640,g={l:20,r:20}, lo=Math.min(a.min,b.min), hi=Math.max(a.max,b.max);
+  if(isFinite(xm)){ lo=Math.min(lo,xm); hi=Math.max(hi,xm); }
+  var marge=(hi-lo)*0.12||0.005; lo-=marge; hi+=marge;
+  var X=function(v){ return g.l+(v-lo)*(W-g.l-g.r)/(hi-lo); };
+  if(isFinite(xm)&&T>0){ var z1=Math.max(lo,xm-0.1*T), z2=Math.min(hi,xm+0.1*T); if(z2>z1) el("rect",{x:X(z1),y:28,width:X(z2)-X(z1),height:132,fill:"var(--zone)"},svg); }
+  el("line",{x1:g.l,x2:W-g.r,y1:165,y2:165,stroke:"var(--trait)"},svg);
+  for(var i=0;i<=4;i++){ var v=lo+(hi-lo)*i/4; el("line",{x1:X(v),x2:X(v),y1:165,y2:171,stroke:"var(--trait)"},svg); txt(svg,X(v),186,fr(v,dec),{"text-anchor":i===0?"start":(i===4?"end":"middle"),"font-size":11}); }
+  if(isFinite(xm)){ el("line",{x1:X(xm),x2:X(xm),y1:24,y2:165,stroke:"var(--ok)","stroke-width":1.8,"stroke-dasharray":"6 4"},svg); txt(svg,X(xm),18,"xm",{"text-anchor":"middle",fill:"var(--ok)"}); }
+  [[A,a,62,nA],[B,b,122,nB]].forEach(function(q,k){
+    var cpt={}; q[0].forEach(function(v){ var c=v.toFixed(6), n=cpt[c]||0; cpt[c]=n+1; var dy=(n%2?1:-1)*Math.ceil(n/2)*6.5; if(Math.abs(dy)>26) dy=(dy>0?1:-1)*26; el("circle",{cx:X(v),cy:q[2]+dy,r:3.4,fill:COUL[k],opacity:.8},svg); });
+    el("line",{x1:X(q[1].m),x2:X(q[1].m),y1:q[2]-30,y2:q[2]+30,stroke:COUL[k],"stroke-width":3},svg);
+    txt(svg,g.l,q[2]-32,q[3].length>40?q[3].slice(0,39)+"…":q[3],{fill:COUL[k],"font-family":"Source Sans 3, Segoe UI, sans-serif","font-size":12.5,"font-weight":"600"});
+  });
+  txt(svg,W/2,204,"mm",{"text-anchor":"middle","font-size":11});
+}
+function gauss(){ var u=0,v=0; while(u===0)u=Math.random(); while(v===0)v=Math.random(); return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v); }
+$("btnEx").addEventListener("click",function(){
+  var cas=Math.floor(Math.random()*3), xm=10, n=15, A=[], B=[];
+  var cfg=[["Micromètre","Pied à coulisse",0.001,0.02,0.0006,0.012,0,0.004],["Avec cliquet","Sans cliquet",0.001,0.001,0.0006,0.0022,0,-0.003],["Opérateur 1","Opérateur 2",0.001,0.001,0.0007,0.0007,0,0.0012]][cas];
+  for(var i=0;i<n;i++){ A.push(fr(Math.round((xm+cfg[6]+cfg[4]*gauss())/cfg[2])*cfg[2],3)); B.push(fr(Math.round((xm+cfg[7]+cfg[5]*gauss())/cfg[3])*cfg[3],cfg[3]>=0.01?2:3)); }
+  $("nomA").value=cfg[0]; $("nomB").value=cfg[1]; $("mesA").value=A.join("\n"); $("mesB").value=B.join("\n"); $("inXm").value="10,000"; if(!(lire($("inT").value)>0)) $("inT").value="0,15";
+  majCompte(); comparer();
+});
+$("btnCalc").addEventListener("click",comparer);
+majCompte();
+window.__comparer={comparer:comparer};
+})();
+</script>
+
+</body>
+</html>

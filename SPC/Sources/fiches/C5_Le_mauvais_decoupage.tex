@@ -1,0 +1,28 @@
+\documentclass[10pt,a4paper]{article}
+\input{commun.tex}
+\pied{Base SPC · fiche C5 · Le mauvais découpage}
+\begin{document}
+\thispagestyle{fancy}
+\entete{C5}{Le mauvais découpage}{Que se passe-t-il si l'on regroupe mal les pièces ?}{Cartes aux mesures et capabilité}{20 min}{en binôme}{3}
+\begin{tcolorbox}[boite]\textbf{Le but.} Montrer qu'un sous-groupe doit réunir des pièces prélevées ensemble.\par\textbf{Il vous faut.} Le fichier Butees\_mauvais\_decoupage.xlsx ou la page « Données à copier » · Les résultats de C4\end{tcolorbox}
+\begin{tcolorbox}[pred]Mêmes 30 valeurs, regroupées autrement. Cp va-t-il changer ? Et Pp ?\reponse\end{tcolorbox}
+\titre{À faire}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{\arabic*.}},leftmargin=15pt,itemsep=1.5pt]
+\item \tagE\ Nouvelle grille, coller le jeu « Les mêmes 30 butées, mal regroupées ». Chaque ligne réunit la 1\textsuperscript{re} pièce (puis la 2\textsuperscript{e}…) de chacun des 6 prélèvements : des pièces fabriquées à des moments différents.
+\item \tagE\ Colonne V1 : \menu{Répétition} = 6, tolérance 11,85 / 12,00.
+\item \tagE\ \menu{Stats Desc.} > \menu{Détail} : relever Cp et Pp.
+\end{enumerate}
+\vspace{3pt}{\renewcommand{\arraystretch}{1.5}\begin{tabularx}{\linewidth}{|l|*{2}{>{\centering\arraybackslash}X|}}\hline
+\textbf{} & \textbf{Bon découpage (C4)} & \textbf{Mauvais découpage}\\\hline
+Cp &  & \\\hline
+Pp &  & \\\hline
+\end{tabularx}}\par
+\titre{J'observe, je décide}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{Q\arabic*.}},leftmargin=22pt]
+\item Lequel des deux indices a changé ? Dans quel sens ?\reponse[1]
+\item Expliquez avec la phrase : « la dérive est entrée dans le court terme ».\reponse[2]
+\item Qui décide de ce qu'est un sous-groupe : celui qui prélève ou celui qui analyse ?\reponse[1]
+\end{enumerate}
+\begin{tcolorbox}[retenir]Le sous-groupe se décide au moment du prélèvement. Cp plus petit que Pp : le découpage est mauvais.\end{tcolorbox}
+\vfill{\footnotesize\color{uimm}\textbf{Ressources de la base :} Données à copier.}
+\end{document}

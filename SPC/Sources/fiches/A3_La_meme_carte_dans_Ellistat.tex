@@ -1,0 +1,30 @@
+\documentclass[10pt,a4paper]{article}
+\input{commun.tex}
+\pied{Base SPC · fiche A3 · La même carte dans Ellistat}
+\begin{document}
+\thispagestyle{fancy}
+\entete{A3}{La même carte dans Ellistat}{Ellistat trouve-t-il les mêmes limites que moi ?}{Cartes aux attributs}{20 min}{en binôme}{1}
+\begin{tcolorbox}[boite]\textbf{Le but.} Tracer la carte p dans Ellistat à partir du relevé de A2 et comparer avec la carte faite à la main.\par\textbf{Il vous faut.} Le relevé de A2 (page « Tirer un lot » encore ouverte) · Ellistat\end{tcolorbox}
+\titre{À faire}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{\arabic*.}},leftmargin=15pt,itemsep=1.5pt]
+\item \tagW\ Page « Tirer un lot » : cliquer sur « Copier le tableau ».
+\item \tagE\ Nouvelle grille « Lots », coller. Vérifier : 20 lignes, colonnes Lot, Taille\_lot, Defectueuses.
+\item \tagE\ \menu{Stats Desc.} > \menu{Cartes de contrôle aux attributs}. Choisir la carte \textbf{p}.
+\item \tagE\ Indiquer la taille de lot (50, ou la colonne Taille\_lot) et la colonne des pièces défectueuses.
+\item \tagE\ Lire la ligne centrale et les limites.
+\end{enumerate}
+\vspace{3pt}{\renewcommand{\arraystretch}{1.5}\begin{tabularx}{\linewidth}{|l|*{2}{>{\centering\arraybackslash}X|}}\hline
+\textbf{} & \textbf{À la main (A2)} & \textbf{Ellistat}\\\hline
+Ligne centrale ($\bar p$) &  & \\\hline
+Limite supérieure &  & \\\hline
+Limite inférieure &  & \\\hline
+Points hors limites &  & \\\hline
+\end{tabularx}}\par
+\titre{J'observe, je décide}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{Q\arabic*.}},leftmargin=22pt]
+\item Les deux cartes disent-elles la même chose ?\reponse[1]
+\item Tracez aussi la carte \textbf{Np}. Qu'est-ce qui change ? Laquelle est la plus parlante pour un opérateur ?\reponse[2]
+\end{enumerate}
+\begin{tcolorbox}[retenir]Le logiciel fait le calcul, pas le raisonnement : il faut encore choisir la bonne carte et lui donner la bonne taille de lot.\end{tcolorbox}
+\vfill{\footnotesize\color{uimm}\textbf{Ressources de la base :} Tirer un lot · Jeu de secours.}
+\end{document}
