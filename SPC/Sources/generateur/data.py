@@ -61,6 +61,8 @@ def cmp(a,b):
     r=stats.ttest_ind(b,a,equal_var=False); F=max(np.var(a,ddof=1),np.var(b,ddof=1))/min(np.var(a,ddof=1),np.var(b,ddof=1))
     return dict(d=float(np.mean(b)-np.mean(a)),t=float(abs(r.statistic)),tc=float(stats.t.ppf(.975,r.df)),F=float(F),Fc=float(stats.f.ppf(.975,len(a)-1,len(b)-1)))
 R['cmp_instr']=cmp(mic,pac); R['cmp_cliquet']=cmp(av,sa); R['cmp_op']=cmp(oa,ob); R['chauffe']=ch.tolist()
+# M14 : trois etalons composes (11,850 ; 11,925 ; 12,000), 10 mesures chacun, graine 3011 (voir m14/calc.py)
+write('etalons','Secours_trois_etalons_simule.xlsx','Donnees',['Etalon_11_850','Etalon_11_925','Etalon_12_000'],[[11.851, 11.925, 12.0], [11.851, 11.925, 12.0], [11.85, 11.926, 12.001], [11.85, 11.925, 12.0], [11.849, 11.927, 12.001], [11.851, 11.925, 12.0], [11.851, 11.925, 12.001], [11.85, 11.926, 12.001], [11.851, 11.926, 12.001], [11.852, 11.925, 12.002]],3)
 json.dump(J,open('donnees_base.json','w'),ensure_ascii=False)
 def show(o,ind=0):
     for k,v in o.items():

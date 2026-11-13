@@ -2,7 +2,7 @@ import json
 CAT=json.load(open('catalogue.json',encoding='utf-8'))
 PARC=[["p25","Journée très pratique (7 h)",["E1","E2","E3","E4","M1","M2","M3","M4","M5","M7","M9","A1","A2","A3","A4","A6"]],
  ["pE","Découverte d'Ellistat",["E1","E2","E3","E4","E5","E6"]],
- ["pM","Moyen de mesure, une journée",["E1","E2","E3","M1","M2","M3","M4","M5","M6","M7","M8","M9","M10"]],
+ ["pM","Moyen de mesure, une journée",["E1","E2","E3","M1","M2","M3","M4","M5","M6","M7","M8","M9","M10","M14"]],
  ["pA","Attributs, une demi-journée",["A1","A2","A3","A4","A5","A6","A8","A9"]],
  ["pC","Cartes et capabilité, une journée",["C1","C2","C3","E5","C4","C6","C7"]],
  ["pS","Groupe solide, synthèse",["C5","M8","M13","C8"]]]

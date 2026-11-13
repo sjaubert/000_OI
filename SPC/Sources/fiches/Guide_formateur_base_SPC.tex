@@ -3,11 +3,11 @@
 \pied{Base SPC · guide formateur}
 \begin{document}
 \thispagestyle{fancy}
-\bandeau{Guide formateur · ne pas distribuer}{Base d'activités SPC}{Mode d'emploi, organisation, corrigés des 36 fiches}
+\bandeau{Guide formateur · ne pas distribuer}{Base d'activités SPC}{Mode d'emploi, organisation, corrigés des 37 fiches}
 
 \titre{1. La base en une page}
 \begin{itemize}
-\item \textbf{36 activités, environ 19 heures}, en quatre blocs : E (prise en main d'Ellistat), M (moyen de mesure), A (cartes aux attributs), C (cartes aux mesures et capabilité). On choisit, on ne fait pas tout.
+\item \textbf{37 activités, environ 20 heures}, en quatre blocs : E (prise en main d'Ellistat), M (moyen de mesure), A (cartes aux attributs), C (cartes aux mesures et capabilité). On choisit, on ne fait pas tout.
 \item \textbf{Une fiche par activité}, toujours bâtie de la même façon : le but, ce qu'il faut, « je prédis », « à faire », « j'observe, je décide », « à retenir ». Une seule question par fiche.
 \item \textbf{Prédire, faire, comparer.} Le stagiaire écrit ce qu'il attend avant de mesurer ou de calculer. C'est ce qui ralentit et qui ancre.
 \item \textbf{Ils mesurent, Ellistat calcule.} Aucune fiche ne demande Excel. Les données de secours se collent depuis la page « Données à copier ».
@@ -19,7 +19,7 @@
 \begin{itemize}
 \item \textbf{Binôme par défaut} pour les mesures : l'un mesure, l'autre note, puis on échange. Effectif impair : un trinôme (le troisième chronomètre ou saisit).
 \item \textbf{Un seul stagiaire} : toutes les fiches en binôme se font seul, le formateur note. M9 demande deux opérateurs : le formateur est le second.
-\item \textbf{Matériel par poste} : un micromètre et une cale par binôme pour M2 à M7 et M9 ; cinq cales par binôme pour M8 ; un coffret pour M10.
+\item \textbf{Matériel par poste} : un micromètre et une cale par binôme pour M2 à M7 et M9 ; cinq cales par binôme pour M8 ; un coffret par binôme pour M10 et M14.
 \item \textbf{Activités de groupe} : M11 (R\&R) demande 3 opérateurs ; au-delà, les autres notent. M12 (Trois cales) fonctionne de 3 à 8 stagiaires. M13 se fait à partir de 2.
 \item \textbf{Ellistat} : un compte par stagiaire pour le bloc E. Ensuite, un compte par binôme suffit.
 \end{itemize}
@@ -31,7 +31,7 @@
 \textbf{Parcours} & \textbf{Activités, dans l'ordre} & \textbf{Durée}\\\midrule
 Journée très pratique, public d'opérateurs (7 h) & E1, E2, E3, E4 · M1, M2, M3, M4, M5, M7, M9 · A1, A2, A3, A4, A6 & 6 h 15\\
 Découverte d'Ellistat & E1 à E6 & 1 h 30\\
-Moyen de mesure, une journée & E1, E2, E3 · M1 à M10 · M11 si le groupe avance & 5 h 20 à 6 h 30\\
+Moyen de mesure, une journée & E1, E2, E3 · M1 à M10 · M14 · M11 si le groupe avance & 6 h 20 à 7 h 30\\
 Cartes aux attributs, une demi-journée & A1 à A6, A8, A9 & 3 h 20\\
 Cartes aux mesures et capabilité, une journée & C1, C2, C3 · E5 · C4, C6, C7 & 4 h 20\\
 Groupe solide, synthèse & C5, M8, M12 ou M13, C8 & 3 h 20 à 4 h 15\\
@@ -75,6 +75,7 @@ E & 4 \%, sauf le lot 18 à 15 \% & 3, sauf le n° 18 à 9 défauts\\
 \item Tenir les cales par les bords, avec des gants ou un chiffon. Ne pas les garder dans la main (activité M6).
 \item Faces propres. Une face oxydée ou rayée n'adhère plus : la cale ne sert plus à composer une valeur (M10).
 \item L'étiquette d'un coffret (par exemple « DIN 861/I ») indique la classe d'origine. Elle ne remplace pas un certificat d'étalonnage. Sans certificat, on prend la valeur nominale et on le dit.
+\item Le coffret de 83 pièces permet de composer toute valeur au 0,005 mm près (M10, M14). On règle d'abord le dernier chiffre : 11,925 = 9,5 + 1,42 + 1,005. Vérifier la somme avant de coller.
 \item Micromètre : zéro contrôlé, cliquet, touches propres. Un micromètre 25-50 se règle sur sa cale de 25 mm.
 \end{itemize}
 
@@ -87,5 +88,5 @@ E & 4 \%, sauf le lot 18 à 15 \% & 3, sauf le n° 18 à 9 défauts\\
 \input{guide_corps.tex}
 
 \vspace{6pt}
-{\footnotesize\color{uimm}\textbf{Sources.} Ellistat, guide utilisateur de Data Analysis (rubriques Général, Justesse, R\&R sur mesures, Cartes de contrôle aux attributs ; pages consultées le 11/11/2026) ; réponse d'Ellistat du 10/11/2026 sur les sous-groupes. Robert Bosch GmbH, \emph{Booklet 10 : Capability of Measurement and Test Processes}, édition novembre 2019 (§ 4.1, 4.2, 4.4, fig. 3, exemples p. 11 et p. 14). Tous les corrigés chiffrés ont été recalculés en Python (NumPy, SciPy). Les jeux marqués « simulé » sont tirés avec une graine fixe (1125, 2027, 2611).}
+{\footnotesize\color{uimm}\textbf{Sources.} Ellistat, guide utilisateur de Data Analysis (rubriques Général, Justesse, R\&R sur mesures, Cartes de contrôle aux attributs ; pages consultées le 11/11/2026) ; réponse d'Ellistat du 10/11/2026 sur les sous-groupes. Robert Bosch GmbH, \emph{Booklet 10 : Capability of Measurement and Test Processes}, édition novembre 2019 (§ 4.1, 4.2, 4.4, fig. 3, exemples p. 11 et p. 14). Tous les corrigés chiffrés ont été recalculés en Python (NumPy, SciPy). Les jeux marqués « simulé » sont tirés avec une graine fixe (1125, 2027, 2611, 3011).}
 \end{document}

@@ -1,0 +1,54 @@
+\documentclass[10pt,a4paper]{article}
+\input{commun.tex}
+\pied{Base SPC · fiche M14 · Trois étalons pour la butée}
+\begin{document}
+\thispagestyle{fancy}
+\entete{M14}{Trois étalons pour la butée}{Le micromètre est-il aussi juste aux deux limites de la tolérance qu'en son milieu ?}{Le moyen de mesure}{60 min}{en binôme}{3}
+\begin{tcolorbox}[boite]\textbf{Le but.} Composer trois étalons par adhérence (11,850 ; 11,925 ; 12,000 mm), mesurer chacun et vérifier la justesse là où l'on décide : aux deux limites et au milieu de la tolérance.\par\textbf{Il vous faut.} Un coffret de cales (cales de 0,5 ; 1,005 ; 1,35 ; 1,42 ; 2 ; 9,5 et 10 mm) · Un micromètre 0-25 mm · Chiffon non pelucheux · Ellistat\end{tcolorbox}
+\begin{tcolorbox}[pred]Votre micromètre aura-t-il le même écart de justesse aux deux limites de la tolérance et en son milieu ? Écrivez l'écart que vous attendez, en µm.\reponse\end{tcolorbox}
+\titre{À faire}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{\arabic*.}},leftmargin=15pt,itemsep=1.5pt]
+\item \textbf{Composer} les trois étalons du tableau avec les cales du coffret. Méthode : on règle d'abord le \textbf{dernier chiffre}. Pour 11,925, la seule cale qui donne le 0,005 est la 1,005 : il reste 10,920 à obtenir avec deux cales. Vérifier chaque somme.
+\item Nettoyer les faces. Coller les cales deux à deux, en croix, en pressant et en glissant, comme en M10. Ne pas tenir les piles dans la main.
+\item Mesurer \textbf{10 fois} chaque pile au cliquet, en l'enlevant à chaque fois, et en \textbf{alternant} : 11,850 ; 11,925 ; 12,000 ; puis on recommence. La température agit ainsi de la même façon sur les trois.
+\item \tagE\ Une grille, trois colonnes (« Etalon\_11\_850 », « Etalon\_11\_925 », « Etalon\_12\_000 »), 10 valeurs chacune.
+\item \tagE\ \menu{Gage R\&R} > \menu{Justesse} : une étude par colonne, comme en M3. Valeur vraie = valeur de l'étalon ; tolérance mini 11,85 et maxi 12,00 ; résolution 0,001. Relever Cg et Cgk.
+\item À la main, pour chaque étalon : le biais en µm et le rapport $|\text{biais}| / s$. Pour 10 mesures, le biais est négligeable si ce rapport est \textbf{au plus 0,715} (livret Bosch, annexe C).
+\item Séparer les cales en les faisant glisser, sans tirer. Les nettoyer et les ranger.
+\end{enumerate}
+\vspace{3pt}{\renewcommand{\arraystretch}{1.45}\begin{tabularx}{\linewidth}{|c|X|c|}\hline
+\textbf{Étalon visé} & \textbf{Cales choisies (mm)} & \textbf{Somme (mm)}\\\hline
+11,850 mm & & \\\hline
+11,925 mm & & \\\hline
+12,000 mm & & \\\hline
+\end{tabularx}}\par\vspace{5pt}
+{\renewcommand{\arraystretch}{1.15}\small\begin{tabularx}{\linewidth}{|l|*{3}{>{\centering\arraybackslash}X|}}\hline
+\textbf{Mesure} & \textbf{11,850} & \textbf{11,925} & \textbf{12,000}\\\hline
+1 & & & \\\hline
+2 & & & \\\hline
+3 & & & \\\hline
+4 & & & \\\hline
+5 & & & \\\hline
+6 & & & \\\hline
+7 & & & \\\hline
+8 & & & \\\hline
+9 & & & \\\hline
+10 & & & \\\hline
+\textbf{Moyenne (mm)} & & & \\\hline
+\textbf{Biais = moyenne $-$ étalon (µm)} & & & \\\hline
+\textbf{$|\text{biais}| / s$ (à la main)} & & & \\\hline
+\textbf{Cg (Ellistat)} & & & \\\hline
+\textbf{Cgk (Ellistat)} & & & \\\hline
+\end{tabularx}}\par
+\newpage
+\titre{J'observe, je décide}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{Q\arabic*.}},leftmargin=22pt]
+\item Écart entre le plus grand et le plus petit biais : \champ{16mm} µm. Le biais est-il le même aux trois étalons ?\reponse[1]
+\item Pour quel(s) étalon(s) le rapport $|\text{biais}| / s$ dépasse-t-il 0,715 ? Faut-il en conclure que le micromètre est déréglé à cet endroit ?\reponse[2]
+\item Le micromètre est-il capable aux deux limites de la tolérance ? Appuyez-vous sur Cgk.\reponse[2]
+\item Chaque cale d'une pile a sa propre incertitude, de l'ordre de quelques dixièmes de micromètre. Cela change-t-il vos conclusions, avec un micromètre qui lit 1 µm ?\reponse[2]
+\end{enumerate}
+\begin{tcolorbox}[retenir]On qualifie un instrument là où il sert : aux deux limites et au milieu de la tolérance. Un seuil statistique n'est pas une frontière : un écart de 0,2 µm entre deux étalons ne change pas l'instrument.\end{tcolorbox}
+\begin{tcolorbox}[plus]Dans Ellistat, ouvrez \menu{Linéarité} avec les trois étalons (3 produits, 10 valeurs). Les trois points couvrent 0,15 mm seulement : lisez la pente avec prudence. Ou complétez l'étalon de 11,925 à 25 mesures, comme le demande le livret Bosch (§ 4.1).\end{tcolorbox}
+\vfill{\footnotesize\color{uimm}\textbf{Ressources de la base :} Données de secours · L'instrument est-il capable ?.}
+\end{document}

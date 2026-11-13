@@ -10,4 +10,4 @@ generateur/  Scripts Python qui ont produit les fiches, le guide et le catalogue
              Ces scripts ont été lancés dans un autre dossier de travail : adapter les chemins avant de les relancer.
 
 Pour modifier une fiche sans Python : éditer son .tex dans fiches/, recompiler, copier le PDF dans Activites/.
-Base construite le 11 novembre 2026.
+Base construite le 11 novembre 2026. Activité M14 (Trois étalons pour la butée) ajoutée le 13 novembre 2026.

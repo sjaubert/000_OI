@@ -58,6 +58,17 @@ def releve(r):
         s += r"\textbf{Temps (s)} & " + " & ".join(str(x) for x in t) + r"\\\hline" + "\n" + rf"\textbf{{{tex(r[2])}}}" + " & " * n + r"\\\hline\end{tabularx}}\par\vspace{4pt}" + "\n"
         s += r"\begin{center}\begin{tikzpicture}[x=1.45cm,y=0.5cm]\draw[gray!45,very thin] (0,0) grid (10,6);\draw[thick] (0,0)--(10,0);\draw[thick] (0,0)--(0,6);" + "".join(rf"\node[below,font=\scriptsize] at ({i},0) {{{30*i}}};" for i in range(11)) + r"\node[below,font=\scriptsize] at (5,-0.55) {temps (s)};\node[rotate=90,font=\scriptsize] at (-0.55,3) {mesure : un carreau = 0,001 mm};\end{tikzpicture}\end{center}"
         return s
+    if k == 'etalons':
+        s = r"{\renewcommand{\arraystretch}{1.45}\begin{tabularx}{\linewidth}{|c|X|c|}\hline" + "\n"
+        s += r"\textbf{Étalon visé} & \textbf{Cales choisies (mm)} & \textbf{Somme (mm)}\\\hline" + "\n"
+        for v in ("11,850", "11,925", "12,000"): s += v + r" mm & & \\\hline" + "\n"
+        s += r"\end{tabularx}}\par\vspace{5pt}" + "\n"
+        s += r"{\renewcommand{\arraystretch}{1.15}\small\begin{tabularx}{\linewidth}{|l|*{3}{>{\centering\arraybackslash}X|}}\hline" + "\n"
+        s += r"\textbf{Mesure} & \textbf{11,850} & \textbf{11,925} & \textbf{12,000}\\\hline" + "\n"
+        for i in range(1, 11): s += f"{i} & & & " + r"\\\hline" + "\n"
+        for lab in ("Moyenne (mm)", r"Biais = moyenne $-$ étalon (µm)", r"$|\text{biais}| / s$ (à la main)", "Cg (Ellistat)", "Cgk (Ellistat)"):
+            s += r"\textbf{" + lab + r"} & & & \\\hline" + "\n"
+        return s + r"\end{tabularx}}\par"
     if k == 'lin':
         s = r"{\renewcommand{\arraystretch}{1.45}\small\begin{tabularx}{\linewidth}{|l|*{10}{>{\centering\arraybackslash}X|}p{15mm}|p{15mm}|}\hline" + "\n"
         s += r"\textbf{Cale} & " + " & ".join(rf"\scriptsize {i}" for i in range(1, 11)) + r" & \textbf{\scriptsize Moyenne} & \textbf{\scriptsize Biais (µm)}\\\hline" + "\n"
@@ -92,7 +103,7 @@ def releve(r):
         return s + r"\end{tabularx}}\par"
     raise ValueError(k)
 
-COUPE = {'A2', 'A4', 'A6', 'M6'}   # fiches sur deux pages : coupure avant les questions
+COUPE = {'A2', 'A4', 'A6', 'M6', 'M14'}   # fiches sur deux pages : coupure avant les questions
 TAG = {'E': r"\tagE\ ", 'W': r"\tagW\ ", 'M': ""}
 def fiche(a, bloc):
     L = [r"\documentclass[10pt,a4paper]{article}", r"\input{commun.tex}", rf"\pied{{Base SPC · fiche {a['code']} · {tex(a['titre'])}}}", r"\begin{document}", r"\thispagestyle{fancy}"]
