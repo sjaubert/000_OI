@@ -1,0 +1,49 @@
+\documentclass[10pt,a4paper]{article}
+\input{commun.tex}
+\pied{Base SPC · fiche M16 · Deux grades, un micromètre}
+\begin{document}
+\thispagestyle{fancy}
+\entete{M16}{Deux grades, un micromètre}{Mon micromètre voit-il la différence entre une cale de grade 0 et une cale de grade 1 ?}{Le moyen de mesure}{30 min}{en binôme}{2}
+\begin{tcolorbox}[boite]\textbf{Le but.} Mesurer deux cales de même cote et de grades différents, et voir ce que le micromètre en dit.\par\textbf{Il vous faut.} Une cale céramique de 10 mm, grade 0 · Une cale acier de 10 mm, grade 1 · Un micromètre 0-25 mm · Ellistat\end{tcolorbox}
+\begin{tcolorbox}[pred]La cale de grade 0 est plus précise que celle de grade 1. Votre micromètre au micron le verra-t-il ? Écrivez l'écart que vous attendez entre les deux moyennes, en µm.\reponse\end{tcolorbox}
+\titre{À faire}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{\arabic*.}},leftmargin=15pt,itemsep=1.5pt]
+\item Lire dans le tableau ci-dessous les écarts limites des deux grades pour une cale de 10 mm. Calculer l'écart maximal possible entre les deux cales : les deux limites s'ajoutent.
+\item Nettoyer les deux cales. Mesurer \textbf{15 fois} chacune au cliquet, en alternant : céramique, acier, céramique, acier. Retirer la cale à chaque mesure.
+\item \tagE\ Une grille, deux colonnes : « Ceramique\_grade0 » et « Acier\_grade1 ».
+\item \tagE\ \menu{Gage R\&R} > \menu{Justesse} : une étude par colonne, valeur vraie 10,000 ; tolérance mini 11,85 et maxi 12,00 ; résolution 0,001. Relever Cg et Cgk.
+\item \tagW\ Coller les deux séries dans la page « Comparer deux séries de mesures », avec 10,000 comme valeur de la cale.
+\item Avec 15 mesures par cale, le plus petit écart de moyennes que le test déclare significatif vaut environ $0{,}75 \times s$. Prendre pour $s$ la moyenne des deux écarts-types.
+\end{enumerate}
+\vspace{3pt}{\renewcommand{\arraystretch}{1.35}\small\begin{tabularx}{\linewidth}{|l|*{3}{>{\centering\arraybackslash}X|}}\hline
+\textbf{Écart limite de longueur (µm)} & \textbf{Grade 0} & \textbf{Grade 1} & \textbf{Grade 2}\\\hline
+Cale jusqu'à 10 mm & $\pm 0{,}12$ & $\pm 0{,}20$ & $\pm 0{,}45$\\\hline
+Cale de plus de 10 mm à 25 mm & $\pm 0{,}14$ & $\pm 0{,}30$ & $\pm 0{,}60$\\\hline
+\end{tabularx}}\par{\footnotesize ISO 3650, valeurs relevées sur des pages de revendeurs : le certificat de vos cales fait foi.}\par\vspace{5pt}
+\begin{minipage}[t]{0.485\linewidth}\textbf{Cale céramique grade 0 (mm)}\par\vspace{2pt}
+{\renewcommand{\arraystretch}{1.4}\begin{tabularx}{\linewidth}{|*{3}{>{\centering\arraybackslash}p{5mm}|>{\centering\arraybackslash}X|}}\hline
+\scriptsize 1 &  & \scriptsize 2 &  & \scriptsize 3 & \\\hline
+\scriptsize 4 &  & \scriptsize 5 &  & \scriptsize 6 & \\\hline
+\scriptsize 7 &  & \scriptsize 8 &  & \scriptsize 9 & \\\hline
+\scriptsize 10 &  & \scriptsize 11 &  & \scriptsize 12 & \\\hline
+\scriptsize 13 &  & \scriptsize 14 &  & \scriptsize 15 & \\\hline
+\end{tabularx}}\end{minipage}\hfill\begin{minipage}[t]{0.485\linewidth}\textbf{Cale acier grade 1 (mm)}\par\vspace{2pt}
+{\renewcommand{\arraystretch}{1.4}\begin{tabularx}{\linewidth}{|*{3}{>{\centering\arraybackslash}p{5mm}|>{\centering\arraybackslash}X|}}\hline
+\scriptsize 1 &  & \scriptsize 2 &  & \scriptsize 3 & \\\hline
+\scriptsize 4 &  & \scriptsize 5 &  & \scriptsize 6 & \\\hline
+\scriptsize 7 &  & \scriptsize 8 &  & \scriptsize 9 & \\\hline
+\scriptsize 10 &  & \scriptsize 11 &  & \scriptsize 12 & \\\hline
+\scriptsize 13 &  & \scriptsize 14 &  & \scriptsize 15 & \\\hline
+\end{tabularx}}\end{minipage}\par
+\newpage
+\titre{J'observe, je décide}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{Q\arabic*.}},leftmargin=22pt]
+\item Écart maximal possible entre les deux cales : \champ{14mm} µm. Écart observé entre vos deux moyennes : \champ{14mm} µm.\par\vspace{5pt}
+\item La page conclut-elle à une différence réelle entre les deux moyennes ? Cela prouve-t-il que les deux cales sont identiques ?\reponse[2]
+\item Plus petit écart détectable ($0{,}75 \times s$) = \champ{14mm} µm. Est-il plus petit ou plus grand que l'écart maximal possible entre les deux cales ?\reponse[1]
+\item À quoi sert alors une cale de grade 0 ? Avec quel type d'instrument son grade devient-il visible ?\reponse[2]
+\end{enumerate}
+\begin{tcolorbox}[retenir]Un étalon doit être nettement meilleur que l'instrument qu'il qualifie. Plus fin que nécessaire, son grade ne se voit pas.\end{tcolorbox}
+\begin{tcolorbox}[plus]Refaites avec 50 mesures par cale : le plus petit écart détectable tombe à environ $0{,}4 \times s$. Frôle-t-il l'écart maximal possible ? Que faudrait-il contrôler avant de conclure ?\end{tcolorbox}
+\vfill{\footnotesize\color{uimm}\textbf{Ressources de la base :} Comparer deux séries de mesures · Données de secours.}
+\end{document}

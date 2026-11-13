@@ -5,7 +5,8 @@ PARC=[["p25","Journée très pratique (7 h)",["E1","E2","E3","E4","M1","M2","M3"
  ["pM","Moyen de mesure, une journée",["E1","E2","E3","M1","M2","M3","M4","M5","M6","M7","M8","M9","M10","M14"]],
  ["pA","Attributs, une demi-journée",["A1","A2","A3","A4","A5","A6","A8","A9"]],
  ["pC","Cartes et capabilité, une journée",["C1","C2","C3","E5","C4","C6","C7"]],
- ["pS","Groupe solide, synthèse",["C5","M8","M13","C8"]]]
+ ["pS","Groupe solide, synthèse",["C5","M8","M13","C8"]],
+ ["pK","Étalons et cales de grade 0",["M10","M14","M16","M15","M17"]]]
 codes={a['code'] for a in CAT}
 for p in PARC: assert set(p[2])<=codes,p
 HTML=r'''<!doctype html>
@@ -153,7 +154,7 @@ function orga(a,n){
   }
   if(n<o.min) return {t:"Il faut au moins "+o.min+" personnes : le formateur complète ("+pl(o.min-n,"personne")+").",p:1};
   var g=Math.max(1,Math.floor(n/o.taille)), t=Math.ceil(n/g);
-  return {t:(g===1?"Un seul groupe de "+n:pl(g,"groupe")+" de "+t+" au plus")+(a.code==="M11"?" : 3 opérateurs mesurent, les autres notent.":"."),p:g};
+  return {t:(g===1?"Un seul groupe de "+n:pl(g,"groupe")+" de "+t+" au plus")+({M11:" : 3 opérateurs mesurent, les autres notent.",M17:" : 3 opérateurs mesurent, les autres notent.",M15:" : un micromètre et une cale témoin pour tout le groupe, chacun passe à son tour."}[a.code]||"."),p:g};
 }
 function construire(){
   $("fBlocs").innerHTML=Object.keys(NOMS).map(function(b){ return '<button type="button" class="puce" data-b="'+b+'" aria-pressed="'+(etat.blocs[b]?"true":"false")+'">'+b+' · '+NOMS[b]+'</button>'; }).join("");

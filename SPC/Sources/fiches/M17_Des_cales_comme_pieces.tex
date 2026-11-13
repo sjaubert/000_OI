@@ -1,0 +1,38 @@
+\documentclass[10pt,a4paper]{article}
+\input{commun.tex}
+\pied{Base SPC · fiche M17 · Des cales comme pièces}
+\begin{document}
+\thispagestyle{fancy}
+\entete{M17}{Des cales comme pièces}{Trois personnes mesurent des cales dont on connaît la cote : se trompent-elles de la même façon ?}{Le moyen de mesure}{70 min}{en groupe}{3}
+\begin{tcolorbox}[boite]\textbf{Le but.} Mener un R\&R sur dix cales de cotes connues, puis comparer chaque opérateur à la vérité.\par\textbf{Il vous faut.} 10 cales de la progression 1,01 à 1,10 mm, cote gravée masquée, marquées de A à J · Un seul micromètre 0-25 mm · Ellistat · Une calculatrice\end{tcolorbox}
+\begin{tcolorbox}[pred]Les trois opérateurs seront-ils décalés de la même façon par rapport aux vraies cotes ? Qui sera le plus décalé, et de combien, en µm ?\reponse\end{tcolorbox}
+\titre{À faire}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{\arabic*.}},leftmargin=15pt,itemsep=1.5pt]
+\item Le formateur a masqué la cote de chaque cale et l'a marquée d'une lettre. Tirer au sort l'ordre de passage des trois opérateurs. Les autres stagiaires notent.
+\item \textbf{Série 1} : chaque opérateur mesure les 10 cales, une fois chacune, dans un ordre mélangé, avec le même micromètre. \textbf{Série 2} : même travail, dans un autre ordre, sans regarder ses premières valeurs.
+\item \tagE\ \menu{Gage R\&R} > \menu{Mesures} > \menu{Ajouter un gage R\&R}, puis créer une grille vide : 10 pièces, 3 opérateurs, 2 répétitions. Saisir les 60 mesures, méthode \textbf{ANOVA}, tolérance 0,10 mm. Relever EV, AV, \%GRR et le nombre de catégories distinctes.
+\item Le formateur annonce les 10 cotes. Pour chaque opérateur, calculer l'\textbf{écart moyen} entre ses mesures et les cotes, en µm.
+\item Regarder l'écart de chaque cale, tous opérateurs confondus : y en a-t-il une qui sort du lot ?
+\end{enumerate}
+\vspace{3pt}{\renewcommand{\arraystretch}{1.5}\begin{tabularx}{\linewidth}{|l|*{2}{>{\centering\arraybackslash}X|}}\hline
+\textbf{Opérateur} & \textbf{Écart moyen aux cotes (µm)} & \textbf{Plus grand écart, en valeur absolue (µm)}\\\hline
+A & & \\\hline
+B & & \\\hline
+C & & \\\hline
+\end{tabularx}}\par\vspace{5pt}
+{\renewcommand{\arraystretch}{1.5}\begin{tabularx}{\linewidth}{|*{4}{>{\centering\arraybackslash}X|}}\hline
+\textbf{EV (mm)} & \textbf{AV (mm)} & \textbf{\%GRR} & \textbf{Catégories distinctes}\\\hline
+\rule{0pt}{7mm} & & & \\\hline
+\end{tabularx}}\par
+\newpage
+\titre{J'observe, je décide}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{Q\arabic*.}},leftmargin=22pt]
+\item \%GRR = \champ{14mm} \%. Qui pèse le plus : l'instrument (EV) ou les opérateurs (AV) ?\reponse[1]
+\item Écart moyen de A = \champ{14mm} µm, de B = \champ{14mm} µm, de C = \champ{14mm} µm. Les trois opérateurs ont-ils le même défaut ?\reponse[1]
+\item Ellistat trouve-t-il un effet opérateur significatif ? Est-il important par rapport à la tolérance de 0,10 mm ?\reponse[2]
+\item Des cales sont des pièces parfaites : planes, parallèles, sans bavure. Ce R\&R sera-t-il meilleur ou moins bon que celui de vraies butées ? Pourquoi ?\reponse[2]
+\end{enumerate}
+\begin{tcolorbox}[retenir]Avec des pièces de cote connue, le R\&R dit aussi qui se décale, et de combien. Une différence significative n'est pas forcément une différence qui compte.\end{tcolorbox}
+\begin{tcolorbox}[plus]Divisez la tolérance par deux (0,05 mm) dans Ellistat, sans toucher aux mesures. Que devient le \%GRR ? Dans quelle zone (10 \% ; 30 \%) arrive-t-il ?\end{tcolorbox}
+\vfill{\footnotesize\color{uimm}\textbf{Ressources de la base :} Données de secours.}
+\end{document}

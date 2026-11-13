@@ -69,6 +69,31 @@ def releve(r):
         for lab in ("Moyenne (mm)", r"Biais = moyenne $-$ étalon (µm)", r"$|\text{biais}| / s$ (à la main)", "Cg (Ellistat)", "Cgk (Ellistat)"):
             s += r"\textbf{" + lab + r"} & & & \\\hline" + "\n"
         return s + r"\end{tabularx}}\par"
+    if k == 'derive':
+        s = r"{\renewcommand{\arraystretch}{1.5}\small\begin{tabularx}{\linewidth}{|c|p{12mm}|p{11mm}|*{5}{>{\centering\arraybackslash}X|}p{17mm}|p{14mm}|}\hline" + "\n"
+        s += r"\textbf{N°} & \textbf{Heure} & \textbf{Qui} & 1 & 2 & 3 & 4 & 5 & \textbf{Moy.} & \textbf{Étendue}\\\hline" + "\n"
+        for i in range(1, 9): s += f"{i}" + " & " * 9 + r"\\\hline" + "\n"
+        s += r"\end{tabularx}}\par\vspace{4pt}" + "\n"
+        s += r"{\renewcommand{\arraystretch}{1.35}\begin{tabularx}{\linewidth}{|X|c|c|}\hline & \textbf{À la main} & \textbf{Ellistat}\\\hline" + "\n"
+        for lab in [r"Moyenne générale $\bar{\bar X}$ \quad / \quad étendue moyenne $\bar R$ (passages 1 à 6)", "Limite supérieure des moyennes", "Limite inférieure des moyennes", "Limite supérieure des étendues"]:
+            s += lab + r" & \hspace{28mm} & \hspace{28mm}\\\hline" + "\n"
+        return s + r"\end{tabularx}}\par"
+    if k == 'grades':
+        s = r"{\renewcommand{\arraystretch}{1.35}\small\begin{tabularx}{\linewidth}{|l|*{3}{>{\centering\arraybackslash}X|}}\hline" + "\n"
+        s += r"\textbf{Écart limite de longueur (µm)} & \textbf{Grade 0} & \textbf{Grade 1} & \textbf{Grade 2}\\\hline" + "\n"
+        s += r"Cale jusqu'à 10 mm & $\pm 0{,}12$ & $\pm 0{,}20$ & $\pm 0{,}45$\\\hline" + "\n"
+        s += r"Cale de plus de 10 mm à 25 mm & $\pm 0{,}14$ & $\pm 0{,}30$ & $\pm 0{,}60$\\\hline" + "\n"
+        s += r"\end{tabularx}}\par{\footnotesize ISO 3650, valeurs relevées sur des pages de revendeurs : le certificat de vos cales fait foi.}\par\vspace{5pt}" + "\n"
+        return s + releve(('deux', 15, 'Cale céramique grade 0 (mm)', 'Cale acier grade 1 (mm)'))
+    if k == 'cotes':
+        s = r"{\renewcommand{\arraystretch}{1.5}\begin{tabularx}{\linewidth}{|l|*{2}{>{\centering\arraybackslash}X|}}\hline" + "\n"
+        s += r"\textbf{Opérateur} & \textbf{Écart moyen aux cotes (µm)} & \textbf{Plus grand écart, en valeur absolue (µm)}\\\hline" + "\n"
+        for o in "ABC": s += o + r" & & \\\hline" + "\n"
+        s += r"\end{tabularx}}\par\vspace{5pt}" + "\n"
+        s += r"{\renewcommand{\arraystretch}{1.5}\begin{tabularx}{\linewidth}{|*{4}{>{\centering\arraybackslash}X|}}\hline" + "\n"
+        s += r"\textbf{EV (mm)} & \textbf{AV (mm)} & \textbf{\%GRR} & \textbf{Catégories distinctes}\\\hline" + "\n"
+        s += r"\rule{0pt}{7mm} & & & \\\hline" + "\n"
+        return s + r"\end{tabularx}}\par"
     if k == 'lin':
         s = r"{\renewcommand{\arraystretch}{1.45}\small\begin{tabularx}{\linewidth}{|l|*{10}{>{\centering\arraybackslash}X|}p{15mm}|p{15mm}|}\hline" + "\n"
         s += r"\textbf{Cale} & " + " & ".join(rf"\scriptsize {i}" for i in range(1, 11)) + r" & \textbf{\scriptsize Moyenne} & \textbf{\scriptsize Biais (µm)}\\\hline" + "\n"
@@ -103,7 +128,7 @@ def releve(r):
         return s + r"\end{tabularx}}\par"
     raise ValueError(k)
 
-COUPE = {'A2', 'A4', 'A6', 'M6', 'M14'}   # fiches sur deux pages : coupure avant les questions
+COUPE = {'A2', 'A4', 'A6', 'M6', 'M14', 'M15', 'M16', 'M17'}   # fiches sur deux pages : coupure avant les questions
 TAG = {'E': r"\tagE\ ", 'W': r"\tagW\ ", 'M': ""}
 def fiche(a, bloc):
     L = [r"\documentclass[10pt,a4paper]{article}", r"\input{commun.tex}", rf"\pied{{Base SPC · fiche {a['code']} · {tex(a['titre'])}}}", r"\begin{document}", r"\thispagestyle{fancy}"]

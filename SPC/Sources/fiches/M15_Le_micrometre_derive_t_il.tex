@@ -1,0 +1,48 @@
+\documentclass[10pt,a4paper]{article}
+\input{commun.tex}
+\pied{Base SPC · fiche M15 · Le micromètre dérive-t-il ?}
+\begin{document}
+\thispagestyle{fancy}
+\entete{M15}{Le micromètre dérive-t-il ?}{Le micromètre donne-t-il la même chose à 16 h qu'à 9 h ?}{Le moyen de mesure}{60 min}{en groupe}{3}
+\begin{tcolorbox}[boite]\textbf{Le but.} Surveiller un micromètre au long de la journée avec une cale témoin, et tracer sa carte de contrôle des moyennes et des étendues dans Ellistat.\par\textbf{Il vous faut.} Un micromètre 0-25 mm, gardé dans la salle toute la journée · Une cale témoin : la cale céramique de 10 mm (grade 0), ou à défaut une cale acier de 10 mm · Ellistat\end{tcolorbox}
+\begin{tcolorbox}[pred]Sur une journée, le micromètre donnera-t-il la même moyenne à chaque passage ? Écrivez l'écart de moyenne qui vous inquiéterait, en µm.\reponse\end{tcolorbox}
+\titre{À faire}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{\arabic*.}},leftmargin=15pt,itemsep=1.5pt]
+\item Poser le micromètre et la cale témoin sur la table, loin de la fenêtre et des courants d'air. Ne plus les déplacer, ne pas tenir la cale dans la main. Contrôler le zéro \textbf{une seule fois}, au début.
+\item \textbf{À chaque passage} (une heure d'écart environ, 8 passages dans la journée) : le stagiaire suivant mesure la cale \textbf{5 fois} au cliquet, en la retirant à chaque fois, et note l'heure, ses initiales et les 5 valeurs.
+\item Après chaque passage : calculer la moyenne et l'étendue du sous-groupe.
+\item \tagE\ Après le 6e passage : nouvelle grille, une ligne par passage, colonnes Passage, P1 à P5. Panneau de la colonne \textbf{P1} : \menu{Répétition} sur 5. Ne pas saisir de tolérance : on juge l'instrument, pas une pièce.
+\item \tagE\ \menu{Stats Desc.} > \menu{Détail}, cocher P1 (pas « Passage »). Regarder les cartes \menu{MOYENNE} et \menu{ETENDUE}, comme en E5. Relever les limites.
+\item À la main, avec les 6 premiers passages : $\bar{\bar X}$, $\bar R$, limites des moyennes $\bar{\bar X} \pm 0{,}577\,\bar R$, limite des étendues $2{,}114\,\bar R$ (comme en C4). Comparer à Ellistat.
+\item \tagE\ Ajouter les passages 7 et 8 à la grille. La carte sonne-t-elle ? Règles : un point hors limites, ou 7 points de suite du même côté de la moyenne.
+\item Écrire le \textbf{plan de réaction} : que fait-on, dans l'ordre, si la carte sonne ?
+\end{enumerate}
+\vspace{3pt}{\renewcommand{\arraystretch}{1.5}\small\begin{tabularx}{\linewidth}{|c|p{12mm}|p{11mm}|*{5}{>{\centering\arraybackslash}X|}p{17mm}|p{14mm}|}\hline
+\textbf{N°} & \textbf{Heure} & \textbf{Qui} & 1 & 2 & 3 & 4 & 5 & \textbf{Moy.} & \textbf{Étendue}\\\hline
+1 &  &  &  &  &  &  &  &  & \\\hline
+2 &  &  &  &  &  &  &  &  & \\\hline
+3 &  &  &  &  &  &  &  &  & \\\hline
+4 &  &  &  &  &  &  &  &  & \\\hline
+5 &  &  &  &  &  &  &  &  & \\\hline
+6 &  &  &  &  &  &  &  &  & \\\hline
+7 &  &  &  &  &  &  &  &  & \\\hline
+8 &  &  &  &  &  &  &  &  & \\\hline
+\end{tabularx}}\par\vspace{4pt}
+{\renewcommand{\arraystretch}{1.35}\begin{tabularx}{\linewidth}{|X|c|c|}\hline & \textbf{À la main} & \textbf{Ellistat}\\\hline
+Moyenne générale $\bar{\bar X}$ \quad / \quad étendue moyenne $\bar R$ (passages 1 à 6) & \hspace{28mm} & \hspace{28mm}\\\hline
+Limite supérieure des moyennes & \hspace{28mm} & \hspace{28mm}\\\hline
+Limite inférieure des moyennes & \hspace{28mm} & \hspace{28mm}\\\hline
+Limite supérieure des étendues & \hspace{28mm} & \hspace{28mm}\\\hline
+\end{tabularx}}\par
+\newpage
+\titre{J'observe, je décide}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{Q\arabic*.}},leftmargin=22pt]
+\item Les limites d'Ellistat et les vôtres sont-elles égales ? D'où vient le petit écart ?\reponse[1]
+\item La carte a-t-elle sonné aux passages 7 et 8, ou à d'autres ? Si oui, que faites-vous ? Sinon, que vous apprend-elle sur le micromètre ?\reponse[2]
+\item Les étendues valent 1 ou 2 µm. Pourquoi si peu de valeurs différentes ?\reponse[1]
+\item Écrivez votre plan de réaction en trois actions, dans l'ordre.\reponse[3]
+\end{enumerate}
+\begin{tcolorbox}[retenir]Un instrument se surveille comme un procédé : un étalon témoin, un prélèvement régulier, une carte, un plan de réaction.\end{tcolorbox}
+\begin{tcolorbox}[plus]Notez la température de la salle à chaque passage. Voyez-vous un lien avec les moyennes ? Faites passer chaque stagiaire au moins deux fois : l'effet de l'opérateur se voit-il sur la carte ?\end{tcolorbox}
+\vfill{\footnotesize\color{uimm}\textbf{Ressources de la base :} Données de secours.}
+\end{document}
