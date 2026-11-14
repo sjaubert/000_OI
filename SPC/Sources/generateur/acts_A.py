@@ -151,7 +151,7 @@ dict(code="A6", titre="Compter les défauts : la carte c", question="Le nombre d
    r"W|Page « Tirer un lot » : on compte « des défauts par unité », scénario donné par le formateur. Tirer 20 unités, une par une.",
    r"M|Noter chaque résultat et placer le point sur la carte.",
    r"M|Calculer $\bar c$ = total des défauts / nombre d'unités, puis les limites $\bar c \pm 3\sqrt{\bar c}$.",
-   r"E|« Copier le tableau », coller dans une grille, puis \menu{Cartes de contrôle aux attributs}, carte \textbf{c}.",
+   r"E|« Copier le tableau », coller dans une grille. \menu{Stats Desc.} > \menu{Cartes de contrôle aux attributs} : « Attributs » = la colonne des défauts ; laisser « Taille de lot » vide (les unités sont identiques) ; carte \textbf{c}. Dans « Phase I », Début 1 et Fin = le nombre d'unités de votre relevé.",
   ],
   releve=("lots", 20, "c"),
   questions=[
@@ -164,7 +164,7 @@ dict(code="A6", titre="Compter les défauts : la carte c", question="Le nombre d
   plus=r"Continuer jusqu'à 30 unités avec un scénario secret du formateur, limites figées sur les 20 premières.",
   liens=[("Tirer un lot", "../Pages/Tirer_un_lot.html"), ("Jeu de secours", "../Pages/Donnees_a_copier.html#panneaux")], donnees=["panneaux"],
   formateur=dict(
-   prep=[r"Scénario A pour les 20 premières unités. Pour la suite : scénario B (de 3 à 6 défauts au n° 21) ou C (dérive)."],
+   prep=[r"Écran vu le 14/11/2026 avec les 25 premières lignes du jeu de secours : seule la case « Attributs » est remplie, « Taille de lot » et « Taille de lot (si fixe) » restent vides ; l'axe de la carte s'intitule c ; $\bar c = 4{,}44$, limite supérieure 10,76, limite inférieure 0, aucun point rouge (recalculé : mêmes valeurs). Avec Phase I de 1 à 20 sur les 30 panneaux, on attend $\bar c = 4{,}15$ et 10,26, et le panneau 30 en rouge : pas encore vu.", r"Scénario A pour les 20 premières unités. Pour la suite : scénario B (de 3 à 6 défauts au n° 21) ou C (dérive)."],
    anim=[r"Faire nommer des défauts réels : rayure, bulle, grain, manque de matière."],
    corrige=[r"Résultats propres à chaque poste. Repère théorique (3 défauts en moyenne) : limite supérieure $3 + 3 \times 1{,}73 = 8{,}2$ ; limite inférieure 0. \textbf{Q3} 8 défauts reste sous la limite : rare, mais pas anormal.",
             r"Jeu de secours (30 panneaux, limites sur les 20 premiers) : $\bar c = 83 / 20 = 4{,}15$ ; limite supérieure 10,26 ; seul le panneau 30 (11 défauts) sort. Les panneaux 21 à 30 sont tirés avec 8 défauts en moyenne : la carte c réagit lentement.",
