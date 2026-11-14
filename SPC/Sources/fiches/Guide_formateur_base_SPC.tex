@@ -44,12 +44,17 @@ Groupe solide, synthèse & C5, M8, M12 ou M13, C8 & 3 h 20 à 4 h 15\\
 \begin{itemize}
 \item \textbf{Sous-groupes} : une ligne de la grille = un sous-groupe ; le champ « Répétition » de la première colonne donne le nombre de colonnes du sous-groupe (réponse d'Ellistat du 10/11/2026).
 \item \textbf{Cartes et capabilité} (établi sur une copie d'écran du 10/11/2026, recalculé en Python) : écart-type court terme = écart-type groupé ; limites à $\bar{\bar X} \pm 3\sigma/\sqrt n$ ; Pp et Ppk avec l'écart-type global ; Rs = Pp / Cp ; Rr = Ppk / Pp.
+\item \textbf{Écrans vérifiés} sur des copies d'écran du 14/11/2026 (compte formateur et compte stagiaire) : accueil (tuile DATA ANALYSIS, à côté des modules SPC, METRO, etc.) ; page \menu{Liste} ; grille et ses boutons ; panneau de colonne (onglets \menu{Informations}, \menu{Contenu}, \menu{Stats}) ; \menu{Stats Desc.} > \menu{Détail} et \menu{Tous} ; menu \menu{Gage R\&R} (Justesse, Mesures, Attributs, Linéarité, Comparaison de 2 moyens, Liste). Les fiches E1 à E5 en suivent les libellés.
+\item \textbf{Valeurs lues à l'écran et retrouvées par le calcul} (jeu des 30 butées) : avec Répétition = 5, écart type court terme 0,0204939 (écart-type groupé), Cp 1,22, Pp 0,946, Cpk 0,596, Ppk 0,462, 8,272 \% sous la tolérance mini. Colonne seule : Cp 1,34, compatible avec un écart-type calculé sur les différences successives (Cp 1,336) ; non confirmé.
+\item \textbf{Compte stagiaire} : pas de bouton « Mode lecture / Mode édition » ; la liste montre les projets publics du formateur.
+\item \textbf{Comparaison de 2 moyens} (Gage R\&R) : test d'équivalence entre deux moyens de mesure (limite $\delta$, cinq questions de diagnostic, Bland-Altman, régression de Deming). Elle attend des pièces différentes mesurées par les deux moyens, une même ligne désignant la même pièce. Les jeux de M4, M5 et M9 (une seule cale répétée) ne s'y prêtent pas : l'écart y semble « varier avec la cote » par artefact. Aucune fiche ne l'utilise encore.
 \item \textbf{Justesse} (guide Ellistat, page mise à jour le 06/11/2026) : au moins 25 mesures visées, 10 au minimum ; voyants : résolution verte jusqu'à T/20, orange jusqu'à T/10 ; Cg et Cgk verts au-dessus de 1,33.
 \end{itemize}
 \begin{tcolorbox}[verif]
 \begin{itemize}
-\item Le séparateur décimal accepté par la grille (activité E2).
-\item L'écran \menu{Justesse} et l'écran des cartes aux attributs : le guide n'en donne pas le pas à pas.
+\item Le séparateur décimal accepté à la saisie dans la grille (E2) : la grille de Butees\_diametre affiche des virgules, celle de Butées\_test des points, et la page « Comparaison de 2 moyens » annonce accepter la virgule.
+\item Non vus à l'écran, décrits d'après le guide d'Ellistat : la fenêtre « Créer un nouveau projet », le menu du clic droit sur une case, les onglets \menu{Contenu}, \menu{Stats} et \menu{Données}, la page « Mes graphiques » et l'export PowerPoint (E6), la page \menu{Détail} sur une colonne simple (E4).
+\item Les écrans \menu{Justesse}, \menu{Mesures}, \menu{Attributs}, \menu{Linéarité} et \menu{Cartes de contrôle aux attributs} : pas de copie d'écran, le guide n'en donne pas le pas à pas. Les fiches M3, M7, M8, M10, M11, M13, M14, M16, M17 et A3 à A8 les décrivent d'après le guide.
 \item Conventions de calcul non confirmées par Ellistat : Cg en 6\,s ou en 4\,s ; R\&R avec le facteur 6 ou 5,15 ; regroupement de l'interaction. Fiche de test : \fichier{Ellistat\_tests\_conventions.pdf}.
 \item Les corrigés chiffrés de Cg, Cgk et \%GRR de ce guide suivent les formules du livret Bosch. Ils sont à comparer à l'écran.
 \item Le comportement avec Répétition = 1, le nombre de points des règles d'alerte, la carte de Laney.

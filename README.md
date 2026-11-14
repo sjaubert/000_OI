@@ -6,7 +6,7 @@ Pôle Formation UIMM Centre-Val de Loire. Ressources de Stéphane Jaubert pour l
 
 | Je cherche | J'ouvre |
 |---|---|
-| Le catalogue des 36 activités SPC | [Base d'activités SPC](https://sjaubert.github.io/000_OI/SPC/index.html) |
+| Le catalogue des 40 activités SPC | [Base d'activités SPC](https://sjaubert.github.io/000_OI/SPC/index.html) |
 | Toutes les fiches SPC en un seul PDF | [Livret de toutes les fiches](SPC/Activites/Livret_toutes_les_fiches.pdf) |
 | Les données à coller dans Ellistat | [Données à copier](https://sjaubert.github.io/000_OI/SPC/Pages/Donnees_a_copier.html) |
 | Les TP de fiabilité (Weibull) | [Section Fiabilité](#2-fiabilité-et-loi-de-weibull) |
@@ -32,7 +32,7 @@ Le [catalogue interactif](https://sjaubert.github.io/000_OI/SPC/index.html) règ
 | E5 | [Une ligne, un sous-groupe](SPC/Activites/E5_Une_ligne_un_sous_groupe.pdf) | Comment Ellistat lit-il 5 pièces prélevées ensemble ? | 2 | 20 min |
 | E6 | [Garder une trace](SPC/Activites/E6_Garder_une_trace.pdf) | Comment retrouver et montrer un résultat ? | 1 | 10 min |
 
-**Bloc M : Le moyen de mesure** (13 activités, 495 min)
+**Bloc M : Le moyen de mesure** (17 activités, 715 min)
 
 | Code | Activité | Question | Niveau | Durée |
 |---|---|---|---|---|
@@ -49,6 +49,10 @@ Le [catalogue interactif](https://sjaubert.github.io/000_OI/SPC/index.html) règ
 | M11 | [L'opérateur compte-t-il ?](SPC/Activites/M11_L_operateur_compte_t_il.pdf) | Trois personnes mesurent les mêmes butées : trouvent-elles la même chose ? | 3 | 70 min |
 | M12 | [Trois cales, trois questions](SPC/Activites/M12_Trois_cales_trois_questions.pdf) | Nos micromètres sont-ils capables, justes, et dépendent-ils de nous ? | 3 | 100 min |
 | M13 | [Bon ou mauvais : sommes-nous d'accord ?](SPC/Activites/M13_Bon_ou_mauvais_sommes_nous_d_accord.pdf) | Quand on trie des pièces, tout le monde prend-il la même décision ? | 3 | 45 min |
+| M14 | [Trois étalons pour la butée](SPC/Activites/M14_Trois_etalons_pour_la_butee.pdf) | Le micromètre est-il aussi juste aux deux limites de la tolérance qu'en son milieu ? | 3 | 60 min |
+| M15 | [Le micromètre dérive-t-il ?](SPC/Activites/M15_Le_micrometre_derive_t_il.pdf) | Le micromètre donne-t-il la même chose à 16 h qu'à 9 h ? | 3 | 60 min |
+| M16 | [Deux grades, un micromètre](SPC/Activites/M16_Deux_grades_un_micrometre.pdf) | Mon micromètre voit-il la différence entre une cale de grade 0 et une cale de grade 1 ? | 2 | 30 min |
+| M17 | [Des cales comme pièces](SPC/Activites/M17_Des_cales_comme_pieces.pdf) | Trois personnes mesurent des cales dont on connaît la cote : se trompent-elles de la même façon ? | 3 | 70 min |
 
 **Bloc A : Cartes aux attributs** (9 activités, 225 min)
 
@@ -105,6 +109,7 @@ Le [catalogue interactif](https://sjaubert.github.io/000_OI/SPC/index.html) règ
 - [Butees_mauvais_decoupage.xlsx](SPC/Donnees_Ellistat/Butees_mauvais_decoupage.xlsx)
 - [Defauts_panneaux_simule.xlsx](SPC/Donnees_Ellistat/Defauts_panneaux_simule.xlsx)
 - [Defauts_rouleaux_simule.xlsx](SPC/Donnees_Ellistat/Defauts_rouleaux_simule.xlsx)
+- [Derive_etalon_temoin_8x5_simule.xlsx](SPC/Donnees_Ellistat/Derive_etalon_temoin_8x5_simule.xlsx)
 - [Enquete_Dimension.xlsx](SPC/Donnees_Ellistat/Enquete_Dimension.xlsx)
 - [Enquete_Liquide.xlsx](SPC/Donnees_Ellistat/Enquete_Liquide.xlsx)
 - [Enquete_Pression.xlsx](SPC/Donnees_Ellistat/Enquete_Pression.xlsx)
@@ -114,10 +119,13 @@ Le [catalogue interactif](https://sjaubert.github.io/000_OI/SPC/index.html) règ
 - [Lots_35x50_simule.xlsx](SPC/Donnees_Ellistat/Lots_35x50_simule.xlsx)
 - [Lots_taille_variable_simule.xlsx](SPC/Donnees_Ellistat/Lots_taille_variable_simule.xlsx)
 - [RR_Bosch_p14.xlsx](SPC/Donnees_Ellistat/RR_Bosch_p14.xlsx)
+- [RR_cales_cotes_connues_simule.xlsx](SPC/Donnees_Ellistat/RR_cales_cotes_connues_simule.xlsx)
 - [Secours_cale_chauffee_simule.xlsx](SPC/Donnees_Ellistat/Secours_cale_chauffee_simule.xlsx)
 - [Secours_cliquet_simule.xlsx](SPC/Donnees_Ellistat/Secours_cliquet_simule.xlsx)
+- [Secours_deux_grades_simule.xlsx](SPC/Donnees_Ellistat/Secours_deux_grades_simule.xlsx)
 - [Secours_deux_instruments_simule.xlsx](SPC/Donnees_Ellistat/Secours_deux_instruments_simule.xlsx)
 - [Secours_deux_operateurs_simule.xlsx](SPC/Donnees_Ellistat/Secours_deux_operateurs_simule.xlsx)
+- [Secours_trois_etalons_simule.xlsx](SPC/Donnees_Ellistat/Secours_trois_etalons_simule.xlsx)
 - [Synthese_Justesse_cale12_simule.xlsx](SPC/Donnees_Ellistat/Synthese_Justesse_cale12_simule.xlsx)
 - [Synthese_RR_butees_simule.xlsx](SPC/Donnees_Ellistat/Synthese_RR_butees_simule.xlsx)
 
@@ -179,7 +187,7 @@ Autres ressources :
 
 ### SPC
 
-- [Guide formateur : organisation et corrigés des 36 fiches](SPC/Formateur/Guide_formateur_base_SPC.pdf)
+- [Guide formateur : organisation et corrigés des 40 fiches](SPC/Formateur/Guide_formateur_base_SPC.pdf)
 - [Guide : l'opérateur compte-t-il ? (R&R)](SPC/Formateur/Guide_RR_formateur.pdf)
 - [Guide : trois cales, trois questions](SPC/Formateur/Guide_Trois_cales_formateur.pdf)
 - [Rappel : GRR et analyse de variance](SPC/Formateur/Rappel_GRR_ANOVA_formateur.pdf)
@@ -200,7 +208,7 @@ Autres ressources :
 - [Sources LaTeX des fiches SPC](SPC/Sources/fiches/) (xelatex, compiler deux fois)
 - [Générateur Python](SPC/Sources/generateur/) : écrit les fiches, le guide et le catalogue
 - [Mode d'emploi des sources](SPC/Sources/LISEZ-MOI.txt)
-- [Archive complète de la base SPC, 11 novembre 2026](SPC/Sources/Base_SPC_2026-11-11.zip)
+- [Archive complète de la base SPC, 14 novembre 2026](SPC/Sources/Base_SPC_2026-11-14.zip)
 - [Données, liens et source LaTeX du dossier Bachelor](SPC/Donnees_et_source_LaTeX_Bachelor/) ([archive zip](SPC/Donnees_Liens_et_source_LaTeX_Bachelor.zip))
 
 ---
