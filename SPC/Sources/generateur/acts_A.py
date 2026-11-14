@@ -179,7 +179,8 @@ dict(code="A7", titre="Des unités de taille variable : la carte u", question="C
   etapes=[
    r"E|Nouvelle grille, coller le jeu « 25 rouleaux de longueur variable ».",
    r"M|À la main : $\bar u$ = total des défauts / total des mètres. Pour le rouleau 14 : $u$ = défauts / longueur, et sa limite $\bar u + 3\sqrt{\bar u / \text{longueur}}$.",
-   r"E|\menu{Cartes de contrôle aux attributs}, carte \textbf{u}, taille lue dans la colonne Longueur\_m.",
+   r"E|\menu{Stats Desc.} > \menu{Cartes de contrôle aux attributs} : « Attributs » = Defauts ; « Taille de lot » = Longueur\_m ; laisser « Taille de lot (si fixe) » vide (la longueur varie) ; carte \textbf{u}. Phase I : Début 1, Fin = nombre de rouleaux (25) : vérifier la valeur de Fin.",
+   r"E|Lire sur le graphique la moyenne, la limite supérieure (une ligne brisée : elle change avec la longueur) et le point rouge.",
   ],
   releve=None,
   questions=[
@@ -190,7 +191,7 @@ dict(code="A7", titre="Des unités de taille variable : la carte u", question="C
   retenir=r"Carte u : défauts par unité de taille (par mètre, par m², par pièce). Elle remplace la carte c quand la taille contrôlée varie.",
   plus=None, liens=[("Données à copier", "../Pages/Donnees_a_copier.html#rouleaux")], donnees=["rouleaux"],
   formateur=dict(
-   prep=[], anim=[r"Prédiction : 0,125 défaut par mètre contre 0,058. Le rouleau court est deux fois plus mauvais."],
+   prep=[r"Écran vu le 14/11/2026 avec le jeu de secours (25 rouleaux) : Attributs Defauts, Taille de lot Longueur\_m, « Taille de lot (si fixe) » vide, Phase I 1 à 25, carte u (axe u). Le graphique montre les 25 rouleaux, une moyenne à environ 0,055, une limite supérieure en ligne brisée (plus basse pour les rouleaux longs : environ 0,119 à 120 m, 0,166 à 40 m) et un seul point rouge, le rouleau 14. Valeurs recalculées : $\bar u = 0{,}0549$, rouleau 14 : $u = 0{,}1625$, limite 0,1336."], anim=[r"Prédiction : 0,125 défaut par mètre contre 0,058. Le rouleau court est deux fois plus mauvais."],
    corrige=[r"$\bar u = 100 / 1820 = 0{,}055$ défaut par mètre. Rouleau 14 : 13 défauts sur 80 m, $u = 0{,}1625$ ; limite $0{,}055 + 3\sqrt{0{,}055 / 80} = 0{,}134$ : hors limites.",
             r"\textbf{Q2} Seul le rouleau 14 sort. \textbf{Q3} La carte c compte les défauts sur des unités identiques ; la carte u les rapporte à la taille."],
    secours=r"Données simulées (0,05 défaut par mètre, rouleau 14 dégradé volontairement).")),

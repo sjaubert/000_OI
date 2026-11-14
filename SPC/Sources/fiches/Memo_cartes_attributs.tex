@@ -1,0 +1,70 @@
+\documentclass[10pt,a4paper]{article}
+\input{commun.tex}
+\pied{Base SPC · Mémo · Les cartes aux attributs}
+\begin{document}
+\thispagestyle{fancy}
+\bandeau{Base SPC · Mémo}{Les cartes aux attributs}{Je compte au lieu de mesurer : quelle carte choisir, et pourquoi ?}
+
+\titre{1. L'idée en trois phrases}
+Une carte aux attributs suit un \textbf{comptage} au fil du temps. Elle sert à voir si le procédé est stable ou s'il dérive. Pour choisir la carte, deux questions suffisent.
+
+\begin{tcolorbox}[boite]
+\textbf{Question 1. Qu'est-ce que je compte ?}\\
+Des \textbf{pièces défectueuses} : la pièce est refusée, qu'elle porte un défaut ou cinq. Ou des \textbf{défauts} : chaque anomalie compte, plusieurs peuvent se trouver sur la même pièce.\par\smallskip
+\textbf{Question 2. L'unité contrôlée a-t-elle toujours la même taille ?}\\
+Même nombre de pièces par lot, même longueur de rouleau, même surface de capot : taille \textbf{fixe}. Sinon : taille \textbf{variable}.
+\end{tcolorbox}
+
+\begin{center}\renewcommand{\arraystretch}{1.6}
+\begin{tabularx}{0.92\linewidth}{|>{\bfseries}p{38mm}|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|}\hline
+ & \textbf{Taille fixe} & \textbf{Taille variable}\\\hline
+Pièces défectueuses & \textbf{Np} (ou p) & \textbf{p}\\\hline
+Défauts & \textbf{c} & \textbf{u}\\\hline
+\end{tabularx}\end{center}
+
+\begin{tcolorbox}[retenir]\textbf{Fixe : on compte. Variable : on divise.} Avec une taille fixe, le nombre brut se compare directement d'une fois sur l'autre (Np, c). Avec une taille variable, on le rapporte à la taille pour comparer ce qui est comparable (p, u).\end{tcolorbox}
+
+\titre{2. Deux images pour s'en souvenir}
+\begin{itemize}
+\item \textbf{Pièce défectueuse, c'est un candidat recalé.} Qu'il ait raté une question ou dix, il compte pour un seul recalé. On compte des candidats : carte p ou Np.
+\item \textbf{Défaut, c'est une faute sur une copie.} Une copie peut en porter plusieurs et chacune compte. On compte des fautes : carte c ou u.
+\item \textbf{Taille variable : on compare des copies de 2 pages et de 10 pages.} Dix fautes sur dix pages ne valent pas dix fautes sur deux pages. On rapporte à la page : c'est la carte u.
+\end{itemize}
+
+\titre{3. Les calculs, avec un exemple de la base pour chacun}
+\renewcommand{\arraystretch}{1.55}
+\begin{tabularx}{\linewidth}{|>{\bfseries}c|>{\raggedright\arraybackslash}p{50mm}|>{\raggedright\arraybackslash}X|}\hline
+\textbf{Carte} & \textbf{Ligne centrale et limites} & \textbf{Exemple chiffré}\\\hline
+p & $\bar p = \sum \text{défectueuses} \,/\, \sum \text{pièces}$\par $\bar p \pm 3\sqrt{\bar p\,(1-\bar p)\,/\,n_i}$ & 35 lots de 50 pièces, 103 défectueuses : $\bar p = 5{,}89$ \%, limite supérieure 15,87 \%. Si $n_i$ change, la limite suit : ligne brisée.\\\hline
+Np & $n\bar p \pm 3\sqrt{n\bar p\,(1-\bar p)}$\par (lots de taille $n$ fixe) & Mêmes lots : $n\bar p = 2{,}94$ pièce, limite supérieure 7,9 pièces (soit $50 \times 15{,}87$ \%).\\\hline
+c & $\bar c \pm 3\sqrt{\bar c}$\par (unités identiques) & 25 panneaux, 111 défauts : $\bar c = 4{,}44$, limite supérieure $4{,}44 + 3\sqrt{4{,}44} = 10{,}76$.\\\hline
+u & $\bar u = \sum \text{défauts} \,/\, \sum \text{tailles}$\par $\bar u \pm 3\sqrt{\bar u \,/\, n_i}$ & 25 rouleaux de 40 à 120 m : $\bar u = 0{,}055$ défaut par mètre. Rouleau 14 : 13 défauts sur 80 m, $u = 0{,}1625$, limite 0,134 : hors limites.\\\hline
+\end{tabularx}
+\par\smallskip
+Si la limite inférieure calculée est négative, on la remplace par 0. Un point hors limites ou une série de points du même côté de la moyenne signale que \textbf{quelque chose a changé} : on le cherche avant de corriger quoi que ce soit.
+
+\titre{4. Les cartes de Laney (P Laney et U Laney)}
+Les cartes p et u supposent que les lots varient seulement par hasard, comme un tirage. Quand les lots sont très grands, les vrais écarts d'un lot à l'autre (matière, réglage, équipe) dépassent ce hasard. La carte classique montre alors des points rouges presque partout, et on ne sait plus lesquels comptent.\par
+La correction de Laney multiplie la largeur des limites par un facteur $\sigma_z$, estimé à partir de l'écart d'un lot au suivant. \textbf{Si $\sigma_z$ est voisin de 1, la carte classique suffit.} S'il est nettement plus grand, les limites s'élargissent et seuls les points vraiment anormaux sortent. P Laney remplace la carte p ; U Laney remplace la carte u.
+
+\titre{5. Dans Ellistat}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{\arabic*.}},leftmargin=15pt,itemsep=1.5pt]
+\item Menu \menu{Stats Desc.}, onglet \menu{Cartes de contrôle aux attributs}.
+\item « Attributs » : la colonne des défectueuses ou des défauts. « Taille de lot » : la colonne des tailles, \textbf{si elles varient}.
+\item Pour la carte c, taper \textbf{1} dans « Taille de lot (si fixe) » : sans cette valeur, Ellistat n'a tracé que 25 points sur 30.
+\item « Phase I » : Début et Fin. \textbf{Vérifier la valeur de Fin}, qui garde celle de l'étude précédente. Ces lots fixent la ligne centrale et les limites.
+\item Cliquer sur le bouton rond de la carte : Np, c, p, u, P Laney ou U Laney.
+\end{enumerate}
+
+\titre{6. Je m'entraîne}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{Q\arabic*.}},leftmargin=22pt,itemsep=2pt]
+\item 200 vis sont contrôlées chaque heure au calibre ; on note les vis refusées. Quelle carte ? \champ{20mm}
+\item On compte les grains de peinture sur chaque capot, tous identiques. Quelle carte ? \champ{20mm}
+\item Rouleaux de 40 à 120 m ; on note les défauts de chaque rouleau. Quelle carte ? \champ{20mm}
+\item Lots reçus de 80 à 400 pièces ; on note les pièces refusées. Quelle carte ? \champ{20mm}
+\item Une pièce porte trois rayures : elle compte pour \champ{8mm} sur une carte p et pour \champ{8mm} sur une carte c.
+\end{enumerate}
+\begin{tcolorbox}[colback=gray!8,colframe=gray!60,boxrule=0.5pt,arc=2pt,left=6pt,right=6pt,top=3pt,bottom=3pt]\footnotesize\textbf{Réponses.} Q1 Np (ou p) : défectueuses, taille fixe. Q2 c : défauts, unité constante. Q3 u : défauts, taille variable. Q4 p : défectueuses, taille variable. Q5 1 sur la carte p ; 3 sur la carte c.\end{tcolorbox}
+
+\vfill{\footnotesize\color{uimm}\textbf{Pour continuer dans la base :} fiches A1 (choisir la carte), A2 à A4 (carte p), A5 (p ou Np), A6 (carte c), A7 (carte u), A8 (période de référence et P Laney).}
+\end{document}
