@@ -124,8 +124,8 @@ dict(code="A5", titre="p ou np ? Et si les lots changent de taille ?", question=
   etapes=[
    r"E|Nouvelle grille, coller le jeu « 25 lots de taille variable ».",
    r"M|À la main : $\bar p$ = total des défectueuses / total des pièces. Puis la limite supérieure pour le lot 14 (80 pièces) et pour le lot 7 (400 pièces).",
-   r"E|\menu{Cartes de contrôle aux attributs}, carte \textbf{p}, taille de lot lue dans la colonne Taille\_lot.",
-   r"E|Observer la forme des limites.",
+   r"E|\menu{Stats Desc.} > \menu{Cartes de contrôle aux attributs} : « Attributs » = Defectueuses ; « Taille de lot » = Taille\_lot (« Taille de lot (si fixe) » reste vide) ; carte \textbf{p}. Dans « Phase I », vérifier que Fin vaut 25, le dernier lot : le champ peut garder la valeur d'une étude précédente.",
+   r"E|Observer la forme des limites : LIC et LSC changent d'un lot à l'autre. Passer la souris sur la limite supérieure aux lots 7 et 14. Quel lot passe en rouge ?",
   ],
   releve=None,
   questions=[
@@ -137,7 +137,7 @@ dict(code="A5", titre="p ou np ? Et si les lots changent de taille ?", question=
   retenir=r"Lots de taille variable : on suit la proportion (carte p), et chaque lot a ses propres limites. Plus le lot est grand, plus elles sont serrées.",
   plus=None, liens=[("Données à copier", "../Pages/Donnees_a_copier.html#lotsvar")], donnees=["lotsvar"],
   formateur=dict(
-   prep=[], anim=[r"La prédiction se règle par une division : 4,5 \% contre 2,25 \%."],
+   prep=[r"Écran vu le 14/11/2026 sur ce jeu, carte p : les limites forment une ligne brisée (plus larges pour les petits lots, par exemple le lot 14 de 80 pièces) et le lot 18 est en rouge. Ce jour-là, Phase I valait 1 à 20 (valeur restée de l'essai précédent) : $\bar p = 3{,}32$ \%, limites des lots 7 et 14 à 6,01 \% et 9,33 \% (recalculées, cohérentes avec le tracé). Avec Phase I de 1 à 25 : $\bar p = 3{,}20$ \%, limites 5,84 \% et 9,10 \%."], anim=[r"La prédiction se règle par une division : 4,5 \% contre 2,25 \%."],
    corrige=[r"$\bar p = 191 / 5970 = 3{,}20$ \%. Lot de 80 : limite $3{,}20 + 3 \times 1{,}97 = 9{,}10$ \%. Lot de 400 : $3{,}20 + 3 \times 0{,}88 = 5{,}84$ \%.",
             r"\textbf{Q2} L'écart-type de la proportion vaut $\sqrt{\bar p(1-\bar p)/n}$ : il diminue quand $n$ augmente. \textbf{Q3} Le lot 18 : 27 défectueuses sur 300, soit 9,0 \% pour une limite de 6,25 \%. \textbf{Q4} 9 pièces sur 200 et 9 sur 400 ne disent pas la même chose : un nombre brut ne se compare qu'à taille égale."],
    secours=r"Données simulées (taux de 3 \%, lot 18 dégradé volontairement).")),
