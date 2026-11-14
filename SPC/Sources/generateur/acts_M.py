@@ -59,26 +59,25 @@ dict(code="M3", titre="Mon micromètre est-il capable ?", question="Peut-on se f
   predire=r"Votre micromètre sera-t-il déclaré capable pour une tolérance de 0,15 mm ? Et pour 0,02 mm ?",
   etapes=[
    r"M|Mesurer la cale \textbf{25 fois}, au cliquet, en la retirant à chaque fois. Noter les valeurs dans la grille ci-dessous.",
-   r"E|Nouvelle grille « Justesse ». Saisir les 25 mesures dans une colonne.",
-   r"E|Menu \menu{Gage R\&R} > \menu{Justesse}, créer l'étude à partir de la grille.",
-   r"E|Saisir : valeur vraie $X_0$ = valeur de la cale ; tolérance mini 11,85 et maxi 12,00 (celles de la butée) ; résolution 0,001.",
-   r"E|Lire les résultats : chaque indicateur est vert, orange ou rouge.",
+   r"E|\menu{Gage R\&R}, onglet \menu{Justesse}, bouton « Ajouter une justesse ». Remplir : Nom ; Nombre de mesures 25 ; Valeur vraie = valeur de la cale (10,000) ; LSI = 9,925 et LSS = 10,075 (même largeur $T = 0{,}15$ que la butée, centrée sur la cale) ; Valeur de k 3.",
+   r"E|Saisir les 25 mesures dans la liste « Mesures », avec toutes les décimales lues (10,000 et non 10). Ellistat déduit la résolution de l'instrument de ces valeurs.",
+   r"E|Lire le tableau « Résultats statistiques » : chaque ligne porte un jugement coloré. Lire aussi le « Test T » et la conclusion.",
   ],
   releve=("grille", 25, "Mes 25 mesures (mm) · micromètre n° ……… · cale de ……… mm"),
   questions=[
-   (r"Écart de justesse = \champ{16mm} \quad Cg = \champ{12mm} \quad Cgk = \champ{12mm} \quad Tolérance mini = \champ{16mm}", 0),
-   (r"Tous les voyants sont-ils verts ? Le micromètre est-il capable pour la butée ?", 1),
+   (r"Écart de justesse = \champ{16mm} \quad Cg = \champ{12mm} \quad Cgk = \champ{12mm} \quad Tolerance min = \champ{16mm}", 0),
+   (r"Quelle conclusion Ellistat affiche-t-il ? Le Test T est-il significatif ? Un écart significatif est-il pour autant gênant pour la butée ?", 1),
    (r"Cg regarde si les mesures sont groupées, Cgk ajoute le décalage. Lequel de vos deux indices est le plus petit ? Pourquoi ?", 2),
   ],
   retenir=r"Capable si Cg et Cgk dépassent 1,33. Cg bon et Cgk faible : l'instrument est fidèle mais déréglé.",
   plus=r"Collez vos 25 mesures dans la page « L'instrument est-il capable ? » ($T = 0{,}15$). Trouvez-vous les mêmes Cg et Cgk qu'Ellistat ?",
   liens=[("L'instrument est-il capable ?", "../Pages/L_instrument_est-il_capable.html"), ("Données de secours", "../Pages/Donnees_a_copier.html#instr")], donnees=["instr"],
   formateur=dict(
-   prep=[r"Dérouler une étude de justesse sur votre compte : le guide Ellistat ne donne pas le pas à pas de cet écran.", r"La cale de 10 mm n'est pas au milieu de la tolérance (11,925) : le dire. Pour un étalon à 12 mm, voir M10."],
+   prep=[r"Écran vérifié sur l'exemple du livret Bosch p. 11 (50 mesures, valeur vraie 6,002, LSI 5,970, LSS 6,030, k 3) : Cg 2,01 ; Cgk 1,64 ; Tolerance min 0,051. Le refaire sur votre compte avant la séance.", r"Avec une cale de 10 mm, la fiche fait saisir LSI et LSS centrées sur la cale (largeur 0,15). Seule la largeur $T = $ LSS $-$ LSI est confirmée par les formules ; l'effet de la position de LSI et LSS n'a pas été testé. La cale de 10 mm n'est pas au milieu de la tolérance de la butée (11,925) : le dire. Pour un étalon à 12 mm, voir M10."],
    anim=[r"25 mesures prennent 10 à 15 minutes : le secrétaire saisit au fur et à mesure.", r"Avec $T = 0{,}15$, le micromètre sera capable. L'intérêt vient avec M4, M5 et M7."],
    corrige=[r"Résultats propres à chaque poste. Sur le jeu de secours (colonne Micrometre, cale 10,000) : moyenne 10,0004 ; écart-type 0,00081 ; avec les formules du livret Bosch, Cg = 6,17 et Cgk = 6,02.",
-            r"\textbf{Q3} Cgk est toujours inférieur ou égal à Cg : il retire le décalage. Les deux sont égaux seulement si la moyenne tombe sur la valeur de la cale.",
-            r"\textbf{Pour aller plus loin} La page applique Cg = 0,2 T / (6 s). Si Ellistat affiche 1,5 fois plus, il compte la dispersion en 4 s : le noter (point non confirmé par Ellistat)."],
+            r"\textbf{Q2} Sur l'exemple Bosch p. 11, Ellistat affiche « justesse OK » alors que le Test T est « significatif » : le biais ($-1{,}1$ µm) est réel mais ne pèse que 1,83 \% de la tolérance. Significatif n'est pas important. \textbf{Q3} Cgk est toujours inférieur ou égal à Cg : il retire le décalage. Les deux sont égaux seulement si la moyenne tombe sur la valeur de la cale.",
+            r"\textbf{Pour aller plus loin} La page applique Cg = 0,2 T / (6 s) et Cgk = (0,1 T $-$ |biais|) / (3 s). Ellistat donne les mêmes valeurs sur l'exemple du livret (Cg 2,01 ; Cgk 1,64) : les formules sont confirmées."],
    secours=r"Sans mesures : jeu « Secours : micromètre et pied à coulisse », colonne Micrometre.")),
 
 dict(code="M4", titre="Pied à coulisse contre micromètre", question="Deux instruments, une cale : lequel croire ?", niveau=2, duree=30,
@@ -88,14 +87,13 @@ dict(code="M4", titre="Pied à coulisse contre micromètre", question="Deux inst
   predire=r"Lequel des deux instruments donnera les mesures les plus groupées ? De combien, à votre avis ?",
   etapes=[
    r"M|Mesurer la cale 15 fois au micromètre (ou reprendre les mesures de M3), puis 15 fois au pied à coulisse. Retirer la cale à chaque fois.",
-   r"E|Deux colonnes dans une grille : « Micrometre » et « Pied\_a\_coulisse ».",
-   r"E|\menu{Gage R\&R} > \menu{Justesse} : une étude par instrument, avec la bonne résolution (0,001 puis 0,02). Tolérance 11,85 / 12,00.",
+   r"E|\menu{Gage R\&R}, onglet \menu{Justesse}, « Ajouter une justesse » : une étude par instrument. Nombre de mesures 15 ; Valeur vraie = valeur de la cale ; LSI = cale $-$ 0,075 et LSS = cale + 0,075 ; k 3. Saisir toutes les décimales lues : 10,00 et 10,02 au pied à coulisse, 10,000 au micromètre.",
    r"W|Coller les deux séries dans la page « Comparer deux séries de mesures ».",
   ],
   releve=("deux", 15, "Micromètre (mm)", "Pied à coulisse (mm)"),
   questions=[
    (r"Micromètre : Cg = \champ{12mm} Cgk = \champ{12mm} \quad Pied à coulisse : Cg = \champ{12mm} Cgk = \champ{12mm}", 0),
-   (r"Quel voyant d'Ellistat écarte le pied à coulisse avant même de regarder Cg ?", 1),
+   (r"Quelle ligne des résultats d'Ellistat met en cause le pied à coulisse avant même de regarder Cg ?", 1),
    (r"L'écart-type du pied à coulisse vaut combien de fois celui du micromètre ?", 1),
    (r"Le pied à coulisse est-il un mauvais instrument ? Pour quelle tolérance conviendrait-il ?", 2),
   ],
@@ -103,9 +101,9 @@ dict(code="M4", titre="Pied à coulisse contre micromètre", question="Deux inst
   plus=None,
   liens=[("Comparer deux séries de mesures", "../Pages/Comparer_deux_series.html"), ("Données de secours", "../Pages/Donnees_a_copier.html#instr")], donnees=["instr"],
   formateur=dict(
-   prep=[], anim=[r"Faire annoncer la prédiction avant de mesurer.", r"Le pied à coulisse donne souvent 2 ou 3 valeurs seulement (10,00 ; 10,02) : c'est l'effet de la résolution, à faire constater sur le graphique."],
+   prep=[r"Ellistat déduit la résolution des valeurs saisies (pas de champ à remplir). Pour le pied à coulisse, vérifier sur votre compte qu'il lit bien 0,02 : cela n'a pas été vu à l'écran."], anim=[r"Faire annoncer la prédiction avant de mesurer.", r"Le pied à coulisse donne souvent 2 ou 3 valeurs seulement (10,00 ; 10,02) : c'est l'effet de la résolution, à faire constater sur le graphique."],
    corrige=[r"Jeu de secours (25 mesures chacun) : micromètre $s = 0{,}0008$, Cg = 6,17, Cgk = 6,02 ; pied à coulisse $s = 0{,}0099$, Cg = 0,51, Cgk = 0,45.",
-            r"\textbf{Q2} La résolution : 0,02 / 0,15 = 13,3 \%, au-dessus de 10 \% (voyant rouge). \textbf{Q3} Environ 12 fois sur le jeu de secours (F = 148, seuil 2,27 : différence nette). L'écart entre les moyennes (+1,2 µm) n'est pas démontré (t = 0,63, seuil 2,06).",
+            r"\textbf{Q2} La ligne « résolution de l'instrument » : 0,02 / 0,15 = 13,3 \% de la tolérance, bien au-dessus des 5 \% du livret (les seuils de couleur d'Ellistat sont à lire sur votre écran). \textbf{Q3} Environ 12 fois sur le jeu de secours (F = 148, seuil 2,27 : différence nette). L'écart entre les moyennes (+1,2 µm) n'est pas démontré (t = 0,63, seuil 2,06).",
             r"\textbf{Q4} Non. Résolution 0,02 au plus 5 \% de T : il convient à partir de $T = 0{,}4$ mm."],
    secours=r"Jeu « Secours : micromètre et pied à coulisse ».")),
 
@@ -118,7 +116,7 @@ dict(code="M5", titre="Avec ou sans cliquet", question="La façon de serrer chan
    r"M|Même opérateur, même cale, même micromètre. Série A : 15 mesures \textbf{au cliquet} (toujours le même nombre de crans).",
    r"M|Série B : 15 mesures \textbf{sans le cliquet}, en serrant le tambour à la main « comme d'habitude ».",
    r"W|Coller les deux séries dans la page « Comparer deux séries de mesures », avec la valeur de la cale et $T = 0{,}15$.",
-   r"E|Une étude \menu{Justesse} par série (tolérance 11,85 / 12,00, résolution 0,001).",
+   r"E|\menu{Gage R\&R}, onglet \menu{Justesse} : une étude par série (Nombre de mesures 15 ; Valeur vraie = valeur de la cale ; LSI = cale $-$ 0,075 et LSS = cale + 0,075 ; k 3).",
   ],
   releve=("deux", 15, "A : avec cliquet (mm)", "B : sans cliquet (mm)"),
   questions=[
@@ -170,10 +168,10 @@ dict(code="M7", titre="Jusqu'où peut-il aller ?", question="Quelle est la plus 
   materiel=["L'étude de justesse de M3 (ou le jeu de secours)"], besoin={},
   predire=r"Votre micromètre est capable pour $T = 0{,}15$ mm. Le sera-t-il encore pour 0,05 ? 0,02 ? 0,01 ?",
   etapes=[
-   r"E|Rouvrir l'étude \menu{Justesse} de M3.",
-   r"E|Changer la tolérance en gardant la cale au milieu : pour $T = 0{,}05$, saisir mini = cale $-$ 0,025 et maxi = cale + 0,025. Relever Cg et Cgk.",
+   r"E|Rouvrir l'étude \menu{Justesse} de M3 (onglet \menu{Justesse}, liste des études).",
+   r"E|Changer LSI et LSS en gardant la cale au milieu : pour $T = 0{,}05$, LSI = cale $-$ 0,025 et LSS = cale + 0,025. Relever Cg et Cgk.",
    r"E|Recommencer pour $T = 0{,}02$ puis $T = 0{,}01$.",
-   r"E|Relever la « tolérance mini » annoncée par Ellistat.",
+   r"E|Relever la ligne « Tolerance min » du tableau des résultats.",
   ],
   releve=("table", ["Tolérance T (mm)", "Cg", "Cgk", "Capable ?"], ["0,15", "0,05", "0,02", "0,01"]),
   questions=[
@@ -187,7 +185,7 @@ dict(code="M7", titre="Jusqu'où peut-il aller ?", question="Quelle est la plus 
    prep=[], anim=[r"Aucune mesure nouvelle : l'activité se fait sur les données de M3. Bonne activité d'attente pour un binôme en avance."],
    corrige=[r"Jeu de secours (micromètre, $s = 0{,}00081$, biais +0,00036), formules du livret Bosch : $T = 0{,}15$ : Cg 6,17, Cgk 6,02 ; $T = 0{,}05$ : 2,06 et 1,91 ; $T = 0{,}02$ : 0,82 et 0,67 ; $T = 0{,}01$ : 0,41 et 0,26.",
             r"\textbf{Q1} 0,05 mm. \textbf{Q2} $T_{\min} = 0{,}0036 + 0{,}0323 = 0{,}036$ mm. \textbf{Q3} Cg est divisé par 3.",
-            r"La formule de $T_{\min}$ vient des deux conditions Cg et Cgk au moins égaux à 1,33. Si Ellistat annonce une autre valeur, sa convention diffère (point non confirmé)."],
+            r"La formule de $T_{\min}$ vient des deux conditions Cg et Cgk au moins égaux à 1,33. Sur l'exemple du livret Bosch p. 11, Ellistat affiche 0,051 : c'est la valeur du livret (0,0507), la formule est confirmée. Le changement de LSI et LSS dans une étude déjà créée (modifier ou recréer l'étude) n'a pas été vu à l'écran."],
    secours=r"Jeu « Secours : micromètre et pied à coulisse », colonne Micrometre.")),
 
 dict(code="M8", titre="Juste partout ?", question="Mon micromètre est-il aussi juste à 5 mm qu'à 25 mm ?", niveau=3, duree=45,
@@ -251,7 +249,7 @@ dict(code="M10", titre="Fabriquer son étalon", question="Comment obtenir un ét
   etapes=[
    r"M|Nettoyer les faces des deux cales. Les poser en croix, presser légèrement et faire glisser jusqu'à ce qu'elles collent : c'est l'\textbf{adhérence}.",
    r"M|Mesurer la pile 15 fois au micromètre, en la retirant à chaque fois. Ne pas la tenir dans la main.",
-   r"E|\menu{Gage R\&R} > \menu{Justesse} : valeur vraie 12,000 ; tolérance 11,85 / 12,00 ; résolution 0,001.",
+   r"E|\menu{Gage R\&R}, onglet \menu{Justesse}, « Ajouter une justesse » : Nombre de mesures 15 ; Valeur vraie 12,000 ; LSI 11,85 et LSS 12,00 ; k 3. Saisir les 15 mesures avec trois décimales.",
    r"M|Séparer les cales en les faisant glisser, sans tirer. Les nettoyer et les ranger.",
   ],
   releve=("grille", 15, "Pile 10 + 2 : mes 15 mesures (mm)"),
@@ -279,7 +277,7 @@ dict(code="M11", titre="L'opérateur compte-t-il ?", question="Trois personnes m
   etapes=[
    r"M|Suivre la fiche « L'opérateur compte-t-il ? » : tirage de l'ordre, série 1, série 2, calculs à la main.",
    r"W|Saisir les 60 valeurs dans la page « L'opérateur compte-t-il ? » et lire le \%GRR.",
-   r"E|\menu{Gage R\&R} > \menu{Mesures} > \menu{Ajouter un gage R\&R}, puis créer une grille vide : 10 pièces, 3 opérateurs, 2 répétitions. Saisir les mesures, méthode \textbf{ANOVA}.",
+   r"E|\menu{Gage R\&R}, onglet \menu{Mesures}, « Ajouter un gage R\&R ». Remplir : Nom ; Produits 10 ; Opérateurs 3 ; Répétitions 2 (Ellistat propose 3) ; Type de tolérance Bilatéral, Tolérance min 11,85 et max 12,00 ; Méthode de calcul \textbf{ANAVAR} ; K 3 (AIAG). Saisir ensuite les 60 mesures.",
   ],
   releve=None,
   questions=[
@@ -293,7 +291,7 @@ dict(code="M11", titre="L'opérateur compte-t-il ?", question="Trois personnes m
   formateur=dict(
    prep=[r"Choisir la veille 10 butées étalées de 11,85 à 12,00, les numéroter, tracer le trait repère.", r"Il faut au moins 3 personnes pour mesurer. À 4 ou 5, les autres notent. À 2, le formateur est le troisième opérateur."],
    anim=[r"Corrigé détaillé : guide « L'opérateur compte-t-il ? » (fichier \fichier{Guide\_RR\_formateur.pdf}).", r"Calibrage de la page : bouton « Exemple du livret Bosch », \%GRR = 17,95 \%, ndc = 15."],
-   corrige=[r"\textbf{Q2} La page applique la méthode du livret Bosch (facteur 6, interaction regroupée si elle n'est pas significative). Ellistat peut utiliser d'autres conventions : point non confirmé, à tester avec l'exemple du livret (\fichier{RR\_Bosch\_p14.xlsx}).",
+   corrige=[r"\textbf{Q2} La page applique la méthode du livret Bosch (facteur 6, interaction regroupée si elle n'est pas significative). Ellistat peut utiliser d'autres conventions : point non confirmé, à tester avec l'exemple du livret (\fichier{RR\_Bosch\_p14.xlsx}, 2 répétitions, tolérance 0,060). Attendu avec K 3 (AIAG) : \%GRR 17,95 \%. Le choix K 2 (VDA) change probablement le facteur (4 s au lieu de 6 s) : à essayer en « pour aller plus loin », résultat non vu.",
             r"Seuils du livret Bosch (§ 4.2) : \%GRR au plus 10 \% capable ; de 10 à 30 \% capable sous conditions ; plus de 30 \% non capable."],
    secours=r"Sans butées : exemple du livret Bosch, à coller depuis « Données à copier ».")),
 
@@ -353,8 +351,7 @@ dict(code="M14", titre="Trois étalons pour la butée", question="Le micromètre
    r"M|\textbf{Composer} les trois étalons du tableau avec les cales du coffret. Méthode : on règle d'abord le \textbf{dernier chiffre}. Pour 11,925, la seule cale qui donne le 0,005 est la 1,005 : il reste 10,920 à obtenir avec deux cales. Vérifier chaque somme.",
    r"M|Nettoyer les faces. Coller les cales deux à deux, en croix, en pressant et en glissant, comme en M10. Ne pas tenir les piles dans la main.",
    r"M|Mesurer \textbf{10 fois} chaque pile au cliquet, en l'enlevant à chaque fois, et en \textbf{alternant} : 11,850 ; 11,925 ; 12,000 ; puis on recommence. La température agit ainsi de la même façon sur les trois.",
-   r"E|Une grille, trois colonnes (« Etalon\_11\_850 », « Etalon\_11\_925 », « Etalon\_12\_000 »), 10 valeurs chacune.",
-   r"E|\menu{Gage R\&R} > \menu{Justesse} : une étude par colonne, comme en M3. Valeur vraie = valeur de l'étalon ; tolérance mini 11,85 et maxi 12,00 ; résolution 0,001. Relever Cg et Cgk.",
+   r"E|\menu{Gage R\&R}, onglet \menu{Justesse} : trois études (« Etalon\_11\_850 », « Etalon\_11\_925 », « Etalon\_12\_000 »), comme en M3. Nombre de mesures 10 ; Valeur vraie = valeur de l'étalon ; LSI 11,85 et LSS 12,00 ; k 3. Relever Cg, Cgk et le Test T.",
    r"M|À la main, pour chaque étalon : le biais en µm et le rapport $|\text{biais}| / s$. Pour 10 mesures, le biais est négligeable si ce rapport est \textbf{au plus 0,715} (livret Bosch, annexe C).",
    r"M|Séparer les cales en les faisant glisser, sans tirer. Les nettoyer et les ranger.",
   ],
@@ -420,8 +417,7 @@ dict(code="M16", titre="Deux grades, un micromètre", question="Mon micromètre 
   etapes=[
    r"M|Lire dans le tableau ci-dessous les écarts limites des deux grades pour une cale de 10 mm. Calculer l'écart maximal possible entre les deux cales : les deux limites s'ajoutent.",
    r"M|Nettoyer les deux cales. Mesurer \textbf{15 fois} chacune au cliquet, en alternant : céramique, acier, céramique, acier. Retirer la cale à chaque mesure.",
-   r"E|Une grille, deux colonnes : « Ceramique\_grade0 » et « Acier\_grade1 ».",
-   r"E|\menu{Gage R\&R} > \menu{Justesse} : une étude par colonne, valeur vraie 10,000 ; tolérance mini 11,85 et maxi 12,00 ; résolution 0,001. Relever Cg et Cgk.",
+   r"E|\menu{Gage R\&R}, onglet \menu{Justesse} : deux études, « Ceramique\_grade0 » et « Acier\_grade1 ». Nombre de mesures 15 ; Valeur vraie 10,000 ; LSI 9,925 et LSS 10,075 ; k 3. Relever Cg et Cgk.",
    r"W|Coller les deux séries dans la page « Comparer deux séries de mesures », avec 10,000 comme valeur de la cale.",
    r"M|Avec 15 mesures par cale, le plus petit écart de moyennes que le test déclare significatif vaut environ $0{,}75 \times s$. Prendre pour $s$ la moyenne des deux écarts-types.",
   ],
@@ -452,7 +448,7 @@ dict(code="M17", titre="Des cales comme pièces", question="Trois personnes mesu
   etapes=[
    r"M|Le formateur a masqué la cote de chaque cale et l'a marquée d'une lettre. Tirer au sort l'ordre de passage des trois opérateurs. Les autres stagiaires notent.",
    r"M|\textbf{Série 1} : chaque opérateur mesure les 10 cales, une fois chacune, dans un ordre mélangé, avec le même micromètre. \textbf{Série 2} : même travail, dans un autre ordre, sans regarder ses premières valeurs.",
-   r"E|\menu{Gage R\&R} > \menu{Mesures} > \menu{Ajouter un gage R\&R}, puis créer une grille vide : 10 pièces, 3 opérateurs, 2 répétitions. Saisir les 60 mesures, méthode \textbf{ANOVA}, tolérance 0,10 mm. Relever EV, AV, \%GRR et le nombre de catégories distinctes.",
+   r"E|\menu{Gage R\&R}, onglet \menu{Mesures}, « Ajouter un gage R\&R ». Remplir : Produits 10 ; Opérateurs 3 ; Répétitions 2 (Ellistat propose 3) ; Type de tolérance Bilatéral, Tolérance min 1,00 et max 1,10 ($T = 0{,}10$ mm) ; Méthode de calcul \textbf{ANAVAR} ; K 3 (AIAG). Saisir les 60 mesures. Relever EV, AV, \%GRR et le nombre de catégories distinctes.",
    r"M|Le formateur annonce les 10 cotes. Pour chaque opérateur, calculer l'\textbf{écart moyen} entre ses mesures et les cotes, en µm.",
    r"M|Regarder l'écart de chaque cale, tous opérateurs confondus : y en a-t-il une qui sort du lot ?",
   ],

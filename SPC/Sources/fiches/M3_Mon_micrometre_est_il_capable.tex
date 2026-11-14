@@ -9,10 +9,9 @@
 \titre{À faire}
 \begin{enumerate}[label=\textcolor{cyan}{\textbf{\arabic*.}},leftmargin=15pt,itemsep=1.5pt]
 \item Mesurer la cale \textbf{25 fois}, au cliquet, en la retirant à chaque fois. Noter les valeurs dans la grille ci-dessous.
-\item \tagE\ Nouvelle grille « Justesse ». Saisir les 25 mesures dans une colonne.
-\item \tagE\ Menu \menu{Gage R\&R} > \menu{Justesse}, créer l'étude à partir de la grille.
-\item \tagE\ Saisir : valeur vraie $X_0$ = valeur de la cale ; tolérance mini 11,85 et maxi 12,00 (celles de la butée) ; résolution 0,001.
-\item \tagE\ Lire les résultats : chaque indicateur est vert, orange ou rouge.
+\item \tagE\ \menu{Gage R\&R}, onglet \menu{Justesse}, bouton « Ajouter une justesse ». Remplir : Nom ; Nombre de mesures 25 ; Valeur vraie = valeur de la cale (10,000) ; LSI = 9,925 et LSS = 10,075 (même largeur $T = 0{,}15$ que la butée, centrée sur la cale) ; Valeur de k 3.
+\item \tagE\ Saisir les 25 mesures dans la liste « Mesures », avec toutes les décimales lues (10,000 et non 10). Ellistat déduit la résolution de l'instrument de ces valeurs.
+\item \tagE\ Lire le tableau « Résultats statistiques » : chaque ligne porte un jugement coloré. Lire aussi le « Test T » et la conclusion.
 \end{enumerate}
 \vspace{3pt}\textbf{Mes 25 mesures (mm) · micromètre n° ……… · cale de ……… mm}\par\vspace{2pt}
 {\renewcommand{\arraystretch}{1.45}\begin{tabularx}{\linewidth}{|*{5}{>{\centering\arraybackslash}p{5mm}|>{\centering\arraybackslash}X|}}\hline
@@ -24,8 +23,8 @@
 \end{tabularx}}\par
 \titre{J'observe, je décide}
 \begin{enumerate}[label=\textcolor{cyan}{\textbf{Q\arabic*.}},leftmargin=22pt]
-\item Écart de justesse = \champ{16mm} \quad Cg = \champ{12mm} \quad Cgk = \champ{12mm} \quad Tolérance mini = \champ{16mm}\par\vspace{5pt}
-\item Tous les voyants sont-ils verts ? Le micromètre est-il capable pour la butée ?\reponse[1]
+\item Écart de justesse = \champ{16mm} \quad Cg = \champ{12mm} \quad Cgk = \champ{12mm} \quad Tolerance min = \champ{16mm}\par\vspace{5pt}
+\item Quelle conclusion Ellistat affiche-t-il ? Le Test T est-il significatif ? Un écart significatif est-il pour autant gênant pour la butée ?\reponse[1]
 \item Cg regarde si les mesures sont groupées, Cgk ajoute le décalage. Lequel de vos deux indices est le plus petit ? Pourquoi ?\reponse[2]
 \end{enumerate}
 \begin{tcolorbox}[retenir]Capable si Cg et Cgk dépassent 1,33. Cg bon et Cgk faible : l'instrument est fidèle mais déréglé.\end{tcolorbox}

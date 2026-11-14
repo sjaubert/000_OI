@@ -189,8 +189,8 @@ dict(code="C8", titre="Du moyen de mesure à la décision", question="Peut-on pi
   predire=r"Dans quel ordre faut-il traiter les trois fichiers ? Pourquoi ?",
   etapes=[
    r"E|Un projet à votre nom, trois grilles.",
-   r"E|\textbf{Justesse} : 50 mesures d'une cale de 12,000 mm ; tolérance 11,85 / 12,00 ; résolution 0,001.",
-   r"E|\textbf{R\&R} : 10 butées, 3 opérateurs, 2 séries ; méthode ANOVA.",
+   r"E|\textbf{Justesse} (onglet \menu{Justesse}, « Ajouter une justesse ») : Nombre de mesures 50 ; Valeur vraie 12,000 ; LSI 11,85 et LSS 12,00 ; k 3.",
+   r"E|\textbf{R\&R} (onglet \menu{Mesures}, « Ajouter un gage R\&R ») : Produits 10 ; Opérateurs 3 ; Répétitions 2 ; Tolérance 11,85 et 12,00 ; méthode ANAVAR ; K 3 (AIAG).",
    r"E|\textbf{Production} : 50 butées, 10 sous-groupes de 5 ; carte, puis capabilités.",
    r"M|Rédiger la décision en cinq lignes et la présenter au groupe.",
   ],
