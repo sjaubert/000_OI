@@ -196,24 +196,25 @@ dict(code="M8", titre="Juste partout ?", question="Mon micromètre est-il aussi 
   etapes=[
    r"M|Mesurer chaque cale 10 fois, au cliquet, en la retirant à chaque fois. Remplir le tableau.",
    r"M|Calculer le biais de chaque cale : moyenne des 10 mesures moins valeur de la cale.",
-   r"E|\menu{Gage R\&R} > \menu{Linéarité} : 5 produits, 10 valeurs par produit. Pour chaque cale, saisir sa valeur vraie puis ses 10 mesures.",
-   r"E|Lire la pente, la justesse, et ce qu'Ellistat en dit (significatif ou non).",
+   r"E|\menu{Gage R\&R}, onglet \menu{Linéarité}, bouton « Ajouter une Etude de linéarité ». Remplir : Nom ; Nombre de produits 5 (Ellistat propose 4) ; Nombre de mesures par produit 10 ; Valeur k 3. Laisser les autres cases vides. Valider.",
+   r"E|Onglet \menu{Mesures} : un bloc par pièce. Pour chaque cale, saisir la VALEUR VRAIE (5, 10, 15, 20, 25) puis ses 10 mesures dans la colonne MESURE : une cale occupe une colonne. ECART, Moyenne, Variance et Ecart type se calculent seuls.",
+   r"E|Onglet \menu{Résultat} : lire les lignes « Justesse » et « Pente » (colonnes Valeur, t, Risque alpha, Significatif ?). Onglet \menu{Graphiques} : l'erreur (mesure moins valeur vraie) en fonction de la valeur vraie, avec la droite de linéarité.",
   ],
   releve=("lin", 5, None),
   questions=[
    (r"Le biais est-il le même pour les cinq cales ? Monte-t-il, descend-il avec la longueur ?", 2),
-   (r"Ellistat juge-t-il la pente significative ? Et la justesse ?", 1),
+   (r"Pente = \champ{18mm} mm par mm. Que dit Ellistat dans la colonne « Significatif ? » ? Pour quelle longueur la droite coupe-t-elle l'erreur zéro ?", 1),
    (r"Biais constant : que faire ? Biais qui change avec la longueur : que faire ?", 2),
   ],
   retenir=r"Un décalage constant se corrige par un réglage. Une erreur qui change avec la longueur est un défaut de \textbf{linéarité} : on restreint la plage ou on change d'instrument.",
   plus=None, liens=[("Données de secours", "../Pages/Donnees_a_copier.html#lin")], donnees=["lin"],
   formateur=dict(
-   prep=[r"Cinq cales par poste : avec plusieurs coffrets, chaque binôme a les siennes. Sinon, faire tourner les cales entre les postes."],
+   prep=[r"Cinq cales par poste : avec plusieurs coffrets, chaque binôme a les siennes. Sinon, faire tourner les cales entre les postes.", r"Écrans vus le 14/11/2026 avec le jeu de secours. Piège : le nombre de produits proposé est 4, il faut 5. Ellistat attend une colonne par cale ; le tableau Excel du jeu de secours est en lignes. Le collage d'une colonne de 10 valeurs dans la colonne MESURE fonctionne. Sans tolérance saisie, les lignes de rapport à la tolérance restent vides et « Plage de mesure utilisable » affiche des valeurs sans sens (642,8 et $-618{,}1$) : les ignorer."],
    anim=[r"50 mesures : prévoir 25 minutes de mesure. Répartir : un mesure, un note, on échange à mi-parcours.", r"Faire tracer le biais en fonction de la longueur avant d'ouvrir Ellistat."],
-   corrige=[r"Résultats propres à chaque poste. Jeu de secours (simulé) : biais moyens $-2{,}7$ ; $-1{,}0$ ; $+1{,}3$ ; $+3{,}2$ ; $+3{,}7$ µm. Pente 0,00034 mm par mm, très significative ; le biais s'annule vers 12,4 mm.",
+   corrige=[r"Résultats propres à chaque poste. Jeu de secours (simulé) : biais moyens $-2{,}7$ ; $-1{,}0$ ; $+1{,}3$ ; $+3{,}2$ ; $+3{,}7$ µm. Pente 0,00034 mm par mm, très significative ; le biais s'annule vers 12,4 mm. Ellistat affiche sur ce jeu : Justesse $-4{,}20 \times 10^{-3}$ ($t = -7{,}710$, risque alpha $6 \times 10^{-10}$), Pente $3{,}40 \times 10^{-4}$ ($t = 10{,}350$, risque alpha $8 \times 10^{-14}$), les deux « Très significatif » ; $R^2 = 0{,}691$. Attention : la ligne « Justesse » est l'erreur de la droite pour une longueur nulle ($-4{,}2$ µm), pas l'erreur moyenne ; la longueur d'erreur nulle vaut $-\text{Justesse}/\text{Pente} = 12{,}35$ mm.",
             r"\textbf{Q3} Constant : régler le zéro ou étalonner. Variable : réduire la plage d'utilisation, étalonner près de la cote mesurée, ou changer d'instrument.",
             r"Le livret Bosch (§ 4.4) propose de répéter l'étude de justesse sur plusieurs étalons, au moins 5 si possible."],
-   secours=r"Jeu « Linéarité : 5 cales × 10 mesures (simulé) », bouton « Copier les 10 mesures » de chaque ligne.")),
+   secours=r"Jeu « Linéarité : 5 cales × 10 mesures (simulé) » : le bouton « Copier les 10 mesures (en colonne) » de chaque ligne se colle directement dans la colonne MESURE de la pièce.")),
 
 dict(code="M9", titre="Deux opérateurs, une cale", question="Mon collègue et moi, trouvons-nous la même chose ?", niveau=2, duree=30,
   org=BIN, ellistat=False, mesure=True,
@@ -296,7 +297,7 @@ dict(code="M11", titre="L'opérateur compte-t-il ?", question="Trois personnes m
    anim=[r"Corrigé détaillé : guide « L'opérateur compte-t-il ? » (fichier \fichier{Guide\_RR\_formateur.pdf}).", r"Calibrage de la page : bouton « Exemple du livret Bosch », \%GRR = 17,95 \%, ndc = 15."],
    corrige=[r"\textbf{Q2} La page applique la méthode du livret Bosch (facteur 6, interaction regroupée si elle n'est pas significative). Ellistat applique le même facteur 6 avec K 3 (AIAG) : sur l'exemple du livret (\fichier{RR\_Bosch\_p14.xlsx}, tolérance 0,060) il donne EV 0,001535, AV 0,0009317, GRR 0,001795 et GRR\% 18,0 \% (17,95 \% au livret), Cpc 5,57, 15,4 catégories distinctes. Avec K 2 (VDA) le facteur devient 4 : GRR\% 12,0 \%, Cpc 8,35 (vu à l'écran). \textbf{Pour aller plus loin} Le coefficient K est le nombre d'écarts types de chaque côté : $2K\sigma$ au dénominateur.",
             r"Seuils du livret Bosch (§ 4.2) : \%GRR au plus 10 \% capable ; de 10 à 30 \% capable sous conditions ; plus de 30 \% non capable. Ellistat juge par le Cpc, inverse du \%GRR avec le facteur 6 : rouge sous 3 (GRR\% au-dessus de 33 \%), orange de 3 à 4, vert au-dessus de 4 (GRR\% au-dessous de 25 \%) ; échelle lue à l'écran, avec l'étiquette « CAPABLE » en vert. L'exemple Bosch (17,95 \%) est donc « capable sous conditions » pour le livret et « CAPABLE » pour Ellistat : à faire discuter. Ellistat affiche aussi une « tolérance minimale » (0,04309 sur l'exemple, soit 4 fois 6 GRR) qui ne change pas avec K."],
-   secours=r"Sans butées : exemple du livret Bosch, à coller depuis « Données à copier ».")),
+   secours=r"Sans butées : exemple du livret Bosch, à coller depuis « Données à copier ». Pour Ellistat, utiliser les boutons « Copier l'opérateur A, B, C » (2 colonnes par opérateur, sans en-tête) et coller chacun dans le tableau de l'opérateur.")),
 
 dict(code="M12", titre="Trois cales, trois questions", question="Nos micromètres sont-ils capables, justes, et dépendent-ils de nous ?", niveau=3, duree=100,
   org=dict(mode="rotation", taille=1, min=3), ellistat=False, mesure=True,
@@ -475,5 +476,5 @@ dict(code="M17", titre="Des cales comme pièces", question="Trois personnes mesu
             r"Jeu de secours (simulé, graine 6001, $T = 0{,}10$ mm, formules du livret Bosch, analyse de variance, interaction regroupée au seuil de 5 \% : F = 0,66, p = 0,82) : EV = 0,00069 ; AV = 0,00060 ; GRR = 0,00091 mm ; \%EV = 4,2 \% ; \%AV = 3,6 \% ; \%GRR = 5,5 \% ; nombre de catégories distinctes : 47.",
             r"\textbf{Q2} Écarts moyens aux cotes : A $-0{,}20$ µm ; B $+0{,}75$ µm ; C $-0{,}40$ µm ; écart global $+0{,}05$ µm. Les trois n'ont pas le même défaut : B lit « grand », A et C lisent « petit ». \textbf{Q3} Effet opérateur : F = 15,7 pour un seuil de 3,19 : significatif (Ellistat n'affiche pas ce test dans l'onglet Analyse ; il donne la part de chaque terme : la reproductibilité vaut environ 43 \% du GRR en variance). Mais AV = 0,6 µm, soit 3,6 \% de T : il pèse peu. Significatif et important sont deux choses. \textbf{Q4} Meilleur : des cales sont parfaitement planes et parallèles, sans bavure ni effet de position. Des butées donneront en général un \%GRR plus élevé (comparer à M11).",
             r"\textbf{Pour aller plus loin} Avec $T = 0{,}05$ mm : \%GRR = 11,0 \%, zone de 10 à 30 \%, capable sous conditions. Ellistat applique le facteur 6 avec K 3 (AIAG) ; avec K 2 (VDA) le facteur devient 4. Le facteur 5,15 (4,7 \%) n'est pas proposé par Ellistat. Le regroupement de l'interaction (5,7 \% sans regroupement) n'a pas été vérifié sur ces données. Avec $T = 0{,}05$ mm, Cpc vaut environ 9 : « CAPABLE » pour Ellistat (seuil 4), « capable sous conditions » pour le livret."],
-   secours=r"Sans mesures réelles : jeu « R\&R sur cales de cotes connues ». La pièce $i$ vaut $1{,}00 + 0{,}01\,i$ mm.")),
+   secours=r"Sans mesures réelles : jeu « R\&R sur cales de cotes connues ». La pièce $i$ vaut $1{,}00 + 0{,}01\,i$ mm. Pour Ellistat, boutons « Copier l'opérateur A, B, C » de la page « Données à copier ».")),
 ]

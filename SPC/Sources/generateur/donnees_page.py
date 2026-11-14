@@ -14,13 +14,19 @@ def ligne(k,r):
 def tableau(k):
     d=J[k]; h='<table><thead><tr>'+''.join(f'<th>{html.escape(x)}</th>' for x in d['entete'])+('<th></th>' if k=='lin' else '')+'</tr></thead><tbody>'
     for i,r in enumerate(d['lignes']):
-        h+='<tr>'+''.join(f'<td>{v}</td>' for v in ligne(k,r))+(f'<td><button class="mini" data-k="{k}" data-ligne="{i}">Copier les 10 mesures</button></td>' if k=='lin' else '')+'</tr>'
+        h+='<tr>'+''.join(f'<td>{v}</td>' for v in ligne(k,r))+(f'<td><button class="mini" data-k="{k}" data-ligne="{i}">Copier les 10 mesures (en colonne)</button></td>' if k=='lin' else '')+'</tr>'
     return h+'</tbody></table>'
+def extra(k):
+    if k in ('justesse','s5just'):
+        return f'<button class="mode" data-k="{k}" data-mode="col">Copier les mesures sans l\'en-tête</button>'
+    if k in ('rr','rrcotes','s5rr'):
+        return ''.join(f'<button class="mode" data-k="{k}" data-mode="op{i}">Copier l\'opérateur {n} (2 colonnes, sans en-tête)</button>' for i,n in enumerate('ABC'))
+    return ''
 corps=''
 for titre,jeux in GR:
     corps+=f'<section class="groupe"><h2>{html.escape(titre)}</h2>'
     for k,lib in jeux:
-        corps+=f'''<details class="jeu" id="{k}"><summary>{html.escape(lib)}</summary><div class="outils"><a class="dl" href="../Donnees_Ellistat/{J[k]['nom']}" download>Télécharger {J[k]['nom']}</a><button class="copier" data-k="{k}">Copier le tableau</button><span class="ok" aria-live="polite"></span></div><div class="defile">{tableau(k)}</div></details>'''
+        corps+=f'''<details class="jeu" id="{k}"><summary>{html.escape(lib)}</summary><div class="outils"><a class="dl" href="../Donnees_Ellistat/{J[k]['nom']}" download>Télécharger {J[k]['nom']}</a><button class="copier" data-k="{k}">Copier le tableau</button>{extra(k)}<span class="ok" aria-live="polite"></span></div><div class="defile">{tableau(k)}</div></details>'''
     corps+='</section>'
 assert set(k for _,j in GR for k,_ in j)==set(J), set(J)-set(k for _,j in GR for k,_ in j)
 data=json.dumps({k:{'entete':v['entete'],'lignes':[ligne(k,r) for r in v['lignes']]} for k,v in J.items()},ensure_ascii=False)
@@ -43,7 +49,7 @@ h1{font-family:var(--f-titre);font-size:clamp(1.8rem,4vw,2.4rem);margin:0;line-h
 details.jeu{border:1px solid var(--grille);border-radius:8px;background:var(--papier);scroll-margin-top:10px} details.jeu summary{cursor:pointer;padding:8px 12px;font-weight:600}
 .outils{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:0 12px 8px}
 a.dl{text-decoration:none;color:var(--encre);background:var(--carte);border:1.5px solid var(--grille);border-radius:8px;padding:5px 10px;font-weight:600;font-size:.88rem}
-button{font:inherit;cursor:pointer;border-radius:8px} button.copier{background:var(--uimm);color:#fff;border:none;padding:6px 12px;font-weight:600;font-size:.88rem}
+button{font:inherit;cursor:pointer;border-radius:8px} button.copier{background:var(--uimm);color:#fff;border:none;padding:6px 12px;font-weight:600;font-size:.88rem} button.mode{background:#fff;color:var(--uimm);border:1px solid var(--uimm);padding:6px 12px;font-weight:600;font-size:.88rem}
 button.mini{background:transparent;color:var(--accent);border:1.5px solid var(--accent);padding:2px 8px;font-size:.8rem}
 .ok{color:var(--ok);font-size:.88rem} .defile{overflow-x:auto;padding:0 12px 12px}
 table{border-collapse:collapse;font-family:var(--f-chiffre);font-size:.85rem} th,td{border-bottom:1px solid var(--grille);padding:3px 8px;text-align:right;white-space:nowrap} th{font-family:var(--f-texte);color:var(--trait)}
@@ -60,14 +66,16 @@ a:focus-visible,button:focus-visible,summary:focus-visible,select:focus-visible{
 </div>
 <script>
 (function(){"use strict";var D='''+data+''';
-function tsv(k,ligne){var d=D[k],sep=document.getElementById("sep").value,f=function(x){return sep==="."?String(x).replace(",","."):x;};if(ligne!==undefined)return d.lignes[ligne].slice(1).map(f).join("\\t");return [d.entete.join("\\t")].concat(d.lignes.map(function(r){return r.map(f).join("\\t");})).join("\\n");}
+function tsv(k,ligne){var d=D[k],sep=document.getElementById("sep").value,f=function(x){return sep==="."?String(x).replace(",","."):x;};if(ligne!==undefined)return d.lignes[ligne].slice(1).map(f).join("\\n");return [d.entete.join("\\t")].concat(d.lignes.map(function(r){return r.map(f).join("\\t");})).join("\\n");}
+function tsvm(k,mode){var d=D[k],sep=document.getElementById("sep").value,f=function(x){return sep==="."?String(x).replace(",","."):x;};if(mode==="col")return d.lignes.map(function(r){return f(r[0]);}).join("\\n");var i=+mode.slice(2);return d.lignes.map(function(r){return [r[1+2*i],r[2+2*i]].map(f).join("\\t");}).join("\\n");}
 function copier(t,el){function fini(m){if(el){el.textContent=m;setTimeout(function(){el.textContent="";},2500);}}
  function secours(){var a=document.createElement("textarea");a.value=t;a.setAttribute("readonly","");a.style.position="fixed";a.style.opacity="0";document.body.appendChild(a);a.select();try{document.execCommand("copy");fini("Copié.");}catch(e){fini("Copie impossible : sélectionnez le tableau.");}document.body.removeChild(a);}
  if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(t).then(function(){fini("Copié.");},secours);}else secours();}
 document.querySelectorAll("button.copier").forEach(function(b){b.addEventListener("click",function(){copier(tsv(b.dataset.k),b.parentNode.querySelector(".ok"));});});
+document.querySelectorAll("button.mode").forEach(function(b){b.addEventListener("click",function(){copier(tsvm(b.dataset.k,b.dataset.mode),b.parentNode.querySelector(".ok"));});});
 document.querySelectorAll("button.mini").forEach(function(b){b.addEventListener("click",function(){copier(tsv(b.dataset.k,+b.dataset.ligne),b.closest("details").querySelector(".ok"));});});
 if(location.hash){var c=document.getElementById(location.hash.slice(1));if(c&&c.tagName==="DETAILS")c.open=true;}
-window.__donnees={tsv:tsv};
+window.__donnees={tsv:tsv,tsvm:tsvm};
 })();
 </script></body></html>'''
 open('SPC/Pages/Donnees_a_copier.html','w',encoding='utf-8').write(page); print('ok',len(page))

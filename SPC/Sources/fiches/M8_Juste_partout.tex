@@ -10,8 +10,9 @@
 \begin{enumerate}[label=\textcolor{cyan}{\textbf{\arabic*.}},leftmargin=15pt,itemsep=1.5pt]
 \item Mesurer chaque cale 10 fois, au cliquet, en la retirant à chaque fois. Remplir le tableau.
 \item Calculer le biais de chaque cale : moyenne des 10 mesures moins valeur de la cale.
-\item \tagE\ \menu{Gage R\&R} > \menu{Linéarité} : 5 produits, 10 valeurs par produit. Pour chaque cale, saisir sa valeur vraie puis ses 10 mesures.
-\item \tagE\ Lire la pente, la justesse, et ce qu'Ellistat en dit (significatif ou non).
+\item \tagE\ \menu{Gage R\&R}, onglet \menu{Linéarité}, bouton « Ajouter une Etude de linéarité ». Remplir : Nom ; Nombre de produits 5 (Ellistat propose 4) ; Nombre de mesures par produit 10 ; Valeur k 3. Laisser les autres cases vides. Valider.
+\item \tagE\ Onglet \menu{Mesures} : un bloc par pièce. Pour chaque cale, saisir la VALEUR VRAIE (5, 10, 15, 20, 25) puis ses 10 mesures dans la colonne MESURE : une cale occupe une colonne. ECART, Moyenne, Variance et Ecart type se calculent seuls.
+\item \tagE\ Onglet \menu{Résultat} : lire les lignes « Justesse » et « Pente » (colonnes Valeur, t, Risque alpha, Significatif ?). Onglet \menu{Graphiques} : l'erreur (mesure moins valeur vraie) en fonction de la valeur vraie, avec la droite de linéarité.
 \end{enumerate}
 \vspace{3pt}{\renewcommand{\arraystretch}{1.45}\small\begin{tabularx}{\linewidth}{|l|*{10}{>{\centering\arraybackslash}X|}p{15mm}|p{15mm}|}\hline
 \textbf{Cale} & \scriptsize 1 & \scriptsize 2 & \scriptsize 3 & \scriptsize 4 & \scriptsize 5 & \scriptsize 6 & \scriptsize 7 & \scriptsize 8 & \scriptsize 9 & \scriptsize 10 & \textbf{\scriptsize Moyenne} & \textbf{\scriptsize Biais (µm)}\\\hline
@@ -24,7 +25,7 @@
 \titre{J'observe, je décide}
 \begin{enumerate}[label=\textcolor{cyan}{\textbf{Q\arabic*.}},leftmargin=22pt]
 \item Le biais est-il le même pour les cinq cales ? Monte-t-il, descend-il avec la longueur ?\reponse[2]
-\item Ellistat juge-t-il la pente significative ? Et la justesse ?\reponse[1]
+\item Pente = \champ{18mm} mm par mm. Que dit Ellistat dans la colonne « Significatif ? » ? Pour quelle longueur la droite coupe-t-elle l'erreur zéro ?\reponse[1]
 \item Biais constant : que faire ? Biais qui change avec la longueur : que faire ?\reponse[2]
 \end{enumerate}
 \begin{tcolorbox}[retenir]Un décalage constant se corrige par un réglage. Une erreur qui change avec la longueur est un défaut de \textbf{linéarité} : on restreint la plage ou on change d'instrument.\end{tcolorbox}
