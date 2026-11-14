@@ -1,0 +1,32 @@
+\documentclass[11pt,a4paper]{article}
+\input{trame.tex}
+\pied{Journée du 25/11/2026 · Trame terrain 5 · La cale dans la main}
+\begin{document}
+\thispagestyle{fancy}
+\bandeau{Journée du 25/11/2026 · TP 5 sur 5 · durée 25 min · en binôme}{La cale dans la main}{La chaleur des doigts se voit-elle au micromètre ?}
+\vspace{-2pt}
+\begin{tcolorbox}[boite,left=5pt,right=5pt,top=2pt,bottom=2pt]\small\textbf{Il vous faut.} un micromètre, la cale la plus longue qu'il peut mesurer (20 mm au 0-25, 30 mm au 25-50), un chronomètre, Ellistat.\end{tcolorbox}
+
+\etape{1}{Je prédis}
+Une cale d'acier tenue 3 minutes dans la main fermée s'allonge de (1 µm = 0,001 mm) :\par\smallskip\cb 0,1 µm \quad \cb 3 µm \quad \cb 30 µm \quad \cb pas du tout
+\etape{2}{Je mesure}
+\begin{enumerate}[label=\textbf{\alph*.},leftmargin=16pt,itemsep=1pt]
+\item Mesurer \textbf{3 fois} la cale à la température de la salle. Moyenne = \textbf{référence} : \champ{25mm} mm
+\item Garder la cale \textbf{3 minutes} dans la main fermée.
+\item La poser et la mesurer \textbf{aussitôt}, puis toutes les 30 secondes pendant 5 minutes, sans la reprendre en main.
+\end{enumerate}
+\par\vspace{2pt}{\setlength{\tabcolsep}{2pt}\renewcommand{\arraystretch}{1.1}\begin{tabular}{|l|p{11.3mm}|p{11.3mm}|p{11.3mm}|p{11.3mm}|p{11.3mm}|p{11.3mm}|p{11.3mm}|p{11.3mm}|p{11.3mm}|p{11.3mm}|p{11.3mm}|}\hline
+\textbf{Temps (s)} & \textbf{0} & \textbf{30} & \textbf{60} & \textbf{90} & \textbf{120} & \textbf{150} & \textbf{180} & \textbf{210} & \textbf{240} & \textbf{270} & \textbf{300} \\ \hline
+\rule{0pt}{8mm}\textbf{Mesure} &  &  &  &  &  &  &  &  &  &  &  \\ \hline
+\end{tabular}}\par
+\etape{3}{Je saisis dans Ellistat}
+Dans une grille, une colonne \textbf{Chaleur} : taper les 11 mesures \textbf{dans l'ordre du temps}. \menu{Stats Desc.}, onglet \menu{Détail}, cliquer sur la colonne : le graphique « Moyenne » montre les points dans l'ordre. Dessiner ci-dessous l'allure de la courbe :
+\par\vspace{2pt}\fbox{\rule{0pt}{20mm}\rule{0.97\linewidth}{0pt}}
+\etape{4}{Je calcule un seul chiffre}
+\chiffre{Allongement = première mesure après la main $-$ référence\hfill = \champ{25mm} µm\hfill\ \par\smallskip\small Repère : l'acier s'allonge d'environ 11,5 µm par mètre et par degré (valeur usuelle, à confirmer chez le fabricant des cales). Pour 30 mm, cela fait environ 0,35 µm par degré.}
+\etape{5}{Je décide}
+Au poste, avant de mesurer une pièce que l'on vient de tenir en main, j'attends \champ{14mm} minutes.\par\smallskip
+Une précaution à retenir :\par\vspace{1pt}\reponse[1]
+\motnouveau{\textbf{Température de référence} : les cales et les pièces sont définies à 20 °C. Au millième, une pièce plus chaude est une pièce plus longue.}
+
+\end{document}

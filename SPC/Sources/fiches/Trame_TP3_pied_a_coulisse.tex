@@ -1,0 +1,32 @@
+\documentclass[11pt,a4paper]{article}
+\input{trame.tex}
+\pied{Journée du 25/11/2026 · Trame terrain 3 · Pied à coulisse contre micromètre}
+\begin{document}
+\thispagestyle{fancy}
+\bandeau{Journée du 25/11/2026 · TP 3 sur 5 · durée 30 min · en binôme}{Pied à coulisse contre micromètre}{Deux instruments, une cale : lequel croire ?}
+\vspace{-2pt}
+\begin{tcolorbox}[boite,left=5pt,right=5pt,top=2pt,bottom=2pt]\small\textbf{Il vous faut.} un pied à coulisse au 1/50, la cale de 10 mm, votre Cgk du TP 1, Ellistat.\end{tcolorbox}
+
+\etape{1}{Je prédis}
+Les mesures les plus groupées viendront du :\quad \cb micromètre \quad \cb pied à coulisse \quad \cb pareil
+\etape{2}{Je mesure}
+Mesurer la cale de 10 mm \textbf{15 fois au pied à coulisse}. Retirer la cale à chaque mesure. Noter toutes les décimales lues (10,00 ou 10,02).
+\par\vspace{2pt}{\setlength{\tabcolsep}{2pt}\begin{tabular}{|p{18mm}|p{18mm}|p{18mm}|p{18mm}|p{18mm}|p{18mm}|p{18mm}|p{18mm}|}\hline
+\rule{0pt}{8.5mm}{\tiny\color{gray}1} & \rule{0pt}{8.5mm}{\tiny\color{gray}2} & \rule{0pt}{8.5mm}{\tiny\color{gray}3} & \rule{0pt}{8.5mm}{\tiny\color{gray}4} & \rule{0pt}{8.5mm}{\tiny\color{gray}5} & \rule{0pt}{8.5mm}{\tiny\color{gray}6} & \rule{0pt}{8.5mm}{\tiny\color{gray}7} & \rule{0pt}{8.5mm}{\tiny\color{gray}8} \\ \hline
+\rule{0pt}{8.5mm}{\tiny\color{gray}9} & \rule{0pt}{8.5mm}{\tiny\color{gray}10} & \rule{0pt}{8.5mm}{\tiny\color{gray}11} & \rule{0pt}{8.5mm}{\tiny\color{gray}12} & \rule{0pt}{8.5mm}{\tiny\color{gray}13} & \rule{0pt}{8.5mm}{\tiny\color{gray}14} & \rule{0pt}{8.5mm}{\tiny\color{gray}15} &  \\ \hline
+\end{tabular}}\par
+\etape{3}{Je saisis dans Ellistat}
+\begin{enumerate}[label=\textbf{\alph*.},leftmargin=16pt,itemsep=1pt]
+\item \menu{Gage R\&R}, onglet \menu{Justesse}, bouton \menu{ajouter une justesse}.
+\item \textbf{Nom} = Pied à coulisse ; \textbf{Nombre de mesures} 15 ; \textbf{Valeur vraie} 10,000 ; \textbf{LSI} 9,925 ; \textbf{LSS} 10,075 ; \textbf{Valeur de k} 3. Valider.
+\item Taper les 15 mesures dans la liste « Mesures », avec toutes les décimales lues.
+\end{enumerate}
+\etape{4}{Je lis un seul chiffre}
+\chiffre{Dans le tableau « Résultats statistiques », ligne \textbf{Cgk} du pied à coulisse :\hfill Cgk = \champ{30mm}\hfill\ \par\smallskip\small Pour comparer : le Cgk de mon micromètre (TP 1) vaut \champ{25mm}. Repère du livret Bosch : capable au-dessus de \textbf{1,33}.}
+\etape{5}{Je décide}
+Pour 0,15 mm de tolérance, le pied à coulisse est\quad \cb capable \quad \cb pas capable.\par\smallskip
+Règle simple du livret Bosch : la résolution de l'instrument ne doit pas dépasser \textbf{5 \%} de la tolérance. Pour le pied à coulisse (résolution 0,02 mm), la plus petite tolérance contrôlable est $0{,}02 / 0{,}05 =$ \champ{14mm} mm.
+\par\vspace{2pt}
+\motnouveau{\textbf{Résolution} : le plus petit pas que l'instrument sait lire (0,02 mm au pied à coulisse, 0,001 mm à votre micromètre). Un instrument n'est ni bon ni mauvais : il est capable ou non \emph{pour une tolérance donnée}.}
+
+\end{document}

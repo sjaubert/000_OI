@@ -1,0 +1,31 @@
+\documentclass[11pt,a4paper]{article}
+\input{trame.tex}
+\pied{Journée du 25/11/2026 · Trame terrain 2 · Jusqu'où peut-il aller ?}
+\begin{document}
+\thispagestyle{fancy}
+\bandeau{Journée du 25/11/2026 · TP 2 sur 5 · durée 15 min · en binôme}{Jusqu'où peut-il aller ?}{Quelle est la plus petite tolérance que mon micromètre peut contrôler ?}
+\vspace{-2pt}
+\begin{tcolorbox}[boite,left=5pt,right=5pt,top=2pt,bottom=2pt]\small\textbf{Il vous faut.} l'étude « Justesse » du TP 1 dans Ellistat. Aucune nouvelle mesure.\end{tcolorbox}
+
+\etape{1}{Je prédis}
+Mon micromètre est capable pour 0,15 mm de tolérance. Le sera-t-il encore pour :
+\par\smallskip\renewcommand{\arraystretch}{1.5}\begin{tabular}{|c|c|c|}\hline \textbf{Tolérance} & \textbf{Ma prédiction} & \textbf{Résultat (étape 5)}\\\hline
+0,05 mm & \cb oui \quad \cb non & \cb oui \quad \cb non\\\hline
+0,02 mm & \cb oui \quad \cb non & \cb oui \quad \cb non\\\hline
+0,01 mm & \cb oui \quad \cb non & \cb oui \quad \cb non\\\hline\end{tabular}
+\etape{2}{Je mesure}
+Rien à mesurer : on réutilise les 25 mesures du TP 1.
+\etape{3}{J'ouvre mon étude dans Ellistat}
+\menu{Gage R\&R}, onglet \menu{Justesse}. Choisir votre étude dans la liste en haut à gauche, puis lire le tableau « Résultats statistiques ».
+\etape{4}{Je lis un seul chiffre}
+\chiffre{Ligne \textbf{Tolerance min} :\hfill Tolerance min = \champ{30mm} mm\hfill\ \par\smallskip\small C'est la plus petite tolérance pour laquelle ce micromètre, avec ma façon de mesurer, reste capable.}
+\etape{5}{Je décide}
+Règle : une tolérance est contrôlable si elle est \textbf{supérieure ou égale} à la Tolerance min. Compléter la colonne « Résultat » du tableau de l'étape 1.
+\par\bigskip
+Avec ce micromètre, je peux contrôler une cote jusqu'à une tolérance de \champ{22mm} mm.\par\medskip
+Ma prédiction était\quad \cb juste \quad \cb à corriger.\par\bigskip
+Une cote de mon poste a une tolérance de \champ{18mm} mm : je la contrôle avec ce micromètre ?\quad \cb oui \quad \cb non
+\par\vspace{4pt}
+\motnouveau{\textbf{Tolerance min} : ce chiffre ne dépend que de la dispersion de vos mesures et de leur décalage avec la cale, pas de la tolérance que vous avez saisie. Un même instrument passe pour une cote et échoue pour une autre.}
+
+\end{document}

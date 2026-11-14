@@ -1,0 +1,33 @@
+\documentclass[11pt,a4paper]{article}
+\input{trame.tex}
+\pied{Journée du 25/11/2026 · Trame terrain 1 · Mon micromètre est-il juste ?}
+\begin{document}
+\thispagestyle{fancy}
+\bandeau{Journée du 25/11/2026 · TP 1 sur 5 · durée 45 min · en binôme}{Mon micromètre est-il juste ?}{Puis-je me fier à ce micromètre pour contrôler une pièce à 0,15 mm de tolérance ?}
+\vspace{-2pt}
+\begin{tcolorbox}[boite,left=5pt,right=5pt,top=2pt,bottom=2pt]\small\textbf{Il vous faut.} un micromètre 0-25 mm (notez son numéro), la cale de 10 mm, un chiffon ou des gants, Ellistat.\end{tcolorbox}
+
+\etape{1}{Je prédis}
+Mon micromètre sera-t-il capable pour une tolérance de 0,15 mm ?\quad \cb oui \quad \cb non \quad \cb je ne sais pas
+\etape{2}{Je mesure}
+Mesurer la cale de 10 mm \textbf{25 fois}, au cliquet. \textbf{Retirer puis remettre la cale} à chaque mesure. Noter toutes les valeurs, avec les trois décimales (10,000 et non 10). Micromètre n° \champ{15mm}
+\par\vspace{2pt}{\setlength{\tabcolsep}{2pt}\begin{tabular}{|p{21mm}|p{21mm}|p{21mm}|p{21mm}|p{21mm}|p{21mm}|p{21mm}|}\hline
+\rule{0pt}{8.5mm}{\tiny\color{gray}1} & \rule{0pt}{8.5mm}{\tiny\color{gray}2} & \rule{0pt}{8.5mm}{\tiny\color{gray}3} & \rule{0pt}{8.5mm}{\tiny\color{gray}4} & \rule{0pt}{8.5mm}{\tiny\color{gray}5} & \rule{0pt}{8.5mm}{\tiny\color{gray}6} & \rule{0pt}{8.5mm}{\tiny\color{gray}7} \\ \hline
+\rule{0pt}{8.5mm}{\tiny\color{gray}8} & \rule{0pt}{8.5mm}{\tiny\color{gray}9} & \rule{0pt}{8.5mm}{\tiny\color{gray}10} & \rule{0pt}{8.5mm}{\tiny\color{gray}11} & \rule{0pt}{8.5mm}{\tiny\color{gray}12} & \rule{0pt}{8.5mm}{\tiny\color{gray}13} & \rule{0pt}{8.5mm}{\tiny\color{gray}14} \\ \hline
+\rule{0pt}{8.5mm}{\tiny\color{gray}15} & \rule{0pt}{8.5mm}{\tiny\color{gray}16} & \rule{0pt}{8.5mm}{\tiny\color{gray}17} & \rule{0pt}{8.5mm}{\tiny\color{gray}18} & \rule{0pt}{8.5mm}{\tiny\color{gray}19} & \rule{0pt}{8.5mm}{\tiny\color{gray}20} & \rule{0pt}{8.5mm}{\tiny\color{gray}21} \\ \hline
+\rule{0pt}{8.5mm}{\tiny\color{gray}22} & \rule{0pt}{8.5mm}{\tiny\color{gray}23} & \rule{0pt}{8.5mm}{\tiny\color{gray}24} & \rule{0pt}{8.5mm}{\tiny\color{gray}25} &  &  &  \\ \hline
+\end{tabular}}\par
+\etape{3}{Je saisis dans Ellistat}
+\begin{enumerate}[label=\textbf{\alph*.},leftmargin=16pt,itemsep=1pt]
+\item \menu{Gage R\&R}, onglet \menu{Justesse}, bouton \menu{ajouter une justesse}.
+\item Remplir : \textbf{Nom} = votre prénom ; \textbf{Nombre de mesures} 25 ; \textbf{Valeur vraie} 10,000 ; \textbf{LSI} 9,925 ; \textbf{LSS} 10,075 ; \textbf{Valeur de k} 3. Valider.
+\item Taper les 25 mesures dans la liste « Mesures », une par ligne, avec toutes les décimales.
+\end{enumerate}
+\etape{4}{Je lis un seul chiffre}
+\chiffre{Dans le tableau « Résultats statistiques », ligne \textbf{Cgk} :\hfill Cgk = \champ{30mm}\hfill\ \par\smallskip\small Repère du livret Bosch : un instrument est capable quand Cgk dépasse \textbf{1,33}.}
+\etape{5}{Je décide}
+Pour une tolérance de 0,15 mm, mon micromètre est\quad \cb capable \quad \cb pas capable.\quad Ma prédiction était\quad \cb juste \quad \cb fausse.
+\par\vspace{2pt}
+\motnouveau{\textbf{Cgk} : une note unique pour dire si l'instrument est à la fois \emph{groupé} (mêmes valeurs d'une mesure à l'autre) et \emph{centré} (proche de la vraie valeur de la cale).}
+
+\end{document}

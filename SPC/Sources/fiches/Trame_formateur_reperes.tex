@@ -1,0 +1,32 @@
+\documentclass[10pt,a4paper]{article}
+\input{trame.tex}
+\pied{Journée du 25/11/2026 · Trames terrain · repères du formateur}
+\begin{document}
+\thispagestyle{fancy}
+\bandeau{Journée du 25/11/2026 · 4 stagiaires}{Trames terrain : repères du formateur}{Cinq TP d'une page, à imprimer en 4 exemplaires}
+\titre{Ordre conseillé et durées}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabularx}{\linewidth}{|c|>{\raggedright\arraybackslash}p{40mm}|c|>{\raggedright\arraybackslash}p{37mm}|>{\raggedright\arraybackslash}X|}\hline
+\textbf{TP} & \textbf{Titre (fiche de la base)} & \textbf{Durée} & \textbf{Matériel} & \textbf{Chiffre lu, valeurs du jeu de secours}\\\hline
+1 & Mon micromètre est-il juste ? (M3) & 45 min & micromètre 0-25 et cale 10 mm par binôme & Cgk. Secours : 6,02 pour $T = 0{,}15$ (formules du livret Bosch).\\\hline
+2 & Jusqu'où peut-il aller ? (M7) & 15 min & aucun & Tolerance min. Secours : 0,036 mm, donc capable à 0,05 et pas à 0,02.\\\hline
+3 & Pied à coulisse contre micromètre (M4) & 30 min & pied à coulisse au 1/50 & Cgk du pied à coulisse. Secours : 0,45 : pas capable à 0,15 ; résolution 0,02 permet $T \geq 0{,}4$ mm.\\\hline
+4 & Avec ou sans cliquet (M5) & 30 min & mêmes micromètre et cale & Écart type. Secours : 0,0005 avec cliquet contre 0,0023 sans.\\\hline
+5 & La cale dans la main (M6) & 25 min & cale longue, chronomètre & Allongement. Secours : environ +3 µm, retour en 3 minutes.\\\hline
+\end{tabularx}
+\par\smallskip
+Le TP 2 vient juste après le TP 1 : il réutilise l'étude sans nouvelle mesure. L'ordre de la journée, les durées et les réserves sont dans la trame de 8 h 20.
+
+\titre{Ce qui reste à vérifier sur ton compte avant la séance}
+\begin{itemize}
+\item \textbf{Saisie d'une justesse sur une cale de 10 mm} : Ellistat attend une valeur vraie, LSI et LSS. Nous centrons LSI et LSS sur la cale (largeur 0,15). Seule la largeur est confirmée par les formules ; l'effet de la position de LSI et LSS n'a pas été testé.
+\item \textbf{Pied à coulisse} : vérifier que les valeurs 10,00 et 10,02 sont acceptées et ce que l'écran affiche. Non vu.
+\item \textbf{Onglet Détail avec plusieurs colonnes} (TP 4 et 5) : vu sur une seule colonne. Le clic sur le nom d'une colonne dans la liste « Échantillons » est supposé.
+\item \textbf{Seuil 1,33} : c'est celui du livret Bosch. Les seuils de couleur d'Ellistat n'ont pas été lus.
+\item \textbf{Valeur des cales} : écart de la valeur vraie à lire sur le certificat des cales ; à défaut, la valeur nominale est utilisée et le dire.
+\item \textbf{TP 5} : la dilatation de 11,5 µm par mètre et par degré est une valeur usuelle de l'acier, à confirmer sur la documentation de tes cales. Avec une cale de 20 mm, l'effet n'est que d'environ 0,23 µm par degré : la cale de 30 mm (micromètre 25-50, un seul) montre mieux, avec une rotation.
+\item \textbf{Frappe de 25 valeurs} : prévoir un secrétaire par binôme. Le collage d'une liste dans la fenêtre « Justesse » n'a pas été testé.
+\end{itemize}
+\titre{Comment s'en servir}
+Les trames sont des versions courtes de M3, M7, M4, M5 et M6. Les fiches complètes (questions, réponses, « pour aller plus loin ») restent dans le livret et le guide formateur. Chaque trame a une seule lecture dans Ellistat et au plus un mot nouveau. Faire annoncer la prédiction avant de mesurer, et faire dire la décision à voix haute en fin de TP.
+\end{document}

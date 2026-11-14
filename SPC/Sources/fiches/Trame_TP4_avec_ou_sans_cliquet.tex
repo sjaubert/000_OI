@@ -1,0 +1,37 @@
+\documentclass[11pt,a4paper]{article}
+\input{trame.tex}
+\pied{Journée du 25/11/2026 · Trame terrain 4 · Avec ou sans cliquet}
+\begin{document}
+\thispagestyle{fancy}
+\bandeau{Journée du 25/11/2026 · TP 4 sur 5 · durée 30 min · en binôme}{Avec ou sans cliquet}{La façon de serrer change-t-elle la mesure ?}
+\vspace{-2pt}
+\begin{tcolorbox}[boite,left=5pt,right=5pt,top=2pt,bottom=2pt]\small\textbf{Il vous faut.} le même micromètre à cliquet, la même cale de 10 mm, Ellistat. Même opérateur pour les deux séries.\end{tcolorbox}
+
+\etape{1}{Je prédis}
+Si je serre à la main, sans le cliquet, mes valeurs seront :\quad \cb plus grandes \quad \cb plus petites \quad \cb plus dispersées \quad \cb pareilles
+\etape{2}{Je mesure}
+\textbf{Série A, avec le cliquet} : 15 mesures, toujours le même nombre de crans. \textbf{Série B, sans le cliquet} : 15 mesures en serrant le tambour à la main, comme d'habitude, sans forcer. Retirer la cale à chaque mesure. Noter les trois décimales.
+\par\smallskip\textbf{Série A (avec cliquet)}
+\par\vspace{2pt}{\setlength{\tabcolsep}{2pt}\begin{tabular}{|p{18mm}|p{18mm}|p{18mm}|p{18mm}|p{18mm}|p{18mm}|p{18mm}|p{18mm}|}\hline
+\rule{0pt}{8.5mm}{\tiny\color{gray}1} & \rule{0pt}{8.5mm}{\tiny\color{gray}2} & \rule{0pt}{8.5mm}{\tiny\color{gray}3} & \rule{0pt}{8.5mm}{\tiny\color{gray}4} & \rule{0pt}{8.5mm}{\tiny\color{gray}5} & \rule{0pt}{8.5mm}{\tiny\color{gray}6} & \rule{0pt}{8.5mm}{\tiny\color{gray}7} & \rule{0pt}{8.5mm}{\tiny\color{gray}8} \\ \hline
+\rule{0pt}{8.5mm}{\tiny\color{gray}9} & \rule{0pt}{8.5mm}{\tiny\color{gray}10} & \rule{0pt}{8.5mm}{\tiny\color{gray}11} & \rule{0pt}{8.5mm}{\tiny\color{gray}12} & \rule{0pt}{8.5mm}{\tiny\color{gray}13} & \rule{0pt}{8.5mm}{\tiny\color{gray}14} & \rule{0pt}{8.5mm}{\tiny\color{gray}15} &  \\ \hline
+\end{tabular}}\par
+\par\smallskip\textbf{Série B (sans cliquet)}
+\par\vspace{2pt}{\setlength{\tabcolsep}{2pt}\begin{tabular}{|p{18mm}|p{18mm}|p{18mm}|p{18mm}|p{18mm}|p{18mm}|p{18mm}|p{18mm}|}\hline
+\rule{0pt}{8.5mm}{\tiny\color{gray}1} & \rule{0pt}{8.5mm}{\tiny\color{gray}2} & \rule{0pt}{8.5mm}{\tiny\color{gray}3} & \rule{0pt}{8.5mm}{\tiny\color{gray}4} & \rule{0pt}{8.5mm}{\tiny\color{gray}5} & \rule{0pt}{8.5mm}{\tiny\color{gray}6} & \rule{0pt}{8.5mm}{\tiny\color{gray}7} & \rule{0pt}{8.5mm}{\tiny\color{gray}8} \\ \hline
+\rule{0pt}{8.5mm}{\tiny\color{gray}9} & \rule{0pt}{8.5mm}{\tiny\color{gray}10} & \rule{0pt}{8.5mm}{\tiny\color{gray}11} & \rule{0pt}{8.5mm}{\tiny\color{gray}12} & \rule{0pt}{8.5mm}{\tiny\color{gray}13} & \rule{0pt}{8.5mm}{\tiny\color{gray}14} & \rule{0pt}{8.5mm}{\tiny\color{gray}15} &  \\ \hline
+\end{tabular}}\par
+\etape{3}{Je saisis dans Ellistat}
+\begin{enumerate}[label=\textbf{\alph*.},leftmargin=16pt,itemsep=1pt]
+\item Dans une grille, deux colonnes nommées \textbf{Cliquet} et \textbf{Main} : taper les 15 valeurs de chaque série.
+\item \menu{Stats Desc.}, onglet \menu{Détail}. Cliquer sur le nom de la colonne dans la liste « Échantillons » à gauche.
+\end{enumerate}
+\etape{4}{Je lis un seul chiffre}
+\chiffre{Dans le tableau « PARAMÈTRES », ligne \textbf{Ecart type}, pour chaque série :\par\medskip
+Avec cliquet : \champ{28mm}\hfill Sans cliquet : \champ{28mm}\hfill\ }
+\etape{5}{Je décide}
+La série la plus dispersée est\quad \cb avec cliquet \quad \cb sans cliquet.\par\smallskip
+Consigne à afficher au poste (une phrase) : \par\vspace{1pt}\reponse[2]
+\motnouveau{\textbf{Écart type} : la taille de la dispersion des mesures. Plus il est petit, plus les valeurs sont groupées. Les deux séries sont mesurées par la même personne : seule la façon de serrer change.}
+
+\end{document}
