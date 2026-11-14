@@ -190,7 +190,7 @@ dict(code="C8", titre="Du moyen de mesure à la décision", question="Peut-on pi
   etapes=[
    r"E|Un projet à votre nom, trois grilles.",
    r"E|\textbf{Justesse} (onglet \menu{Justesse}, « Ajouter une justesse ») : Nombre de mesures 50 ; Valeur vraie 12,000 ; LSI 11,85 et LSS 12,00 ; k 3.",
-   r"E|\textbf{R\&R} (onglet \menu{Mesures}, « Ajouter un gage R\&R ») : Produits 10 ; Opérateurs 3 ; Répétitions 2 ; Tolérance 11,85 et 12,00 ; méthode ANAVAR ; K 3 (AIAG).",
+   r"E|\textbf{R\&R} (onglet \menu{Mesures}, « Ajouter un gage R\&R ») : Produits 10 ; Opérateurs 3 ; Répétitions 2 ; Tolérance 11,85 et 12,00 ; méthode ANAVAR ; K 3 (AIAG). Vérifier dans « Voir Plus » que la tolérance est remplie, puis lire l'onglet \menu{Analyse}.",
    r"E|\textbf{Production} : 50 butées, 10 sous-groupes de 5 ; carte, puis capabilités.",
    r"M|Rédiger la décision en cinq lignes et la présenter au groupe.",
   ],
@@ -204,7 +204,7 @@ dict(code="C8", titre="Du moyen de mesure à la décision", question="Peut-on pi
    prep=[r"Les données de justesse et de R\&R sont simulées."],
    anim=[r"Possible en évaluation : noter l'ordre suivi, la justesse des lectures et la décision."],
    corrige=[r"\textbf{Justesse} : moyenne 12,00076 ; écart-type 0,000716 ; biais +0,00076. Formules du livret Bosch : Cg environ 7,0 et Cgk environ 6,6. Instrument capable.",
-            r"\textbf{R\&R} : EV 0,00108 ; AV 0,00090 ; GRR 0,00140 ; \%GRR 5,6 \% avec le facteur 6 (4,8 \% avec 5,15) ; ndc 34. Capable dans les deux conventions.",
+            r"\textbf{R\&R} : EV 0,00108 ; AV 0,00090 ; GRR 0,00140 ; \%GRR 5,6 \% avec le facteur 6, celui d'Ellistat avec K 3 (4,8 \% avec 5,15, facteur non proposé par Ellistat) ; ndc 34. Cpc environ 18, au-dessus de 4 : capable pour Ellistat comme pour le livret.",
             r"\textbf{Production} : voir C6. \textbf{Décision} : la mesure est validée, donc les points hors limites viennent du procédé. Le procédé n'est pas sous contrôle : aucune capabilité à annoncer. Action : supprimer la dérive, recentrer, puis refaire l'étude."],
-   secours=r"Valeurs Ellistat de Cg et du \%GRR à confirmer (conventions non confirmées).")),
+   secours=r"Cg, Cgk et \%GRR d'Ellistat sont confirmés sur les exemples du livret Bosch (p. 11 et p. 14) ; non vus sur ces jeux simulés.")),
 ]

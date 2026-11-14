@@ -10,7 +10,10 @@
 \begin{enumerate}[label=\textcolor{cyan}{\textbf{\arabic*.}},leftmargin=15pt,itemsep=1.5pt]
 \item Le formateur a masqué la cote de chaque cale et l'a marquée d'une lettre. Tirer au sort l'ordre de passage des trois opérateurs. Les autres stagiaires notent.
 \item \textbf{Série 1} : chaque opérateur mesure les 10 cales, une fois chacune, dans un ordre mélangé, avec le même micromètre. \textbf{Série 2} : même travail, dans un autre ordre, sans regarder ses premières valeurs.
-\item \tagE\ \menu{Gage R\&R}, onglet \menu{Mesures}, « Ajouter un gage R\&R ». Remplir : Produits 10 ; Opérateurs 3 ; Répétitions 2 (Ellistat propose 3) ; Type de tolérance Bilatéral, Tolérance min 1,00 et max 1,10 ($T = 0{,}10$ mm) ; Méthode de calcul \textbf{ANAVAR} ; K 3 (AIAG). Saisir les 60 mesures. Relever EV, AV, \%GRR et le nombre de catégories distinctes.
+\item \tagE\ \menu{Gage R\&R}, onglet \menu{Mesures}, bouton « ajouter un gage R\&R ». Remplir : Nom ; Produits 10 ; Opérateurs 3 ; Répétitions 2 (Ellistat propose 3) ; Type de tolérance Bilatéral, Tolérance min 1,00 et max 1,10 ($T = 0{,}10$ mm) ; Méthode de calcul \textbf{ANAVAR} ; K 3 (AIAG). Valider.
+\item \tagE\ Cliquer sur « Voir Plus », à côté de « Informations du gage » : vérifier que Tolerance min et Tolerance max sont remplies. Sinon, les saisir (le point sert de virgule).
+\item \tagE\ Onglet \menu{Mesure} : un tableau par opérateur, avec les lignes Pièce 1 à Pièce 10 et les colonnes 1 et 2 (les deux répétitions). Saisir les mesures de chaque opérateur ; MOYENNE et ÉTENDUE se calculent seules.
+\item \tagE\ Onglet \menu{Analyse} : lire le tableau « Résultats » (répétabilité, reproductibilité, instrument), le bloc « Calcul à partir des tolérances » (GRR\%, Cpc) et, dans « Calcul à partir de la dispersion process », le « Nombre de catégories distinctes ».
 \item Le formateur annonce les 10 cotes. Pour chaque opérateur, calculer l'\textbf{écart moyen} entre ses mesures et les cotes, en µm.
 \item Regarder l'écart de chaque cale, tous opérateurs confondus : y en a-t-il une qui sort du lot ?
 \end{enumerate}
@@ -27,12 +30,12 @@ C & & \\\hline
 \newpage
 \titre{J'observe, je décide}
 \begin{enumerate}[label=\textcolor{cyan}{\textbf{Q\arabic*.}},leftmargin=22pt]
-\item \%GRR = \champ{14mm} \%. Qui pèse le plus : l'instrument (EV) ou les opérateurs (AV) ?\reponse[1]
+\item GRR\% = \champ{14mm} \%. Qui pèse le plus : la répétabilité (EV) ou la reproductibilité (AV, colonne « proportion ») ?\reponse[1]
 \item Écart moyen de A = \champ{14mm} µm, de B = \champ{14mm} µm, de C = \champ{14mm} µm. Les trois opérateurs ont-ils le même défaut ?\reponse[1]
-\item Ellistat trouve-t-il un effet opérateur significatif ? Est-il important par rapport à la tolérance de 0,10 mm ?\reponse[2]
+\item Quelle part du GRR vient des opérateurs (ligne « reproductibilité », colonne « proportion ») ? Est-ce important par rapport à la tolérance de 0,10 mm ?\reponse[2]
 \item Des cales sont des pièces parfaites : planes, parallèles, sans bavure. Ce R\&R sera-t-il meilleur ou moins bon que celui de vraies butées ? Pourquoi ?\reponse[2]
 \end{enumerate}
 \begin{tcolorbox}[retenir]Avec des pièces de cote connue, le R\&R dit aussi qui se décale, et de combien. Une différence significative n'est pas forcément une différence qui compte.\end{tcolorbox}
-\begin{tcolorbox}[plus]Divisez la tolérance par deux (0,05 mm) dans Ellistat, sans toucher aux mesures. Que devient le \%GRR ? Dans quelle zone (10 \% ; 30 \%) arrive-t-il ?\end{tcolorbox}
+\begin{tcolorbox}[plus]Dans « Voir Plus », changez Tolerance min et max pour une tolérance de 0,05 mm (1,025 et 1,075), sans toucher aux mesures. Que devient GRR\% ? Quel avis donne le livret (zones 10 \% et 30 \%), quel avis donne Ellistat ?\end{tcolorbox}
 \vfill{\footnotesize\color{uimm}\textbf{Ressources de la base :} Données de secours.}
 \end{document}
