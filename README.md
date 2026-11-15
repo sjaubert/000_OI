@@ -1,16 +1,26 @@
 # Organisation industrielle : ressources de formation
 
-Pôle Formation UIMM Centre-Val de Loire. Ressources de Stéphane Jaubert pour la maîtrise statistique des procédés (SPC), la capabilité et la fiabilité.
+Pôle Formation UIMM Centre-Val de Loire. Ressources de Stéphane Jaubert pour l'organisation industrielle : maîtrise statistique des procédés (SPC) et capabilité, fiabilité, taux de rendement synthétique (TRS) et gestion des stocks.
 
 **Site en ligne :** [sjaubert.github.io/000_OI](https://sjaubert.github.io/000_OI/)
+
+| Thème | Public | Contenu | Aller à |
+|---|---|---|---|
+| SPC et capabilité | BTS ATI, Bachelor, formation continue | 40 activités, TP de capabilité de la butée, trames terrain | [Section 1](#1-spc-et-capabilité) |
+| Fiabilité | Bachelor | 11 TP Weibull avec Ellistat | [Section 2](#2-fiabilité-et-loi-de-weibull) |
+| TRS | BTS ATI, Bachelor | Cours, diaporama, TP Excel de 4 h (tableaux croisés dynamiques, modèle de données, DAX) | [Section 3](#3-taux-de-rendement-synthétique-trs) |
+| Gestion des stocks | BTS ATI, Bachelor Maintenance | Cours, 20 exercices, 5 TP Excel, étude de cas | [Section 4](#4-gestion-des-stocks) |
 
 | Je cherche | J'ouvre |
 |---|---|
 | Le catalogue des 40 activités SPC | [Base d'activités SPC](https://sjaubert.github.io/000_OI/SPC/index.html) |
 | Toutes les fiches SPC en un seul PDF | [Livret de toutes les fiches](SPC/Activites/Livret_toutes_les_fiches.pdf) |
 | Les données à coller dans Ellistat | [Données à copier](https://sjaubert.github.io/000_OI/SPC/Pages/Donnees_a_copier.html) |
-| Les TP de fiabilité (Weibull) | [Section Fiabilité](#2-fiabilité-et-loi-de-weibull) |
-| Les guides et corrigés | [Section Formateur](#3-documents-formateur) |
+| Une page par TP de mesure, à imprimer pour le terrain | [Trames terrain stagiaires](SPC/Activites/Trames_terrain_stagiaires.pdf) |
+| Les TP de fiabilité (Weibull) | [Section 2](#2-fiabilité-et-loi-de-weibull) |
+| Le cours et le TP sur le TRS | [Section 3](#3-taux-de-rendement-synthétique-trs) |
+| Le cours et les exercices de gestion des stocks | [Section 4](#4-gestion-des-stocks) |
+| Les corrigés et guides formateur | Sous-section « Documents formateur » de chaque thème : [SPC](#14-documents-formateur-spc), [Fiabilité](#22-documents-formateur-fiabilité), [TRS](#32-documents-formateur-trs), [Stocks](#42-documents-formateur-stocks) |
 
 ---
 
@@ -97,9 +107,19 @@ Le [catalogue interactif](https://sjaubert.github.io/000_OI/SPC/index.html) règ
 **Fiches complémentaires**
 
 - [Mémo : Cg et Cgk, méthode Bosch](SPC/Activites/Memo_methode_Bosch_Cg_Cgk.pdf)
+- [Mémo : cartes aux attributs](SPC/Activites/Memo_cartes_attributs.pdf)
 - [Fiche R&R : l'opérateur compte-t-il ?](SPC/Activites/Fiche_RR_operateur_compte-t-il.pdf)
 - [Fiche : trois cales, trois questions](SPC/Activites/Fiche_Trois_cales.pdf)
 - [Livret de toutes les fiches](SPC/Activites/Livret_toutes_les_fiches.pdf)
+
+**Trames terrain** (une page par TP de mesure : prédire, mesurer, coller, lire un seul chiffre, décider)
+
+- [Les cinq trames réunies](SPC/Activites/Trames_terrain_stagiaires.pdf)
+- [TP 1 : le micromètre est-il juste ?](SPC/Activites/Trame_TP1_micrometre_juste.pdf)
+- [TP 2 : jusqu'où peut-il aller ?](SPC/Activites/Trame_TP2_jusqu_ou_peut_il_aller.pdf)
+- [TP 3 : pied à coulisse](SPC/Activites/Trame_TP3_pied_a_coulisse.pdf)
+- [TP 4 : avec ou sans cliquet](SPC/Activites/Trame_TP4_avec_ou_sans_cliquet.pdf)
+- [TP 5 : la cale dans la main](SPC/Activites/Trame_TP5_cale_dans_la_main.pdf)
 
 **Jeux de données Ellistat** (`SPC/Donnees_Ellistat/`)
 
@@ -133,7 +153,7 @@ Le [catalogue interactif](https://sjaubert.github.io/000_OI/SPC/index.html) règ
 
 | Document | BTS ATI | Bachelor |
 |---|---|---|
-| Dossier technique et de référence | [PDF](SPC/Dossier_Technique_Reference_Butee_BTS_ATI%20%281%29.pdf) | [PDF](SPC/Dossier_Technique_Reference_Butee_Bachelor.pdf) |
+| Dossier technique et de référence | [PDF](SPC/Dossier_Technique_Reference_Butee_BTS_ATI.pdf) | [PDF](SPC/Dossier_Technique_Reference_Butee_Bachelor.pdf) |
 | Livret de TP stagiaire | [Word](SPC/Livret_TP_Capabilite_MSP_Butee_BTS_ATI.docx) | [Word](SPC/Livret_TP_Capabilite_MSP_Butee_Bachelor.docx) |
 | Diaporama Capabilité et SPC | | [PowerPoint](SPC/Capabilite_SPC_Bachelor.pptx) · [PDF avec notes](SPC/Diaporama_Capabilite_SPC_Bachelor_avec_notes.pdf) |
 | Flash mesure (ouverture du TP 1) | | [PowerPoint](SPC/Flash_mesure_Bachelor.pptx) · [PDF avec notes](SPC/Diaporama_Flash_mesure_Bachelor_avec_notes.pdf) · [Excel](SPC/Flash_mesure_Bachelor.xlsx) |
@@ -154,11 +174,24 @@ Outils en ligne (dépôt `00FC`) :
 - [Genèse et métrologie du mètre étalon](SPC/synth%C3%A8se%20historique%20du%20m%C3%A8tre%20%C3%A9talon.pdf)
 - [Livret Bosch n° 10 : Capability of Measurement and Test Processes](https://assets.bosch.com/media/global/bosch_group/purchasing_and_logistics/information_for_business_partners/downloads/quality_docs/general_regulations/bosch_publications/booklet-no10-capability-of-measurement-and-test-processes_en.pdf) (site Bosch)
 
+### 1.4 Documents formateur SPC
+
+- [Guide formateur : organisation et corrigés des 40 fiches](SPC/Formateur/Guide_formateur_base_SPC.pdf)
+- [Guide : l'opérateur compte-t-il ? (R&R)](SPC/Formateur/Guide_RR_formateur.pdf)
+- [Guide : trois cales, trois questions](SPC/Formateur/Guide_Trois_cales_formateur.pdf)
+- [Rappel : GRR et analyse de variance](SPC/Formateur/Rappel_GRR_ANOVA_formateur.pdf)
+- [Ellistat : deux tests de conventions](SPC/Formateur/Ellistat_tests_conventions.pdf)
+- Corrigé du livret de TP butée : [BTS ATI](SPC/Corrige_Livret_TP_Capabilite_MSP_Butee_BTS_ATI%20%281%29.docx) · [Bachelor](SPC/Corrige_Livret_TP_Capabilite_MSP_Butee_Bachelor.docx)
+- [Trame formateur : repères](SPC/Formateur/Trame_formateur_reperes.pdf)
+- [Trame d'une journée de 8 h](SPC/Formateur/Trame_journee_8h_formateur.pdf)
+
 ---
 
 ## 2. Fiabilité et loi de Weibull
 
-Bachelor. Onze TP progressifs, de la prise en main d'Ellistat au plan d'essai sans défaillance.
+Public : Bachelor. Onze TP progressifs, de la prise en main d'Ellistat au plan d'essai sans défaillance.
+
+### 2.1 Les onze TP
 
 | TP | Thème | Cas | Énoncé | Données |
 |---|---|---|---|---|
@@ -181,20 +214,7 @@ Autres ressources :
 - [3 études de fiabilité (Excel)](Reliability/3%20%C3%A9tudes%20de%20fiabilit%C3%A9.xlsx)
 - [Machine d'insertion automatique de composants électroniques (Excel)](Reliability/machine%20d'insertion%20automatique%20de%20composants%20%C3%A9lectroniques.xlsx)
 
----
-
-## 3. Documents formateur
-
-### SPC
-
-- [Guide formateur : organisation et corrigés des 40 fiches](SPC/Formateur/Guide_formateur_base_SPC.pdf)
-- [Guide : l'opérateur compte-t-il ? (R&R)](SPC/Formateur/Guide_RR_formateur.pdf)
-- [Guide : trois cales, trois questions](SPC/Formateur/Guide_Trois_cales_formateur.pdf)
-- [Rappel : GRR et analyse de variance](SPC/Formateur/Rappel_GRR_ANOVA_formateur.pdf)
-- [Ellistat : deux tests de conventions](SPC/Formateur/Ellistat_tests_conventions.pdf)
-- Corrigé du livret de TP butée : [BTS ATI](SPC/Corrige_Livret_TP_Capabilite_MSP_Butee_BTS_ATI%20%281%29.docx) · [Bachelor](SPC/Corrige_Livret_TP_Capabilite_MSP_Butee_Bachelor.docx)
-
-### Fiabilité
+### 2.2 Documents formateur Fiabilité
 
 - Corrigés des TP : [TP1](Reliability/BACH_Fiabilite_TP1_corrige_formateur.pdf) · [TP2](Reliability/BACH_Fiabilite_TP2_corrige_formateur.pdf) · [TP3](Reliability/BACH_Fiabilite_TP3_corrige_formateur.pdf) · [TP4](Reliability/BACH_Fiabilite_TP4_corrige_formateur.pdf) · [TP5](Reliability/BACH_Fiabilite_TP5_corrige_formateur.pdf) · [TP6](Reliability/BACH_Fiabilite_TP6_corrige_formateur.pdf) · [TP7](Reliability/BACH_Fiabilite_TP7_corrige_formateur.pdf) · [TP8](Reliability/BACH_Fiabilite_TP8_corrige_formateur.pdf) · [TP9](Reliability/BACH_Fiabilite_TP9_corrige_formateur.pdf) · [TP10](Reliability/BACH_Fiabilite_TP10_corrige_formateur.pdf) · [TP11](Reliability/BACH_Fiabilite_TP11_corrige_formateur.pdf)
 - [Correction 3 études de fiabilité (Excel)](Reliability/Correction%203%20%C3%A9tudes%20de%20fiabilit%C3%A9.xlsx)
@@ -203,14 +223,63 @@ Autres ressources :
 
 ---
 
-## 4. Sources
+## 3. Taux de rendement synthétique (TRS)
 
-- [Sources LaTeX des fiches SPC](SPC/Sources/fiches/) (xelatex, compiler deux fois)
-- [Générateur Python](SPC/Sources/generateur/) : écrit les fiches, le guide et le catalogue
-- [Mode d'emploi des sources](SPC/Sources/LISEZ-MOI.txt)
-- [Archive complète de la base SPC, 14 novembre 2026](SPC/Sources/Base_SPC_2026-11-14.zip)
-- [Données, liens et source LaTeX du dossier Bachelor](SPC/Donnees_et_source_LaTeX_Bachelor/) ([archive zip](SPC/Donnees_Liens_et_source_LaTeX_Bachelor.zip))
+Public : BTS ATI et Bachelor. Une séance de cours puis un TP de 4 h sous Excel. Le cours suit la cascade des temps (temps d'ouverture, temps requis, temps de fonctionnement, temps net, temps utile) et construit D, P, Q puis le TRS. Le TP reprend le même calcul sur deux centres d'usinage, trois références, quatre semaines de relevés.
+
+### 3.1 Documents stagiaires
+
+| Document | Contenu | Fichier |
+|---|---|---|
+| Cours | Cascade des temps, TRS, TRG et TRE, six grandes pertes, agrégation, Pareto des arrêts, quiz | [Word](TRS/Cours_TRS_BTS_ATI_Bachelor.docx) |
+| Diaporama | 21 diapositives | [PowerPoint](TRS/Diaporama_TRS_BTS_ATI_Bachelor.pptx) |
+| Énoncé du TP | Tableaux croisés dynamiques, modèle de données, mesures DAX. Trois parties : modèle de données (30 min), calcul pas à pas (2 h), analyse et plan d'action (1 h 30) | [Word](TRS/TP_Analyse_TRS_V2_2026-11-15.docx) |
+| Données du TP | Quatre feuilles : Production, Arrets, Non_Conformes, References_Produits | [Excel](TRS/donnees_TRS_V2_2026-11-16.xlsx) |
+| Fiche APP | Fiche de calcul du TRS (BTS ATI, mise à jour du 10/10/2024) | [PDF](TRS/APP%20Fiche%20-%20calcul%20du%20TRS.pdf) |
+
+### 3.2 Documents formateur TRS
+
+- [Corrigé du TP d'analyse du TRS](TRS/Corrige_TP_Analyse_TRS_V2_2026-11-15.docx)
 
 ---
 
-*Pôle Formation UIMM Centre-Val de Loire. Sources des méthodes : guide utilisateur d'Ellistat Data Analysis ; Robert Bosch GmbH, Booklet 10, édition novembre 2019.*
+## 4. Gestion des stocks
+
+Public : BTS ATI et Bachelor Maintenance. Quatre séances, 15 h au total (durées indicatives). Le cours part du coût d'un stock et mène au stock de sécurité : taux de possession, rotation et couverture, analyse ABC, formule de Wilson, remises, cadence finie, SMED, point de commande, recomplètement périodique, stock de sécurité (loi normale, délai variable, loi de Poisson). Les exercices 8 et 17 s'adressent au Bachelor.
+
+### 4.1 Documents stagiaires
+
+| Pièce | Contenu | Fichiers |
+|---|---|---|
+| P1 | Cours (19 pages) | [PDF](Stock/01_Stagiaires/P1_Cours_Gestion_des_stocks.pdf) · [Word](Stock/01_Stagiaires/P1_Cours_Gestion_des_stocks.docx) |
+| P2 | Cahier d'exercices et de TP (15 pages) : 20 exercices, 5 TP Excel, une étude de cas | [PDF](Stock/01_Stagiaires/P2_Exercices_TP_Gestion_des_stocks.pdf) · [Word](Stock/01_Stagiaires/P2_Exercices_TP_Gestion_des_stocks.docx) |
+| P3 | Classeur de données : une feuille par TP, aucune formule | [Excel](Stock/01_Stagiaires/P3_Donnees_TP_Gestion_des_stocks.xlsx) |
+
+| Séance | Exercices | Travaux pratiques | Durée indicative |
+|---|---|---|---|
+| 1. Ce que coûte un stock, analyse ABC | 1 à 3 | TP 1 : analyse ABC de 40 références | 2 h 30 |
+| 2. Combien commander | 4 à 9 | TP 2 : courbes de coûts et quantité économique | 3 h 20 |
+| 3. Quand commander | 10 à 13 | TP 3 : simuler le stock de FONSABLE | 3 h 40 |
+| 4. Stock de sécurité et synthèse | 14 à 20 | TP 4 : du relevé de consommation au stock de sécurité. TP 5 : seuils de pièces de rechange par la loi de Poisson. Étude de cas du tube TA-63 (1 h 30) | 5 h 30 |
+
+### 4.2 Documents formateur Stocks
+
+- Corrigé complet (37 pages) : [PDF](Stock/02_Formateur/Corrige_formateur_Gestion_des_stocks.pdf) · [Word](Stock/02_Formateur/Corrige_formateur_Gestion_des_stocks.docx)
+- [Classeur corrigé des TP (Excel)](Stock/02_Formateur/Classeur_corrige_TP_Gestion_des_stocks.xlsx)
+- [Sources de génération (zip)](Stock/02_Formateur/sources_generation.zip)
+
+---
+
+## 5. Sources
+
+- [Sources LaTeX des fiches SPC](SPC/Sources/fiches/) (xelatex, compiler deux fois)
+- [Générateur Python](SPC/Sources/generateur/) : écrit les fiches, le guide, les trames et le catalogue
+- [Mode d'emploi des sources](SPC/Sources/LISEZ-MOI.txt)
+- [Archive complète de la base SPC, 14 novembre 2026](SPC/Sources/Base_SPC_2026-11-14.zip)
+- [Archive des sources du déroulé V4, 14 novembre 2026](SPC/Sources/V4_deroule_2026-11-14.zip)
+- [Données, liens et source LaTeX du dossier Bachelor](SPC/Donnees_et_source_LaTeX_Bachelor/) ([archive zip](SPC/Donnees_Liens_et_source_LaTeX_Bachelor.zip))
+- [Sources de génération du corrigé de gestion des stocks](Stock/02_Formateur/sources_generation.zip)
+
+---
+
+*Pôle Formation UIMM Centre-Val de Loire. Sources des méthodes : guide utilisateur d'Ellistat Data Analysis ; Robert Bosch GmbH, Booklet 10, édition novembre 2019 ; norme NF E60-182, citée dans les supports du dossier TRS (texte de la norme non consulté directement).*
