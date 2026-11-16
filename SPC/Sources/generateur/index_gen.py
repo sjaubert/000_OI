@@ -172,6 +172,7 @@ function construire(){
         +'<div class="meta"><span>'+duree(a.duree)+'</span><span>niveau '+a.niveau+'</span>'+(a.ellistat?'<span class="e">Ellistat</span>':'')+(a.mesure?'<span class="m">on mesure</span>':'')+'</div>'
         +'<p>'+esc(a.but)+'</p><div class="orga" data-orga></div>'
         +'<details class="plus"><summary>Matériel</summary><ul>'+a.materiel.map(function(m){return '<li>'+esc(m)+'</li>';}).join("")+'</ul></details>'
+        +(a.note?'<details class="plus"><summary>'+esc(a.note.titre)+'</summary><p>'+esc(a.note.texte)+'</p><p>Sources : '+a.note.sources.map(function(s){return '<a href="'+s[1]+'" target="_blank" rel="noopener">'+esc(s[0])+'</a>';}).join(" ; ")+'</p></details>':'')
         +'<div class="liens"><a class="fiche" href="'+a.fiche+'" target="_blank" rel="noopener">Fiche (PDF)</a>'+a.liens.map(function(l){ return '<a href="'+l[1]+'" target="_blank" rel="noopener">'+esc(l[0])+'</a>'; }).join("")+'</div>'
         +'<label class="choix"><input type="checkbox" data-sel="'+a.code+'"> Retenir pour ma séance</label></article>';
     });

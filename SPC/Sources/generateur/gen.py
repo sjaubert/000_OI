@@ -134,6 +134,8 @@ def fiche(a, bloc):
     L = [r"\documentclass[10pt,a4paper]{article}", r"\input{commun.tex}", rf"\pied{{Base SPC · fiche {a['code']} · {tex(a['titre'])}}}", r"\begin{document}", r"\thispagestyle{fancy}"]
     L.append(rf"\entete{{{a['code']}}}{{{tex(a['titre'])}}}{{{tex(a['question'])}}}{{{tex(bloc)}}}{{{a['duree']} min}}{{{ORG[a['org']['mode']]}}}{{{a['niveau']}}}")
     L.append(r"\begin{tcolorbox}[boite]" + rf"\textbf{{Le but.}} {tex(a['but'])}\par\textbf{{Il vous faut.}} " + " · ".join(tex(m) for m in a['materiel']) + r"\end{tcolorbox}")
+    if a.get('encadre'):
+        L.append(r"\begin{tcolorbox}[boite]" + a['encadre'] + r"\end{tcolorbox}")
     if a['predire']:
         L.append(r"\begin{tcolorbox}[pred]" + a['predire'] + r"\reponse\end{tcolorbox}")
     L.append(r"\titre{À faire}")
@@ -192,7 +194,7 @@ def catalogue():
         for lab, h in a['liens']:
             liens.append([lab, h[3:] if h.startswith('../') else 'Activites/' + h])
         out.append(dict(code=a['code'], bloc=b, blocNom=nom, titre=a['titre'], question=a['question'], niveau=a['niveau'], duree=a['duree'], org=a['org'], ellistat=a['ellistat'], mesure=a['mesure'],
-                        but=a['but'], materiel=a['materiel'], besoin=a['besoin'], fiche='Activites/' + nomfiche(a) + '.pdf', liens=liens))
+                        but=a['but'], materiel=a['materiel'], besoin=a['besoin'], fiche='Activites/' + nomfiche(a) + '.pdf', liens=liens, **({'note': a['note']} if a.get('note') else {})))
     return out
 
 if __name__ == '__main__':

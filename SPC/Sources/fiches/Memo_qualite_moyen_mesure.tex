@@ -1,0 +1,123 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[a4paper,margin=13mm,top=8mm,bottom=7mm]{geometry}
+\usepackage{fontspec}
+\setmainfont{Liberation Sans}
+\usepackage{polyglossia}
+\setdefaultlanguage{french}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage[most]{tcolorbox}
+\usepackage{tabularx,booktabs,array}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\definecolor{uimm}{HTML}{005677}
+\definecolor{cyan}{HTML}{13A2DD}
+\definecolor{fond}{HTML}{E6F2FA}
+\definecolor{ok}{HTML}{2E7D32}
+\definecolor{ko}{HTML}{B3261E}
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{2pt}
+\setlist{nosep,leftmargin=12pt,label=\textcolor{cyan}{\textbullet}}
+\newcommand{\titre}[1]{\vspace{2pt}{\color{uimm}\large\bfseries #1}\par\vspace{-3pt}{\color{cyan}\rule{\linewidth}{1.2pt}}\par\vspace{-2pt}}
+\tcbset{boite/.style={colback=fond,colframe=uimm,boxrule=0.6pt,arc=2pt,left=6pt,right=6pt,top=3pt,bottom=3pt}}
+\newcommand{\cible}[3]{%
+\begin{tikzpicture}[scale=0.30]
+\foreach \r/\c in {2.2/fond!60!white,1.5/fond!85!cyan!40,0.8/cyan!45,0.25/uimm}{\fill[\c] (0,0) circle (\r);}
+\draw[uimm,line width=0.4pt] (0,0) circle (2.2);
+#1
+\end{tikzpicture}\\[-1pt]{\scriptsize\bfseries #2}\\[-1pt]{\scriptsize #3}}
+\newcommand{\pt}[2]{\fill[ko] (#1,#2) circle (0.13);}
+\begin{document}
+
+\begin{tcolorbox}[colback=uimm,colframe=uimm,arc=2pt,left=4pt,right=8pt,top=4pt,bottom=4pt]
+\begin{minipage}[c]{18mm}\setlength{\fboxsep}{1.2pt}\fcolorbox{white}{white}{\includegraphics[height=16.5mm]{logo_uimm.jpg}}\end{minipage}\hspace{4mm}%
+\begin{minipage}[c]{\dimexpr\linewidth-22mm\relax}\color{white}
+{\LARGE\bfseries Les qualités d'un moyen de mesure}\\[2pt]
+{\large Justesse, fidélité, linéarité, stabilité : que regarde chacune ?}
+\end{minipage}
+\end{tcolorbox}
+
+\begin{tcolorbox}[boite]
+\textbf{L'idée.} On mesure plusieurs fois une \textbf{cale étalon} dont on connaît la vraie valeur $x_m$. Deux questions de base : \textbf{où tombent les mesures ?} (justesse) et \textbf{sont-elles groupées ?} (fidélité). Les autres notions regardent ce qui change : la longueur mesurée (linéarité), le temps (stabilité), les personnes (reproductibilité).
+\end{tcolorbox}
+
+\begin{center}
+\begin{minipage}[t]{0.24\linewidth}\centering\cible{\pt{0.1}{0.05}\pt{-0.12}{0.12}\pt{0.06}{-0.13}\pt{-0.08}{-0.05}\pt{0.14}{-0.02}}{\textcolor{ok}{Groupé et centré}}{bon}\end{minipage}\hfill
+\begin{minipage}[t]{0.24\linewidth}\centering\cible{\pt{1.0}{0.7}\pt{0.78}{0.82}\pt{1.06}{0.55}\pt{0.9}{0.6}\pt{1.12}{0.78}}{Groupé, décalé}{\textbf{justesse} à revoir}\end{minipage}\hfill
+\begin{minipage}[t]{0.24\linewidth}\centering\cible{\pt{0.9}{0.4}\pt{-0.8}{0.7}\pt{0.3}{-1.0}\pt{-0.6}{-0.6}\pt{1.0}{-0.4}}{Dispersé, centré}{\textbf{fidélité} à revoir}\end{minipage}\hfill
+\begin{minipage}[t]{0.24\linewidth}\centering\cible{\pt{1.5}{1.0}\pt{0.2}{1.4}\pt{1.2}{-0.3}\pt{0.3}{0.1}\pt{1.7}{0.2}}{Dispersé et décalé}{les deux}\end{minipage}
+\end{center}
+\vspace{-10pt}
+
+\titre{1. Le vocabulaire}
+\renewcommand{\arraystretch}{1.08}
+\footnotesize
+\begin{tabularx}{\linewidth}{@{}>{\bfseries\color{uimm}}l@{\hspace{3mm}} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}p{50mm}@{}}
+\toprule
+\color{black}Notion & \textbf{Question posée} & \textbf{Ce qu'on calcule}\\
+\midrule
+Résolution & L'instrument est-il assez fin pour cette tolérance ? & Plus petit incrément affiché : au plus 5 \% de $T$\\
+Justesse & La moyenne tombe-t-elle sur la vraie valeur ? & Biais $=\bar x - x_m$\\
+Fidélité & Les mesures répétées sont-elles groupées ? & Écart-type $s$\\
+Répétabilité & Même opérateur, instrument, pièce, à court terme : quelle dispersion ? & $s$ en conditions constantes\\
+Reproductibilité & Le résultat change-t-il quand l'opérateur ou l'instrument change ? & Écart entre opérateurs\\
+Linéarité & Le biais est-il le même sur toute l'étendue de mesure ? & Pente $b$ de l'erreur en fonction de la valeur vraie\\
+Stabilité & Le biais change-t-il au cours du temps ? & Évolution du biais d'un étalon témoin\\
+\bottomrule
+\end{tabularx}
+\normalsize
+
+\titre{2. Deux outils pour décider}
+\begin{minipage}[t]{0.495\linewidth}
+\textbf{Capabilité du moyen (type 1)}
+\begin{tcolorbox}[boite]
+\[C_g=\frac{0{,}2\,T}{6\,s}\qquad C_{gk}=\frac{0{,}1\,T-\lvert\bar x-x_m\rvert}{3\,s}\]
+\centering\small Seuil : \textbf{1,33} pour les deux.\\
+$C_g$ bas : problème de \textbf{fidélité}.\\
+$C_g$ bon, $C_{gk}$ bas : problème de \textbf{justesse}.
+\end{tcolorbox}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.495\linewidth}
+\textbf{Test du biais}
+\begin{tcolorbox}[boite]
+\[\frac{\lvert\bar x-x_m\rvert}{s}\le\frac{t_{n-1;\,0{,}975}}{\sqrt n}\]
+\centering\small Biais négligeable si le rapport est au plus \textbf{0,715} pour $n=10$ et \textbf{0,284} pour $n=50$.\\
+Avec $s$ très petit, le test peut juger significatif un biais sans importance : c'est $C_{gk}$ qui tranche.
+\end{tcolorbox}
+\end{minipage}
+
+\titre{3. Linéarité et tolérance minimale}
+\begin{minipage}[t]{0.495\linewidth}
+\textbf{Linéarité.} On mesure 5 cales de longueurs différentes, 10 fois chacune. On trace l'erreur (mesure moins valeur vraie) en fonction de la valeur vraie et on ajuste une droite.
+\begin{itemize}
+\item Ordonnée à l'origine : la \textbf{justesse}.
+\item Pente $b$ : la \textbf{linéarité}. Pente significative : l'erreur dépend de la longueur.
+\item Remède : décalage constant, on règle. Pente, on restreint la plage ou on change d'instrument.
+\end{itemize}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.495\linewidth}
+\textbf{Plus petite tolérance contrôlable.} On impose $C_{gk}\ge1{,}33$ :
+\[0{,}1\,T-\lvert\bar x-x_m\rvert\ge 3\times1{,}33\,s\;\Longrightarrow\;T_{\min}\approx10\,\lvert\text{biais}\rvert+40\,s\]
+Exemple : $s=0{,}5$ µm, biais 1 µm, donc $T_{\min}\approx10+20=30$ µm. La butée ($T=150$ µm) est à portée du micromètre.
+\end{minipage}
+
+\titre{4. À ne pas confondre}
+\begin{itemize}
+\item \textbf{« Précision »} est ambigu. Dis \emph{fidélité} ou \emph{justesse}.
+\item \textbf{Résolution fine} ne garantit ni justesse ni fidélité : un micromètre peut afficher le micron et être décalé.
+\item \textbf{Type 1} ne voit pas l'opérateur : pour la reproductibilité, on fait une étude R\&R (type 2).
+\item \textbf{Moyen capable} ne veut pas dire \textbf{procédé capable} : on juge l'instrument avant la machine.
+\end{itemize}
+
+\titre{5. Le grade d'une cale étalon}
+\begin{tcolorbox}[boite]\footnotesize
+La norme ISO 3650 définit quatre grades : \textbf{K}, \textbf{0}, \textbf{1}, \textbf{2}. Chacun fixe deux tolérances : l'\textbf{écart limite} de la longueur par rapport à la cote marquée et la \textbf{variation de longueur} sur les faces de mesure. Pour 0, 1 et 2, plus le chiffre est petit, plus elles sont serrées. K est la cale de référence qui sert à étalonner les autres ; 0 sert en outillage, contrôle et réglage de comparateurs ; 1 au contrôle de première pièce et à la vérification sur machine à mesurer tridimensionnelle ; 2 de référence d'atelier. Un étalon doit être nettement meilleur que l'instrument qu'il qualifie : un grade plus fin que nécessaire ne se voit pas (fiche M16). Le certificat de la cale fait foi.
+\end{tcolorbox}
+
+\vspace{2pt}
+{\scriptsize\color{uimm}\rule{\linewidth}{0.4pt}\\
+\textbf{Sources.} Bosch, \emph{Technical Statistics, Booklet 10 : Capability of Measurement and Test Processes}, novembre 2019 : $C_g$, $C_{gk}$, seuil 1,33 (§ 4.1), test du biais (annexe C). ISO 3650 (édition 1998), résumé en ligne : \href{https://www.iso.org/standard/1241.html}{\nolinkurl{iso.org/standard/1241.html}}. Usages des grades : Aims Industrial (distributeur), \href{https://aimsindustrial.com.au/blogs/product-guides/gauge-block-guide}{\nolinkurl{aimsindustrial.com.au/blogs/product-guides/gauge-block-guide}}. Base SPC : fiches M8, M14, M16. $T_{\min}$ : calcul direct à partir de $C_{gk}\ge1{,}33$.}
+\end{document}

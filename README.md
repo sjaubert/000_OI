@@ -4,6 +4,8 @@ Pôle Formation UIMM Centre-Val de Loire. Ressources de Stéphane Jaubert pour l
 
 **Site en ligne :** [sjaubert.github.io/000_OI](https://sjaubert.github.io/000_OI/)
 
+**Portail des formations :** [sjaubert.github.io/00FC](https://sjaubert.github.io/00FC/) (le TRS, les stocks et la base SPC y sont référencés)
+
 | Thème | Public | Contenu | Aller à |
 |---|---|---|---|
 | SPC et capabilité | BTS ATI, Bachelor, formation continue | 40 activités, TP de capabilité de la butée, trames terrain | [Section 1](#1-spc-et-capabilité) |
@@ -108,6 +110,7 @@ Le [catalogue interactif](https://sjaubert.github.io/000_OI/SPC/index.html) règ
 
 - [Mémo : Cg et Cgk, méthode Bosch](SPC/Activites/Memo_methode_Bosch_Cg_Cgk.pdf)
 - [Mémo : cartes aux attributs](SPC/Activites/Memo_cartes_attributs.pdf)
+- [Mémo : justesse, fidélité, linéarité, stabilité](SPC/Activites/Memo_qualite_moyen_mesure.pdf)
 - [Fiche R&R : l'opérateur compte-t-il ?](SPC/Activites/Fiche_RR_operateur_compte-t-il.pdf)
 - [Fiche : trois cales, trois questions](SPC/Activites/Fiche_Trois_cales.pdf)
 - [Livret de toutes les fiches](SPC/Activites/Livret_toutes_les_fiches.pdf)
@@ -234,7 +237,7 @@ Public : BTS ATI et Bachelor. Une séance de cours puis un TP de 4 h sous Excel.
 | Cours | Cascade des temps, TRS, TRG et TRE, six grandes pertes, agrégation, Pareto des arrêts, quiz | [Word](TRS/Cours_TRS_BTS_ATI_Bachelor.docx) |
 | Diaporama | 21 diapositives | [PowerPoint](TRS/Diaporama_TRS_BTS_ATI_Bachelor.pptx) |
 | Énoncé du TP | Tableaux croisés dynamiques, modèle de données, mesures DAX. Trois parties : modèle de données (30 min), calcul pas à pas (2 h), analyse et plan d'action (1 h 30) | [Word](TRS/TP_Analyse_TRS_V2_2026-11-15.docx) |
-| Données du TP | Quatre feuilles : Production, Arrets, Non_Conformes, References_Produits | [Excel](TRS/donnees_TRS_V2_2026-11-16.xlsx) |
+| Données du TP | Quatre feuilles : Production, Arrets, Non_Conformes, References_Produits | [Excel](TRS/donnees_TRS_V2_2026-11-15.xlsx) |
 | Fiche APP | Fiche de calcul du TRS (BTS ATI, mise à jour du 10/10/2024) | [PDF](TRS/APP%20Fiche%20-%20calcul%20du%20TRS.pdf) |
 
 ### 3.2 Documents formateur TRS
