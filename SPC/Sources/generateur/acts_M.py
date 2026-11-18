@@ -87,7 +87,7 @@ dict(code="M4", titre="Pied à coulisse contre micromètre", question="Deux inst
   predire=r"Lequel des deux instruments donnera les mesures les plus groupées ? De combien, à votre avis ?",
   etapes=[
    r"M|Mesurer la cale 15 fois au micromètre (ou reprendre les mesures de M3), puis 15 fois au pied à coulisse. Retirer la cale à chaque fois.",
-   r"E|\menu{Gage R\&R}, onglet \menu{Justesse}, « Ajouter une justesse » : une étude par instrument. Nombre de mesures 15 ; Valeur vraie = valeur de la cale ; LSI = cale $-$ 0,075 et LSS = cale + 0,075 ; k 3. Saisir toutes les décimales lues : 10,00 et 10,02 au pied à coulisse, 10,000 au micromètre.",
+   r"E|\menu{Gage R\&R}, onglet \menu{Justesse}, « Ajouter une justesse » : une étude par instrument. Nombre de mesures 15 ; Valeur vraie = valeur de la cale ; LSI = cale $-$ 0,075 et LSS = cale + 0,075 (tolérance de la butée, $T = 0{,}150$ mm, centrée sur la cale) ; k 3. Saisir toutes les décimales lues : 10,00 et 10,02 au pied à coulisse, 10,000 au micromètre.",
    r"W|Coller les deux séries dans la page « Comparer deux séries de mesures ».",
   ],
   releve=("deux", 15, "Micromètre (mm)", "Pied à coulisse (mm)"),
@@ -116,7 +116,7 @@ dict(code="M5", titre="Avec ou sans cliquet", question="La façon de serrer chan
    r"M|Même opérateur, même cale, même micromètre. Série A : 15 mesures \textbf{au cliquet} (toujours le même nombre de crans).",
    r"M|Série B : 15 mesures \textbf{sans le cliquet}, en serrant le tambour à la main « comme d'habitude ».",
    r"W|Coller les deux séries dans la page « Comparer deux séries de mesures », avec la valeur de la cale et $T = 0{,}15$.",
-   r"E|\menu{Gage R\&R}, onglet \menu{Justesse} : une étude par série (Nombre de mesures 15 ; Valeur vraie = valeur de la cale ; LSI = cale $-$ 0,075 et LSS = cale + 0,075 ; k 3).",
+   r"E|\menu{Gage R\&R}, onglet \menu{Justesse} : une étude par série (Nombre de mesures 15 ; Valeur vraie = valeur de la cale ; LSI = cale $-$ 0,075 et LSS = cale + 0,075 (tolérance de la butée, $T = 0{,}150$ mm, centrée sur la cale) ; k 3).",
   ],
   releve=("deux", 15, "A : avec cliquet (mm)", "B : sans cliquet (mm)"),
   questions=[
@@ -427,7 +427,7 @@ dict(code="M16", titre="Deux grades, un micromètre", question="Mon micromètre 
   etapes=[
    r"M|Lire dans le tableau ci-dessous les écarts limites des deux grades pour une cale de 10 mm. Calculer l'écart maximal possible entre les deux cales : les deux limites s'ajoutent.",
    r"M|Nettoyer les deux cales. Mesurer \textbf{15 fois} chacune au cliquet, en alternant : céramique, acier, céramique, acier. Retirer la cale à chaque mesure.",
-   r"E|\menu{Gage R\&R}, onglet \menu{Justesse} : deux études, « Ceramique\_grade0 » et « Acier\_grade1 ». Nombre de mesures 15 ; Valeur vraie 10,000 ; LSI 9,925 et LSS 10,075 ; k 3. Relever Cg et Cgk.\par{\small \textbf{k} : nombre d'écarts types retenus de chaque côté de la moyenne ; $k=3$ donne une dispersion de $6s$. \textbf{Cg} compare cette dispersion à 20 \% de la tolérance : $C_g = 0{,}2\,T/(6s)$, avec $T$ = LSS $-$ LSI. \textbf{Cgk} retire en plus le décalage entre la moyenne et la valeur vraie $x_m$ : $C_{gk} = (0{,}1\,T - |\bar x - x_m|)/(3s)$. Le livret Bosch demande 1,33 au moins pour les deux.}",
+   r"E|\menu{Gage R\&R}, onglet \menu{Justesse} : deux études, « Ceramique\_grade0 » et « Acier\_grade1 ». Nombre de mesures 15 ; Valeur vraie 10,000 ; LSI 9,925 et LSS 10,075 (tolérance de la butée, $T = 0{,}150$ mm, centrée sur la cale : $10{,}000 \pm 0{,}075$) ; k 3. Relever Cg et Cgk.\par{\small \textbf{k} : nombre d'écarts types retenus de chaque côté de la moyenne ; $k=3$ donne une dispersion de $6s$. \textbf{Cg} compare cette dispersion à 20 \% de la tolérance : $C_g = 0{,}2\,T/(6s)$, avec $T$ = LSS $-$ LSI. \textbf{Cgk} retire en plus le décalage entre la moyenne et la valeur vraie $x_m$ : $C_{gk} = (0{,}1\,T - |\bar x - x_m|)/(3s)$. Le livret Bosch demande 1,33 au moins pour les deux.}",
    r"W|Coller les deux séries dans la page « Comparer deux séries de mesures », avec 10,000 comme valeur de la cale, à l'adresse suivante :\par\href{https://sjaubert.github.io/000_OI/SPC/Pages/Comparer_deux_series.html}{\nolinkurl{https://sjaubert.github.io/000_OI/SPC/Pages/Comparer_deux_series.html}}",
    r"M|Avec 15 mesures par cale, le plus petit écart de moyennes que le test déclare significatif vaut environ $0{,}75 \times s$. Prendre pour $s$ la moyenne des deux écarts-types.",
   ],
