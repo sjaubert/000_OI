@@ -6,7 +6,8 @@ PARC=[["p25","Journée très pratique (7 h)",["E1","E2","E3","E4","M1","M2","M3"
  ["pA","Attributs, une demi-journée",["A1","A2","A3","A4","A5","A6","A8","A9"]],
  ["pC","Cartes et capabilité, une journée",["C1","C2","C3","E5","C4","C6","C7"]],
  ["pS","Groupe solide, synthèse",["C5","M8","M13","C8"]],
- ["pK","Étalons et cales de grade 0",["M10","M14","M16","M15","M17"]]]
+ ["pK","Étalons et cales de grade 0",["M10","M14","M16","M15","M17"]],
+ ["pG","Mallettes GUNT (plaques et arbres)",["G1","G2","G3","G4","G5"]]]
 codes={a['code'] for a in CAT}
 for p in PARC: assert set(p[2])<=codes,p
 HTML=r'''<!doctype html>
@@ -16,10 +17,10 @@ HTML=r'''<!doctype html>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@600;700&family=Source+Sans+3:wght@400;600;700&display=swap">
 <style>
 :root{--papier:#F6F8F7;--encre:#17324D;--trait:#5B6B7A;--grille:#D9E2E0;--fond:#E9EEED;--carte:#FFFFFF;--accent:#1F4E79;--accentfond:#DCE7F2;--ok:#2E7D32;--okfond:#E3F1E4;--ko:#B3261E;--kofond:#FBE4E2;--uimm:#005677;
---bE:#13A2DD;--bM:#005677;--bA:#C2610F;--bC:#7B1FA2;
+--bE:#13A2DD;--bM:#005677;--bA:#C2610F;--bC:#7B1FA2;--bG:#00796B;
 --f-titre:"Barlow Semi Condensed","Arial Narrow",Arial,sans-serif;--f-texte:"Source Sans 3","Segoe UI",Arial,sans-serif;color-scheme:light}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--papier:#16201F;--encre:#DCE8F2;--trait:#9AABB8;--grille:#2C3A36;--fond:#0F1716;--carte:#1B2625;--accent:#8DB8E6;--accentfond:#1E3247;--ok:#7CC283;--okfond:#1D3322;--ko:#F2877E;--kofond:#3A1E1C;--uimm:#4FA3C7;--bE:#4FC3F7;--bM:#4FA3C7;--bA:#F0A257;--bC:#CE93D8;color-scheme:dark}}
-:root[data-theme="dark"]{--papier:#16201F;--encre:#DCE8F2;--trait:#9AABB8;--grille:#2C3A36;--fond:#0F1716;--carte:#1B2625;--accent:#8DB8E6;--accentfond:#1E3247;--ok:#7CC283;--okfond:#1D3322;--ko:#F2877E;--kofond:#3A1E1C;--uimm:#4FA3C7;--bE:#4FC3F7;--bM:#4FA3C7;--bA:#F0A257;--bC:#CE93D8;color-scheme:dark}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--papier:#16201F;--encre:#DCE8F2;--trait:#9AABB8;--grille:#2C3A36;--fond:#0F1716;--carte:#1B2625;--accent:#8DB8E6;--accentfond:#1E3247;--ok:#7CC283;--okfond:#1D3322;--ko:#F2877E;--kofond:#3A1E1C;--uimm:#4FA3C7;--bE:#4FC3F7;--bM:#4FA3C7;--bA:#F0A257;--bC:#CE93D8;--bG:#5FD3A8;color-scheme:dark}}
+:root[data-theme="dark"]{--papier:#16201F;--encre:#DCE8F2;--trait:#9AABB8;--grille:#2C3A36;--fond:#0F1716;--carte:#1B2625;--accent:#8DB8E6;--accentfond:#1E3247;--ok:#7CC283;--okfond:#1D3322;--ko:#F2877E;--kofond:#3A1E1C;--uimm:#4FA3C7;--bE:#4FC3F7;--bM:#4FA3C7;--bA:#F0A257;--bC:#CE93D8;--bG:#5FD3A8;color-scheme:dark}
 *{box-sizing:border-box} body{margin:0;background:var(--fond);color:var(--encre);font-family:var(--f-texte);font-size:16px;line-height:1.45}
 [hidden]{display:none!important}
 .page{max-width:1180px;margin:0 auto;padding:22px max(16px,env(safe-area-inset-left,0px)) 48px max(16px,env(safe-area-inset-right,0px));display:grid;gap:16px}
@@ -133,11 +134,12 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,s
 (function(){
 "use strict";
 var CAT=__CAT__, PARC=__PARC__, CLE="baseSPC_v1";
-var NOMS={E:"Prise en main d'Ellistat",M:"Le moyen de mesure",A:"Cartes aux attributs",C:"Cartes aux mesures et capabilité"};
+var NOMS={E:"Prise en main d'Ellistat",M:"Le moyen de mesure",A:"Cartes aux attributs",C:"Cartes aux mesures et capabilité",G:"Mallettes GUNT : plaques et arbres"};
 var $=function(id){return document.getElementById(id);};
 function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
-var etat={n:4,h:7,niv:3,blocs:{E:true,M:true,A:true,C:true},sel:{}};
+var etat={n:4,h:7,niv:3,blocs:{E:true,M:true,A:true,C:true,G:true},sel:{}};
 try{ var s=localStorage.getItem(CLE); if(s){ var o=JSON.parse(s); if(o&&o.blocs&&o.sel) etat=Object.assign(etat,o); } }catch(e){}
+Object.keys(NOMS).forEach(function(b){ if(etat.blocs[b]===undefined) etat.blocs[b]=true; });
 function sauver(){ try{ localStorage.setItem(CLE,JSON.stringify(etat)); }catch(e){} }
 function duree(m){ var h=Math.floor(m/60), r=m%60; return h?(h+" h"+(r?" "+(r<10?"0":"")+r:"")):(r+" min"); }
 function pl(n,mot){ return n+" "+mot+(n>1?"s":""); }
@@ -158,7 +160,7 @@ function orga(a,n){
   }
   if(n<o.min) return {t:"Il faut au moins "+o.min+" personnes : le formateur complète ("+pl(o.min-n,"personne")+").",p:1};
   var g=Math.max(1,Math.floor(n/o.taille)), t=Math.ceil(n/g);
-  return {t:(g===1?"Un seul groupe de "+n:pl(g,"groupe")+" de "+t+" au plus")+({M11:" : 3 opérateurs mesurent, les autres notent.",M17:" : 3 opérateurs mesurent, les autres notent.",M15:" : un micromètre et une cale témoin pour tout le groupe, chacun passe à son tour."}[a.code]||"."),p:g};
+  return {t:(g===1?"Un seul groupe de "+n:pl(g,"groupe")+" de "+t+" au plus")+({M11:" : 3 opérateurs mesurent, les autres notent.",M17:" : 3 opérateurs mesurent, les autres notent.",M15:" : un micromètre et une cale témoin pour tout le groupe, chacun passe à son tour.",G2:" : 3 opérateurs mesurent, les autres notent.",G4:" : 3 contrôleurs trient, les autres notent.",G3:" : les arbres sont répartis entre les binômes, puis les mesures sont réunies.",G5:" : les cotes sont réparties entre les binômes, puis les mesures sont réunies."}[a.code]||"."),p:g};
 }
 function construire(){
   $("fBlocs").innerHTML=Object.keys(NOMS).map(function(b){ return '<button type="button" class="puce" data-b="'+b+'" aria-pressed="'+(etat.blocs[b]?"true":"false")+'">'+b+' · '+NOMS[b]+'</button>'; }).join("");
@@ -204,7 +206,7 @@ $("inN").addEventListener("input",function(){ var v=Math.round(Number(this.value
 $("inH").addEventListener("input",function(){ var v=Number(this.value); if(v>0&&v<=40){ etat.h=v; maj(); } });
 $("inNiv").addEventListener("change",function(){ etat.niv=+this.value; maj(); });
 $("fBlocs").addEventListener("click",function(e){ var b=e.target.closest(".puce"); if(!b) return; etat.blocs[b.dataset.b]=!etat.blocs[b.dataset.b]; maj(); });
-$("fParc").addEventListener("click",function(e){ var b=e.target.closest(".puce"); if(!b) return; etat.sel={}; PARC[+b.dataset.p][2].forEach(function(c){ etat.sel[c]=true; }); etat.blocs={E:true,M:true,A:true,C:true}; maj(); $("seance").scrollIntoView({behavior:"smooth",block:"start"}); });
+$("fParc").addEventListener("click",function(e){ var b=e.target.closest(".puce"); if(!b) return; etat.sel={}; PARC[+b.dataset.p][2].forEach(function(c){ etat.sel[c]=true; }); etat.blocs={E:true,M:true,A:true,C:true,G:true}; maj(); $("seance").scrollIntoView({behavior:"smooth",block:"start"}); });
 $("blocs").addEventListener("change",function(e){ var c=e.target.dataset&&e.target.dataset.sel; if(!c) return; if(e.target.checked) etat.sel[c]=true; else delete etat.sel[c]; maj(); });
 $("btnVide").addEventListener("click",function(){ etat.sel={}; maj(); });
 $("btnImp").addEventListener("click",function(){ window.print(); });

@@ -1,0 +1,39 @@
+\documentclass[10pt,a4paper]{article}
+\input{commun.tex}
+\pied{Base SPC · fiche G5 · Quelle cote pose problème ?}
+\begin{document}
+\thispagestyle{fancy}
+\entete{G5}{Quelle cote pose problème ?}{Sur sept cotes de la plaque, laquelle faut-il corriger en premier ?}{Mallettes GUNT : plaques et arbres}{60 min}{en groupe}{3}
+\begin{tcolorbox}[boite]\textbf{Le but.} Mesurer sept cotes sur 20 plaques PT102, calculer le Ppk de chacune, puis classer les cotes de deux façons : par nombre de pièces hors tolérance et par Ppk. Les deux classements ne disent pas la même chose.\par\textbf{Il vous faut.} 20 plaques PT102 numérotées (2 mallettes) · Un pied à coulisse par binôme (avec jauge de profondeur) · Le dessin de la plaque avec ses valeurs · Ellistat\end{tcolorbox}
+\begin{tcolorbox}[pred]Sur sept cotes, laquelle fera le plus de rebuts ? Laquelle n'en fera aucun mais sera pourtant la plus fragile ?\reponse\end{tcolorbox}
+\titre{À faire}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{\arabic*.}},leftmargin=15pt,itemsep=1.5pt]
+\item Avec le formateur, vérifier quelles cotes se mesurent proprement avec vos instruments : $a$ (longueur), $d$ (largeur), $m$ (paroi), $n$ et $o$ (largeurs des lamages), $q$ (épaisseur), $r$ (profondeur). Écarter celles qui ne passent pas.
+\item Compléter le tableau : limite basse et limite haute de chaque cote d'après le dessin. Pour $a$ et $m$, aucune tolérance n'est écrite : appliquer la tolérance générale ISO 2768-mK ($\pm 0{,}3$ pour $a$, $\pm 0{,}2$ pour $m$).
+\item Répartir les cotes entre les binômes (deux cotes chacun). Chaque binôme mesure ses cotes sur les 20 plaques et note les valeurs.
+\item \tagE\ Réunir toutes les mesures dans une même grille, une colonne par cote. Pour chaque colonne, panneau de colonne, onglet \menu{Informations} : \menu{Nom}, \menu{Nb décimales} 2, \menu{Tolerance min} et \menu{Tolerance max} (comme en E3).
+\item \tagE\ \menu{Stats Desc.}, \menu{Détail}, une colonne à la fois : relever moyenne, écart type, Ppk, nombre de plaques hors tolérance et \% hors tolérance attendu.
+\item Classer les cotes : (a) par nombre de plaques hors tolérance, du plus grand au plus petit ; (b) par Ppk, du plus petit au plus grand. Tracer le diagramme de Pareto de (a) sur une feuille.
+\end{enumerate}
+\vspace{3pt}{\renewcommand{\arraystretch}{1.5}\begin{tabularx}{\linewidth}{|l|*{6}{>{\centering\arraybackslash}X|}}\hline
+\textbf{Cote et tolérance du dessin} & \textbf{Limite basse} & \textbf{Limite haute} & \textbf{Moyenne} & \textbf{Écart type} & \textbf{Ppk} & \textbf{Hors tol.}\\\hline
+a : 105, ISO 2768-mK &  &  &  &  &  & \\\hline
+d : 75 +0,3 / 0 &  &  &  &  &  & \\\hline
+m : 6,5, ISO 2768-mK &  &  &  &  &  & \\\hline
+n : 28 +0,1 / −0,3 &  &  &  &  &  & \\\hline
+o : 34 ± 0,1 &  &  &  &  &  & \\\hline
+q : 19 0 / −0,3 &  &  &  &  &  & \\\hline
+r : 16 0 / −0,3 &  &  &  &  &  & \\\hline
+\end{tabularx}}\par
+\newpage
+\titre{J'observe, je décide}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{Q\arabic*.}},leftmargin=22pt]
+\item Quelle cote produit le plus de pièces hors tolérance ? Quelle part du total des rebuts ?\reponse[1]
+\item Quelle cote n'a aucun rebut mais un Ppk inférieur à 1 ? Combien de pièces hors tolérance Ellistat annonce-t-il pour la population ?\reponse[2]
+\item Les deux classements donnent-ils le même ordre ? Lequel prévient le mieux les rebuts de demain ?\reponse[2]
+\item Pour les deux cotes les plus critiques, comparez la moyenne au milieu de la tolérance : de combien décaler ? Cela suffit-il (comparez Pp à 1,33) ?\reponse[2]
+\item Pour la cote $o$ ($T = 0{,}2$ mm), la mesure elle-même est-elle assez fine ? (règle de M1)\reponse[1]
+\end{enumerate}
+\begin{tcolorbox}[retenir]Compter les rebuts regarde le passé. Le Ppk regarde ce que le procédé va produire. Une cote sans rebut peut être la plus fragile.\end{tcolorbox}
+\vfill{\footnotesize\color{uimm}\textbf{Ressources de la base :} Données de secours.}
+\end{document}

@@ -4,9 +4,10 @@ from acts_E import E
 from acts_M import M
 from acts_A import A
 from acts_C import C
+from acts_G import G
 ICI = os.path.dirname(os.path.abspath(__file__))
 TEX = os.path.join(ICI, 'tex'); os.makedirs(TEX, exist_ok=True)
-BLOCS = {'E': ("Prise en main d'Ellistat", E), 'M': ("Le moyen de mesure", M), 'A': ("Cartes aux attributs", A), 'C': ("Cartes aux mesures et capabilité", C)}
+BLOCS = {'E': ("Prise en main d'Ellistat", E), 'M': ("Le moyen de mesure", M), 'A': ("Cartes aux attributs", A), 'C': ("Cartes aux mesures et capabilité", C), 'G': ("Mallettes GUNT : plaques et arbres", G)}
 ORG = {'seul': 'seul', 'binome': 'en binôme', 'trinome': 'en trinôme', 'groupe': 'en groupe', 'rotation': 'rotation sur postes'}
 
 def slug(s):
@@ -102,7 +103,7 @@ def releve(r):
     if k == 'tri':
         n = r[1]
         s = r"{\renewcommand{\arraystretch}{1.45}\small\setlength{\tabcolsep}{2pt}\begin{tabularx}{\linewidth}{|l|*{%d}{>{\centering\arraybackslash}X|}}\hline" % n + "\n"
-        s += r"\textbf{Butée} & " + " & ".join(rf"\scriptsize {i}" for i in range(1, n + 1)) + r"\\\hline" + "\n"
+        s += r"\textbf{" + (r[2] if len(r) > 2 and r[2] else "Butée") + r"} & " + " & ".join(rf"\scriptsize {i}" for i in range(1, n + 1)) + r"\\\hline" + "\n"
         for lab in ("Passage 1", "Passage 2", "Référence"): s += lab + " & " * n + r"\\\hline" + "\n"
         return s + r"\end{tabularx}}\par{\small B = bonne, M = mauvaise. La ligne « Référence » se remplit à la fin, avec le formateur.}\par"
     if k == 'lots':
@@ -126,9 +127,20 @@ def releve(r):
         for lab in [r"Moyenne générale $\bar{\bar X}$ \quad / \quad étendue moyenne $\bar R$", "Limite supérieure des moyennes", "Limite inférieure des moyennes", "Limite supérieure des étendues", "Écart-type court terme", "Cp \\quad / \\quad Cpk", "Pp \\quad / \\quad Ppk"]:
             s += lab + r" & \hspace{28mm} & \hspace{28mm}\\\hline" + "\n"
         return s + r"\end{tabularx}}\par"
+    if k == 'lin7':
+        s = r"{\renewcommand{\arraystretch}{1.5}\small\setlength{\tabcolsep}{3pt}\begin{tabularx}{\linewidth}{|l|*{5}{>{\centering\arraybackslash}X|}>{\centering\arraybackslash}p{15mm}|>{\centering\arraybackslash}p{15mm}|}\hline" + "\n"
+        s += r"\textbf{Longueur} & " + " & ".join(rf"\scriptsize {i}" for i in range(1, 6)) + r" & \textbf{\scriptsize Moyenne} & \textbf{\scriptsize Biais (µm)}\\\hline" + "\n"
+        for c in (10, 50, 60, 90, 100, 140, 150): s += f"{c} mm" + " & " * 7 + r"\\\hline" + "\n"
+        return s + r"\end{tabularx}}\par{\small Biais = moyenne $-$ valeur de la cale. 1 µm = 0,001 mm.}\par"
+    if k == 'decentre':
+        s = r"{\renewcommand{\arraystretch}{1.5}\small\begin{tabularx}{\linewidth}{|l|*{5}{>{\centering\arraybackslash}X|}}\hline" + "\n"
+        s += r"\textbf{Cote} & \textbf{Nominal} & \textbf{Limite basse} & \textbf{Limite haute} & \textbf{Milieu} & \textbf{$T$}\\\hline" + "\n"
+        for c in "bd": s += rf"{c} & & & & & " + r"\\\hline" + "\n"
+        s += r"\end{tabularx}}\par\vspace{5pt}" + "\n"
+        return s + releve(('deux', 20, 'Cote b (mm)', 'Cote d (mm)'))
     raise ValueError(k)
 
-COUPE = {'A2', 'A4', 'A6', 'M6', 'M14', 'M15', 'M16', 'M17'}   # fiches sur deux pages : coupure avant les questions
+COUPE = {'A2', 'A4', 'A6', 'M6', 'M14', 'M15', 'M16', 'M17', 'G1', 'G2', 'G3', 'G5'}   # fiches sur deux pages : coupure avant les questions
 TAG = {'E': r"\tagE\ ", 'W': r"\tagW\ ", 'M': ""}
 def fiche(a, bloc):
     L = [r"\documentclass[10pt,a4paper]{article}", r"\input{commun.tex}", rf"\pied{{Base SPC · fiche {a['code']} · {tex(a['titre'])}}}", r"\begin{document}", r"\thispagestyle{fancy}"]

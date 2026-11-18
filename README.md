@@ -8,14 +8,14 @@ Pôle Formation UIMM Centre-Val de Loire. Ressources de Stéphane Jaubert pour l
 
 | Thème | Public | Contenu | Aller à |
 |---|---|---|---|
-| SPC et capabilité | BTS ATI, Bachelor, formation continue | 40 activités, TP de capabilité de la butée, trames terrain | [Section 1](#1-spc-et-capabilité) |
+| SPC et capabilité | BTS ATI, Bachelor, formation continue | 45 activités, TP de capabilité de la butée, trames terrain | [Section 1](#1-spc-et-capabilité) |
 | Fiabilité | Bachelor | 11 TP Weibull avec Ellistat | [Section 2](#2-fiabilité-et-loi-de-weibull) |
 | TRS | BTS ATI, Bachelor | Cours, diaporama, TP Excel de 4 h (tableaux croisés dynamiques, modèle de données, DAX) | [Section 3](#3-taux-de-rendement-synthétique-trs) |
 | Gestion des stocks | BTS ATI, Bachelor Maintenance | Cours, 20 exercices, 5 TP Excel, étude de cas | [Section 4](#4-gestion-des-stocks) |
 
 | Je cherche | J'ouvre |
 |---|---|
-| Le catalogue des 40 activités SPC | [Base d'activités SPC](https://sjaubert.github.io/000_OI/SPC/index.html) |
+| Le catalogue des 45 activités SPC | [Base d'activités SPC](https://sjaubert.github.io/000_OI/SPC/index.html) |
 | Toutes les fiches SPC en un seul PDF | [Livret de toutes les fiches](SPC/Activites/Livret_toutes_les_fiches.pdf) |
 | Les données à coller dans Ellistat | [Données à copier](https://sjaubert.github.io/000_OI/SPC/Pages/Donnees_a_copier.html) |
 | Une page par TP de mesure, à imprimer pour le terrain | [Trames terrain stagiaires](SPC/Activites/Trames_terrain_stagiaires.pdf) |
@@ -93,6 +93,18 @@ Le [catalogue interactif](https://sjaubert.github.io/000_OI/SPC/index.html) règ
 | C7 | [Trois enquêtes](SPC/Activites/C7_Trois_enquetes.pdf) | La carte sonne : que s'est-il passé, que fait-on ? | 2 | 60 min |
 | C8 | [Du moyen de mesure à la décision](SPC/Activites/C8_Du_moyen_de_mesure_a_la_decision.pdf) | Peut-on piloter ce poste avec une carte, et le procédé est-il capable ? | 3 | 90 min |
 
+**Bloc G : Mallettes GUNT, plaques PT102 et arbres PT105** (5 activités, 260 min)
+
+| Code | Activité | Question | Niveau | Durée |
+|---|---|---|---|---|
+| G1 | [Le pied à coulisse sur 150 mm](SPC/Activites/G1_Le_pied_a_coulisse_sur_150_mm.pdf) | L'erreur du pied à coulisse est-elle la même à 10 mm et à 150 mm ? | 2 | 45 min |
+| G2 | [Un micromètre, plusieurs tolérances](SPC/Activites/G2_Un_micrometre_plusieurs_tolerances.pdf) | Le même micromètre est-il capable pour toutes les tolérances ? | 3 | 60 min |
+| G3 | [Le nominal n'est pas le milieu](SPC/Activites/G3_Le_nominal_n_est_pas_le_milieu.pdf) | Ma cote est-elle centrée dans sa tolérance ? | 2 | 45 min |
+| G4 | [Bon ou rejet sur vingt plaques](SPC/Activites/G4_Bon_ou_rejet_sur_vingt_plaques.pdf) | Trois contrôleurs qui trient les mêmes plaques décident-ils pareil ? | 3 | 50 min |
+| G5 | [Quelle cote pose problème ?](SPC/Activites/G5_Quelle_cote_pose_probleme.pdf) | Sur sept cotes de la plaque, laquelle faut-il corriger en premier ? | 3 | 60 min |
+
+Les cinq activités reposent sur 2 mallettes PT102 (20 plaques) et 2 mallettes PT105 (20 arbres). Les jeux de secours sont simulés ; les tolérances viennent des dessins GUNT (`GUNT/PT102`, `GUNT/PT105`).
+
 **Pages web d'activité**
 
 - [Données à copier](https://sjaubert.github.io/000_OI/SPC/Pages/Donnees_a_copier.html)
@@ -126,6 +138,7 @@ Le [catalogue interactif](https://sjaubert.github.io/000_OI/SPC/index.html) règ
 
 **Jeux de données Ellistat** (`SPC/Donnees_Ellistat/`)
 
+- [Arbres_cotes_decentrees_simule.xlsx](SPC/Donnees_Ellistat/Arbres_cotes_decentrees_simule.xlsx)
 - [Butees_10x5.xlsx](SPC/Donnees_Ellistat/Butees_10x5.xlsx)
 - [Butees_30_valeurs.xlsx](SPC/Donnees_Ellistat/Butees_30_valeurs.xlsx)
 - [Butees_6x5.xlsx](SPC/Donnees_Ellistat/Butees_6x5.xlsx)
@@ -139,8 +152,11 @@ Le [catalogue interactif](https://sjaubert.github.io/000_OI/SPC/index.html) règ
 - [Inspection_120_lots.xlsx](SPC/Donnees_Ellistat/Inspection_120_lots.xlsx)
 - [Justesse_Bosch_p11.xlsx](SPC/Donnees_Ellistat/Justesse_Bosch_p11.xlsx)
 - [Linearite_5_cales_simule.xlsx](SPC/Donnees_Ellistat/Linearite_5_cales_simule.xlsx)
+- [Linearite_7_points_pied_a_coulisse_simule.xlsx](SPC/Donnees_Ellistat/Linearite_7_points_pied_a_coulisse_simule.xlsx)
 - [Lots_35x50_simule.xlsx](SPC/Donnees_Ellistat/Lots_35x50_simule.xlsx)
 - [Lots_taille_variable_simule.xlsx](SPC/Donnees_Ellistat/Lots_taille_variable_simule.xlsx)
+- [Plaques_7_cotes_simule.xlsx](SPC/Donnees_Ellistat/Plaques_7_cotes_simule.xlsx)
+- [RR_arbres_diametre48_simule.xlsx](SPC/Donnees_Ellistat/RR_arbres_diametre48_simule.xlsx)
 - [RR_Bosch_p14.xlsx](SPC/Donnees_Ellistat/RR_Bosch_p14.xlsx)
 - [RR_cales_cotes_connues_simule.xlsx](SPC/Donnees_Ellistat/RR_cales_cotes_connues_simule.xlsx)
 - [Secours_cale_chauffee_simule.xlsx](SPC/Donnees_Ellistat/Secours_cale_chauffee_simule.xlsx)
@@ -151,6 +167,7 @@ Le [catalogue interactif](https://sjaubert.github.io/000_OI/SPC/index.html) règ
 - [Secours_trois_etalons_simule.xlsx](SPC/Donnees_Ellistat/Secours_trois_etalons_simule.xlsx)
 - [Synthese_Justesse_cale12_simule.xlsx](SPC/Donnees_Ellistat/Synthese_Justesse_cale12_simule.xlsx)
 - [Synthese_RR_butees_simule.xlsx](SPC/Donnees_Ellistat/Synthese_RR_butees_simule.xlsx)
+- [Tri_20_plaques_simule.xlsx](SPC/Donnees_Ellistat/Tri_20_plaques_simule.xlsx)
 
 ### 1.2 TP capabilité de la butée (BTS ATI et Bachelor)
 
@@ -179,7 +196,7 @@ Outils en ligne (dépôt `00FC`) :
 
 ### 1.4 Documents formateur SPC
 
-- [Guide formateur : organisation et corrigés des 40 fiches](SPC/Formateur/Guide_formateur_base_SPC.pdf)
+- [Guide formateur : organisation et corrigés des 45 fiches](SPC/Formateur/Guide_formateur_base_SPC.pdf)
 - [Guide : l'opérateur compte-t-il ? (R&R)](SPC/Formateur/Guide_RR_formateur.pdf)
 - [Guide : trois cales, trois questions](SPC/Formateur/Guide_Trois_cales_formateur.pdf)
 - [Rappel : GRR et analyse de variance](SPC/Formateur/Rappel_GRR_ANOVA_formateur.pdf)

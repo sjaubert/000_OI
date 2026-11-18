@@ -5,6 +5,7 @@ GR=[("Butées : cartes aux mesures et capabilité",[('butees30','30 butées en u
  ("Moyen de mesure",[('justesse','Justesse : cale 6,002 mm, 50 mesures (livret Bosch p. 11)'),('rr','R&R : 10 pièces, 3 opérateurs, 2 séries (livret Bosch p. 14)'),('lin','Linéarité : 5 cales × 10 mesures (simulé)'),
    ('instr','Secours : micromètre et pied à coulisse sur une cale de 10 mm (simulé)'),('cliquet','Secours : avec et sans cliquet, cale de 10 mm (simulé)'),('operateurs','Secours : deux opérateurs, cale de 10 mm (simulé)'),('chauffe','Secours : cale de 25 mm réchauffée dans la main (simulé)'),
    ('etalons','Secours : trois étalons 11,850 ; 11,925 ; 12,000 mm, 10 mesures chacun (simulé)'),('derive','Dérive : cale témoin de 10 mm, 8 passages de 5 mesures (simulé)'),('grades','Secours : cale céramique grade 0 et cale acier grade 1, 15 mesures chacune (simulé)'),('rrcotes','R&R : 10 cales de cotes connues 1,01 à 1,10 mm, 3 opérateurs, 2 séries (simulé)'),('s5just','Synthèse : justesse sur cale de 12,000 mm (simulé)'),('s5rr','Synthèse : R&R sur 10 butées (simulé)')]),
+ ("Mallettes GUNT : plaques et arbres",[('lin7','Linéarité du pied à coulisse : 7 longueurs de 10 à 150 mm, 5 mesures (simulé)'),('rrarbres','R&R : 10 arbres Ø 48, 3 opérateurs, 2 séries (simulé)'),('decentre','Arbres : cotes b et d sur 20 arbres (simulé)'),('tri20','Tri de 20 plaques : référence, 3 contrôleurs, 2 passages (simulé)'),('cotes7','Plaques : 7 cotes sur 20 plaques (simulé)')]),
  ("Cartes aux attributs",[('lots35','35 lots de 50 pièces (simulé)'),('lotsvar','25 lots de taille variable (simulé)'),('inspection','120 lots de 150 pièces'),('panneaux','Défauts d\'aspect sur 30 panneaux (simulé)'),('rouleaux','Défauts sur 25 rouleaux de longueur variable (simulé)')])]
 DECS={'instr':[3,2],'chauffe':[0,3]}
 def fmt(v,dec):
@@ -12,14 +13,14 @@ def fmt(v,dec):
 def ligne(k,r):
     d=DECS.get(k); return [fmt(x,d[i] if d else J[k]['dec']) for i,x in enumerate(r)]
 def tableau(k):
-    d=J[k]; h='<table><thead><tr>'+''.join(f'<th>{html.escape(x)}</th>' for x in d['entete'])+('<th></th>' if k=='lin' else '')+'</tr></thead><tbody>'
+    d=J[k]; h='<table><thead><tr>'+''.join(f'<th>{html.escape(x)}</th>' for x in d['entete'])+('<th></th>' if k in ('lin','lin7') else '')+'</tr></thead><tbody>'
     for i,r in enumerate(d['lignes']):
-        h+='<tr>'+''.join(f'<td>{v}</td>' for v in ligne(k,r))+(f'<td><button class="mini" data-k="{k}" data-ligne="{i}">Copier les 10 mesures (en colonne)</button></td>' if k=='lin' else '')+'</tr>'
+        h+='<tr>'+''.join(f'<td>{v}</td>' for v in ligne(k,r))+(f'<td><button class="mini" data-k="{k}" data-ligne="{i}">Copier les {10 if k=="lin" else 5} mesures (en colonne)</button></td>' if k in ('lin','lin7') else '')+'</tr>'
     return h+'</tbody></table>'
 def extra(k):
     if k in ('justesse','s5just'):
         return f'<button class="mode" data-k="{k}" data-mode="col">Copier les mesures sans l\'en-tête</button>'
-    if k in ('rr','rrcotes','s5rr'):
+    if k in ('rr','rrcotes','s5rr','rrarbres'):
         return ''.join(f'<button class="mode" data-k="{k}" data-mode="op{i}">Copier l\'opérateur {n} (2 colonnes, sans en-tête)</button>' for i,n in enumerate('ABC'))
     return ''
 corps=''

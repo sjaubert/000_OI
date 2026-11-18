@@ -1,0 +1,38 @@
+\documentclass[10pt,a4paper]{article}
+\input{commun.tex}
+\pied{Base SPC · fiche G1 · Le pied à coulisse sur 150 mm}
+\begin{document}
+\thispagestyle{fancy}
+\entete{G1}{Le pied à coulisse sur 150 mm}{L'erreur du pied à coulisse est-elle la même à 10 mm et à 150 mm ?}{Mallettes GUNT : plaques et arbres}{45 min}{en binôme}{2}
+\begin{tcolorbox}[boite]\textbf{Le but.} Mesurer sept longueurs étalons de 10 à 150 mm au pied à coulisse, voir si l'erreur grandit avec la longueur, puis la comparer aux tolérances des cotes de la plaque PT102.\par\textbf{Il vous faut.} Un pied à coulisse 150 mm (celui de la mallette PT102) · Un coffret de cales (10, 40, 50, 60, 90 et 100 mm) · Une plaque PT102 (cotes a = 105 et o = 34 mm) · Ellistat\end{tcolorbox}
+\begin{tcolorbox}[pred]Le pied à coulisse est juste à 10 mm. L'est-il autant à 150 mm ? Écrivez l'erreur que vous attendez à 150 mm, en µm.\reponse\end{tcolorbox}
+\titre{À faire}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{\arabic*.}},leftmargin=15pt,itemsep=1.5pt]
+\item Fermer les becs, nettoyer, afficher le zéro. Nettoyer les cales.
+\item Mesurer chaque longueur du tableau \textbf{5 fois}, en ouvrant et en refermant les becs à chaque mesure. Pour 140 mm, empiler 100 + 40 ; pour 150 mm, empiler 100 + 50 (adhérence, comme en M10).
+\item Calculer pour chaque longueur la moyenne, puis le biais en µm : moyenne moins valeur de la cale.
+\item \tagE\ \menu{Gage R\&R}, onglet \menu{Linéarité}, bouton « Ajouter une Etude de linéarité ». Remplir : Nom ; Nombre de produits 7 (Ellistat propose 4) ; Nombre de mesures par produit 5 ; Valeur k 3. Laisser les autres cases vides. Valider.
+\item \tagE\ Onglet \menu{Mesures} : un bloc par longueur. Saisir la VALEUR VRAIE (10, 50, 60, 90, 100, 140, 150) puis ses 5 mesures dans la colonne MESURE.
+\item \tagE\ Onglet \menu{Résultat} : lire « Justesse » et « Pente » (colonnes Valeur, t, Risque alpha, Significatif ?). Puis l'onglet \menu{Graphiques}, qui trace l'erreur selon la valeur vraie.
+\end{enumerate}
+\vspace{3pt}{\renewcommand{\arraystretch}{1.5}\small\setlength{\tabcolsep}{3pt}\begin{tabularx}{\linewidth}{|l|*{5}{>{\centering\arraybackslash}X|}>{\centering\arraybackslash}p{15mm}|>{\centering\arraybackslash}p{15mm}|}\hline
+\textbf{Longueur} & \scriptsize 1 & \scriptsize 2 & \scriptsize 3 & \scriptsize 4 & \scriptsize 5 & \textbf{\scriptsize Moyenne} & \textbf{\scriptsize Biais (µm)}\\\hline
+10 mm &  &  &  &  &  &  & \\\hline
+50 mm &  &  &  &  &  &  & \\\hline
+60 mm &  &  &  &  &  &  & \\\hline
+90 mm &  &  &  &  &  &  & \\\hline
+100 mm &  &  &  &  &  &  & \\\hline
+140 mm &  &  &  &  &  &  & \\\hline
+150 mm &  &  &  &  &  &  & \\\hline
+\end{tabularx}}\par{\small Biais = moyenne $-$ valeur de la cale. 1 µm = 0,001 mm.}\par
+\newpage
+\titre{J'observe, je décide}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{Q\arabic*.}},leftmargin=22pt]
+\item Le biais est-il le même pour les sept longueurs ? Dans quel sens évolue-t-il avec la longueur ?\reponse[2]
+\item Pente = \champ{18mm} mm par mm. Que dit Ellistat dans la colonne « Significatif ? » ? Plus grand biais relevé : \champ{14mm} µm.\reponse[1]
+\item La cote $a = 105$ mm de la plaque a pour tolérance générale ISO 2768-mK, soit $\pm 0{,}3$ mm ($T = 0{,}6$ mm). Quelle part de $T$ représente le plus grand biais ? Faut-il s'en soucier ?\reponse[2]
+\item La cote $o = 34 \pm 0{,}1$ mm ($T = 0{,}2$ mm). Appliquez la règle de M1 (résolution au plus 5 \% de $T$) : ce pied à coulisse convient-il ?\reponse[2]
+\end{enumerate}
+\begin{tcolorbox}[retenir]Le biais d'un pied à coulisse peut grandir avec la longueur. On le qualifie avec des étalons de la longueur où il sert, et on compare toujours à la tolérance de la cote.\end{tcolorbox}
+\vfill{\footnotesize\color{uimm}\textbf{Ressources de la base :} Données de secours.}
+\end{document}

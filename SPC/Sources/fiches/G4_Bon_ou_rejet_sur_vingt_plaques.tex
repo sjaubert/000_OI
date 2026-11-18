@@ -1,0 +1,34 @@
+\documentclass[10pt,a4paper]{article}
+\input{commun.tex}
+\pied{Base SPC · fiche G4 · Bon ou rejet sur vingt plaques}
+\begin{document}
+\thispagestyle{fancy}
+\entete{G4}{Bon ou rejet sur vingt plaques}{Trois contrôleurs qui trient les mêmes plaques décident-ils pareil ?}{Mallettes GUNT : plaques et arbres}{50 min}{en groupe}{3}
+\begin{tcolorbox}[boite]\textbf{Le but.} Qualifier un contrôle par tri sur 20 plaques PT102 : épaisseur q = 19 (+0 / −0,3), mesurée au pied à coulisse, comparée à une référence prise au micromètre.\par\textbf{Il vous faut.} 20 plaques PT102 numérotées (2 mallettes) · Un pied à coulisse par contrôleur · Un micromètre 0-25 mm pour le formateur (référence) · Ellistat\end{tcolorbox}
+\begin{tcolorbox}[pred]Sur 20 plaques triées deux fois par chacun, combien recevront toujours la même décision de tout le monde ?\reponse\end{tcolorbox}
+\titre{À faire}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{\arabic*.}},leftmargin=15pt,itemsep=1.5pt]
+\item Le formateur a mesuré l'épaisseur $q$ des 20 plaques au micromètre et classé chacune B ou M d'après les limites de l'exercice (\champ{18mm} à \champ{18mm} mm ; le dessin donne 18,70 à 19,00). C'est la \textbf{référence}, gardée cachée.
+\item Chaque contrôleur mesure $q$ des 20 plaques au pied à coulisse et note sa décision : B (bonne, entre les limites) ou M (mauvaise). Ordre mélangé.
+\item Deuxième passage : même tri, autre ordre, sans regarder ses premières réponses.
+\item \tagE\ \menu{Gage R\&R}, onglet \menu{Attributs}, bouton « ajouter un gage R\&R ». Remplir : Nom ; Produits 20 ; Opérateurs 3 ; Répétitions 2 (Ellistat propose 3). Valider.
+\item \tagE\ Onglet \menu{Mesure} : un tableau « Expert » (la référence) et un tableau par contrôleur (une colonne par passage). Un clic = OK, Ctrl + clic = KO.
+\item \tagE\ Onglet \menu{Analyse} : lire « Kappa », « Accord global », « Taux d'erreur », « Taux de fausse alarme » et le bloc R\&R. Onglet \menu{Graphiques} : un camembert par contrôleur.
+\end{enumerate}
+\vspace{3pt}{\renewcommand{\arraystretch}{1.45}\small\setlength{\tabcolsep}{2pt}\begin{tabularx}{\linewidth}{|l|*{20}{>{\centering\arraybackslash}X|}}\hline
+\textbf{Plaque} & \scriptsize 1 & \scriptsize 2 & \scriptsize 3 & \scriptsize 4 & \scriptsize 5 & \scriptsize 6 & \scriptsize 7 & \scriptsize 8 & \scriptsize 9 & \scriptsize 10 & \scriptsize 11 & \scriptsize 12 & \scriptsize 13 & \scriptsize 14 & \scriptsize 15 & \scriptsize 16 & \scriptsize 17 & \scriptsize 18 & \scriptsize 19 & \scriptsize 20\\\hline
+Passage 1 &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \\\hline
+Passage 2 &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \\\hline
+Référence &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  &  & \\\hline
+\end{tabularx}}\par{\small B = bonne, M = mauvaise. La ligne « Référence » se remplit à la fin, avec le formateur.}\par
+\titre{J'observe, je décide}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{Q\arabic*.}},leftmargin=22pt]
+\item Sur combien de plaques vous êtes-vous contredit entre vos deux passages ?\reponse[1]
+\item Sur combien de plaques le groupe entier est-il d'accord avec la référence ?\reponse[1]
+\item Les désaccords portent-ils sur n'importe quelles plaques ? Regardez leur épaisseur de référence.\reponse[2]
+\item Kappa de chaque contrôleur par rapport à la référence : \champ{14mm}. Dépasse-t-il 0,75 ? Taux d'erreur (mauvaises plaques acceptées) et taux de fausse alarme (bonnes plaques rejetées) ?\reponse[1]
+\item Quelle erreur coûte le plus cher au client ? Et à l'atelier ?\reponse[1]
+\end{enumerate}
+\begin{tcolorbox}[retenir]Un tri bon ou mauvais a sa capabilité. Les désaccords se concentrent près des limites : c'est la zone de doute du contrôle. Accepter une mauvaise pièce n'a pas le même coût que rejeter une bonne.\end{tcolorbox}
+\vfill{\footnotesize\color{uimm}\textbf{Ressources de la base :} Données de secours.}
+\end{document}

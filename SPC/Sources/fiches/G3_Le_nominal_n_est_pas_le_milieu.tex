@@ -1,0 +1,52 @@
+\documentclass[10pt,a4paper]{article}
+\input{commun.tex}
+\pied{Base SPC · fiche G3 · Le nominal n'est pas le milieu}
+\begin{document}
+\thispagestyle{fancy}
+\entete{G3}{Le nominal n'est pas le milieu}{Ma cote est-elle centrée dans sa tolérance ?}{Mallettes GUNT : plaques et arbres}{45 min}{en groupe}{2}
+\begin{tcolorbox}[boite]\textbf{Le but.} Lire une tolérance dissymétrique sur l'arbre PT105 (cotes b = 30,3 +0,4 et d = 55,2 −0,4), mesurer 20 arbres, et constater que le nominal n'est pas le milieu de la tolérance : le Ppk le dit.\par\textbf{Il vous faut.} 20 arbres PT105 numérotés · Un pied à coulisse par binôme · Le dessin de l'arbre avec ses valeurs · Ellistat\end{tcolorbox}
+\begin{tcolorbox}[pred]Le tour vise le nominal : 30,3 pour $b$ et 55,2 pour $d$. Sur 20 arbres, combien seront hors tolérance pour chacune des deux cotes ?\reponse\end{tcolorbox}
+\titre{À faire}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{\arabic*.}},leftmargin=15pt,itemsep=1.5pt]
+\item Lire sur le dessin la tolérance de $b$ et de $d$ (un seul écart est écrit : l'autre vaut zéro). Compléter le premier tableau : limites, milieu, $T$.
+\item Répartir les 20 arbres entre les binômes. Mesurer $b$ et $d$ de chaque arbre au pied à coulisse et noter dans le second tableau. Réunir les 20 valeurs de chaque cote dans la même grille.
+\item \tagE\ Coller les valeurs dans deux colonnes de la grille. Panneau de colonne, onglet \menu{Informations} : \menu{Nom}, \menu{Nb décimales} 2, \menu{Tolerance min} et \menu{Tolerance max} avec les \textbf{vraies} limites (comme en E3).
+\item \tagE\ \menu{Stats Desc.}, \menu{Détail}, cocher la colonne de $b$ : histogramme, tableaux \menu{PARAMÈTRES}, \menu{CAPABILITÉ} (Pp, Ppk) et \menu{\% HORS TOLÉRANCE}. Même chose pour $d$.
+\item \tagE\ Pour $b$, remplacer Tolerance min par 29,9 et Tolerance max par 30,7 (lecture « 30,3 $\pm$ 0,4 » : un piège classique). Relire Pp et Ppk, puis remettre les vraies limites.
+\item À la main : où faut-il viser la moyenne pour que Ppk égale Pp ? De combien faut-il la décaler ?
+\end{enumerate}
+\vspace{3pt}{\renewcommand{\arraystretch}{1.5}\small\begin{tabularx}{\linewidth}{|l|*{5}{>{\centering\arraybackslash}X|}}\hline
+\textbf{Cote} & \textbf{Nominal} & \textbf{Limite basse} & \textbf{Limite haute} & \textbf{Milieu} & \textbf{$T$}\\\hline
+b & & & & & \\\hline
+d & & & & & \\\hline
+\end{tabularx}}\par\vspace{5pt}
+\begin{minipage}[t]{0.485\linewidth}\textbf{Cote b (mm)}\par\vspace{2pt}
+{\renewcommand{\arraystretch}{1.4}\begin{tabularx}{\linewidth}{|*{3}{>{\centering\arraybackslash}p{5mm}|>{\centering\arraybackslash}X|}}\hline
+\scriptsize 1 &  & \scriptsize 2 &  & \scriptsize 3 & \\\hline
+\scriptsize 4 &  & \scriptsize 5 &  & \scriptsize 6 & \\\hline
+\scriptsize 7 &  & \scriptsize 8 &  & \scriptsize 9 & \\\hline
+\scriptsize 10 &  & \scriptsize 11 &  & \scriptsize 12 & \\\hline
+\scriptsize 13 &  & \scriptsize 14 &  & \scriptsize 15 & \\\hline
+\scriptsize 16 &  & \scriptsize 17 &  & \scriptsize 18 & \\\hline
+\scriptsize 19 &  & \scriptsize 20 &  &  & \\\hline
+\end{tabularx}}\end{minipage}\hfill\begin{minipage}[t]{0.485\linewidth}\textbf{Cote d (mm)}\par\vspace{2pt}
+{\renewcommand{\arraystretch}{1.4}\begin{tabularx}{\linewidth}{|*{3}{>{\centering\arraybackslash}p{5mm}|>{\centering\arraybackslash}X|}}\hline
+\scriptsize 1 &  & \scriptsize 2 &  & \scriptsize 3 & \\\hline
+\scriptsize 4 &  & \scriptsize 5 &  & \scriptsize 6 & \\\hline
+\scriptsize 7 &  & \scriptsize 8 &  & \scriptsize 9 & \\\hline
+\scriptsize 10 &  & \scriptsize 11 &  & \scriptsize 12 & \\\hline
+\scriptsize 13 &  & \scriptsize 14 &  & \scriptsize 15 & \\\hline
+\scriptsize 16 &  & \scriptsize 17 &  & \scriptsize 18 & \\\hline
+\scriptsize 19 &  & \scriptsize 20 &  &  & \\\hline
+\end{tabularx}}\end{minipage}\par
+\newpage
+\titre{J'observe, je décide}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{Q\arabic*.}},leftmargin=22pt]
+\item Milieu de la tolérance de $b$ : \champ{14mm} ; moyenne mesurée : \champ{14mm}. Même chose pour $d$ : \champ{14mm} et \champ{14mm}. Le nominal est-il le milieu ?\reponse[1]
+\item Pp et Ppk de $b$ avec les vraies limites : \champ{12mm} et \champ{12mm}. Avec la mauvaise lecture : \champ{12mm} et \champ{12mm}. Que conclure ?\reponse[2]
+\item Pour $d$ : de quel côté sort-on de la tolérance ? Combien d'arbres, sur 20 ?\reponse[1]
+\item Pp est-il suffisant ? Que faut-il régler en premier sur le tour : la dispersion ou le centrage ?\reponse[2]
+\end{enumerate}
+\begin{tcolorbox}[retenir]Le nominal n'est pas toujours le milieu de la tolérance. Avec une tolérance dissymétrique, viser le nominal décentre le procédé : Pp est bon, Ppk est mauvais.\end{tcolorbox}
+\vfill{\footnotesize\color{uimm}\textbf{Ressources de la base :} Données de secours.}
+\end{document}

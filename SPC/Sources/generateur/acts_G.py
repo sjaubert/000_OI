@@ -67,7 +67,7 @@ dict(code="G2", titre="Un micromètre, plusieurs tolérances", question="Le mêm
 dict(code="G3", titre="Le nominal n'est pas le milieu", question="Ma cote est-elle centrée dans sa tolérance ?", niveau=2, duree=45,
   org=dict(mode="groupe", taille=8, min=2), ellistat=True, mesure=True,
   but="Lire une tolérance dissymétrique sur l'arbre PT105 (cotes b = 30,3 +0,4 et d = 55,2 −0,4), mesurer 20 arbres, et constater que le nominal n'est pas le milieu de la tolérance : le Ppk le dit.",
-  materiel=["20 arbres PT105 numérotés", "Un pied à coulisse par binôme", "Le dessin de l'arbre avec ses valeurs", "Ellistat"], besoin={"pied à coulisse": 1, "arbres": 20},
+  materiel=["20 arbres PT105 numérotés", "Un pied à coulisse par binôme", "Le dessin de l'arbre avec ses valeurs", "Ellistat"], besoin={"pied à coulisse": 4, "arbres": 20},
   predire=r"Le tour vise le nominal : 30,3 pour $b$ et 55,2 pour $d$. Sur 20 arbres, combien seront hors tolérance pour chacune des deux cotes ?",
   etapes=[
    r"M|Lire sur le dessin la tolérance de $b$ et de $d$ (un seul écart est écrit : l'autre vaut zéro). Compléter le premier tableau : limites, milieu, $T$.",
@@ -99,7 +99,7 @@ dict(code="G3", titre="Le nominal n'est pas le milieu", question="Ma cote est-el
 dict(code="G4", titre="Bon ou rejet sur vingt plaques", question="Trois contrôleurs qui trient les mêmes plaques décident-ils pareil ?", niveau=3, duree=50,
   org=dict(mode="groupe", taille=5, min=3), ellistat=True, mesure=True,
   but="Qualifier un contrôle par tri sur 20 plaques PT102 : épaisseur q = 19 (+0 / −0,3), mesurée au pied à coulisse, comparée à une référence prise au micromètre.",
-  materiel=["20 plaques PT102 numérotées (2 mallettes)", "Un pied à coulisse par contrôleur", "Un micromètre 0-25 mm pour le formateur (référence)", "Ellistat"], besoin={"pied à coulisse": 1, "plaques": 20},
+  materiel=["20 plaques PT102 numérotées (2 mallettes)", "Un pied à coulisse par contrôleur", "Un micromètre 0-25 mm pour le formateur (référence)", "Ellistat"], besoin={"pied à coulisse": 3, "micromètre": 1, "plaques": 20},
   predire=r"Sur 20 plaques triées deux fois par chacun, combien recevront toujours la même décision de tout le monde ?",
   etapes=[
    r"M|Le formateur a mesuré l'épaisseur $q$ des 20 plaques au micromètre et classé chacune B ou M d'après les limites de l'exercice (\champ{18mm} à \champ{18mm} mm ; le dessin donne 18,70 à 19,00). C'est la \textbf{référence}, gardée cachée.",
@@ -131,7 +131,7 @@ dict(code="G4", titre="Bon ou rejet sur vingt plaques", question="Trois contrôl
 dict(code="G5", titre="Quelle cote pose problème ?", question="Sur sept cotes de la plaque, laquelle faut-il corriger en premier ?", niveau=3, duree=60,
   org=dict(mode="groupe", taille=6, min=2), ellistat=True, mesure=True,
   but="Mesurer sept cotes sur 20 plaques PT102, calculer le Ppk de chacune, puis classer les cotes de deux façons : par nombre de pièces hors tolérance et par Ppk. Les deux classements ne disent pas la même chose.",
-  materiel=["20 plaques PT102 numérotées (2 mallettes)", "Un pied à coulisse par binôme (avec jauge de profondeur)", "Le dessin de la plaque avec ses valeurs", "Ellistat"], besoin={"pied à coulisse": 1, "plaques": 20},
+  materiel=["20 plaques PT102 numérotées (2 mallettes)", "Un pied à coulisse par binôme (avec jauge de profondeur)", "Le dessin de la plaque avec ses valeurs", "Ellistat"], besoin={"pied à coulisse": 3, "plaques": 20},
   predire=r"Sur sept cotes, laquelle fera le plus de rebuts ? Laquelle n'en fera aucun mais sera pourtant la plus fragile ?",
   etapes=[
    r"M|Avec le formateur, vérifier quelles cotes se mesurent proprement avec vos instruments : $a$ (longueur), $d$ (largeur), $m$ (paroi), $n$ et $o$ (largeurs des lamages), $q$ (épaisseur), $r$ (profondeur). Écarter celles qui ne passent pas.",
