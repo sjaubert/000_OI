@@ -319,7 +319,7 @@ function calculer(){
   ].map(function(c){ return '<div class="chiffre '+c[2]+'"><span>'+c[0]+'</span><b>'+c[1]+'</b></div>'; }).join("");
   var a2=[];
   var pRes=isFinite(RES)&&RES>0?100*RES/T:NaN;
-  if(isFinite(pRes)&&pRes>=5) a2.push("Résolution à "+fr(pRes,1)+"\u00a0% de T : au-dessus de 5 %, l'instrument est trop grossier pour cette tolérance (livret, fig. 3).");
+  if(isFinite(pRes)&&pRes>5.000001) a2.push("Résolution à "+fr(pRes,1)+"\u00a0% de T : au-dessus de 5 %, l'instrument est trop grossier pour cette tolérance (livret, fig. 3).");
   if(a.AVneg) a2.push("La part des opérateurs est si faible qu'elle est inférieure au bruit de mesure : elle est comptée comme nulle.");
   if(isFinite(a.ndc)&&a.ndc<5) a2.push("ndc = "+a.ndc+" : l'instrument distingue moins de 5 catégories de pièces. Les pièces choisies sont peut-être trop semblables, ou l'instrument trop peu précis.");
   $("alertes").innerHTML=a2.map(function(t){return '<p class="alerte">'+t+'</p>';}).join("");
