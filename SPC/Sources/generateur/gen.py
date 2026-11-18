@@ -165,8 +165,15 @@ def fiche(a, bloc):
     L.append(r"\end{enumerate}")
     L.append(r"\begin{tcolorbox}[retenir]" + a['retenir'] + r"\end{tcolorbox}")
     if a['plus']: L.append(r"\begin{tcolorbox}[plus]" + a['plus'] + r"\end{tcolorbox}")
-    res = [tex(l[0]) for l in a['liens']]
-    if res: L.append(r"\vfill{\footnotesize\color{uimm}\textbf{Ressources de la base :} " + " · ".join(res) + ".}")
+    if a['code'].startswith('G'):
+        res = []
+        for lab, h in a['liens']:
+            u = "https://sjaubert.github.io/000_OI/SPC/" + (h[3:] if h.startswith('../') else 'Activites/' + h)
+            res.append(tex(lab) + r" : \href{" + u.replace('#', r'\#') + r"}{\nolinkurl{" + u.split('#')[0] + "}}")
+        if res: L.append(r"\vfill{\footnotesize\color{uimm}\textbf{Ressources de la base :}" + (" " if len(res) == 1 else r"\par ") + r"\par ".join(res) + "}")
+    else:
+        res = [tex(l[0]) for l in a['liens']]
+        if res: L.append(r"\vfill{\footnotesize\color{uimm}\textbf{Ressources de la base :} " + " · ".join(res) + ".}")
     L.append(r"\end{document}")
     return "\n".join(L)
 

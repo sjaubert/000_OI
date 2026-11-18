@@ -1,5 +1,8 @@
 # Bloc G : mallettes GUNT PT102 (plaques) et PT105 (arbres). Pièces réelles, mesures réelles, jeux de secours simulés.
 BIN = dict(mode="binome", taille=2, min=1)
+P_DONNEES = "https://sjaubert.github.io/000_OI/SPC/Pages/Donnees_a_copier.html"
+P_OPER = "https://sjaubert.github.io/000_OI/SPC/Pages/L_operateur_compte-t-il.html"
+def U(u): return r"\href{" + u + r"}{\nolinkurl{" + u + "}}"
 G = [
 dict(code="G1", titre="Le pied à coulisse sur 150 mm", question="L'erreur du pied à coulisse est-elle la même à 10 mm et à 150 mm ?", niveau=2, duree=45,
   org=BIN, ellistat=True, mesure=True,
@@ -28,18 +31,18 @@ dict(code="G1", titre="Le pied à coulisse sur 150 mm", question="L'erreur du pi
          r"Ellistat : écrans de l'étude de linéarité vus le 14/11/2026 pour M8 (5 produits, 10 mesures). Non vus avec 7 produits et 5 mesures : les champs sont les mêmes, à vérifier."],
    anim=[r"Un seul instrument couvre toute la plage, à la différence du micromètre de M8 : c'est la comparaison à faire.", r"Faire prédire le sens de l'erreur avant la première mesure : beaucoup disent « il se règle sur zéro, donc il est juste partout »."],
    corrige=[r"Résultats propres à chaque poste. Jeu de secours (simulé) : biais moyens 0 ; +12 ; 0 ; +16 ; +12 ; +28 ; +36 µm pour 10, 50, 60, 90, 100, 140 et 150 mm. Pente 0,000244 mm par mm ($t = 5{,}19$, risque alpha $1{,}0 \times 10^{-5}$ : très significatif). Ordonnée $-0{,}0060$ mm ($t = -1{,}32$, risque alpha 0,20 : non significative). $R^2 = 0{,}45$. Valeurs recalculées sur les 35 mesures, non lues à l'écran pour ce jeu. La ligne « Justesse » d'Ellistat est l'erreur de la droite pour une longueur nulle, pas l'erreur moyenne (voir M8).",
-            r"\textbf{Q3} 36 µm sur $T = 600$ µm : 6 \%. À 105 mm la droite donne $+0{,}020$ mm environ (20 µm), soit 3 \% de $T$. Le critère du livret Bosch pour le biais est 10 \% de $T$ : ici, sans souci pour $a$. \textbf{Q4} $0{,}02 / 0{,}2 = 10$ \% : non, au-dessus de 5 \%. Pour $a$ : $0{,}02 / 0{,}6 = 3{,}3$ \% : oui. Il faudrait un micromètre pour $o$."],
-   secours=r"Jeu « Linéarité : 7 longueurs du pied à coulisse (simulé) » : cliquer « Copier les 5 mesures » sur chaque ligne et coller dans la colonne MESURE.")),
+            r"\textbf{Q3} 36 µm sur $T = 600$ µm : 6 \%. À 105 mm la droite donne $+0{,}020$ mm environ (20 µm), soit 3 \% de $T$. Dans Cgk, le livret Bosch réserve 10 \% de $T$ au biais, soit 60 µm ici : 36 µm passent, sans souci pour $a$. \textbf{Q4} $0{,}02 / 0{,}2 = 10$ \% : non, au-dessus de 5 \%. Pour $a$ : $0{,}02 / 0{,}6 = 3{,}3$ \% : oui. Il faudrait un micromètre pour $o$."],
+   secours=r"Page « Données à copier » (" + U(P_DONNEES) + r"), jeu « Linéarité du pied à coulisse : 7 longueurs » : cliquer « Copier les 5 mesures » sur chaque ligne et coller dans la colonne MESURE.")),
 
 dict(code="G2", titre="Un micromètre, plusieurs tolérances", question="Le même micromètre est-il capable pour toutes les tolérances ?", niveau=3, duree=60,
   org=dict(mode="groupe", taille=5, min=3), ellistat=True, mesure=True,
   but="Mener une étude R&R sur dix arbres PT105 (Ø 48 ± 0,2) avec un micromètre 25-50 mm, puis voir comment le %GRR change quand la tolérance change : l'instrument ne change pas, le jugement si.",
-  materiel=["10 arbres PT105 numérotés (cote g, Ø 48 ± 0,2)", "Un micromètre 25-50 mm", "Ellistat et la page « L'opérateur compte-t-il ? »"], besoin={"micromètre 25-50": 1, "arbres": 10},
+  materiel=["10 arbres PT105 numérotés (cote g, Ø 48 ± 0,2)", "Un micromètre 25-50 mm", "Ellistat et une page web (adresse à l'étape 3)"], besoin={"micromètre 25-50": 1, "arbres": 10},
   predire=r"Un micromètre, trois opérateurs, dix arbres. Le \%GRR par rapport à la tolérance du dessin ($\pm 0{,}2$ mm) sera-t-il sous 10 \% ? Et si la tolérance était $\pm 0{,}05$ mm ?",
   etapes=[
    r"M|Numéroter les arbres 1 à 10 et tracer un repère au feutre sur le Ø 48 : on mesure toujours au même endroit. Nettoyer les portées du micromètre.",
    r"M|Chaque opérateur mesure les 10 arbres dans un ordre mélangé, deux séries, sans regarder ses résultats précédents. Un mesure, un note : 60 valeurs en tout.",
-   r"W|Page « L'opérateur compte-t-il ? » : $T = 0{,}40$ (47,8 à 48,2) ; résolution de votre micromètre. Saisir les 60 valeurs, Calculer. Relever \%GRR, EV, AV et le nombre de catégories distinctes.",
+   r"W|Ouvrir la page « L'opérateur compte-t-il ? » à l'adresse suivante :\par " + U(P_OPER) + r"\par $T = 0{,}40$ (47,8 à 48,2) ; résolution de votre micromètre. Saisir les 60 valeurs, Calculer. Relever \%GRR, EV, AV et le nombre de catégories distinctes.",
    r"W|Dans la même page, changer seulement $T$ : 0,20 puis 0,10 puis 0,05. Calculer à chaque fois et noter le \%GRR. Ne pas toucher aux mesures.",
    r"E|\menu{Gage R\&R}, onglet \menu{Mesures}, bouton « ajouter un gage R\&R ». Remplir : Nom ; Produits 10 ; Opérateurs 3 ; Répétitions 2 (Ellistat propose 3) ; Type de tolérance Bilatéral, Tolérance min 47,8 et max 48,2 ; Méthode de calcul \textbf{ANAVAR} ; K 3. Valider, puis « Voir Plus » : vérifier que les deux tolérances sont bien là.",
    r"E|Onglet \menu{Mesure} : saisir les mesures de chaque opérateur. Onglet \menu{Analyse} : lire GRR\%, Cpc et le nombre de catégories distinctes. Comparer à la page.",
@@ -59,10 +62,10 @@ dict(code="G2", titre="Un micromètre, plusieurs tolérances", question="Le mêm
    prep=[r"Vérifier que le micromètre 25-50 mm couvre le Ø 48 et noter sa résolution : le jeu de secours suppose 0,01 mm. Le \%GRR par rapport à $T$ ne dépend pas de la dispersion des arbres ; le nombre de catégories distinctes, si. Les arbres du jeu simulé sont étalés de 47,88 à 48,21 mm : ce lot réel sera probablement plus homogène, donc un nombre de catégories plus bas. Avec 20 arbres (2 mallettes), deux groupes peuvent travailler en parallèle.",
          r"Ellistat : mêmes écrans que M11 (vérifiés le 14/11/2026 sur l'exemple du livret Bosch). Piège identique : ressaisir les tolérances dans « Voir Plus » si elles ne sont pas conservées."],
    anim=[r"Ne pas annoncer la suite du tableau avant la prédiction. Souligner que seul $T$ bouge entre les quatre lignes.", r"Faire le lien avec M1 : à $T = 0{,}1$ mm, une résolution de 0,01 mm est déjà à 10 \% de $T$ (la page le signale)."],
-   corrige=[r"Résultats propres au groupe. Jeu de secours (simulé, vérifié dans la page « L'opérateur compte-t-il ? » avec résolution 0,01) : EV 0,00577 mm, AV 0,00366 mm, GRR 0,00683 mm ; interaction regroupée ($F = 0{,}75$, risque alpha 0,73) ; effet opérateur significatif ($F = 9{,}1$ pour un seuil de 3,19) mais faible ; nombre de catégories distinctes 21 (21,9 avant arrondi).",
+   corrige=[r"Résultats propres au groupe. Jeu de secours (simulé, vérifié dans la page « L'opérateur compte-t-il ? », " + U(P_OPER) + r", avec résolution 0,01) : EV 0,00577 mm, AV 0,00366 mm, GRR 0,00683 mm ; interaction regroupée ($F = 0{,}75$, risque alpha 0,73) ; effet opérateur significatif ($F = 9{,}1$ pour un seuil de 3,19) mais faible ; nombre de catégories distinctes 21 (21,9 avant arrondi).",
             r"\%GRR : 10,25 \% pour $T = 0{,}4$ ; 20,50 \% pour 0,2 ; 41,00 \% pour 0,1 (valeurs lues dans la page) ; 82,0 \% pour 0,05 (calcul, $6 \times 0{,}00683 / 0{,}05$). Cpc = 100 / \%GRR : 9,8 ; 4,9 ; 2,4 ; 1,2. Verdicts du livret Bosch : capable sous conditions (10,25 \% et 20,5 \%), non capable ensuite. \textbf{Q3} $T_{\min} = 60 \times 0{,}00683 = 0{,}410$ mm : un peu au-dessus de 0,4, donc la cote g est juste à la limite de « capable » ; la cote de $\pm 0{,}05$ n'est pas contrôlable avec ce micromètre. \textbf{Q2} EV (0,00577) pèse plus que AV (0,00366) : contrôler d'abord l'instrument et la façon de poser l'arbre.",
             r"Lecture d'Ellistat : GRR\% et Cpc recalculés par la méthode du livret (facteur 6, K 3), comme en M11. Non vus à l'écran sur ce jeu."],
-   secours=r"Jeu « R\&R : 10 arbres Ø 48, 3 opérateurs, 2 séries (simulé) » : boutons « Copier l'opérateur A, B, C » (2 colonnes par opérateur, sans en-tête).")),
+   secours=r"Page « Données à copier » (" + U(P_DONNEES) + r"), jeu « R\&R : 10 arbres Ø 48, 3 opérateurs, 2 séries (simulé) » : boutons « Copier l'opérateur A, B, C » (2 colonnes par opérateur, sans en-tête).")),
 
 dict(code="G3", titre="Le nominal n'est pas le milieu", question="Ma cote est-elle centrée dans sa tolérance ?", niveau=2, duree=45,
   org=dict(mode="groupe", taille=8, min=2), ellistat=True, mesure=True,
@@ -94,7 +97,7 @@ dict(code="G3", titre="Le nominal n'est pas le milieu", question="Ma cote est-el
    corrige=[r"Résultats propres au groupe. Limites : $b$ de 30,3 à 30,7 (milieu 30,5, $T = 0{,}4$) ; $d$ de 54,8 à 55,2 (milieu 55,0, $T = 0{,}4$).",
             r"Jeu de secours (simulé) : $b$ moyenne 30,313, $s = 0{,}0504$, Pp 1,32, Ppk 0,09, 6 arbres sous 30,3 sur 20, 39,8 \% attendus sous la limite basse ; avec la mauvaise lecture (29,9 à 30,7) : Pp 2,65, Ppk 2,56, aucune sortie. $d$ moyenne 55,183, $s = 0{,}0795$, Pp 0,84, Ppk 0,07, 9 arbres au-dessus de 55,2, 41,5 \% attendus ; mauvaise lecture (54,8 à 55,6) : Pp 1,68, Ppk 1,60.",
             r"\textbf{Q4} Viser le milieu : $b$ 30,5 (décaler d'environ $+0{,}19$), $d$ 55,0 (décaler d'environ $-0{,}18$). Pour $b$, Pp = 1,32 : à peine sous 1,33, il faudra aussi réduire un peu la dispersion ($s$ au plus 0,0501). Pour $d$, Pp = 0,84 : le centrage ne suffit pas, la dispersion est trop grande. Calculs en Python ; écrans non vus."],
-   secours=r"Jeu « Arbres : cotes b et d décentrées (simulé) », 20 arbres, deux colonnes.")),
+   secours=r"Page « Données à copier » (" + U(P_DONNEES) + r"), jeu « Arbres : cotes b et d sur 20 arbres (simulé) », deux colonnes.")),
 
 dict(code="G4", titre="Bon ou rejet sur vingt plaques", question="Trois contrôleurs qui trient les mêmes plaques décident-ils pareil ?", niveau=3, duree=50,
   org=dict(mode="groupe", taille=5, min=3), ellistat=True, mesure=True,
@@ -113,7 +116,7 @@ dict(code="G4", titre="Bon ou rejet sur vingt plaques", question="Trois contrôl
   questions=[
    (r"Sur combien de plaques vous êtes-vous contredit entre vos deux passages ?", 1),
    (r"Sur combien de plaques le groupe entier est-il d'accord avec la référence ?", 1),
-   (r"Les désaccords portent-ils sur n'importe quelles plaques ? Regardez leur épaisseur de référence.", 2),
+   (r"Les désaccords portent-ils sur n'importe quelles plaques ? Regardez leur épaisseur de référence.", 1),
    (r"Kappa de chaque contrôleur par rapport à la référence : \champ{14mm}. Dépasse-t-il 0,75 ? Taux d'erreur (mauvaises plaques acceptées) et taux de fausse alarme (bonnes plaques rejetées) ?", 1),
    (r"Quelle erreur coûte le plus cher au client ? Et à l'atelier ?", 1),
   ],
@@ -126,7 +129,7 @@ dict(code="G4", titre="Bon ou rejet sur vingt plaques", question="Trois contrôl
    corrige=[r"Résultats propres au groupe. Jeu de secours (simulé) : référence 16 bonnes, 4 mauvaises (plaques 7, 12, 15, 19). Désaccords sur 4 plaques (4, 12, 15, 19) dont l'épaisseur vraie est à 0,01 à 0,03 mm d'une limite (18,71 ; 18,68 ; 19,02 ; 18,69) : \textbf{Q3} les erreurs se concentrent près des limites. 16 plaques sur 20 : tous les contrôleurs d'accord entre eux et avec la référence.",
             r"Par contrôleur (20 plaques, 2 passages) : A kappa 0,83, accord 95 \%, taux d'erreur 25 \%, fausse alarme 0 \%, aucune contradiction ; B kappa 0,73, accord 92,5 \%, taux d'erreur 37,5 \%, fausse alarme 0 \%, 1 contradiction ; C kappa 0,55, accord 87,5 \%, taux d'erreur 50 \%, fausse alarme 3,1 \%, 3 contradictions. Seuil du guide Ellistat : kappa au moins 0,75 : seul A l'atteint.",
             r"Valeurs globales d'Ellistat, selon la convention confirmée par Ellistat le 17/11/2026 : « Kappa tous les contrôleurs vs le standard » = le plus faible des kappas (0,55) ; « Taux d'erreur » global = le plus élevé (50 \%). Le kappa calculé sur toutes les décisions réunies vaut 0,70 : ne pas s'attendre à le voir affiché. Chiffres recalculés, écrans non vus sur ce jeu."],
-   secours=r"Jeu « Tri de 20 plaques (simulé) » : colonne Référence puis deux colonnes par contrôleur (B = bonne, M = mauvaise).")),
+   secours=r"Page « Données à copier » (" + U(P_DONNEES) + r"), jeu « Tri de 20 plaques (simulé) » : colonne Référence puis deux colonnes par contrôleur (B = bonne, M = mauvaise).")),
 
 dict(code="G5", titre="Quelle cote pose problème ?", question="Sur sept cotes de la plaque, laquelle faut-il corriger en premier ?", niveau=3, duree=60,
   org=dict(mode="groupe", taille=6, min=2), ellistat=True, mesure=True,
@@ -157,7 +160,7 @@ dict(code="G5", titre="Quelle cote pose problème ?", question="Sur sept cotes d
    anim=[r"Travailler en petits groupes pour tenir 60 minutes : 7 cotes fois 20 plaques font 140 mesures.", r"Mettre au tableau les deux classements côte à côte, puis demander lequel on utiliserait pour décider du réglage."],
    corrige=[r"Résultats propres au groupe. Jeu de secours (simulé), 12 mesures hors tolérance en tout : $q$ 8 (toutes au-dessus de 19,00), $r$ 4 (au-dessus de 16,00), les autres cotes aucune. Part des rebuts : $q$ 67 \%, $r$ 33 \%.",
             r"Ppk du jeu de secours (Pp entre parenthèses) : $a$ 1,42 (1,59) ; $d$ 1,16 (1,30) ; $m$ 1,33 (1,34) ; $n$ 1,53 (1,78) ; $o$ 0,47 (0,62) ; $q$ 0,10 (0,93) ; $r$ 0,15 (0,82). \% hors tolérance attendu : $a$, $d$, $m$, $n$ environ 0 \% ; $o$ 9,1 \% (1,1 \% en bas, 8,0 \% en haut) ; $q$ 37,6 \% ; $r$ 32,3 \%.",
-            r"\textbf{Q2} La cote $o$ : aucun rebut observé, Ppk 0,47, soit 9,1 \% de pièces attendues hors tolérance. \textbf{Q3} Classement par rebuts : $q$, $r$, puis rien ; par Ppk : $q$, $r$, $o$, $d$... : le second fait apparaître $o$. \textbf{Q4} Milieu de $q$ : 18,85, moyenne 18,98 : décaler de $-0{,}13$ ; milieu de $r$ : 15,85, moyenne 15,97 : décaler de $-0{,}12$. Mais Pp de $q$ est 0,93 et celui de $r$ 0,82 : même centrées, ces cotes ne sont pas capables, il faudra aussi réduire la dispersion. \textbf{Q5} $0{,}02 / 0{,}2 = 10$ \% : non, au-dessus de 5 \%.",
+            r"\textbf{Q2} La cote $o$ : aucun rebut observé, Ppk 0,47, soit 9,1 \% de pièces attendues hors tolérance. \textbf{Q3} Classement par rebuts : $q$, $r$, puis rien ; par Ppk croissant : $q$, $r$, $o$, $d$, $m$, $a$, $n$ : le second fait apparaître $o$. \textbf{Q4} Milieu de $q$ : 18,85, moyenne 18,98 : décaler de $-0{,}13$ ; milieu de $r$ : 15,85, moyenne 15,97 : décaler de $-0{,}12$. Mais Pp de $q$ est 0,93 et celui de $r$ 0,82 : même centrées, ces cotes ne sont pas capables, il faudra aussi réduire la dispersion. \textbf{Q5} $0{,}02 / 0{,}2 = 10$ \% : non, au-dessus de 5 \%.",
             r"Chiffres recalculés (Python), non lus à l'écran pour ce jeu."],
-   secours=r"Jeu « Plaques : 7 cotes, 20 plaques (simulé) » : colonnes a, d, m, n, o, q, r.")),
+   secours=r"Page « Données à copier » (" + U(P_DONNEES) + r"), jeu « Plaques : 7 cotes sur 20 plaques (simulé) » : colonnes a, d, m, n, o, q, r.")),
 ]
