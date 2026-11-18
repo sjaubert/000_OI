@@ -4,12 +4,12 @@
 \begin{document}
 \thispagestyle{fancy}
 \entete{G5}{Quelle cote pose problème ?}{Sur sept cotes de la plaque, laquelle faut-il corriger en premier ?}{Mallettes GUNT : plaques et arbres}{60 min}{en groupe}{3}
-\begin{tcolorbox}[boite]\textbf{Le but.} Mesurer sept cotes sur 20 plaques PT102, calculer le Ppk de chacune, puis classer les cotes de deux façons : par nombre de pièces hors tolérance et par Ppk. Les deux classements ne disent pas la même chose.\par\textbf{Il vous faut.} 20 plaques PT102 numérotées (2 mallettes) · Un pied à coulisse par binôme (avec jauge de profondeur) · Le dessin de la plaque avec ses valeurs · Ellistat\end{tcolorbox}
+\begin{tcolorbox}[boite]\textbf{Le but.} Mesurer sept cotes sur 20 plaques PT102, calculer le Ppk de chacune, puis classer les cotes de deux façons : par nombre de pièces hors tolérance et par Ppk. Les deux classements ne disent pas la même chose.\par\textbf{Il vous faut.} 20 plaques PT102 numérotées (2 mallettes) · Un pied à coulisse par binôme (avec jauge de profondeur) · Le plan de la plaque (dernière page de la fiche) · Ellistat\end{tcolorbox}
 \begin{tcolorbox}[pred]Sur sept cotes, laquelle fera le plus de rebuts ? Laquelle n'en fera aucun mais sera pourtant la plus fragile ?\reponse\end{tcolorbox}
 \titre{À faire}
 \begin{enumerate}[label=\textcolor{cyan}{\textbf{\arabic*.}},leftmargin=15pt,itemsep=1.5pt]
 \item Avec le formateur, vérifier quelles cotes se mesurent proprement avec vos instruments : $a$ (longueur), $d$ (largeur), $m$ (paroi), $n$ et $o$ (largeurs des lamages), $q$ (épaisseur), $r$ (profondeur). Écarter celles qui ne passent pas.
-\item Compléter le tableau : limite basse et limite haute de chaque cote d'après le dessin. Pour $a$ et $m$, aucune tolérance n'est écrite : appliquer la tolérance générale ISO 2768-mK ($\pm 0{,}3$ pour $a$, $\pm 0{,}2$ pour $m$).
+\item Compléter le tableau : limite basse et limite haute de chaque cote d'après le plan (dernière page). Pour $a$ et $m$, aucune tolérance n'est écrite : appliquer la tolérance générale ISO 2768-mK, classe m ($\pm 0{,}3$ pour $a$, $\pm 0{,}2$ pour $m$ ; encadré « Lire le plan GUNT »).
 \item Répartir les cotes entre les binômes (deux cotes chacun). Chaque binôme mesure ses cotes sur les 20 plaques et note les valeurs.
 \item \tagE\ Réunir toutes les mesures dans une même grille, une colonne par cote. Pour chaque colonne, panneau de colonne, onglet \menu{Informations} : \menu{Nom}, \menu{Nb décimales} 2, \menu{Tolerance min} et \menu{Tolerance max} (comme en E3).
 \item \tagE\ \menu{Stats Desc.}, \menu{Détail}, une colonne à la fois : relever moyenne, écart type, Ppk, nombre de plaques hors tolérance et \% hors tolérance attendu.
@@ -35,5 +35,31 @@ r : 16 0 / −0,3 &  &  &  &  &  & \\\hline
 \item Pour la cote $o$ ($T = 0{,}2$ mm), la mesure elle-même est-elle assez fine ? (règle de M1)\reponse[1]
 \end{enumerate}
 \begin{tcolorbox}[retenir]Compter les rebuts regarde le passé. Le Ppk regarde ce que le procédé va produire. Une cote sans rebut peut être la plus fragile.\end{tcolorbox}
+\providecommand{\carre}{\fbox{\rule{0pt}{1.1ex}\rule{1.1ex}{0pt}}}
+\begin{tcolorbox}[boite,left=5pt,right=5pt,top=3pt,bottom=3pt]\footnotesize
+\textbf{\color{uimm}Lire le plan GUNT (dernière page).} Le cartouche du plan est écrit en allemand et en anglais. À la ligne « Allgemeintoleranzen / General tolerance », on lit \textbf{ISO 2768-mK}. Cela veut dire : toute cote \textbf{sans écart écrit} a la tolérance générale de la classe \textbf{m} (« medium »), donnée par le tableau ci-dessous. Une cote \textbf{avec un écart écrit} garde cet écart, et la tolérance générale ne s'applique pas. Limite haute = nominal + écart supérieur. Limite basse = nominal + écart inférieur. \O\ : diamètre. \carre{} : carré, on lit son côté. « A-A », « B-B » : coupes. Les symboles d'état de surface et d'arêtes, en bas à droite, ne servent pas dans cette fiche.
+\par\vspace{6pt}\noindent\renewcommand{\arraystretch}{1.2}\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|l|c|c|c|c|c|}\hline
+\textbf{Dimension nominale (mm)} & 0,5 à 3 & au-delà de 3 à 6 & au-delà de 6 à 30 & au-delà de 30 à 120 & au-delà de 120 à 400\\\hline
+\textbf{Écart de la classe m (mm)} & $\pm 0{,}1$ & $\pm 0{,}1$ & $\pm 0{,}2$ & $\pm 0{,}3$ & $\pm 0{,}5$\\\hline
+\end{tabular}
+\par\vspace{1pt}{\scriptsize Source : ISO 2768-1:1989, tolérances générales des dimensions linéaires, reprises dans la fiche GUNT « PT105f Tolérances ».}
+\par\vspace{4pt}\textbf{Les cotes de cette fiche}\par\vspace{2pt}
+\begin{tabularx}{\linewidth}{|c|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|}\hline
+\textbf{Cote} & \textbf{Ce que le plan écrit} & \textbf{Écart à utiliser}\\\hline
+$a$ & 105, aucun écart écrit & classe m, plage 30 à 120 : $\pm 0{,}3$ \\\hline
+$d$ & 75 avec $+0{,}3$ et $-0{,}0$ & écrit sur le plan : $+0{,}3$ et $0$ \\\hline
+$m$ & 6,5, aucun écart écrit & classe m, plage au-delà de 6 jusqu'à 30 : $\pm 0{,}2$ \\\hline
+$n$ & \hspace{2pt}\carre{}\ 28, avec $+0{,}1$ et $-0{,}3$ & écrit sur le plan : $+0{,}1$ et $-0{,}3$ \\\hline
+$o$ & \hspace{2pt}\carre{}\ 34, avec $+0{,}1$ et $-0{,}1$ & écrit sur le plan : $+0{,}1$ et $-0{,}1$ \\\hline
+$q$ & 19 avec $+0{,}0$ et $-0{,}3$ & écrit sur le plan : $+0{,}0$ et $-0{,}3$ \\\hline
+$r$ & 16 avec $+0{,}0$ et $-0{,}3$ & écrit sur le plan : $+0{,}0$ et $-0{,}3$ \\\hline
+\end{tabularx}
+\end{tcolorbox}
 \vfill{\footnotesize\color{uimm}\textbf{Ressources de la base :} Données de secours : \href{https://sjaubert.github.io/000_OI/SPC/Pages/Donnees_a_copier.html\#cotes7}{\nolinkurl{https://sjaubert.github.io/000_OI/SPC/Pages/Donnees_a_copier.html}}}
+\newpage
+\titre{Plan de la plaque PT102}
+{\small Pour lire ce plan et ses tolérances, voir l'encadré « Lire le plan GUNT » de la page précédente.\par}\vspace{2pt}
+\begin{center}\includegraphics[width=0.90\textheight,height=0.97\linewidth,keepaspectratio,angle=90]{plan_plaque_PT102.pdf}\end{center}
+\vfill{\footnotesize\color{uimm}Plan : GUNT Hamburg, Distanzplatte (plaque d'écartement), dessin PT102.10.00.012.}
 \end{document}

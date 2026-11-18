@@ -4,11 +4,11 @@
 \begin{document}
 \thispagestyle{fancy}
 \entete{G3}{Le nominal n'est pas le milieu}{Ma cote est-elle centrée dans sa tolérance ?}{Mallettes GUNT : plaques et arbres}{45 min}{en groupe}{2}
-\begin{tcolorbox}[boite]\textbf{Le but.} Lire une tolérance dissymétrique sur l'arbre PT105 (cotes b = 30,3 +0,4 et d = 55,2 −0,4), mesurer 20 arbres, et constater que le nominal n'est pas le milieu de la tolérance : le Ppk le dit.\par\textbf{Il vous faut.} 20 arbres PT105 numérotés · Un pied à coulisse par binôme · Le dessin de l'arbre avec ses valeurs · Ellistat\end{tcolorbox}
+\begin{tcolorbox}[boite]\textbf{Le but.} Lire une tolérance dissymétrique sur l'arbre PT105 (cotes b = 30,3 +0,4 et d = 55,2 −0,4), mesurer 20 arbres, et constater que le nominal n'est pas le milieu de la tolérance : le Ppk le dit.\par\textbf{Il vous faut.} 20 arbres PT105 numérotés · Un pied à coulisse par binôme · Le plan de l'arbre (dernière page de la fiche) · Ellistat\end{tcolorbox}
 \begin{tcolorbox}[pred]Le tour vise le nominal : 30,3 pour $b$ et 55,2 pour $d$. Sur 20 arbres, combien seront hors tolérance pour chacune des deux cotes ?\reponse\end{tcolorbox}
 \titre{À faire}
 \begin{enumerate}[label=\textcolor{cyan}{\textbf{\arabic*.}},leftmargin=15pt,itemsep=1.5pt]
-\item Lire sur le dessin la tolérance de $b$ et de $d$ (un seul écart est écrit : l'autre vaut zéro). Compléter le premier tableau : limites, milieu, $T$.
+\item Lire sur le plan (dernière page) la tolérance de $b$ et de $d$ (un seul écart est écrit : l'autre vaut zéro). Compléter le premier tableau : limites, milieu, $T$.
 \item Répartir les 20 arbres entre les binômes. Mesurer $b$ et $d$ de chaque arbre au pied à coulisse et noter dans le second tableau. Réunir les 20 valeurs de chaque cote dans la même grille.
 \item \tagE\ Coller les valeurs dans deux colonnes de la grille. Panneau de colonne, onglet \menu{Informations} : \menu{Nom}, \menu{Nb décimales} 2, \menu{Tolerance min} et \menu{Tolerance max} avec les \textbf{vraies} limites (comme en E3).
 \item \tagE\ \menu{Stats Desc.}, \menu{Détail}, cocher la colonne de $b$ : histogramme, tableaux \menu{PARAMÈTRES}, \menu{CAPABILITÉ} (Pp, Ppk) et \menu{\% HORS TOLÉRANCE}. Même chose pour $d$.
@@ -48,5 +48,26 @@ d & & & & & \\\hline
 \item Pp est-il suffisant ? Que faut-il régler en premier sur le tour : la dispersion ou le centrage ?\reponse[2]
 \end{enumerate}
 \begin{tcolorbox}[retenir]Le nominal n'est pas toujours le milieu de la tolérance. Avec une tolérance dissymétrique, viser le nominal décentre le procédé : Pp est bon, Ppk est mauvais.\end{tcolorbox}
+\providecommand{\carre}{\fbox{\rule{0pt}{1.1ex}\rule{1.1ex}{0pt}}}
+\begin{tcolorbox}[boite,left=5pt,right=5pt,top=3pt,bottom=3pt]\footnotesize
+\textbf{\color{uimm}Lire le plan GUNT (dernière page).} Le cartouche du plan est écrit en allemand et en anglais. À la ligne « Allgemeintoleranzen / General tolerance », on lit \textbf{ISO 2768-mK}. Cela veut dire : toute cote \textbf{sans écart écrit} a la tolérance générale de la classe \textbf{m} (« medium »), donnée par le tableau ci-dessous. Une cote \textbf{avec un écart écrit} garde cet écart, et la tolérance générale ne s'applique pas. Limite haute = nominal + écart supérieur. Limite basse = nominal + écart inférieur. \O\ : diamètre. \carre{} : carré, on lit son côté. « A-A », « B-B » : coupes. Les symboles d'état de surface et d'arêtes, en bas à droite, ne servent pas dans cette fiche.
+\par\vspace{6pt}\noindent\renewcommand{\arraystretch}{1.2}\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|l|c|c|c|c|c|}\hline
+\textbf{Dimension nominale (mm)} & 0,5 à 3 & au-delà de 3 à 6 & au-delà de 6 à 30 & au-delà de 30 à 120 & au-delà de 120 à 400\\\hline
+\textbf{Écart de la classe m (mm)} & $\pm 0{,}1$ & $\pm 0{,}1$ & $\pm 0{,}2$ & $\pm 0{,}3$ & $\pm 0{,}5$\\\hline
+\end{tabular}
+\par\vspace{1pt}{\scriptsize Source : ISO 2768-1:1989, tolérances générales des dimensions linéaires, reprises dans la fiche GUNT « PT105f Tolérances ».}
+\par\vspace{4pt}\textbf{Les cotes de cette fiche}\par\vspace{2pt}
+\begin{tabularx}{\linewidth}{|c|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|}\hline
+\textbf{Cote} & \textbf{Ce que le plan écrit} & \textbf{Écart à utiliser}\\\hline
+$b$ & 30,3 avec $+0{,}4$ (un seul écart écrit) & convention de cette fiche : l'autre écart vaut $0$ \\\hline
+$d$ & 55,2 avec $-0{,}4$ (un seul écart écrit) & convention de cette fiche : l'autre écart vaut $0$ \\\hline
+\end{tabularx}
+\end{tcolorbox}
 \vfill{\footnotesize\color{uimm}\textbf{Ressources de la base :} Données de secours : \href{https://sjaubert.github.io/000_OI/SPC/Pages/Donnees_a_copier.html\#decentre}{\nolinkurl{https://sjaubert.github.io/000_OI/SPC/Pages/Donnees_a_copier.html}}}
+\newpage
+\titre{Plan de l'arbre PT105}
+{\small Pour lire ce plan et ses tolérances, voir l'encadré « Lire le plan GUNT » de la page précédente.\par}\vspace{2pt}
+\begin{center}\includegraphics[width=0.90\textheight,height=0.97\linewidth,keepaspectratio,angle=90]{plan_arbre_PT105.pdf}\end{center}
+\vfill{\footnotesize\color{uimm}Plan : GUNT Hamburg, Welle (arbre), dessin PT105.10.00.011.}
 \end{document}

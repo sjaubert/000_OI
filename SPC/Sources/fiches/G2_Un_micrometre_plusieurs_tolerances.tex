@@ -33,5 +33,25 @@
 \end{enumerate}
 \begin{tcolorbox}[retenir]La capabilité d'un instrument se juge par rapport à une tolérance. EV et AV restent les mêmes : le \%GRR est inversement proportionnel à $T$.\end{tcolorbox}
 \begin{tcolorbox}[plus]Les dix arbres de ce lot sont-ils très différents entre eux ? Cherchez dans le tableau Résultats d'Ellistat la part de la variation due aux pièces, et comparez-la à la part due à la mesure.\end{tcolorbox}
+\providecommand{\carre}{\fbox{\rule{0pt}{1.1ex}\rule{1.1ex}{0pt}}}
+\begin{tcolorbox}[boite,left=5pt,right=5pt,top=3pt,bottom=3pt]\footnotesize
+\textbf{\color{uimm}Lire le plan GUNT (dernière page).} Le cartouche du plan est écrit en allemand et en anglais. À la ligne « Allgemeintoleranzen / General tolerance », on lit \textbf{ISO 2768-mK}. Cela veut dire : toute cote \textbf{sans écart écrit} a la tolérance générale de la classe \textbf{m} (« medium »), donnée par le tableau ci-dessous. Une cote \textbf{avec un écart écrit} garde cet écart, et la tolérance générale ne s'applique pas. Limite haute = nominal + écart supérieur. Limite basse = nominal + écart inférieur. \O\ : diamètre. \carre{} : carré, on lit son côté. « A-A », « B-B » : coupes. Les symboles d'état de surface et d'arêtes, en bas à droite, ne servent pas dans cette fiche.
+\par\vspace{6pt}\noindent\renewcommand{\arraystretch}{1.2}\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|l|c|c|c|c|c|}\hline
+\textbf{Dimension nominale (mm)} & 0,5 à 3 & au-delà de 3 à 6 & au-delà de 6 à 30 & au-delà de 30 à 120 & au-delà de 120 à 400\\\hline
+\textbf{Écart de la classe m (mm)} & $\pm 0{,}1$ & $\pm 0{,}1$ & $\pm 0{,}2$ & $\pm 0{,}3$ & $\pm 0{,}5$\\\hline
+\end{tabular}
+\par\vspace{1pt}{\scriptsize Source : ISO 2768-1:1989, tolérances générales des dimensions linéaires, reprises dans la fiche GUNT « PT105f Tolérances ».}
+\par\vspace{4pt}\textbf{Les cotes de cette fiche}\par\vspace{2pt}
+\begin{tabularx}{\linewidth}{|c|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|}\hline
+\textbf{Cote} & \textbf{Ce que le plan écrit} & \textbf{Écart à utiliser}\\\hline
+$g$ & \O\ 48 avec $\pm 0{,}2$ & écrit sur le plan : $\pm 0{,}2$ \\\hline
+\end{tabularx}
+\end{tcolorbox}
 \vfill{\footnotesize\color{uimm}\textbf{Ressources de la base :}\par L'opérateur compte-t-il ? (page) : \href{https://sjaubert.github.io/000_OI/SPC/Pages/L_operateur_compte-t-il.html}{\nolinkurl{https://sjaubert.github.io/000_OI/SPC/Pages/L_operateur_compte-t-il.html}}\par Données de secours : \href{https://sjaubert.github.io/000_OI/SPC/Pages/Donnees_a_copier.html\#rrarbres}{\nolinkurl{https://sjaubert.github.io/000_OI/SPC/Pages/Donnees_a_copier.html}}}
+\newpage
+\titre{Plan de l'arbre PT105}
+{\small Pour lire ce plan et ses tolérances, voir l'encadré « Lire le plan GUNT » de la page précédente.\par}\vspace{2pt}
+\begin{center}\includegraphics[width=0.90\textheight,height=0.97\linewidth,keepaspectratio,angle=90]{plan_arbre_PT105.pdf}\end{center}
+\vfill{\footnotesize\color{uimm}Plan : GUNT Hamburg, Welle (arbre), dessin PT105.10.00.011.}
 \end{document}

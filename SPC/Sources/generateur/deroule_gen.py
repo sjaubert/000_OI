@@ -40,6 +40,12 @@ BANQUE = [
  ('Instruments', 'M14', 'Trois étalons pour la butée', 60, 'après M10 ; la réserve la plus longue du bloc 2 qui reste concrète'),
  ('Instruments', 'M13', 'Bon ou mauvais : sommes-nous d\'accord ?', 45, 'niveau 3 ; seule réserve qui exige 20 butées physiques numérotées, dont plusieurs proches de 11,85 et 12,00, et un pied à coulisse par contrôleur'),
  ('Instruments', 'M15', 'Le micromètre dérive-t-il ?', 60, 'fil rouge possible : une cale témoin mesurée 3 fois dans la journée ; carte X-barre R en fin de journée ; niveau 3'),
+ ('Instruments', 'M17', 'Des cales comme pièces', 70, 'niveau 3 ; R\\&R sur dix cales de cote connue masquée ; 60 mesures, environ 25 minutes'),
+ ('Mallettes GUNT', 'G1', 'Le pied à coulisse sur 150 mm', 45, 'niveau 2 ; linéarité sur sept longueurs ; coffret de cales et mallette PT102'),
+ ('Mallettes GUNT', 'G2', 'Un micromètre, plusieurs tolérances', 60, 'niveau 3 ; R\\&R sur dix arbres PT105 ; le \\%GRR change avec la tolérance'),
+ ('Mallettes GUNT', 'G3', 'Le nominal n\'est pas le milieu', 45, 'niveau 2 ; 20 arbres PT105 ; tolérance dissymétrique, Ppk'),
+ ('Mallettes GUNT', 'G5', 'Quelle cote pose problème ?', 60, 'niveau 3 ; sept cotes sur 20 plaques PT102 ; 140 mesures, petits groupes'),
+ ('Mallettes GUNT', 'G4', 'Bon ou rejet sur vingt plaques', 50, 'niveau 3 ; 20 plaques PT102 ; trois contrôleurs, kappa ; limites d\'exercice resserrées'),
  ('Attributs', 'A9', 'La taille du lot compte', 20, 'sans Ellistat, après A4'),
  ('Attributs', 'A7', 'La carte u', 25, 'niveau 3, après A6'),
  ('Attributs', 'A8', 'Quelle période de référence ?', 25, 'après A4'),
@@ -106,12 +112,12 @@ def build():
 %(banque)s
 \end{tabularx}
 \par\smallskip
-\footnotesize Total de la banque : %(hbanque)s, soit au total %(htout)s avec le plan. Les fiches M11, M12, M17, C5 et C8 (R\&R complet, trois cales, dossier complet) ne sont pas dans la banque : trop avancées pour ce groupe.
+\footnotesize Total de la banque : %(hbanque)s, soit au total %(htout)s avec le plan. Les fiches M11, M12, C5 et C8 (R\&R complet, trois cales, dossier complet) ne sont pas dans la banque : trop avancées pour ce groupe.
 
 \titre{Règles de bascule}
 \begin{enumerate}[leftmargin=16pt,itemsep=2pt]
 \item \textbf{À la fin de chaque bloc}, compare le cumul réel au cumul prévu. En avance de 10 minutes ou plus : lance la réserve suivante \emph{du même bloc} avant de passer au bloc suivant. Prolonger un sujet connu perd moins le groupe qu'ouvrir une notion nouvelle.
-\item \textbf{Ordre des réserves}. Instruments : M10, M14, M8, M13. Attributs : A9, A8, A7. Cartes aux mesures : C2, C3, C6, puis C4 ou C7. Les réserves de rang 1 du plan passent avant celles de la banque.
+\item \textbf{Ordre des réserves}. Instruments : M10, M14, M8, M13, M15, M17. Mallettes GUNT : G1, G2, G3, G5, G4. Attributs : A9, A8, A7. Cartes aux mesures : C2, C3, C6, puis C4 ou C7. Les réserves de rang 1 du plan passent avant celles de la banque.
 \item \textbf{Si la séance va vite dès le matin} : ajoute E5 au bloc 1, puis M10 et M14 au bloc 2 (cales et coffret, activité très concrète).
 \item \textbf{Si le groupe est en retard} : retire d'abord les réserves de rang 1, puis TP 5, puis A6. Le tronc minimal reste E1 à E3, M1, TP 1, TP 4, A1, A2, A4.
 \item \textbf{À placer en fin de journée} : un bilan de 15 minutes, jamais une activité nouvelle.
@@ -120,8 +126,8 @@ def build():
 \titre{Ce qui reste à vérifier avant la séance}
 \begin{itemize}[leftmargin=14pt,itemsep=1pt]
 \item Les durées des fiches sont des estimations, pas des temps mesurés avec ce groupe.
-\item Les écrans Ellistat ont été vus pour les fiches E1 à E3, M3, M8, M13, A3 à A8. Ceux de E4 (avec tolérances), E6 et des réserves M10, M14, M15, C4, C6 et C7 sont à dérouler une fois sur ton compte.
-\item Butées : aucune n'est nécessaire pour le plan ; seule M13 en demande 20. Les « 30 butées » de E3, E4, E5, C4 et C6 sont des données numériques. Autre matériel : le coffret de 83 cales sert à M10 et M14. Les cales de grade 0 et 1 servent à M16. M9 et M15 demandent deux personnes par instrument.
+\item Les écrans Ellistat ont été vus pour les fiches E1 à E3, M3, M8, M13, A3 à A8. Ceux de E4 (avec tolérances), E6, des réserves M10, M14, M15, C4, C6 et C7 et des fiches G1 à G5 sont à dérouler une fois sur ton compte.
+\item Butées : aucune n'est nécessaire pour le plan ; seule M13 en demande 20. Les « 30 butées » de E3, E4, E5, C4 et C6 sont des données numériques. Autre matériel : le coffret de 83 cales sert à M10 et M14. Les cales de grade 0 et 1 servent à M16. Les fiches G demandent 2 mallettes PT102 (20 plaques) et 2 mallettes PT105 (20 arbres), un pied à coulisse par binôme et les deux micromètres ; M17, dix cales à cote masquée. M9 et M15 demandent deux personnes par instrument.
 \end{itemize}
 \end{document}
 ''' % dict(plan=plan, banque=banque, hcum=hm(cum), hsocle=hm(socle), hres=hm(res), hbanque=hm(tot), htout=hm(cum + tot))

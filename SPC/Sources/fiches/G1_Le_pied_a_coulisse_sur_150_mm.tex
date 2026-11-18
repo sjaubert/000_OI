@@ -30,9 +30,30 @@
 \begin{enumerate}[label=\textcolor{cyan}{\textbf{Q\arabic*.}},leftmargin=22pt]
 \item Le biais est-il le même pour les sept longueurs ? Dans quel sens évolue-t-il avec la longueur ?\reponse[2]
 \item Pente = \champ{18mm} mm par mm. Que dit Ellistat dans la colonne « Significatif ? » ? Plus grand biais relevé : \champ{14mm} µm.\reponse[1]
-\item La cote $a = 105$ mm de la plaque a pour tolérance générale ISO 2768-mK, soit $\pm 0{,}3$ mm ($T = 0{,}6$ mm). Quelle part de $T$ représente le plus grand biais ? Faut-il s'en soucier ?\reponse[2]
+\item La cote $a = 105$ mm de la plaque a pour tolérance générale ISO 2768-mK (encadré « Lire le plan GUNT »), soit $\pm 0{,}3$ mm ($T = 0{,}6$ mm). Quelle part de $T$ représente le plus grand biais ? Faut-il s'en soucier ?\reponse[2]
 \item La cote $o = 34 \pm 0{,}1$ mm ($T = 0{,}2$ mm). Appliquez la règle de M1 (résolution au plus 5 \% de $T$) : ce pied à coulisse convient-il ?\reponse[2]
 \end{enumerate}
 \begin{tcolorbox}[retenir]Le biais d'un pied à coulisse peut grandir avec la longueur. On le qualifie avec des étalons de la longueur où il sert, et on compare toujours à la tolérance de la cote.\end{tcolorbox}
+\providecommand{\carre}{\fbox{\rule{0pt}{1.1ex}\rule{1.1ex}{0pt}}}
+\begin{tcolorbox}[boite,left=5pt,right=5pt,top=3pt,bottom=3pt]\footnotesize
+\textbf{\color{uimm}Lire le plan GUNT (dernière page).} Le cartouche du plan est écrit en allemand et en anglais. À la ligne « Allgemeintoleranzen / General tolerance », on lit \textbf{ISO 2768-mK}. Cela veut dire : toute cote \textbf{sans écart écrit} a la tolérance générale de la classe \textbf{m} (« medium »), donnée par le tableau ci-dessous. Une cote \textbf{avec un écart écrit} garde cet écart, et la tolérance générale ne s'applique pas. Limite haute = nominal + écart supérieur. Limite basse = nominal + écart inférieur. \O\ : diamètre. \carre{} : carré, on lit son côté. « A-A », « B-B » : coupes. Les symboles d'état de surface et d'arêtes, en bas à droite, ne servent pas dans cette fiche.
+\par\vspace{6pt}\noindent\renewcommand{\arraystretch}{1.2}\setlength{\tabcolsep}{4pt}
+\begin{tabular}{|l|c|c|c|c|c|}\hline
+\textbf{Dimension nominale (mm)} & 0,5 à 3 & au-delà de 3 à 6 & au-delà de 6 à 30 & au-delà de 30 à 120 & au-delà de 120 à 400\\\hline
+\textbf{Écart de la classe m (mm)} & $\pm 0{,}1$ & $\pm 0{,}1$ & $\pm 0{,}2$ & $\pm 0{,}3$ & $\pm 0{,}5$\\\hline
+\end{tabular}
+\par\vspace{1pt}{\scriptsize Source : ISO 2768-1:1989, tolérances générales des dimensions linéaires, reprises dans la fiche GUNT « PT105f Tolérances ».}
+\par\vspace{4pt}\textbf{Les cotes de cette fiche}\par\vspace{2pt}
+\begin{tabularx}{\linewidth}{|c|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|}\hline
+\textbf{Cote} & \textbf{Ce que le plan écrit} & \textbf{Écart à utiliser}\\\hline
+$a$ & 105, aucun écart écrit & classe m, plage 30 à 120 : $\pm 0{,}3$ \\\hline
+$o$ & \hspace{2pt}\carre{}\ 34, avec $+0{,}1$ et $-0{,}1$ & écrit sur le plan : $+0{,}1$ et $-0{,}1$ \\\hline
+\end{tabularx}
+\end{tcolorbox}
 \vfill{\footnotesize\color{uimm}\textbf{Ressources de la base :} Données de secours : \href{https://sjaubert.github.io/000_OI/SPC/Pages/Donnees_a_copier.html\#lin7}{\nolinkurl{https://sjaubert.github.io/000_OI/SPC/Pages/Donnees_a_copier.html}}}
+\newpage
+\titre{Plan de la plaque PT102}
+{\small Pour lire ce plan et ses tolérances, voir l'encadré « Lire le plan GUNT » de la page précédente.\par}\vspace{2pt}
+\begin{center}\includegraphics[width=0.90\textheight,height=0.97\linewidth,keepaspectratio,angle=90]{plan_plaque_PT102.pdf}\end{center}
+\vfill{\footnotesize\color{uimm}Plan : GUNT Hamburg, Distanzplatte (plaque d'écartement), dessin PT102.10.00.012.}
 \end{document}

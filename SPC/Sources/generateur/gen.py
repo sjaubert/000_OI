@@ -140,6 +140,48 @@ def releve(r):
         return s + releve(('deux', 20, 'Cote b (mm)', 'Cote d (mm)'))
     raise ValueError(k)
 
+
+PLANS = {
+ 'G1': ("Plan de la plaque PT102", "plan_plaque_PT102.pdf", "Distanzplatte (plaque d'écartement), dessin PT102.10.00.012",
+        [(r"$a$", r"105, aucun écart écrit", r"classe m, plage 30 à 120 : $\pm 0{,}3$"),
+         (r"$o$", r"\hspace{2pt}\carre{}\ 34, avec $+0{,}1$ et $-0{,}1$", r"écrit sur le plan : $+0{,}1$ et $-0{,}1$")]),
+ 'G2': ("Plan de l'arbre PT105", "plan_arbre_PT105.pdf", "Welle (arbre), dessin PT105.10.00.011",
+        [(r"$g$", r"\O\ 48 avec $\pm 0{,}2$", r"écrit sur le plan : $\pm 0{,}2$")]),
+ 'G3': ("Plan de l'arbre PT105", "plan_arbre_PT105.pdf", "Welle (arbre), dessin PT105.10.00.011",
+        [(r"$b$", r"30,3 avec $+0{,}4$ (un seul écart écrit)", r"convention de cette fiche : l'autre écart vaut $0$"),
+         (r"$d$", r"55,2 avec $-0{,}4$ (un seul écart écrit)", r"convention de cette fiche : l'autre écart vaut $0$")]),
+ 'G4': ("Plan de la plaque PT102", "plan_plaque_PT102.pdf", "Distanzplatte (plaque d'écartement), dessin PT102.10.00.012",
+        [(r"$q$", r"19 avec $+0{,}0$ et $-0{,}3$", r"écrit sur le plan : $+0{,}0$ et $-0{,}3$")]),
+ 'G5': ("Plan de la plaque PT102", "plan_plaque_PT102.pdf", "Distanzplatte (plaque d'écartement), dessin PT102.10.00.012",
+        [(r"$a$", r"105, aucun écart écrit", r"classe m, plage 30 à 120 : $\pm 0{,}3$"),
+         (r"$d$", r"75 avec $+0{,}3$ et $-0{,}0$", r"écrit sur le plan : $+0{,}3$ et $0$"),
+         (r"$m$", r"6,5, aucun écart écrit", r"classe m, plage au-delà de 6 jusqu'à 30 : $\pm 0{,}2$"),
+         (r"$n$", r"\hspace{2pt}\carre{}\ 28, avec $+0{,}1$ et $-0{,}3$", r"écrit sur le plan : $+0{,}1$ et $-0{,}3$"),
+         (r"$o$", r"\hspace{2pt}\carre{}\ 34, avec $+0{,}1$ et $-0{,}1$", r"écrit sur le plan : $+0{,}1$ et $-0{,}1$"),
+         (r"$q$", r"19 avec $+0{,}0$ et $-0{,}3$", r"écrit sur le plan : $+0{,}0$ et $-0{,}3$"),
+         (r"$r$", r"16 avec $+0{,}0$ et $-0{,}3$", r"écrit sur le plan : $+0{,}0$ et $-0{,}3$")]),
+}
+BOX_SUR_PLAN = {'G4'}   # fiche d'une page : l'encadré « Lire le plan » est sur la page du plan
+
+def lire_plan(code):
+    pl = PLANS[code]
+    rows = " \\\\\\hline\n".join(" & ".join(r) for r in pl[3])
+    s = r"\providecommand{\carre}{\fbox{\rule{0pt}{1.1ex}\rule{1.1ex}{0pt}}}" + "\n" + r"\begin{tcolorbox}[boite,left=5pt,right=5pt,top=3pt,bottom=3pt]\footnotesize" + "\n"
+    s += r"\textbf{\color{uimm}Lire le plan GUNT (dernière page).} Le cartouche du plan est écrit en allemand et en anglais. À la ligne « Allgemeintoleranzen / General tolerance », on lit \textbf{ISO 2768-mK}. Cela veut dire : toute cote \textbf{sans écart écrit} a la tolérance générale de la classe \textbf{m} (« medium »), donnée par le tableau ci-dessous. Une cote \textbf{avec un écart écrit} garde cet écart, et la tolérance générale ne s'applique pas. Limite haute = nominal + écart supérieur. Limite basse = nominal + écart inférieur. \O\ : diamètre. \carre{} : carré, on lit son côté. « A-A », « B-B » : coupes. Les symboles d'état de surface et d'arêtes, en bas à droite, ne servent pas dans cette fiche." + "\n"
+    s += r"\par\vspace{6pt}\noindent\renewcommand{\arraystretch}{1.2}\setlength{\tabcolsep}{4pt}" + "\n"
+    s += r"\begin{tabular}{|l|c|c|c|c|c|}\hline" + "\n"
+    s += r"\textbf{Dimension nominale (mm)} & 0,5 à 3 & au-delà de 3 à 6 & au-delà de 6 à 30 & au-delà de 30 à 120 & au-delà de 120 à 400\\\hline" + "\n"
+    s += r"\textbf{Écart de la classe m (mm)} & $\pm 0{,}1$ & $\pm 0{,}1$ & $\pm 0{,}2$ & $\pm 0{,}3$ & $\pm 0{,}5$\\\hline" + "\n"
+    s += r"\end{tabular}" + "\n"
+    s += r"\par\vspace{1pt}{\scriptsize Source : ISO 2768-1:1989, tolérances générales des dimensions linéaires, reprises dans la fiche GUNT « PT105f Tolérances ».}" + "\n"
+    s += r"\par\vspace{4pt}\textbf{Les cotes de cette fiche}\par\vspace{2pt}" + "\n"
+    s += r"\begin{tabularx}{\linewidth}{|c|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|}\hline" + "\n"
+    s += r"\textbf{Cote} & \textbf{Ce que le plan écrit} & \textbf{Écart à utiliser}\\\hline" + "\n"
+    s += rows + r" \\\hline" + "\n"
+    s += r"\end{tabularx}" + "\n"
+    s += r"\end{tcolorbox}"
+    return s
+
 COUPE = {'A2', 'A4', 'A6', 'M6', 'M14', 'M15', 'M16', 'M17', 'G1', 'G2', 'G3', 'G5'}   # fiches sur deux pages : coupure avant les questions
 TAG = {'E': r"\tagE\ ", 'W': r"\tagW\ ", 'M': ""}
 def fiche(a, bloc):
@@ -165,6 +207,8 @@ def fiche(a, bloc):
     L.append(r"\end{enumerate}")
     L.append(r"\begin{tcolorbox}[retenir]" + a['retenir'] + r"\end{tcolorbox}")
     if a['plus']: L.append(r"\begin{tcolorbox}[plus]" + a['plus'] + r"\end{tcolorbox}")
+    if a['code'].startswith('G') and a['code'] not in BOX_SUR_PLAN:
+        L.append(lire_plan(a['code']))
     if a['code'].startswith('G'):
         res = []
         for lab, h in a['liens']:
@@ -174,6 +218,17 @@ def fiche(a, bloc):
     else:
         res = [tex(l[0]) for l in a['liens']]
         if res: L.append(r"\vfill{\footnotesize\color{uimm}\textbf{Ressources de la base :} " + " · ".join(res) + ".}")
+    if a['code'].startswith('G'):
+        pl = PLANS[a['code']]
+        L.append(r"\newpage")
+        L.append(r"\titre{" + pl[0] + "}")
+        if a['code'] in BOX_SUR_PLAN:
+            L.append(lire_plan(a['code']))
+            L.append(r"\begin{center}\includegraphics[width=0.74\textheight,height=0.97\linewidth,keepaspectratio,angle=90]{" + pl[1] + "}\\end{center}")
+        else:
+            L.append(r"{\small Pour lire ce plan et ses tolérances, voir l'encadré « Lire le plan GUNT » de la page précédente.\par}\vspace{2pt}")
+            L.append(r"\begin{center}\includegraphics[width=0.90\textheight,height=0.97\linewidth,keepaspectratio,angle=90]{" + pl[1] + "}\\end{center}")
+        L.append(r"\vfill{\footnotesize\color{uimm}Plan : GUNT Hamburg, " + pl[2] + ".}")
     L.append(r"\end{document}")
     return "\n".join(L)
 
