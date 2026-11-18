@@ -13,3 +13,5 @@ Pour modifier une fiche sans Python : éditer son .tex dans fiches/, recompiler,
 Base construite le 11 novembre 2026. Activité M14 (Trois étalons pour la butée) ajoutée le 13 novembre 2026. Activités M15 (Le micromètre dérive-t-il ?), M16 (Deux grades, un micromètre) et M17 (Des cales comme pièces) ajoutées le 13 novembre 2026. Descriptions des fiches E1 à E6 revues le 14 novembre 2026 d'après des copies d'écran d'Ellistat (comptes formateur et stagiaire).
 
 Mise à jour du 16 novembre 2026 : encadré « Un grade, c'est quoi ? » ajouté à la fiche M16 (acts_M.py, champs encadre et note), au livret de toutes les fiches, au catalogue (index.html, volet repliable de la carte M16) et au mémo Memo_qualite_moyen_mesure (section 5).
+
+Mise à jour du 18 novembre 2026 : fiche M16 (étapes 3 et 4) : rappel de la signification de k, Cg et Cgk, et adresse de la page « Comparer deux séries de mesures » écrite en clair. Livret refait (page 25).
