@@ -13,7 +13,7 @@
   --papier:#F6F8F7; --encre:#17324D; --trait:#5B6B7A; --grille:#D9E2E0; --fond:#E9EEED; --carte:#FFFFFF;
   --ok:#2E7D32; --okfond:#E3F1E4; --ko:#B3261E; --kofond:#FBE4E2; --moyen:#B4530F; --moyenfond:#FCEBDD;
   --accent:#1F4E79; --accentfond:#DCE7F2;
-  --opA:#2D6A9F; --opB:#B4530F; --opC:#2E7D32;
+  --opA:#2D6A9F; --opB:#B4530F; --opC:#2E7D32; --opD:#7B1FA2; --opE:#A31545;
   --f-titre:"Barlow Semi Condensed","Arial Narrow",Arial,sans-serif;
   --f-texte:"Source Sans 3","Segoe UI",Arial,sans-serif;
   --f-chiffre:"IBM Plex Mono",Consolas,"Courier New",monospace;
@@ -21,11 +21,11 @@
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --papier:#16201F; --encre:#DCE8F2; --trait:#9AABB8; --grille:#26332F; --fond:#0F1716; --carte:#1B2625;
   --ok:#7CC283; --okfond:#1D3322; --ko:#F2877E; --kofond:#3A1E1C; --moyen:#F08A4B; --moyenfond:#3A2716;
-  --accent:#8DB8E6; --accentfond:#1E3247; --opA:#6FA8DC; --opB:#F08A4B; --opC:#7CC283; color-scheme:dark}}
+  --accent:#8DB8E6; --accentfond:#1E3247; --opA:#6FA8DC; --opB:#F08A4B; --opC:#7CC283; --opD:#CE93D8; --opE:#F48FB1; color-scheme:dark}}
 :root[data-theme="dark"]{
   --papier:#16201F; --encre:#DCE8F2; --trait:#9AABB8; --grille:#26332F; --fond:#0F1716; --carte:#1B2625;
   --ok:#7CC283; --okfond:#1D3322; --ko:#F2877E; --kofond:#3A1E1C; --moyen:#F08A4B; --moyenfond:#3A2716;
-  --accent:#8DB8E6; --accentfond:#1E3247; --opA:#6FA8DC; --opB:#F08A4B; --opC:#7CC283; color-scheme:dark}
+  --accent:#8DB8E6; --accentfond:#1E3247; --opA:#6FA8DC; --opB:#F08A4B; --opC:#7CC283; --opD:#CE93D8; --opE:#F48FB1; color-scheme:dark}
 body{background:var(--fond);color:var(--encre);font-family:var(--f-texte);font-size:16px;line-height:1.45}
 .page{max-width:1180px;margin:0 auto;padding-block:20px 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:16px}
 .page>*{min-width:0}
@@ -55,7 +55,7 @@ th{font-family:var(--f-titre);font-weight:600;font-size:.95rem}
 td.n,th.n{text-align:right;font-family:var(--f-chiffre);font-variant-numeric:tabular-nums}
 table.grille input{width:100%;min-width:76px;box-sizing:border-box;text-align:right;padding:5px 6px}
 table.grille th{text-align:center}
-.opA{color:var(--opA)} .opB{color:var(--opB)} .opC{color:var(--opC)}
+.opA{color:var(--opA)} .opB{color:var(--opB)} .opC{color:var(--opC)} .opD{color:var(--opD)} .opE{color:var(--opE)}
 .ordre{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px}
 .ordre div{background:var(--papier);border:1px solid var(--grille);border-radius:6px;padding:7px 10px;font-family:var(--f-chiffre);font-size:.9rem}
 .ordre b{font-family:var(--f-titre);font-size:1rem}
@@ -113,7 +113,7 @@ svg{display:block;width:100%;height:auto}
 
   <section class="principe">
     <h2>Le principe</h2>
-    <p>Trois opérateurs mesurent les mêmes 10 pièces, deux fois chacun, dans un ordre tiré au sort. On sépare ensuite deux causes d'écart : <b>l'instrument</b> (le même opérateur ne retrouve pas la même valeur : <b>répétabilité</b>) et <b>les opérateurs</b> (ils ne trouvent pas la même chose entre eux : <b>reproductibilité</b>).</p>
+    <p><span id="nbOps">Trois</span> opérateurs mesurent les mêmes 10 pièces, deux fois chacun, dans un ordre tiré au sort. On sépare ensuite deux causes d'écart : <b>l'instrument</b> (le même opérateur ne retrouve pas la même valeur : <b>répétabilité</b>) et <b>les opérateurs</b> (ils ne trouvent pas la même chose entre eux : <b>reproductibilité</b>).</p>
     <p>On compare l'ensemble, le GRR, à la tolérance. La page fait tous les calculs.</p>
     <div class="formules"><span>%GRR = 6 × GRR / T</span><span>≤ 10 % : capable</span><span>10 à 30 % : capable sous conditions</span><span>&gt; 30 % : non capable</span></div>
   </section>
@@ -123,20 +123,19 @@ svg{display:block;width:100%;height:auto}
     <div class="champs">
       <label for="inT"><span>Tolérance T (mm)</span><input id="inT" inputmode="decimal" value="0,15"></label>
       <label for="inRes"><span>Résolution (mm)</span><input id="inRes" inputmode="decimal" value="0,001"></label>
-      <label for="opA"><span class="opA">Opérateur A</span><input id="opA" value="A"></label>
-      <label for="opB"><span class="opB">Opérateur B</span><input id="opB" value="B"></label>
-      <label for="opC"><span class="opC">Opérateur C</span><input id="opC" value="C"></label>
+      <label for="inK"><span>Nombre d'opérateurs</span><select id="inK"><option value="2">2</option><option value="3" selected>3</option><option value="4">4</option><option value="5">5</option></select></label>
     </div>
+    <div class="champs" id="champsOps"></div>
     <div class="actions">
       <button class="btn second" id="btnOrdre" type="button">Tirer l'ordre de mesure au sort</button>
-      <span class="note">À donner aux deux stagiaires secrétaires. Chaque opérateur a son ordre, différent à chaque série.</span>
+      <span class="note" id="noteOrdre"></span>
     </div>
     <div class="ordre" id="ordre" hidden></div>
   </section>
 
   <section class="panneau" aria-label="Saisie des mesures">
     <h3>2. Les mesures (mm)</h3>
-    <p class="note">Une ligne par pièce. Vous pouvez coller d'un coup un tableau copié depuis Excel (10 lignes, 6 colonnes) dans la première case.</p>
+    <p class="note">Une ligne par pièce. Vous pouvez coller d'un coup un tableau copié depuis Excel (10 lignes, <span id="nbCols">6</span> colonnes) dans la première case.</p>
     <div class="tableau"><table class="grille" id="grille"></table></div>
     <div class="actions">
       <button class="btn principal" id="btnCalc" type="button">Calculer</button>
@@ -150,7 +149,7 @@ svg{display:block;width:100%;height:auto}
 
   <section class="panneau" aria-label="Résultats" aria-live="polite">
     <h3>3. Le résultat</h3>
-    <div id="vide" class="note">Saisissez les 60 mesures puis cliquez sur Calculer.</div>
+    <div id="vide" class="note"></div>
     <div id="res" class="pile" hidden>
       <div id="verdict" class="verdict"></div>
       <div class="chiffres" id="chiffres"></div>
@@ -183,7 +182,7 @@ svg{display:block;width:100%;height:auto}
       </div>
       <div class="etape">
         <h4><span>2</span>Sommes-nous d'accord entre nous ? <small>La reproductibilité</small></h4>
-        <svg id="svgRegle" viewBox="0 0 520 150" role="img" aria-label="Moyennes des trois opérateurs sur une règle"></svg>
+        <svg id="svgRegle" viewBox="0 0 520 150" role="img" aria-label="Moyennes des opérateurs sur une règle"></svg>
         <p id="txtRegle"></p>
       </div>
       <div class="etape">
@@ -224,19 +223,33 @@ svg{display:block;width:100%;height:auto}
 "use strict";
 var $=function(id){return document.getElementById(id);};
 var N=10, K=3, R=2;
+var NOMS=["A","B","C","D","E"], CLS=["opA","opB","opC","opD","opE"], NB=["","","Deux","Trois","Quatre","Cinq"], OPS=NOMS.slice();
 function lire(v){ v=String(v==null?"":v).trim().replace(/\s/g,"").replace(",","."); return v===""?NaN:Number(v); }
 function fr(x,d){ return x.toFixed(d).replace(".",","); }
-function nomOp(j){ return ($(["opA","opB","opC"][j]).value.trim()||"ABC"[j]); }
-var COUL=["var(--opA)","var(--opB)","var(--opC)"];
+function nomOp(j){ return ((OPS[j]||"").trim()||NOMS[j]); }
+var COUL=["var(--opA)","var(--opB)","var(--opC)","var(--opD)","var(--opE)"];
+function msgVide(){ return "Saisissez les "+(N*K*R)+" mesures puis cliquez sur Calculer."; }
+function construireOps(){
+  var c=$("champsOps"); c.innerHTML="";
+  for(var j=0;j<K;j++){
+    var lab=document.createElement("label"), sp=document.createElement("span"), inp=document.createElement("input");
+    inp.id="opN"+j; lab.htmlFor=inp.id; sp.className=CLS[j]; sp.textContent="Opérateur "+NOMS[j]; inp.value=OPS[j];
+    inp.addEventListener("input",(function(jj,e){ return function(){ OPS[jj]=e.value; document.querySelectorAll('[data-op="'+jj+'"]').forEach(function(s){ s.textContent=nomOp(jj); }); }; })(j,inp));
+    lab.appendChild(sp); lab.appendChild(inp); c.appendChild(lab);
+  }
+}
+function majTextes(){ $("noteOrdre").textContent=(K===3?"À donner aux deux stagiaires secrétaires. Chaque opérateur a son ordre, différent à chaque série.":"À donner à la personne qui distribue les pièces et note les mesures (le formateur, ou un stagiaire qui ne mesure pas). Chaque opérateur a son ordre, différent à chaque série."); $("nbOps").textContent=NB[K]; $("nbCols").textContent=String(K*R); if(!$("vide").querySelector(".alerte")) $("vide").textContent=msgVide(); }
 
 /* ---------- grille ---------- */
 function construireGrille(){
-  var t=$("grille"), h='<thead><tr><th>Pièce</th>';
-  for(var j=0;j<K;j++) for(var m=0;m<R;m++) h+='<th class="'+["opA","opB","opC"][j]+'"><span data-op="'+j+'">'+nomOp(j)+'</span> · série '+(m+1)+'</th>';
+  var t=$("grille"), h='<thead><tr><th>Pièce</th>', gardees={};
+  t.querySelectorAll("input").forEach(function(inp){ if(inp.value!=="") gardees[inp.dataset.i+"_"+inp.dataset.j+"_"+inp.dataset.m]=inp.value; });
+  for(var j=0;j<K;j++) for(var m=0;m<R;m++) h+='<th class="'+CLS[j]+'"><span data-op="'+j+'">'+nomOp(j)+'</span> · série '+(m+1)+'</th>';
   h+='</tr></thead><tbody>';
-  for(var i=0;i<N;i++){ h+='<tr><th>'+(i+1)+'</th>'; for(j=0;j<K;j++) for(m=0;m<R;m++) h+='<td><input inputmode="decimal" data-i="'+i+'" data-j="'+j+'" data-m="'+m+'" aria-label="Pièce '+(i+1)+', opérateur '+"ABC"[j]+', série '+(m+1)+'"></td>'; h+='</tr>'; }
+  for(var i=0;i<N;i++){ h+='<tr><th>'+(i+1)+'</th>'; for(j=0;j<K;j++) for(m=0;m<R;m++) h+='<td><input inputmode="decimal" data-i="'+i+'" data-j="'+j+'" data-m="'+m+'" aria-label="Pièce '+(i+1)+', opérateur '+NOMS[j]+', série '+(m+1)+'"></td>'; h+='</tr>'; }
   t.innerHTML=h+'</tbody>';
   t.querySelectorAll("input").forEach(function(inp){
+    var cle=inp.dataset.i+"_"+inp.dataset.j+"_"+inp.dataset.m; if(gardees[cle]!==undefined) inp.value=gardees[cle];
     inp.addEventListener("input",majCompte);
     inp.addEventListener("paste",function(e){
       var txt=(e.clipboardData||window.clipboardData).getData("text"); if(!/[\t\n]/.test(txt)) return;
@@ -250,12 +263,16 @@ function construireGrille(){
 function cellule(i,j,m){ return $("grille").querySelector('input[data-i="'+i+'"][data-j="'+j+'"][data-m="'+m+'"]'); }
 function lireGrille(){ var x=[], manque=0; for(var i=0;i<N;i++){ x.push([]); for(var j=0;j<K;j++){ x[i].push([]); for(var m=0;m<R;m++){ var v=lire(cellule(i,j,m).value); if(!isFinite(v)) manque++; x[i][j].push(v); } } } return {x:x,manque:manque}; }
 function majCompte(){ var g=lireGrille(); $("compte").textContent=(N*K*R-g.manque)+" / "+(N*K*R)+" mesures"; }
-["opA","opB","opC"].forEach(function(id,j){ $(id).addEventListener("input",function(){ document.querySelectorAll('[data-op="'+j+'"]').forEach(function(s){ s.textContent=nomOp(j); }); }); });
+function changerK(nk){
+  K=nk; construireOps(); construireGrille(); majCompte(); majTextes();
+  $("res").hidden=true; $("comprendre").hidden=true; $("ordre").hidden=true; $("noteEx").hidden=true; $("vide").hidden=false; $("vide").textContent=msgVide();
+}
+$("inK").addEventListener("change",function(){ changerK(+$("inK").value); });
 
 /* ---------- ordre au sort ---------- */
 function melanger(t){ for(var i=t.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var x=t[i];t[i]=t[j];t[j]=x;} return t; }
 $("btnOrdre").addEventListener("click",function(){
-  var h=""; for(var m=0;m<R;m++) for(var j=0;j<K;j++){ var o=melanger([1,2,3,4,5,6,7,8,9,10]); h+='<div><b class="'+["opA","opB","opC"][j]+'">'+nomOp(j)+' · série '+(m+1)+'</b><br>'+o.join(" · ")+'</div>'; }
+  var h=""; for(var m=0;m<R;m++) for(var j=0;j<K;j++){ var o=melanger([1,2,3,4,5,6,7,8,9,10]); h+='<div><b class="'+CLS[j]+'">'+nomOp(j)+' · série '+(m+1)+'</b><br>'+o.join(" · ")+'</div>'; }
   $("ordre").innerHTML=h; $("ordre").hidden=false;
 });
 
@@ -322,7 +339,7 @@ function calculer(){
   if(isFinite(pRes)&&pRes>5.000001) a2.push("Résolution à "+fr(pRes,1)+"\u00a0% de T : au-dessus de 5 %, l'instrument est trop grossier pour cette tolérance (livret, fig. 3).");
   if(a.AVneg) a2.push("La part des opérateurs est si faible qu'elle est inférieure au bruit de mesure : elle est comptée comme nulle.");
   if(isFinite(a.ndc)&&a.ndc<5) a2.push("ndc = "+a.ndc+" : l'instrument distingue moins de 5 catégories de pièces. Les pièces choisies sont peut-être trop semblables, ou l'instrument trop peu précis.");
-  $("alertes").innerHTML=a2.map(function(t){return '<p class="alerte">'+t+'</p>';}).join("");
+  $("alertes").innerHTML=a2.map(function(t){return '<p class="alerte">'+t+'</p>';}).join("")+(K!==3?'<p class="note">Le livret Bosch décrit la procédure à 3 opérateurs. Avec '+K+' opérateurs, la page applique la même analyse de variance (les formules valent pour tout nombre d\'opérateurs) et les mêmes seuils de %GRR.</p>':"");
   barres(pEV,pAV,pINT,pG,a.regroupe); opsGraph(a,dec); tableAnova(a); comprendre(a,g.x,T,dec);
   $("vide").hidden=true; $("res").hidden=false;
 }
@@ -355,7 +372,8 @@ function opsGraph(a,dec){
   }
   for(var i=0;i<a.n;i++) txt(svg,X(i),H-g.b+16,String(i+1),{"text-anchor":"middle","font-size":11});
   txt(svg,g.l,18,"Moyenne de chaque opérateur, pièce par pièce",{"font-size":12.5,fill:"var(--encre)","font-family":"Barlow Semi Condensed, Arial Narrow, sans-serif","font-weight":"600"});
-  $("legOps").innerHTML=[0,1,2].map(function(j){ return '<span><i style="background:'+COUL[j]+'"></i>'+nomOp(j)+' : moyenne '+fr(a.xj[j],dec-2)+' mm</span>'; }).join("")+'<span>Si les trois courbes se superposent, les opérateurs mesurent pareil.</span>';
+  var leg=""; for(var q=0;q<a.k;q++) leg+='<span><i style="background:'+COUL[q]+'"></i>'+nomOp(q)+' : moyenne '+fr(a.xj[q],dec-2)+' mm</span>';
+  $("legOps").innerHTML=leg+'<span>Si les courbes se superposent, les opérateurs mesurent pareil.</span>';
 }
 function tableAnova(a){
   var f=function(v,d){ return isFinite(v)?fr(v,d===undefined?6:d):"—"; }, sig=function(F,c){ return F>c?"significatif":"non significatif"; };
@@ -401,12 +419,12 @@ function comprendre(a,x,T,dec){
   for(var t=0;t<=10;t++){ var xv=30+t*(W-60)/10; el("line",{x1:xv,x2:xv,y1:74,y2:86,stroke:"var(--trait)"},svg); }
   if(etendue>0){ el("rect",{x:X(lo),y:66,width:X(hi)-X(lo),height:28,fill:"var(--moyenfond)",stroke:"var(--moyen)",rx:3},svg);
     txt(svg,(X(lo)+X(hi))/2,118,"écart entre opérateurs : "+fr(etendue,dec)+" mm",{"text-anchor":"middle",fill:"var(--moyen)","font-size":12}); }
-  var ordre=[0,1,2].sort(function(p,q){ return a.xj[p]-a.xj[q]; });
+  var ordre=[]; for(j=0;j<k;j++) ordre.push(j); ordre.sort(function(p,q){ return a.xj[p]-a.xj[q]; });
   ordre.forEach(function(jj,rang){ el("circle",{cx:X(a.xj[jj]),cy:80,r:7,fill:COUL[jj],stroke:"var(--carte)","stroke-width":2},svg);
     txt(svg,X(a.xj[jj]),rang%2===0?52:42,nomOp(jj),{"text-anchor":"middle",fill:COUL[jj],"font-size":12.5,"font-weight":"600"}); });
   txt(svg,30,18,"Moyenne de chaque opérateur sur les "+n+" pièces (mm)",{"font-size":12.5,fill:"var(--encre)","font-family":"Barlow Semi Condensed, Arial Narrow, sans-serif","font-weight":"600"});
   txt(svg,W/2,140,"une graduation = "+fr(span/10,dec+1)+" mm",{"text-anchor":"middle","font-size":11});
-  $("txtRegle").innerHTML="Si les trois points se superposaient, tout le monde mesurerait pareil. Ici, les moyennes s'étalent sur <b>"+fr(etendue,dec)+" mm</b>. "+
+  $("txtRegle").innerHTML="Si les points se superposaient, tout le monde mesurerait pareil. Ici, les moyennes s'étalent sur <b>"+fr(etendue,dec)+" mm</b>. "+
     (a.AVneg?"Cet écart est plus petit que ce que le hasard des mesures produit à lui seul : la reproductibilité est comptée comme nulle.":"Après avoir retiré la part due au hasard des mesures, la reproductibilité AV vaut <b>"+fr(a.AV,dec)+" mm</b>.");
   // étape 3 : triangle
   svg=$("svgTriangle"); vider(svg); W=520; H=220;
@@ -448,6 +466,7 @@ function comprendre(a,x,T,dec){
 var BOSCH=[[6.029,6.030,6.033,6.032,6.031,6.030],[6.019,6.020,6.020,6.019,6.020,6.020],[6.004,6.003,6.007,6.007,6.010,6.006],[5.982,5.982,5.985,5.986,5.984,5.984],[6.009,6.009,6.014,6.014,6.015,6.014],[5.971,5.972,5.973,5.972,5.975,5.974],[5.995,5.997,5.997,5.996,5.995,5.994],[6.014,6.018,6.019,6.015,6.016,6.015],[5.985,5.987,5.987,5.986,5.987,5.986],[6.024,6.028,6.029,6.025,6.026,6.025]];
 function remplir(tab,dec){ for(var i=0;i<N;i++) for(var j=0;j<K;j++) for(var m=0;m<R;m++) cellule(i,j,m).value=fr(tab[i][j*R+m],dec); majCompte(); }
 $("btnBosch").addEventListener("click",function(){
+  if(K!==3){ $("inK").value="3"; changerK(3); }
   $("inT").value="0,060"; $("inRes").value="0,001"; remplir(BOSCH,3);
   var n=$("noteEx"); n.hidden=false; n.textContent="Données du livret Bosch, p. 14 (diamètre de corps d'injecteur, T = 0,060 mm). Le tableau imprimé du livret porte 6,030 pour la pièce 3, opérateur A, série 2 ; la moyenne (6,0035) et l'écart-type (0,0007) imprimés à côté imposent 6,003. C'est cette valeur qui redonne les résultats du livret.";
   calculer();
@@ -466,7 +485,7 @@ $("btnSim").addEventListener("click",function(){
   var n=$("noteEx"); n.hidden=false; n.textContent="Données simulées (butées 11,85 / 12,00 mm). Elles ne remplacent pas vos propres mesures.";
   calculer();
 });
-$("btnVide").addEventListener("click",function(){ $("grille").querySelectorAll("input").forEach(function(i){ i.value=""; }); $("noteEx").hidden=true; majCompte(); $("res").hidden=true; $("comprendre").hidden=true; $("vide").hidden=false; $("vide").textContent="Saisissez les 60 mesures puis cliquez sur Calculer."; });
+$("btnVide").addEventListener("click",function(){ $("grille").querySelectorAll("input").forEach(function(i){ i.value=""; }); $("noteEx").hidden=true; majCompte(); $("res").hidden=true; $("comprendre").hidden=true; $("vide").hidden=false; $("vide").textContent=msgVide(); });
 $("btnCalc").addEventListener("click",calculer);
 
 /* ---------- quiz ---------- */
@@ -488,7 +507,7 @@ QUIZ.forEach(function(s,k){
   d.appendChild(c); d.appendChild(ex); box.appendChild(d);
 });
 
-construireGrille(); majCompte();
+construireOps(); construireGrille(); majCompte(); majTextes();
 window.__rr={anova:anova,fquant:fquant};
 })();
 </script>
