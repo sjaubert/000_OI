@@ -13,9 +13,10 @@ def fmt(v,dec):
 def ligne(k,r):
     d=DECS.get(k); return [fmt(x,d[i] if d else J[k]['dec']) for i,x in enumerate(r)]
 def tableau(k):
-    d=J[k]; h='<table><thead><tr>'+''.join(f'<th>{html.escape(x)}</th>' for x in d['entete'])+('<th></th>' if k in ('lin','lin7') else '')+'</tr></thead><tbody>'
+    d=J[k]; lg=k in ('lin','lin7')
+    h='<table><thead><tr>'+''.join((f'<th class="vv" title="À taper dans la case VALEUR VRAIE d\'Ellistat, ne pas la copier">{html.escape(x)}</th>' if (lg and j==0) else f'<th>{html.escape(x)}</th>') for j,x in enumerate(d['entete']))+('<th></th>' if lg else '')+'</tr></thead><tbody>'
     for i,r in enumerate(d['lignes']):
-        h+='<tr>'+''.join(f'<td>{v}</td>' for v in ligne(k,r))+(f'<td><button class="mini" data-k="{k}" data-ligne="{i}">Copier les {10 if k=="lin" else 5} mesures (en colonne)</button></td>' if k in ('lin','lin7') else '')+'</tr>'
+        h+='<tr>'+''.join((f'<td class="vv">{v}</td>' if (lg and j==0) else f'<td>{v}</td>') for j,v in enumerate(ligne(k,r)))+(f'<td><button class="mini" data-k="{k}" data-ligne="{i}">Copier les {10 if k=="lin" else 5} mesures (en colonne)</button></td>' if k in ('lin','lin7') else '')+'</tr>'
     return h+'</tbody></table>'
 def extra(k):
     if k in ('justesse','s5just'):
@@ -23,11 +24,15 @@ def extra(k):
     if k in ('rr','rrcotes','s5rr','rrarbres'):
         return ''.join(f'<button class="mode" data-k="{k}" data-mode="op{i}">Copier l\'opérateur {n} (2 colonnes, sans en-tête)</button>' for i,n in enumerate('ABC'))
     return ''
+def attention(k):
+    if k not in ('lin','lin7'): return ''
+    n = 10 if k=='lin' else 5
+    return f'<p class="attention"><strong>Attention.</strong> La première colonne (grisée) est la valeur vraie : elle ne se copie pas, elle se tape dans la case VALEUR VRAIE d\'Ellistat. Collez seulement les {n} mesures, avec le bouton de la ligne. Contrôle dans l\'onglet Mesures : la ligne 1 ne doit pas être égale à la valeur vraie.</p>'
 corps=''
 for titre,jeux in GR:
     corps+=f'<section class="groupe"><h2>{html.escape(titre)}</h2>'
     for k,lib in jeux:
-        corps+=f'''<details class="jeu" id="{k}"><summary>{html.escape(lib)}</summary><div class="outils"><a class="dl" href="../Donnees_Ellistat/{J[k]['nom']}" download>Télécharger {J[k]['nom']}</a><button class="copier" data-k="{k}">Copier le tableau</button>{extra(k)}<span class="ok" aria-live="polite"></span></div><div class="defile">{tableau(k)}</div></details>'''
+        corps+=f'''<details class="jeu" id="{k}"><summary>{html.escape(lib)}</summary><div class="outils"><a class="dl" href="../Donnees_Ellistat/{J[k]['nom']}" download>Télécharger {J[k]['nom']}</a><button class="copier" data-k="{k}">Copier le tableau</button>{extra(k)}<span class="ok" aria-live="polite"></span></div>{attention(k)}<div class="defile">{tableau(k)}</div></details>'''
     corps+='</section>'
 assert set(k for _,j in GR for k,_ in j)==set(J), set(J)-set(k for _,j in GR for k,_ in j)
 data=json.dumps({k:{'entete':v['entete'],'lignes':[ligne(k,r) for r in v['lignes']]} for k,v in J.items()},ensure_ascii=False)
@@ -53,6 +58,7 @@ a.dl{text-decoration:none;color:var(--encre);background:var(--carte);border:1.5p
 button{font:inherit;cursor:pointer;border-radius:8px} button.copier{background:var(--uimm);color:#fff;border:none;padding:6px 12px;font-weight:600;font-size:.88rem} button.mode{background:#fff;color:var(--uimm);border:1px solid var(--uimm);padding:6px 12px;font-weight:600;font-size:.88rem}
 button.mini{background:transparent;color:var(--accent);border:1.5px solid var(--accent);padding:2px 8px;font-size:.8rem}
 .ok{color:var(--ok);font-size:.88rem} .defile{overflow-x:auto;padding:0 12px 12px}
+.vv{background:var(--fond);color:var(--trait);border-right:2px solid var(--trait)} .attention{margin:0 12px 8px;padding:6px 10px;border-left:4px solid var(--uimm);background:var(--fond);font-size:.9rem}
 table{border-collapse:collapse;font-family:var(--f-chiffre);font-size:.85rem} th,td{border-bottom:1px solid var(--grille);padding:3px 8px;text-align:right;white-space:nowrap} th{font-family:var(--f-texte);color:var(--trait)}
 label.sep{display:inline-flex;gap:6px;align-items:center;font-size:.92rem} select{font:inherit;color:var(--encre);background:var(--carte);border:1.5px solid var(--grille);border-radius:6px;padding:4px 6px}
 a:focus-visible,button:focus-visible,summary:focus-visible,select:focus-visible{outline:3px solid var(--accent);outline-offset:2px}

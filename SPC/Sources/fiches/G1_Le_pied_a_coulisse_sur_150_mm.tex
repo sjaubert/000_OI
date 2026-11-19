@@ -12,8 +12,8 @@
 \item Mesurer chaque longueur du tableau \textbf{5 fois}, en ouvrant et en refermant les becs à chaque mesure. Pour 140 mm, empiler 100 + 40 ; pour 150 mm, empiler 100 + 50 (adhérence, comme en M10).
 \item Calculer pour chaque longueur la moyenne, puis le biais en µm : moyenne moins valeur de la cale.
 \item \tagE\ \menu{Gage R\&R}, onglet \menu{Linéarité}, bouton « Ajouter une Etude de linéarité ». Remplir : Nom ; Nombre de produits 7 (Ellistat propose 4) ; Nombre de mesures par produit 5 ; Valeur k 3. Laisser les autres cases vides. Valider.
-\item \tagE\ Onglet \menu{Mesures} : un bloc par longueur. Saisir la VALEUR VRAIE (10, 50, 60, 90, 100, 140, 150) puis ses 5 mesures dans la colonne MESURE.
-\item \tagE\ Onglet \menu{Résultat} : lire « Justesse » et « Pente » (colonnes Valeur, t, Risque alpha, Significatif ?). Puis l'onglet \menu{Graphiques}, qui trace l'erreur selon la valeur vraie.
+\item \tagE\ Onglet \menu{Mesures} : un bloc par longueur. Saisir la VALEUR VRAIE (10, 50, 60, 90, 100, 140, 150) puis ses 5 mesures dans la colonne MESURE. Si vous copiez les mesures depuis un tableau, ne prenez pas la colonne « Valeur\_vraie » : elle se tape dans sa case. Contrôle : la mesure 1 ne doit pas être égale à la valeur vraie dans les sept blocs.
+\item \tagE\ Onglet \menu{Résultat} : lire « Justesse » et « Pente » (colonnes Valeur, t, Risque alpha, Significatif ?). Puis l'onglet \menu{Graphiques}, qui trace l'erreur selon la valeur vraie. Ellistat écrit la pente en notation scientifique : 2.44e-4 veut dire 0,000244.
 \end{enumerate}
 \vspace{3pt}{\renewcommand{\arraystretch}{1.5}\small\setlength{\tabcolsep}{3pt}\begin{tabularx}{\linewidth}{|l|*{5}{>{\centering\arraybackslash}X|}>{\centering\arraybackslash}p{15mm}|>{\centering\arraybackslash}p{15mm}|}\hline
 \textbf{Longueur} & \scriptsize 1 & \scriptsize 2 & \scriptsize 3 & \scriptsize 4 & \scriptsize 5 & \textbf{\scriptsize Moyenne} & \textbf{\scriptsize Biais (µm)}\\\hline
@@ -33,7 +33,7 @@
 \item La cote $a = 105$ mm de la plaque a pour tolérance générale ISO 2768-mK (encadré « Lire le plan GUNT »), soit $\pm 0{,}3$ mm ($T = 0{,}6$ mm). Quelle part de $T$ représente le plus grand biais ? Faut-il s'en soucier ?\reponse[2]
 \item La cote $o = 34 \pm 0{,}1$ mm ($T = 0{,}2$ mm). Appliquez la règle de M1 (résolution au plus 5 \% de $T$) : ce pied à coulisse convient-il ?\reponse[2]
 \end{enumerate}
-\begin{tcolorbox}[retenir]Le biais d'un pied à coulisse peut grandir avec la longueur. On le qualifie avec des étalons de la longueur où il sert, et on compare toujours à la tolérance de la cote.\end{tcolorbox}
+\begin{tcolorbox}[retenir]Le biais d'un pied à coulisse peut grandir avec la longueur. On le qualifie avec des étalons de la longueur où il sert, et on compare toujours à la tolérance de la cote. « Très significatif » veut dire certain, pas important.\end{tcolorbox}
 \providecommand{\carre}{\fbox{\rule{0pt}{1.1ex}\rule{1.1ex}{0pt}}}
 \begin{tcolorbox}[boite,left=5pt,right=5pt,top=3pt,bottom=3pt]\footnotesize
 \textbf{\color{uimm}Lire le plan GUNT (dernière page).} Le cartouche du plan est écrit en allemand et en anglais. À la ligne « Allgemeintoleranzen / General tolerance », on lit \textbf{ISO 2768-mK}. Cela veut dire : toute cote \textbf{sans écart écrit} a la tolérance générale de la classe \textbf{m} (« medium »), donnée par le tableau ci-dessous. Une cote \textbf{avec un écart écrit} garde cet écart, et la tolérance générale ne s'applique pas. Limite haute = nominal + écart supérieur. Limite basse = nominal + écart inférieur. \O\ : diamètre. \carre{} : carré, on lit son côté. « A-A », « B-B » : coupes. Les symboles d'état de surface et d'arêtes, en bas à droite, ne servent pas dans cette fiche.
