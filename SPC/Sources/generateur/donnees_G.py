@@ -88,6 +88,26 @@ def anova_rr(X, T, K=3, pool_p=0.25):
     return {k: (float(v) if not isinstance(v, (bool, dict)) else v) for k, v in d.items()}
 
 R['G2'] = {T: anova_rr(X, T) for T in (0.4, 0.2, 0.1)}
+# Variante à 4 opérateurs : A, B, C identiques, D tiré à la suite (même graine, les trois premiers ne changent pas)
+biais_D = -0.002
+XD = rnd(vraies[:, None] + biais_D + sig_e * rng.standard_normal((10, 2)), res2)
+X4 = np.concatenate([X, XD[:, None, :]], axis=1)
+lignes4 = [[i + 1] + [float(X4[i, j, r]) for j in range(4) for r in range(2)] for i in range(10)]
+ecrire('rrarbres4', 'RR_arbres_diametre48_4operateurs_simule.xlsx', ['Piece', 'A_r1', 'A_r2', 'B_r1', 'B_r2', 'C_r1', 'C_r2', 'D_r1', 'D_r2'], lignes4, 2)
+R['G2_4'] = {T: anova_rr(X4, T) for T in (0.4, 0.2, 0.1, 0.05)}
+R['G2_4']['moyennes_op'] = {o: float(X4[:, j, :].mean()) for j, o in enumerate('ABCD')}
+R['G2_3bis'] = {T: anova_rr(X, T) for T in (0.05,)}
+
+# Variante à 4 opérateurs pour M11 : butées 11,85 à 12,00 (jeu de la synthèse, opérateurs A, B, C) + opérateur D simulé
+_b = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'donnees_base.json'), encoding='utf-8'))['s5rr']['lignes']
+Xb = np.array([[float(v.replace(',', '.')) for v in l[1:]] for l in _b]).reshape(10, 3, 2)
+rngb = np.random.default_rng(7106)
+Db = rnd(Xb.mean(axis=(1, 2))[:, None] + 0.0010 + 0.0012 * rngb.standard_normal((10, 2)), 0.001)
+Xb4 = np.concatenate([Xb, Db[:, None, :]], axis=1)
+lb = [[i + 1] + [float(Xb4[i, j, r]) for j in range(4) for r in range(2)] for i in range(10)]
+ecrire('rrbutees4', 'RR_butees_4operateurs_simule.xlsx', ['Piece', 'A_r1', 'A_r2', 'B_r1', 'B_r2', 'C_r1', 'C_r2', 'D_r1', 'D_r2'], lb, 3)
+R['M11_4'] = {'T0.15': anova_rr(Xb4, 0.15), 'T0.15_3op': anova_rr(Xb, 0.15)}
+
 R['G2']['moyennes_op'] = {o: float(X[:, j, :].mean()) for j, o in enumerate('ABC')}
 R['G2']['vraies'] = vraies.tolist()
 

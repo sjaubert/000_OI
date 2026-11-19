@@ -160,7 +160,7 @@ function orga(a,n){
   }
   if(n<o.min) return {t:"Il faut au moins "+o.min+" personnes : le formateur complète ("+pl(o.min-n,"personne")+").",p:1};
   var g=Math.max(1,Math.floor(n/o.taille)), t=Math.ceil(n/g);
-  return {t:(g===1?"Un seul groupe de "+n:pl(g,"groupe")+" de "+t+" au plus")+({M11:" : 3 opérateurs mesurent, les autres notent.",M17:" : 3 opérateurs mesurent, les autres notent.",M15:" : un micromètre et une cale témoin pour tout le groupe, chacun passe à son tour.",G2:" : 3 opérateurs mesurent, les autres notent.",G4:" : 3 contrôleurs trient, les autres notent.",G3:" : les arbres sont répartis entre les binômes, puis les mesures sont réunies.",G5:" : les cotes sont réparties entre les binômes, puis les mesures sont réunies."}[a.code]||"."),p:g};
+  return {t:(g===1?"Un seul groupe de "+n:pl(g,"groupe")+" de "+t+" au plus")+({M11:" : 3 ou 4 opérateurs mesurent, les autres notent.",M17:" : 3 opérateurs mesurent, les autres notent.",M15:" : un micromètre et une cale témoin pour tout le groupe, chacun passe à son tour.",G2:" : 3 ou 4 opérateurs mesurent, les autres notent.",G4:" : 3 contrôleurs trient, les autres notent.",G3:" : les arbres sont répartis entre les binômes, puis les mesures sont réunies.",G5:" : les cotes sont réparties entre les binômes, puis les mesures sont réunies."}[a.code]||"."),p:g};
 }
 function construire(){
   $("fBlocs").innerHTML=Object.keys(NOMS).map(function(b){ return '<button type="button" class="puce" data-b="'+b+'" aria-pressed="'+(etat.blocs[b]?"true":"false")+'">'+b+' · '+NOMS[b]+'</button>'; }).join("");

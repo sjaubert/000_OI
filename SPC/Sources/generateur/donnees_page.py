@@ -2,10 +2,10 @@ import json, html
 J=json.load(open('donnees_base.json'))
 GR=[("Butées : cartes aux mesures et capabilité",[('butees30','30 butées en une colonne, dans l\'ordre de fabrication'),('butees6','30 butées, 6 sous-groupes de 5'),('decoupage','Les mêmes 30 butées, mal regroupées'),('butees10','50 butées, 10 sous-groupes de 5')]),
  ("Trois enquêtes sur cartes",[('pression','Pression du réservoir (24 jours × 5)'),('dimension','Dimension usinée (27 × 5, valeurs codées)'),('liquide','Liquide par lots (17 valeurs)')]),
- ("Moyen de mesure",[('justesse','Justesse : cale 6,002 mm, 50 mesures (livret Bosch p. 11)'),('rr','R&R : 10 pièces, 3 opérateurs, 2 séries (livret Bosch p. 14)'),('lin','Linéarité : 5 cales × 10 mesures (simulé)'),
+ ("Moyen de mesure",[('justesse','Justesse : cale 6,002 mm, 50 mesures (livret Bosch p. 11)'),('rr','R&R : 10 pièces, 3 opérateurs, 2 séries (livret Bosch p. 14)'),('rrbutees4','R&R : 10 butées 11,85 à 12,00, 4 opérateurs, 2 séries (simulé)'),('lin','Linéarité : 5 cales × 10 mesures (simulé)'),
    ('instr','Secours : micromètre et pied à coulisse sur une cale de 10 mm (simulé)'),('cliquet','Secours : avec et sans cliquet, cale de 10 mm (simulé)'),('operateurs','Secours : deux opérateurs, cale de 10 mm (simulé)'),('chauffe','Secours : cale de 25 mm réchauffée dans la main (simulé)'),
    ('etalons','Secours : trois étalons 11,850 ; 11,925 ; 12,000 mm, 10 mesures chacun (simulé)'),('derive','Dérive : cale témoin de 10 mm, 8 passages de 5 mesures (simulé)'),('grades','Secours : cale céramique grade 0 et cale acier grade 1, 15 mesures chacune (simulé)'),('rrcotes','R&R : 10 cales de cotes connues 1,01 à 1,10 mm, 3 opérateurs, 2 séries (simulé)'),('s5just','Synthèse : justesse sur cale de 12,000 mm (simulé)'),('s5rr','Synthèse : R&R sur 10 butées (simulé)')]),
- ("Mallettes GUNT : plaques et arbres",[('lin7','Linéarité du pied à coulisse : 7 longueurs de 10 à 150 mm, 5 mesures (simulé)'),('rrarbres','R&R : 10 arbres Ø 48, 3 opérateurs, 2 séries (simulé)'),('decentre','Arbres : cotes b et d sur 20 arbres (simulé)'),('tri20','Tri de 20 plaques : référence, 3 contrôleurs, 2 passages (simulé)'),('cotes7','Plaques : 7 cotes sur 20 plaques (simulé)')]),
+ ("Mallettes GUNT : plaques et arbres",[('lin7','Linéarité du pied à coulisse : 7 longueurs de 10 à 150 mm, 5 mesures (simulé)'),('rrarbres','R&R : 10 arbres Ø 48, 3 opérateurs, 2 séries (simulé)'),('rrarbres4','R&R : 10 arbres Ø 48, 4 opérateurs, 2 séries (simulé)'),('decentre','Arbres : cotes b et d sur 20 arbres (simulé)'),('tri20','Tri de 20 plaques : référence, 3 contrôleurs, 2 passages (simulé)'),('cotes7','Plaques : 7 cotes sur 20 plaques (simulé)')]),
  ("Cartes aux attributs",[('lots35','35 lots de 50 pièces (simulé)'),('lotsvar','25 lots de taille variable (simulé)'),('inspection','120 lots de 150 pièces'),('panneaux','Défauts d\'aspect sur 30 panneaux (simulé)'),('rouleaux','Défauts sur 25 rouleaux de longueur variable (simulé)')])]
 DECS={'instr':[3,2],'chauffe':[0,3]}
 def fmt(v,dec):
@@ -21,8 +21,8 @@ def tableau(k):
 def extra(k):
     if k in ('justesse','s5just'):
         return f'<button class="mode" data-k="{k}" data-mode="col">Copier les mesures sans l\'en-tête</button>'
-    if k in ('rr','rrcotes','s5rr','rrarbres'):
-        return ''.join(f'<button class="mode" data-k="{k}" data-mode="op{i}">Copier l\'opérateur {n} (2 colonnes, sans en-tête)</button>' for i,n in enumerate('ABC'))
+    if k in ('rr','rrcotes','s5rr','rrarbres','rrarbres4','rrbutees4'):
+        return ''.join(f'<button class="mode" data-k="{k}" data-mode="op{i}">Copier l\'opérateur {n} (2 colonnes, sans en-tête)</button>' for i,n in enumerate('ABCD' if k.endswith('4') else 'ABC'))
     return ''
 def attention(k):
     if k not in ('lin','lin7'): return ''

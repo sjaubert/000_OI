@@ -21,3 +21,9 @@ Mise à jour du 18 novembre 2026 (page) : L_operateur_compte-t-il.html : l'alert
 
 Mise à jour du 19 novembre 2026 (G1 et page) : fiche G1 : avertissement sur la valeur vraie à ne pas copier, contrôle de la mesure 1, pente en notation scientifique ; corrigé du guide formateur : interprétation lue à l'écran d'Ellistat le 19/11/2026, cas de la pente non significative, saisie fautive, lignes à ne pas commenter. Page « Données à copier » : colonne de la valeur vraie grisée et rappel avant les tableaux de linéarité (G1 et M8). Livret : 62 pages. Guide formateur : 19 pages.
 Mise à jour du 19 novembre 2026 (page) : L_operateur_compte-t-il.html : nombre d'opérateurs au choix (2 à 5, 3 par défaut) ; l'exemple du livret Bosch repasse à 3 opérateurs. Analyse de variance vérifiée contre statsmodels sur 4 opérateurs.
+
+19/11/2026 (suite) : M11 et G2 adaptées à 3 ou 4 opérateurs (textes, étapes, corrigés).
+- Nouveaux jeux : RR_arbres_diametre48_4operateurs_simule.xlsx (A, B, C identiques au jeu à 3, D ajouté) et RR_butees_4operateurs_simule.xlsx (butées 11,85 à 12,00 : A, B, C du jeu de la synthèse, D simulé). Boutons A à D dans « Données à copier ».
+- Valeurs de corrigé à 4 opérateurs : calculées (ANOVA, facteur 6) et retrouvées dans la page L_operateur_compte-t-il.html réglée sur 4. Non lues dans Ellistat (écrans vus seulement à 3 opérateurs).
+- La fiche PDF Fiche_RR_operateur_compte-t-il.pdf et Guide_RR_formateur.pdf restent écrits pour 3 opérateurs.
+- Test de la page à 4 opérateurs : generateur/test_page_4_operateurs.js
