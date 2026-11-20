@@ -1,0 +1,125 @@
+\documentclass[10pt,a4paper]{article}
+\input{trame.tex}
+\usepackage{colortbl}
+\pied{Bachelor Maintenance · TP 3 · Le moyen de mesure suffit-il ? · Support stagiaire}
+\begin{document}
+\thispagestyle{fancy}
+\entete{TP 3}{Le pied à coulisse suffit-il pour réceptionner ces arbres ?}{Capabilité du moyen de mesure (Cg, Cgk, R\&R) et décision de contrôle}{Moyens de mesure · Ellistat}{3 h 30}{équipes de 3 et 4}{3}
+
+\begin{tcolorbox}[boite]
+\textbf{La situation.} Un sous-traitant livre des arbres de diamètre $\varnothing g = 48 \pm 0{,}2$ mm (dessin GUNT PT105.10.00.011). Au poste de réception, on les contrôle au pied à coulisse au 1/50 : c'est rapide. Le responsable qualité hésite à imposer le micromètre au 0,01, plus lent. Il vous demande :
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{\arabic*.}},leftmargin=15pt]
+\item Le pied à coulisse est-il capable de contrôler cette cote ? Et le micromètre ?
+\item Si le pied à coulisse ne convient pas, à partir de quelle tolérance pourrait-il servir ?
+\item Quelle consigne de contrôle faut-il écrire pour le poste de réception ?
+\end{enumerate}
+\textbf{Ce que vous remettez.} Une note de décision d'une page (étape 7).\par
+\textbf{Il vous faut.} Le coffret de cales · les 10 arbres de la mallette PT105 · un micromètre 25-50 mm et un pied à coulisse au 1/50 par équipe · Ellistat · le fichier \fichier{Releve\_RR\_arbres\_vierge.xlsx} (ordre de passage tiré au sort). Pour la cote q = 19 mm, un micromètre couvrant 0-25 mm si vous en avez un.\par
+\textbf{Attention.} Les mesures sont les vôtres. Les fichiers marqués « simulé » ne servent qu'à répéter à blanc ou à remplacer une série manquante.
+\end{tcolorbox}
+
+\begin{tcolorbox}[pred]
+Sur ce même arbre, le pied à coulisse (lecture au 0,02) et le micromètre (lecture au 0,01) donnent-ils des résultats répétables à mieux que 0,01 mm ? Le pied à coulisse sera-t-il jugé capable pour une tolérance de $\pm 0{,}2$ mm ? Votre réponse, avant toute mesure :\reponse[2]
+\end{tcolorbox}
+
+\titre{À faire}
+
+\etape{1}{Quelle cote pour quel instrument ? Sans rien mesurer}
+Le livret Bosch demande qu'une résolution reste au plus égale à 5 \% de la tolérance $T$ de la cote. Calculez pour chaque cote du dessin, avec une résolution de 0,02 mm (pied à coulisse) puis de 0,01 mm (micromètre) :
+\begin{center}
+\begin{tabularx}{0.95\linewidth}{|l|c|c|c|c|c|}
+\hline
+\rowcolor{fond}\textbf{Cote (dessin GUNT)} & \textbf{Écarts} & \textbf{$T$ (mm)} & \textbf{0,02 / $T$} & \textbf{0,01 / $T$} & \textbf{Instrument ?}\\\hline
+$\varnothing g = 48$ (arbre) & $\pm 0{,}2$ & & & & \\\hline
+$o = 34$ (plaque) & $\pm 0{,}1$ & & & & \\\hline
+$n = 28$ (plaque) & $+0{,}1\ /\ -0{,}3$ & & & & \\\hline
+$d = 75$ (plaque) & $+0{,}3\ /\ 0$ & & & & \\\hline
+$q = 19$ (profondeur, plaque) & $0\ /\ -0{,}3$ & & & & \\\hline
+$r = 16$ (profondeur, plaque) & $0\ /\ -0{,}3$ & & & & \\\hline
+\end{tabularx}
+\end{center}
+
+\etape{2}{Le Cg sur une cale de 48 mm} \tagE
+Composez avec le coffret une cale de $48{,}000$ mm. Notez la composition. Tenez les cales par les bords (la chaleur de la main fait varier la longueur).
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{\arabic*.}},leftmargin=15pt,itemsep=1.5pt]
+\item Mesurez la cale \textbf{25 fois} au micromètre, puis \textbf{25 fois} au pied à coulisse. À chaque mesure, retirez l'instrument et reposez-le. Reportez les valeurs sur la fiche de relevé.
+\item \menu{Data Analysis} > \menu{Gage R\&R} > \menu{Justesse}. Valeur vraie : 48{,}000 ; tolérance min : 47{,}8 ; tolérance max : 48{,}2. Une série par instrument.
+\item Relevez : moyenne, écart type $s$, biais, Cg, Cgk.
+\end{enumerate}
+\motnouveau{$C_g = \dfrac{0{,}2\,T}{6\,s}$ et $C_{gk} = \dfrac{0{,}1\,T - |\text{biais}|}{3\,s}$. Le moyen de mesure est capable si $C_g \ge 1{,}33$ et $C_{gk} \ge 1{,}33$.}
+
+\etape{3}{La même question sur 19 mm}
+Composez $19{,}000$ mm. Même protocole, au pied à coulisse (et au micromètre si votre étendue de mesure le permet). Tolérance de la cote q : de 18,7 à 19,0 mm, soit $T = 0{,}3$ mm. Si les 25 valeurs sont toutes identiques, $s = 0$ : ce n'est pas un instrument parfait, c'est une résolution trop grosse.
+
+\etape{4}{Le R\&R sur les arbres : 60 mesures par instrument}
+Trois opérateurs (A, B, C) mesurent chacun les 10 arbres, 2 fois, \textbf{dans l'ordre tiré au sort} du fichier de relevé. Un quatrième stagiaire donne les arbres, note les valeurs et chronomètre. On fait une série complète au pied à coulisse, puis une série complète au micromètre, avec les mêmes opérateurs. Les autres équipes travaillent sur les étapes 2 et 3 pendant ce temps.
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{\arabic*.}},leftmargin=15pt,itemsep=1.5pt]
+\item Notez la durée de chaque mesure (secondes). Ne commentez pas les valeurs avant la fin de la série.
+\item Mettez les mesures au format du fichier \fichier{RR\_arbres\_*\_simule.xlsx} : une ligne par arbre, colonnes A\_r1, A\_r2, B\_r1, B\_r2, C\_r1, C\_r2.
+\end{enumerate}
+
+\etape{5}{Ellistat : le R\&R des deux instruments} \tagE
+\menu{Data Analysis} > \menu{Gage R\&R} > \menu{Mesures} > créer à partir de la grille : 10 pièces, 3 opérateurs, 2 répétitions. Ressaisissez les tolérances (47,8 et 48,2) dans « Voir Plus » si elles ne sont pas conservées. Méthode ANOVA. Laissez « Production standard deviation » vide. Relevez, pour chaque instrument : répétabilité EV, reproductibilité AV, interaction, GRR, \%GRR rapporté à $T$, Cpc, nombre de catégories distinctes.
+
+\etape{6}{Quelle tolérance minimale ?}
+Pour le R\&R, la tolérance minimale contrôlable est $T_{\min} = 60 \times \text{GRR}$ (le \%GRR vaut alors 10 \%). Calculez-la pour chaque instrument et comparez à $T = 0{,}4$ mm. Pour le Cg, $T_{\min} = 39{,}9\,s + 10\,|\text{biais}|$.
+
+\etape{7}{La note de décision}
+Une page à l'attention du responsable qualité : réponse aux trois questions, chiffres à l'appui (Cg, Cgk, \%GRR, durée moyenne par mesure), consigne de contrôle proposée pour le poste de réception (instrument, nombre de mesures, tenue de l'arbre, cliquet, ordre), limites de l'étude.
+
+\titre{J'observe, je décide}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{Q\arabic*.}},leftmargin=22pt]
+\item Étape 1 : quelles cotes dépassent 5 \% avec le pied à coulisse ? avec le micromètre ? Quelle cote est juste à la limite ?\reponse[2]
+\item Cale 48 mm, micromètre : $s$ = \champ{14mm} \ biais = \champ{14mm} \ Cg = \champ{12mm} \ Cgk = \champ{12mm}\par\vspace{5pt}
+\item Cale 48 mm, pied à coulisse : $s$ = \champ{14mm} \ biais = \champ{14mm} \ Cg = \champ{12mm} \ Cgk = \champ{12mm}\par\vspace{5pt}
+\item Combien de valeurs différentes le pied à coulisse a-t-il données ? Qu'en concluez-vous sur la résolution ?\reponse[2]
+\item Cale 19 mm : le pied à coulisse est-il capable pour la cote q ? Justifiez par $T$ et par le Cg.\reponse[2]
+\item R\&R micromètre : EV = \champ{14mm} AV = \champ{14mm} GRR = \champ{14mm} \%GRR = \champ{12mm} Cpc = \champ{10mm} ndc = \champ{10mm}\par\vspace{5pt}
+\item R\&R pied à coulisse : EV = \champ{14mm} AV = \champ{14mm} GRR = \champ{14mm} \%GRR = \champ{12mm} Cpc = \champ{10mm} ndc = \champ{10mm}\par\vspace{5pt}
+\item Dans quel instrument l'écart entre opérateurs (AV) pèse-t-il le plus ? Que faut-il écrire dans la consigne pour le réduire ?\reponse[2]
+\item Le livret Bosch juge le \%GRR (capable sous 10 \%, sous conditions de 10 à 30 \%, non capable au-dessus). Ellistat juge par le Cpc (rouge sous 3, orange de 3 à 4, vert au-dessus de 4). Les deux verdicts sont-ils les mêmes pour chaque instrument ? Qui fait foi pour votre note ?\reponse[3]
+\item $T_{\min}$ du micromètre et du pied à coulisse. Pour quelle tolérance minimale pourrait-on utiliser chacun ?\reponse[2]
+\item Durée moyenne d'une mesure : pied à coulisse \champ{14mm} s \ micromètre \champ{14mm} s. Pour 200 arbres par livraison, combien de minutes de contrôle en plus avec le micromètre ?\reponse[2]
+\end{enumerate}
+
+\begin{tcolorbox}[retenir]
+Un instrument est capable \emph{pour une tolérance donnée} : le même pied à coulisse peut convenir à $\pm 1$ mm et pas à $\pm 0{,}2$ mm. Le Cg regarde un opérateur et un étalon ; le R\&R regarde des pièces réelles et plusieurs opérateurs, et l'écart entre opérateurs peut dominer. Avant de juger les pièces, on valide la mesure.
+\end{tcolorbox}
+
+\newpage
+\entete{TP 3}{Fiche de relevé}{À remplir pendant la séance, puis à reporter dans Ellistat}{Moyens de mesure · Ellistat}{30 min}{à chaque poste}{3}
+\vspace{4pt}
+\titre{Cales : 25 mesures par instrument}
+Cale : \champ{18mm} mm \quad Composition : \champ{80mm}\par\vspace{4pt}Instrument : \champ{50mm} \quad Résolution lue : \champ{14mm} mm\par\vspace{4pt}
+\renewcommand{\arraystretch}{2.1}
+\begin{tabularx}{\linewidth}{|*{5}{>{\centering\arraybackslash}X|}}
+\hline
+ 1 & 2 & 3 & 4 & 5\\\hline
+ 6 & 7 & 8 & 9 & 10\\\hline
+ 11 & 12 & 13 & 14 & 15\\\hline
+ 16 & 17 & 18 & 19 & 20\\\hline
+ 21 & 22 & 23 & 24 & 25\\\hline
+\end{tabularx}
+\renewcommand{\arraystretch}{1.25}\vspace{4pt}
+\titre{R\&R sur les arbres : instrument \champ{40mm}}
+Opérateurs : A \champ{30mm} \ B \champ{30mm} \ C \champ{30mm}\par\vspace{4pt}
+\begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}p{14mm}|*{6}{>{\centering\arraybackslash}X|}}
+\hline
+\rowcolor{fond}\textbf{Arbre} & \textbf{A\_r1} & \textbf{A\_r2} & \textbf{B\_r1} & \textbf{B\_r2} & \textbf{C\_r1} & \textbf{C\_r2}\\\hline
+1 & & & & & & \\\hline
+2 & & & & & & \\\hline
+3 & & & & & & \\\hline
+4 & & & & & & \\\hline
+5 & & & & & & \\\hline
+6 & & & & & & \\\hline
+7 & & & & & & \\\hline
+8 & & & & & & \\\hline
+9 & & & & & & \\\hline
+10 & & & & & & \\\hline
+\rowcolor{fond}\textbf{Durée (s)} & & & & & & \\\hline
+\end{tabularx}
+\vspace{6pt}
+\begin{tcolorbox}[retenir]
+Mesurez dans l'ordre tiré au sort du fichier de relevé (une série par opérateur et par répétition), pas arbre après arbre. Chaque opérateur mesure sans connaître les valeurs des autres.
+\end{tcolorbox}
+\end{document}

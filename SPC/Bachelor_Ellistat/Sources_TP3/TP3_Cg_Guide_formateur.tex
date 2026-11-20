@@ -1,0 +1,79 @@
+\documentclass[10pt,a4paper]{article}
+\input{trame.tex}
+\usepackage{colortbl}
+\pied{Bachelor Maintenance · TP 3 · Le moyen de mesure suffit-il ? · Guide formateur et corrigé}
+\newcommand{\src}[1]{{\footnotesize\color{uimm}\textit{Source : #1}}}
+\begin{document}
+\thispagestyle{fancy}
+\entete{TP 3}{Guide formateur et corrigé}{Le pied à coulisse suffit-il pour réceptionner ces arbres ?}{Moyens de mesure · Ellistat}{3 h 30}{7 Bachelor, 2 équipes}{3}
+
+\begin{tcolorbox}[boite]
+\textbf{Pièces du dossier remis aux stagiaires.} \textbf{Pièce 1} : fiche stagiaire (4 pages, relevé p. 4). \textbf{Pièce 2} : \fichier{Releve\_RR\_arbres\_vierge.xlsx} (ordre de passage tiré au sort). Fichiers « simulé » de repli : \textbf{pièce 3} \fichier{Cg\_cale48\_simule.xlsx}, \textbf{pièce 4} \fichier{Cg\_cale19\_simule.xlsx}, \textbf{pièce 5} \fichier{RR\_arbres\_pied\_simule.xlsx}, \textbf{pièce 6} \fichier{RR\_arbres\_micrometre\_simule.xlsx}. Dessins : GUNT PT105.10.00.011 (arbre) et PT102.10.00.012 (plaque).\par
+\textbf{Ce TP ne remplace pas les fiches de la base.} Il les enchaîne dans un scénario de décision : M1 (résolution), M3 et M4 (Cg, pied à coulisse contre micromètre), M5 (cliquet), M6 (cale dans la main), M11 et G2 (R\&R sur les arbres $\varnothing 48$). Les stagiaires ont déjà calculé Cg et R\&R à la main dans le livret Excel (TP 1, butées, $T = 0{,}15$). Ici, ils changent de cote et de tolérance, utilisent Ellistat, et doivent décider.\par
+\textbf{Objectifs.} (1) Relier résolution, tolérance et choix de l'instrument. (2) Lire un Cg et un Cgk. (3) Mener et lire un R\&R avec deux instruments sur les mêmes pièces. (4) Comprendre qu'un Cg sur cale est plus indulgent qu'un R\&R sur pièces réelles. (5) Écrire une consigne de contrôle chiffrée.
+\end{tcolorbox}
+
+\begin{tcolorbox}[verif]
+Les résultats de ce guide viennent des fichiers simulés (pièces 3 à 6), recalculés en Python. Ils ne sont pas lus à l'écran d'Ellistat. Ma méthode de R\&R a été validée sur l'exemple du livret Bosch p. 14 (EV 0,001535 ; AV 0,000932 ; GRR 0,001795 ; ndc 15,37 ; \%GRR 17,95) et sur le jeu des arbres de la base (EV 0,00577 ; GRR 0,00683 ; \%GRR 10,25 pour $T = 0{,}4$). À contrôler sur poste : (a) Justesse sur la pièce 3 avec valeur vraie 48,000 et tolérances 47,8 et 48,2 ; (b) Justesse sur la pièce 4 avec 19,000 et tolérances 18,7 et 19,0 : la cale est sur la limite haute, seule la largeur $T$ est confirmée pour Cg, l'effet de la position n'a pas été testé dans la base ; (c) R\&R des pièces 5 et 6 à 3 opérateurs et le jugement affiché (couleurs, Cpc) ; (d) que les cales du coffret permettent bien de composer 48,000 et 19,000 mm, et si un micromètre 0-25 mm est disponible pour la cote 19 mm. Écran fait foi : si un écart apparaît, corriger ce guide.
+\end{tcolorbox}
+
+\titre{Hypothèses des données simulées}
+Cales : valeur vraie 48,000 et 19,000 mm ; micromètre : biais $+0{,}002$ mm, bruit 0,0035 mm, lecture au 0,01 ; pied à coulisse : biais $+0{,}003$ mm, bruit 0,009 mm, lecture au 0,02. R\&R : les 10 arbres de la base (pièce 6, micromètre, $\varnothing 47{,}88$ à $48{,}21$) ; la pièce 5 reprend les mêmes arbres avec un pied à coulisse : décalages d'opérateur $+0{,}012$, $-0{,}010$ et $0$ mm, bruit 0,012 mm, lecture au 0,02. Les graines ont été choisies pour que le cas limite apparaisse (Cg du pied à coulisse juste sous 1,33). \textbf{Les vraies mesures donneront d'autres valeurs} : les arbres réels seront probablement plus homogènes, donc un nombre de catégories distinctes plus bas (même remarque que dans la fiche G2 de la base). Le verdict du micromètre, à 10,25 \% pour un seuil de 10 \%, est sensible à un opérateur près.
+
+\titre{Déroulé (3 h 30)}
+\begin{tabularx}{\linewidth}{|>{\raggedright\arraybackslash}p{30mm}|>{\centering\arraybackslash}p{14mm}|X|}
+\hline
+\rowcolor{fond}\textbf{Étape} & \textbf{Durée} & \textbf{Consigne formateur}\\\hline
+Situation, prédiction, étape 1 & 25 min & Prédiction écrite avant toute discussion. Étape 1 sans instrument : tableau au tableau.\\\hline
+Étapes 2 et 3, Cg & 45 min & Équipe B (3 stagiaires) : un binôme à la fois sur la cale, 25 mesures par instrument. Équipe A pendant ce temps : étape 4.\\\hline
+Étape 4, R\&R & 60 min & Équipe A (3 opérateurs plus 1 pilote) : une série au pied à coulisse, une série au micromètre, ordre tiré au sort. Le pilote chronomètre.\\\hline
+Étape 5, Ellistat & 30 min & Deux R\&R. Rappel du piège : ressaisir les tolérances dans « Voir Plus ».\\\hline
+Étape 6, $T_{\min}$ & 10 min & Calcul à la main.\\\hline
+Étape 7, note & 30 min & Individuelle ; ramasser.\\\hline
+Débriefing & 10 min & Mettre au tableau Cg contre \%GRR pour chaque instrument.\\\hline
+\end{tabularx}
+{\footnotesize Les durées sont des estimations tirées de la base (M17 : 25 min pour 60 mesures), non chronométrées sur ces arbres. Le coffret de cales est probablement unique : le binôme suivant attend. Prévoir une rotation ou répartir sur deux séances.}
+
+\titre{Corrigé}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{Q\arabic*.}},leftmargin=22pt,itemsep=5pt]
+\item \textbf{Prédiction et étape 1.} Rapport résolution sur $T$, pied à coulisse (0,02) puis micromètre (0,01) : $\varnothing g$ ($T = 0{,}4$) 5,0 \% et 2,5 \% ; $o$ ($T = 0{,}2$) 10 \% et 5,0 \% ; $n$ ($T = 0{,}4$) 5,0 \% et 2,5 \% ; $d$, $q$, $r$ ($T = 0{,}3$) 6,7 \% et 3,3 \%. Au pied à coulisse, $o$, $d$, $q$, $r$ dépassent 5 \% ; $\varnothing g$ et $n$ sont exactement à la limite. Au micromètre, toutes les cotes passent ; $o$ est à la limite. La résolution n'est pas le seul critère : un micromètre 25-50 ne mesure pas $d = 75$. \src{Pièce 1, p. 1 (étape 1) et p. 2 (Q1) ; dessins GUNT ; seuil de 5 \% : livret Bosch n° 10, fig. 3, cité dans la fiche M1 de la base.}
+\item \textbf{Cg sur la cale de 48 mm, micromètre (pièce 3).} $s = 0{,}0040$ mm ; biais $+0{,}0008$ ; Cg $= 3{,}33$ ; Cgk $= 3{,}27$. Capable ($\ge 1{,}33$). La série ne compte que 3 valeurs distinctes (47,99 ; 48,00 ; 48,01). \src{Pièce 1, p. 2 (Q2) ; pièce 3, colonne Micrometre.}
+\item \textbf{pied à coulisse (pièce 3).} $s = 0{,}01077$ mm ; biais $+0{,}0008$ ; Cg $= 1{,}24$ ; Cgk $= 1{,}21$. Non capable au sens du livret, alors que la résolution fait pile 5 \% de $T$. $T_{\min}$ (Cg) $= 0{,}438$ mm, soit juste au-dessus de 0,4. \src{Pièce 1, p. 2 (Q3) ; pièce 3, colonne Pied\_a\_coulisse.}
+\item \textbf{valeurs différentes.} Trois (47,98 ; 48,00 ; 48,02) : la mesure saute de 0,02 en 0,02. L'écart type observé est surtout celui de la résolution et de la lecture, pas celui de l'arbre. Si toutes les valeurs étaient identiques, $s = 0$ et Cg n'aurait aucun sens. \src{Pièce 1, p. 2 (Q4) ; pièce 3.}
+\item \textbf{cale de 19 mm (pièce 4).} Pied à coulisse : $T = 0{,}3$, résolution/$T = 6{,}7$ \% $> 5$ \% ; $s = 0{,}00879$, Cg $= 1{,}14$, Cgk $= 1{,}05$ : non capable. Micromètre (0-25, si disponible) : Cg $= 2{,}50$, Cgk $= 2{,}43$. La cote $q$ est une profondeur : la mesure réelle se fait à la jauge de profondeur ou au micromètre de profondeur (mallette PT102). Le Cg sur une cale en largeur n'est qu'un indicateur de résolution et de répétabilité. \src{Pièce 1, p. 2 (Q5) ; pièce 4 ; dessin PT102.10.00.012.}
+\item \textbf{R\&R micromètre (pièce 6).} EV $= 0{,}00577$ ; AV $= 0{,}00366$ ; interaction regroupée (F $= 0{,}75$, $p = 0{,}73$) ; GRR $= 0{,}00683$ mm ; \%GRR $= 10{,}25$ \% ; Cpc $= 9{,}76$ ; ndc $= 21{,}9$. \src{Pièce 1, p. 2 (Q6) ; pièce 6.}
+\item \textbf{R\&R pied à coulisse (pièce 5).} EV $= 0{,}01422$ ; AV $= 0{,}01578$ ; interaction regroupée (F $= 0{,}78$, $p = 0{,}70$) ; GRR $= 0{,}02124$ mm ; \%GRR $= 31{,}9$ \% ; Cpc $= 3{,}14$ ; ndc $= 7{,}1$. \src{Pièce 1, p. 2 (Q7) ; pièce 5.}
+\item \textbf{écart entre opérateurs.} Pied à coulisse : AV ($0{,}0158$) dépasse EV ($0{,}0142$) ; l'effet opérateur est net (F $= 25{,}6$ contre 9,1 pour le micromètre). Dans la consigne : geste imposé (pièce posée à plat, effort de serrage identique, même nombre de points de mesure, lecture perpendiculaire à l'échelle) et, pour le micromètre, mesure au cliquet (fiche M5). Accepter toute consigne chiffrée et contrôlable. \src{Pièce 1, p. 2 (Q8) ; pièces 5 et 6 ; base : M5.}
+\item \textbf{deux jugements.} Micromètre : livret, 10,25 \% donc « capable sous conditions » (juste au-dessus de 10 \%) ; Ellistat, Cpc $= 9{,}76 > 4$ donc vert. Pied à coulisse : livret, 31,9 \% donc « non capable » ; Ellistat, Cpc $= 3{,}14$, entre 3 et 4 : orange. Les deux référentiels divergent sur le pied à coulisse. Le livret est le référentiel du cours ; Ellistat est plus indulgent. Le stagiaire choisit et justifie. Les couleurs sont lues à l'écran, non vues sur ces jeux. \src{Pièce 1, p. 2 (Q9) ; base, guide formateur : seuils Bosch et Ellistat.}
+\item \textbf{$T_{\min}$ du R\&R.} Micromètre $60 \times 0{,}00683 = 0{,}410$ mm : juste au-dessus de 0,4, donc la cote $\varnothing g$ est à la limite du « capable ». Pied à coulisse $60 \times 0{,}02124 = 1{,}27$ mm : on ne contrôle pas une tolérance inférieure à environ $\pm 0{,}64$ mm. Par le Cg sur cale : 0,168 mm (micromètre) et 0,438 mm (pied à coulisse). Le Cg sur cale est plus indulgent que le R\&R : il oublie l'opérateur et la forme de la pièce. \src{Pièce 1, p. 3 (Q10) et p. 2 (étape 6) ; pièces 3, 5, 6.}
+\item \textbf{coût.} Résultat propre aux stagiaires. Calcul : $200 \times (t_{\text{micromètre}} - t_{\text{pied}}) / 60$ minutes. Pour l'ordre de grandeur, une différence de 15 s par arbre donne $200 \times 15 / 60 = 50$ min ; à comparer au coût d'un rebut ou d'un arbre accepté à tort. \src{Pièce 1, p. 3 (Q11) ; chronométrage de la séance.}
+\end{enumerate}
+
+\titre{Décision attendue}
+Sur ces données : le pied à coulisse n'est pas retenu pour $\varnothing 48 \pm 0{,}2$ (\%GRR 31,9 \%, Cg 1,24). Le micromètre est retenu avec une consigne écrite, en notant que son \%GRR (10,25 \%) est limite : il n'autorise pas une tolérance plus serrée que 0,4 mm. Le pied à coulisse reste utilisable pour des cotes où $T \ge 1{,}3$ mm environ (tri grossier). La note doit citer les chiffres, nommer le jugement choisi (livret ou Ellistat), proposer la consigne et dire ce que l'étude ne couvre pas : un seul lot de 10 arbres, 3 opérateurs, aucune mesure de forme, conditions de température non maîtrisées. Avec de vraies mesures, accepter toute décision cohérente avec les chiffres obtenus, même opposée à celle-ci.
+
+\titre{Barème de la note de décision (sur 10)}
+\begin{tabularx}{\linewidth}{|X|>{\centering\arraybackslash}p{14mm}|}
+\hline
+\rowcolor{fond}\textbf{Critère} & \textbf{Points}\\\hline
+Réponse aux trois questions du responsable qualité & 3\\\hline
+Chiffres cités et corrects (Cg, Cgk, \%GRR, durée par mesure) & 3\\\hline
+Consigne de contrôle chiffrée, applicable au poste & 2\\\hline
+Limites de l'étude énoncées et jugement choisi (livret ou Ellistat) justifié & 2\\\hline
+\end{tabularx}
+
+\titre{Erreurs fréquentes}
+\begin{itemize}
+\item Mesurer arbre après arbre au lieu de suivre l'ordre tiré au sort : l'opérateur reconnaît l'arbre, la répétabilité est sous-estimée.
+\item Oublier de ressaisir les tolérances dans « Voir Plus » : le \%GRR par rapport à $T$ n'apparaît pas.
+\item Conclure sur le Cg seul. Le Cg sur cale ne voit ni l'opérateur ni l'arbre.
+\item Confondre « significatif » et « important » pour l'effet opérateur du micromètre (F $= 9{,}1$ mais AV faible : fiche M3).
+\item Une cale tenue à mains nues pendant 25 mesures : la longueur change (fiche M6) ; tenir par les bords.
+\end{itemize}
+
+\titre{Suite proposée}
+TP 3 bis : mêmes questions sur la profondeur $q = 19$ des 10 plaques (mallette PT102), pied à coulisse à jauge de profondeur contre micromètre de profondeur (liens avec G4 et G5 de la base). Puis TP carte p/Laney sur des contrôles de réception en attribut (fiches A2 à A5 de la base).
+
+\titre{Vérification des chiffres}
+Chaque nombre de ce guide a été recalculé en Python (numpy, scipy) à partir des pièces 3 à 6. Le calcul de R\&R par ANOVA (interaction regroupée au risque de 5 \%) a été comparé à l'exemple du livret Bosch p. 14 et à la fiche G2 de la base : mêmes valeurs. Scripts fournis avec les données (\fichier{gen\_tp3.py}, \fichier{rr\_lib.py}).
+\end{document}

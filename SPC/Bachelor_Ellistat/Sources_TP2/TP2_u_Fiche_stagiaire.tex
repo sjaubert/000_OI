@@ -1,0 +1,128 @@
+\documentclass[10pt,a4paper]{article}
+\input{trame.tex}
+\usepackage{colortbl}
+\pied{Bachelor Maintenance · TP 2 · La carte u des pannes · Support stagiaire}
+\begin{document}
+\thispagestyle{fancy}
+\entete{TP 2}{Les pannes augmentent-elles vraiment ?}{La carte u sur les pannes d'une cellule : exposition, dérive, règle d'alerte}{Cartes aux attributs · Fiabilité}{2 h 30}{en binôme}{3}
+
+\begin{tcolorbox}[boite]
+\textbf{La situation.} Vous êtes responsable maintenance adjoint d'une cellule d'usinage de trois postes. À la revue trimestrielle, le directeur de production affirme : « il y a plus de pannes depuis quelques semaines ». Il pose trois questions :
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{\arabic*.}},leftmargin=15pt]
+\item Est-ce une vraie dégradation ou le hasard ?
+\item Le MTBF de $25$ h de marche retenu dans le plan de maintenance est-il encore valable ?
+\item Quelle règle d'alerte mettre en place pour ne pas découvrir la dérive trois mois trop tard ?
+\end{enumerate}
+\textbf{Ce que vous remettez.} Une note de décision d'une page (étape 8).\par
+\textbf{Il vous faut.} Le fichier \fichier{Pannes\_cellule\_C2\_simule.xlsx} (78 semaines : \texttt{Semaine}, \texttt{Heures\_marche}, \texttt{Pannes}) et le fichier \fichier{Pannes\_parc\_presses\_simule.xlsx} · Ellistat · un tableur.\par
+\textbf{Attention.} Ces deux séries sont \textbf{simulées} (tirage de Poisson). Elles servent à s'entraîner sur des cas dont on connaît la réponse. Si vous avez une série réelle issue de votre GMAO, la fiche de collecte en dernière page permet de refaire le TP avec vos propres données.
+\end{tcolorbox}
+
+\begin{tcolorbox}[pred]
+Semaine 15 : 10 pannes sur 120 h de marche. Semaine 78 : 8 pannes sur 56 h de marche. Laquelle de ces deux semaines est la plus préoccupante ?\reponse
+\end{tcolorbox}
+
+\titre{À faire}
+
+\etape{1}{Définir ce qu'on compte}
+Une « panne » est un arrêt non planifié que la GMAO a enregistré. Une semaine à 120 h de marche offre plus d'occasions de tomber en panne qu'une semaine à 56 h : c'est l'\textbf{exposition}. Les semaines de la série n'ont pas toutes la même exposition (arrêts, jours fériés, deux équipes ou une seule).
+
+\motnouveau{\textbf{Taux de pannes} $u = \dfrac{\text{pannes}}{\text{heures de marche}}$. Pour une cellule suivie en continu, $\bar u = \dfrac{\sum \text{pannes}}{\sum \text{heures}}$ et $\text{MTBF} \approx \dfrac{1}{\bar u}$.}
+
+\etape{2}{Fixer la référence à la main}
+La \textbf{phase I} est la période de référence : semaines 1 à 52. Les semaines 53 à 78 sont la période de surveillance.
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{\arabic*.}},leftmargin=15pt,itemsep=1.5pt]
+\item Dans le tableur, calculez sur les semaines 1 à 52 : le total des pannes $N$, le total des heures $T$, puis $\bar u = N/T$ (en pannes par heure et en pannes pour 100 h) et le MTBF $= 1/\bar u$.
+\item Pour une semaine de $h$ heures, la limite supérieure à 3 écarts types vaut $\bar u + 3\sqrt{\bar u / h}$. Calculez-la pour $h = 80$ h et pour $h = 120$ h.
+\end{enumerate}
+
+\etape{3}{Le piège : la carte c} \tagE
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{\arabic*.}},leftmargin=15pt,itemsep=1.5pt]
+\item Nouvelle grille, coller les 78 semaines.
+\item \menu{Stats Desc.} > \menu{Cartes de contrôle aux attributs} : « Attributs » = Pannes ; carte \textbf{c} ; « Taille de lot » vide ; saisir la valeur \textbf{1} dans « Taille de lot (si fixe) » (sinon seuls 25 points sont tracés). Phase I : Début 1, Fin 52 (vérifier la valeur de Fin) ; vérifier que les 78 semaines sont tracées.
+\item Notez les semaines qui sortent des limites.
+\end{enumerate}
+
+\etape{4}{La bonne carte : la carte u} \tagE
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{\arabic*.}},leftmargin=15pt,itemsep=1.5pt]
+\item Même menu, carte \textbf{u} : « Attributs » = Pannes ; « Taille de lot » = Heures\_marche ; laisser « Taille de lot (si fixe) » vide (l'exposition varie). Phase I : Début 1, Fin 52. Vérifier Fin.
+\item Relevez la moyenne $\bar u$, la forme de la limite supérieure, et les semaines hors limite.
+\item Comparez avec votre calcul de l'étape 2.
+\end{enumerate}
+
+\etape{5}{Estimer le taux et le MTBF, avec leur incertitude}
+Un MTBF issu de quelques dizaines de pannes n'est pas un nombre exact. Pour $N$ pannes observées sur $T$ heures, un intervalle de confiance à 95 \% du taux est
+$$\lambda_{\text{inf}} = \frac{\chi^2_{0{,}025;\,2N}}{2T}, \qquad \lambda_{\text{sup}} = \frac{\chi^2_{0{,}975;\,2N+2}}{2T},$$
+où $\chi^2_{p;\,k}$ est le quantile d'ordre $p$ (à gauche) de la loi du khi-deux à $k$ degrés de liberté (fonction \textsf{CHISQ.INV} du tableur). Les bornes du MTBF sont les inverses : $1/\lambda_{\text{sup}}$ et $1/\lambda_{\text{inf}}$.
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{\arabic*.}},leftmargin=15pt,itemsep=1.5pt]
+\item Calculez l'intervalle du MTBF pour la phase I (semaines 1 à 52).
+\item Calculez-le pour la période de surveillance (semaines 53 à 78).
+\end{enumerate}
+
+\etape{6}{Un parc, pas une cellule : surcontrôle et carte U Laney} \tagE
+Ouvrez \fichier{Pannes\_parc\_presses\_simule.xlsx} (6 presses suivies ensemble, 52 semaines).
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{\arabic*.}},leftmargin=15pt,itemsep=1.5pt]
+\item Tracez la carte \textbf{u} (Phase I : Début 1, Fin 52, « Taille de lot » = Heures\_marche).
+\item Relevez le nombre de semaines hors limite. Tracez ensuite la carte \textbf{U Laney} avec les mêmes réglages.
+\item Comparez les deux cartes. Qu'est-ce qui a changé, et pourquoi ?
+\end{enumerate}
+
+\etape{7}{Une règle d'alerte réaliste}
+Une limite en pannes par heure se convertit en nombre de pannes par semaine : on multiplie par les heures de marche. Une alarme se déclenche dès que le nombre de pannes dépasse ce produit.
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{\arabic*.}},leftmargin=15pt,itemsep=1.5pt]
+\item Écrivez, pour chaque exposition standard (80 h et 120 h), le nombre de pannes à partir duquel on déclenche une analyse.
+\item Rédigez le plan de réaction : qui est prévenu, sous quel délai, quelle première vérification (consulter la liste des pannes de la semaine, par poste et par cause).
+\end{enumerate}
+
+\etape{8}{La note de décision}
+Une page, à l'attention du directeur de production : réponse aux trois questions, avec les chiffres qui la fondent (taux, MTBF et son intervalle, semaines en alarme), la décision proposée et les limites de l'analyse.
+
+\titre{J'observe, je décide}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{Q\arabic*.}},leftmargin=22pt]
+\item Semaine 15 ou semaine 78 : laquelle est la plus préoccupante, et pourquoi ? Calculez $u$ pour chacune.\reponse[2]
+\item Phase I : $N$ = \champ{14mm} \quad $T$ = \champ{14mm} \quad $\bar u$ = \champ{18mm} \quad pour 100 h : \champ{14mm} \quad MTBF = \champ{14mm} h\par\vspace{5pt}
+\item Limites pour $h = 80$ h : \champ{18mm} \quad pour $h = 120$ h : \champ{18mm}\par\vspace{5pt}
+\item Carte c, étape 3 : quelles semaines sortent des limites ? Y en a-t-il une en phase I ? Est-ce une panne anormale ?\reponse[3]
+\item Carte u, étape 4 : quelles semaines sortent des limites ? Pourquoi la limite supérieure forme-t-elle une ligne brisée ?\reponse[3]
+\item Deux écarts entre la carte c et la carte u : lequel est le plus grave pour un responsable maintenance ?\reponse[2]
+\item MTBF de la phase I avec son intervalle à 95 \% : \champ{50mm} \quad MTBF de la surveillance (semaines 53 à 78) : \champ{50mm}\par\vspace{5pt}
+\item Le MTBF du plan (25 h) est-il compatible avec la phase I ? avec la surveillance ? Justifiez à l'aide des intervalles.\reponse[3]
+\item Parc de presses : combien de semaines hors limite avec la carte u ? avec la carte U Laney ? Quelle conclusion tirez-vous sur le parc ?\reponse[3]
+\item Une carte u en phase I sans point hors limite prouve-t-elle que le taux de pannes est constant ? Que manque-t-il pour conclure ?\reponse[3]
+\end{enumerate}
+
+\begin{tcolorbox}[retenir]
+Compter des pannes sans compter les heures de marche compare des semaines qui n'ont pas la même exposition. La carte u rapporte les pannes à l'exposition. Un taux de pannes stable est l'hypothèse d'un MTBF unique : une alarme sur la carte u indique que cette hypothèse ne tient plus. Un MTBF s'écrit toujours avec son intervalle de confiance.
+\end{tcolorbox}
+\begin{tcolorbox}[plus]
+Vous avez étudié Weibull sur les courroies, avec un paramètre de forme $\beta = 5{,}52$ : un système qui s'use. Une carte u stable est cohérente avec $\beta = 1$ (taux constant), mais ne le démontre pas : avec peu de pannes par semaine, la carte détecte mal une usure lente. Pour une pièce qui s'use, le suivi d'un indicateur d'état (par exemple vibratoire, TP 1) détecte la dérive avant la panne, ce que le comptage des pannes ne peut pas faire.
+\end{tcolorbox}
+
+\newpage
+\entete{TP 2}{Fiche de collecte : ma propre série GMAO}{À remplir avant la séance pour refaire le TP sur des données réelles}{Cartes aux attributs · Fiabilité}{30 min}{en entreprise}{3}
+\vspace{4pt}
+\begin{tcolorbox}[boite]
+\textbf{Le but.} Constituer, pour une machine ou un petit groupe de machines de votre entreprise, une série hebdomadaire exploitable par la carte u. Aucune donnée confidentielle n'est exigée : vous pouvez anonymiser le nom du poste.
+\end{tcolorbox}
+\titre{Ce qu'il faut réunir}
+\begin{enumerate}[label=\textcolor{cyan}{\textbf{\arabic*.}},leftmargin=15pt,itemsep=3pt]
+\item \textbf{Un périmètre} : une machine ou un groupe de machines de même type, suivi sans interruption. Périmètre choisi : \champ{90mm}
+\item \textbf{Une définition de la panne}, écrite et identique pour toute la série. Exemple : arrêt non planifié d'une durée supérieure à \champ{12mm} minutes, enregistré en GMAO. \par Votre définition : \champ{100mm}
+\item \textbf{Les pannes de chaque semaine} (nombre d'arrêts répondant à la définition), sur au moins 40 semaines de référence suivies de plusieurs semaines de surveillance. Ordre de grandeur à discuter avec le formateur : plus la série est longue, plus l'estimation est précise.
+\item \textbf{Les heures de marche de chaque semaine}, de préférence relevées sur un compteur horaire. À défaut : heures d'ouverture planifiées moins arrêts planifiés. \par Source retenue : \champ{100mm}
+\item \textbf{Les changements connus} sur la période (nouveau lot de pièces, changement de cadence, intervention majeure) avec leur date :\par \champ{120mm}
+\end{enumerate}
+\titre{Tableau à remplir (reproduire dans le tableur)}
+\begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}p{22mm}|>{\centering\arraybackslash}p{34mm}|>{\centering\arraybackslash}p{26mm}|X|}
+\hline
+\rowcolor{fond}\textbf{Semaine} & \textbf{Heures\_marche} & \textbf{Pannes} & \textbf{Remarque (arrêt, changement, panne majeure)}\\\hline
+1 & & & \\\hline
+2 & & & \\\hline
+3 & & & \\\hline
+\dots & & & \\\hline
+\end{tabularx}
+\vspace{6pt}
+\begin{tcolorbox}[retenir]
+Deux erreurs fréquentes : changer de définition de la panne en cours de série, et estimer les heures de marche au lieu de les mesurer. Dans les deux cas, la carte u signalera un changement qui n'est pas dans la machine, mais dans la façon de compter.
+\end{tcolorbox}
+\end{document}

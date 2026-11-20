@@ -1,0 +1,35 @@
+\input{charte.tex}
+\usepackage{tikz}
+\usepackage{longtable}
+\renewcommand{\bandeau}[3]{%
+\begin{tcolorbox}[colback=uimm,colframe=uimm,arc=2pt,left=4pt,right=8pt,top=4pt,bottom=4pt]
+\begin{minipage}[c]{18mm}\setlength{\fboxsep}{1.2pt}\fcolorbox{white}{white}{\includegraphics[height=16.5mm]{logo_uimm.jpg}}\end{minipage}\hspace{4mm}%
+\begin{minipage}[c]{\dimexpr\linewidth-22mm\relax}\color{white}
+{\small #1}\\[1pt]{\LARGE\bfseries #2}\\[2pt]{\large #3}
+\end{minipage}
+\end{tcolorbox}}
+% en-tête d'une fiche : code, titre, question, bloc, durée, organisation, niveau
+\newcommand{\entete}[7]{%
+\begin{tcolorbox}[colback=uimm,colframe=uimm,arc=2pt,left=4pt,right=6pt,top=4pt,bottom=4pt]
+\begin{minipage}[c]{18mm}\setlength{\fboxsep}{1.2pt}\fcolorbox{white}{white}{\includegraphics[height=16.5mm]{logo_uimm.jpg}}\end{minipage}\hspace{3mm}%
+\begin{minipage}[c]{\dimexpr\linewidth-58mm\relax}\color{white}\raggedright
+{\small Base SPC · #4}\\[1pt]{\Large\bfseries #1 · #2}\\[2pt]{\itshape #3}
+\end{minipage}\hfill
+\begin{minipage}[c]{33mm}\color{white}\small\raggedleft
+Durée : \textbf{#5}\\ \textbf{#6}\\ Niveau #7 sur 3
+\end{minipage}
+\end{tcolorbox}}
+\newcommand{\tagE}{{\setlength{\fboxsep}{1.5pt}\colorbox{cyan}{\color{white}\scriptsize\bfseries Ellistat}}}
+\newcommand{\tagW}{{\setlength{\fboxsep}{1.5pt}\colorbox{uimm}{\color{white}\scriptsize\bfseries Page web}}}
+\tcbset{pred/.style={colback=orange!6,colframe=orange!80!black,boxrule=0.6pt,arc=2pt,left=6pt,right=6pt,top=3pt,bottom=1pt,
+                    title={\bfseries Je prédis, avant de commencer},coltitle=white,colbacktitle=orange!80!black,fonttitle=\small},
+        retenir/.style={colback=fond,colframe=uimm,boxrule=0.6pt,arc=2pt,left=6pt,right=6pt,top=3pt,bottom=3pt,
+                    title={\bfseries À retenir},coltitle=white,colbacktitle=uimm,fonttitle=\small},
+        plus/.style={colback=violet!6,colframe=violet,boxrule=0.6pt,arc=2pt,left=6pt,right=6pt,top=3pt,bottom=3pt,
+                    title={\bfseries Pour aller plus loin},coltitle=white,colbacktitle=violet,fonttitle=\small},
+        act/.style={colback=uimm!10,colframe=uimm,boxrule=0.5pt,arc=2pt,left=5pt,right=5pt,top=2pt,bottom=2pt,before skip=7pt,after skip=3pt},
+        verif/.style={colback=orange!6,colframe=orange!80!black,boxrule=0.6pt,arc=2pt,left=6pt,right=6pt,top=3pt,bottom=3pt,
+                    title={\bfseries À vérifier sur poste avant la première séance},coltitle=white,colbacktitle=orange!80!black,fonttitle=\small}}
+\newcommand{\fichier}[1]{\texttt{\small #1}}
+\newcommand{\menu}[1]{\textsf{\textbf{#1}}}
+\newcommand{\champ}[1]{\rule{#1}{0.3pt}}
