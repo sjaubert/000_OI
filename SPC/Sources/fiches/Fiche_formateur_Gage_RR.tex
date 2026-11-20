@@ -1,0 +1,138 @@
+\documentclass[10pt,a4paper]{article}
+\input{commun.tex}
+\usepackage{colortbl}
+\pied{Base SPC · Fiche formateur · Gage R\&R}
+\newcommand{\stitre}[1]{\par\vspace{1pt}{\color{uimm}\bfseries\large #1}\par\vspace{-7pt}{\color{cyan}\rule{\linewidth}{0.9pt}}\par\vspace{-3pt}}
+\newcommand{\CM}[1]{\mathit{CM}_{#1}}
+\newcommand{\SC}[1]{\mathit{SC}_{#1}}
+\begin{document}
+\thispagestyle{fancy}
+\fontsize{9.2}{11}\selectfont
+\bandeau{Base SPC · Fiche formateur}{Gage R\&R : rappel des formules}{Du modèle au \%GRR, avec un exemple à reproduire dans Ellistat}
+\vspace{2pt}
+
+\stitre{1. Le modèle}
+$n$ pièces, $k$ opérateurs, $r$ répétitions (exemple Bosch : $n=10$, $k=3$, $r=2$). La mesure de la pièce $i$ par l'opérateur $j$, à la répétition $l$ :
+\begin{center}\vspace{-3pt}$x_{ijl}=\mu+P_i+O_j+(PO)_{ij}+\varepsilon_{ijl}$\vspace{-2pt}\end{center}
+Les quatre termes sont aléatoires, de variances $\sigma_P^2$ (pièces), $\sigma_O^2$ (opérateurs), $\sigma_{PO}^2$ (interaction pièce $\times$ opérateur) et $\sigma^2$ (répétition). Ces variances s'additionnent, pas les écarts types.\par\vspace{3pt}
+\renewcommand{\arraystretch}{1.08}
+\begin{tabularx}{\linewidth}{|>{\bfseries}p{37mm}|>{\raggedright\arraybackslash}X|}\hline
+\rowcolor{uimm}\color{white}\textbf{Nom} & \color{white}\textbf{Définition}\\\hline
+EV, répétabilité & $\sigma$, l'écart type des mesures répétées (même pièce, même opérateur)\\\hline
+AV, reproductibilité & $\sigma_O$, l'écart type entre opérateurs (avec $\sigma_{PO}$ si l'interaction n'est pas regroupée)\\\hline
+PV, pièces & $\sigma_P$, l'écart type entre pièces\\\hline
+GRR & $\sqrt{\mathrm{EV}^2+\mathrm{AV}^2}$ \quad (le «\,Gage R\&R\,», en unité de mesure)\\\hline
+TV, total & $\sqrt{\mathrm{GRR}^2+\mathrm{PV}^2}$\\\hline
+\end{tabularx}
+
+\stitre{2. Le tableau d'analyse de variance}
+Moyennes : $\bar x_{i\cdot\cdot}$ de la pièce $i$ (sur $kr$ mesures), $\bar x_{\cdot j\cdot}$ de l'opérateur $j$ (sur $nr$), $\bar x_{ij\cdot}$ de la cellule (sur $r$), $\bar x_{\cdot\cdot\cdot}$ générale.\par\vspace{3pt}
+\renewcommand{\arraystretch}{1.28}
+\begin{tabularx}{\linewidth}{|>{\bfseries\raggedright\arraybackslash}p{24mm}|c|>{\raggedright\arraybackslash}X|c|}\hline
+\rowcolor{uimm}\color{white}\textbf{Source} & \color{white}\textbf{ddl} & \color{white}\textbf{Somme des carrés $\SC{}$} & \color{white}\textbf{Espérance de $\CM{}=\SC{}/\mathrm{ddl}$}\\\hline
+Pièces & $n-1$ & $kr\sum_i(\bar x_{i\cdot\cdot}-\bar x_{\cdot\cdot\cdot})^2$ & $\sigma^2+r\sigma_{PO}^2+kr\sigma_P^2$\\\hline
+Opérateurs & $k-1$ & $nr\sum_j(\bar x_{\cdot j\cdot}-\bar x_{\cdot\cdot\cdot})^2$ & $\sigma^2+r\sigma_{PO}^2+nr\sigma_O^2$\\\hline
+Interaction & $(n-1)(k-1)$ & $r\sum_{i,j}(\bar x_{ij\cdot}-\bar x_{i\cdot\cdot}-\bar x_{\cdot j\cdot}+\bar x_{\cdot\cdot\cdot})^2$ & $\sigma^2+r\sigma_{PO}^2$\\\hline
+Répétabilité & $nk(r-1)$ & $\sum_{i,j,l}(x_{ijl}-\bar x_{ij\cdot})^2$ & $\sigma^2$\\\hline
+Total & $nkr-1$ & $\sum_{i,j,l}(x_{ijl}-\bar x_{\cdot\cdot\cdot})^2$ & \\\hline
+\end{tabularx}
+\par\smallskip
+La dernière colonne donne les estimateurs : on résout ces équations pour $\sigma^2$, $\sigma_O^2$, $\sigma_P^2$.
+
+\stitre{3. Du tableau au \%GRR}
+\begin{enumerate}[leftmargin=14pt,itemsep=2pt,topsep=2pt]
+\item \textbf{Interaction.} $F=\CM{PO}/\CM{E}$, avec $(n-1)(k-1)$ et $nk(r-1)$ ddl. Si $p>0{,}05$ (non significative), on la regroupe avec la répétabilité : $\CM{E}'=\dfrac{\SC{PO}+\SC{E}}{\mathrm{ddl}_{PO}+\mathrm{ddl}_{E}}$. C'est ce que fait Ellistat (ligne «\,interaction 0\,»).
+\item \textbf{Écarts types.} $\mathrm{EV}=\sqrt{\CM{E}'}$ \quad $\mathrm{AV}=\sqrt{\dfrac{\CM{O}-\CM{E}'}{nr}}$ \quad $\mathrm{PV}=\sqrt{\dfrac{\CM{P}-\CM{E}'}{kr}}$. Sous la racine, un nombre négatif est ramené à 0.
+\item \textbf{Combiner.} $\mathrm{GRR}=\sqrt{\mathrm{EV}^2+\mathrm{AV}^2}$ \quad $\mathrm{TV}=\sqrt{\mathrm{GRR}^2+\mathrm{PV}^2}$.
+\item \textbf{Comparer à la tolérance $T$.} $\%\mathrm{GRR}=\dfrac{6\,\mathrm{GRR}}{T}$ (idem \%EV, \%AV) \quad $C_{pc}=\dfrac{T}{6\,\mathrm{GRR}}=\dfrac{100}{\%\mathrm{GRR}}$ \quad $ndc=\sqrt2\,\dfrac{\mathrm{PV}}{\mathrm{GRR}}$ \quad $\dfrac{\mathrm{GRR}}{\mathrm{TV}}$ (part de la variation totale).
+\item \textbf{Sans regroupement} (interaction significative) : $\mathrm{EV}=\sqrt{\CM{E}}$, $\mathrm{AV}=\sqrt{(\CM{O}-\CM{PO})/(nr)}$, $\mathrm{INT}=\sqrt{(\CM{PO}-\CM{E})/r}$, $\mathrm{GRR}=\sqrt{\mathrm{EV}^2+\mathrm{AV}^2+\mathrm{INT}^2}$.
+\end{enumerate}
+
+\stitre{4. Lire le résultat}
+\renewcommand{\arraystretch}{1.1}
+\begin{tabularx}{\linewidth}{|>{\bfseries\raggedright\arraybackslash}p{37mm}|>{\raggedright\arraybackslash}X|}\hline
+Le facteur 6 & $2K$ avec $K=3$ (AIAG, réglage d'Ellistat) : la mesure est comptée sur $\pm 3$ écarts types. Avec $K=2$ (VDA) le facteur devient 4.\\\hline
+Livret Bosch, AIAG & $\%\mathrm{GRR}<10$ \% capable ; de 10 à 30 \% capable sous conditions ; plus de 30 \% non capable. Et $ndc\ge 5$.\\\hline
+Ellistat & Jugement par le $C_{pc}$ : rouge sous 3 ($\%\mathrm{GRR}>33$ \%), orange de 3 à 4, vert au-dessus de 4 ($<25$ \%). Les deux jugements divergent entre 10 et 33 \% : à faire discuter.\\\hline
+Tolérance minimale & Pour 10 \% : $T_{\min}=60\,\mathrm{GRR}$. Ellistat affiche $24\,\mathrm{GRR}$ ($C_{pc}=4$).\\\hline
+\end{tabularx}
+
+\newpage
+\bandeau{Base SPC · Fiche formateur}{Exemple à reproduire dans Ellistat}{Livret Bosch p.\,14 : 10 pièces, 3 opérateurs, 2 répétitions}
+\vspace{3pt}
+\begin{minipage}[t]{0.535\linewidth}\vspace{0pt}
+\stitre{Les données (mm)}
+\renewcommand{\arraystretch}{1.0}\setlength{\tabcolsep}{3.5pt}
+{\small\begin{tabular}{|c|c|c|c|c|c|c|>{\columncolor{fond}}c|}\hline
+\rowcolor{uimm}\color{white}\textbf{Pièce} & \color{white}A1 & \color{white}A2 & \color{white}B1 & \color{white}B2 & \color{white}C1 & \color{white}C2 & \color{white}$\bar x_{i\cdot\cdot}$\\\hline
+1 & 6,029 & 6,030 & 6,033 & 6,032 & 6,031 & 6,030 & 6,0308\\
+2 & 6,019 & 6,020 & 6,020 & 6,019 & 6,020 & 6,020 & 6,0197\\
+3 & 6,004 & 6,003 & 6,007 & 6,007 & 6,010 & 6,006 & 6,0062\\
+4 & 5,982 & 5,982 & 5,985 & 5,986 & 5,984 & 5,984 & 5,9838\\
+5 & 6,009 & 6,009 & 6,014 & 6,014 & 6,015 & 6,014 & 6,0125\\
+6 & 5,971 & 5,972 & 5,973 & 5,972 & 5,975 & 5,974 & 5,9728\\
+7 & 5,995 & 5,997 & 5,997 & 5,996 & 5,995 & 5,994 & 5,9957\\
+8 & 6,014 & 6,018 & 6,019 & 6,015 & 6,016 & 6,015 & 6,0162\\
+9 & 5,985 & 5,987 & 5,987 & 5,986 & 5,987 & 5,986 & 5,9863\\
+10 & 6,024 & 6,028 & 6,029 & 6,025 & 6,026 & 6,025 & 6,0262\\\hline
+\end{tabular}}
+\par\smallskip
+{\small Moyennes des opérateurs $\bar x_{\cdot j\cdot}$ : A 6,00390 ; B 6,00580 ; C 6,00535. Moyenne générale 6,005017.\par
+Tolérance $T=0{,}060$ (de 5,97 à 6,03).\par
+Fichier : \fichier{SPC\textbackslash Donnees\_Ellistat\textbackslash RR\_Bosch\_p14.xlsx}}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.45\linewidth}\vspace{0pt}
+\stitre{Le tableau (en $\mu$m$^2$)}
+\renewcommand{\arraystretch}{1.12}\setlength{\tabcolsep}{4pt}
+{\small\begin{tabular}{|l|c|r|r|}\hline
+\rowcolor{uimm}\color{white}Source & \color{white}ddl & \color{white}$\SC{}$ & \color{white}$\CM{}$\\\hline
+Pièces & 9 & 20\,586,48 & 2\,287,39\\\hline
+Opérateurs & 2 & 39,43 & 19,717\\\hline
+Interaction & 18 & 60,57 & 3,365\\\hline
+Répétabilité & 30 & 52,50 & 1,750\\\hline
+Total & 59 & 20\,738,98 & \\\hline
+\end{tabular}}
+\par\smallskip
+{\small 1 $\mu$m $=0{,}001$ mm : on calcule en $\mu$m pour éviter les puissances de 10.}
+\stitre{Les étapes}
+{\small\begin{enumerate}[leftmargin=12pt,itemsep=1.5pt,topsep=1pt]
+\item $F=3{,}365/1{,}750=1{,}92$. Seuil $F_{0{,}95}(18\,;30)=1{,}96$, $p=0{,}055$ : non significative, donc regroupée. $\CM{E}'=\dfrac{60{,}57+52{,}50}{48}=2{,}3556$.
+\item $\mathrm{EV}=\sqrt{2{,}3556}=1{,}5348$. $\mathrm{AV}=\sqrt{\dfrac{19{,}717-2{,}3556}{20}}=0{,}9317$. $\mathrm{PV}=\sqrt{\dfrac{2287{,}39-2{,}3556}{6}}=19{,}515$.
+\item $\mathrm{GRR}=\sqrt{2{,}3556+0{,}8681}=1{,}7954$. $\mathrm{TV}=\sqrt{3{,}2237+380{,}84}=19{,}598$.
+\item $\%\mathrm{GRR}=6\times1{,}7954/60=17{,}95$ \%.
+\end{enumerate}}
+\end{minipage}
+
+\stitre{Ce que tu dois lire dans Ellistat (K = 3), écran vu le 14/11/2026}
+\renewcommand{\arraystretch}{1.08}\setlength{\tabcolsep}{4pt}
+{\small\begin{tabularx}{\linewidth}{|>{\raggedright\arraybackslash}X|c|c|>{\raggedright\arraybackslash}X|c|c|}\hline
+\rowcolor{uimm}\color{white}Ellistat & \color{white}Mon calcul & \color{white}Écran & \color{white}Ellistat & \color{white}Mon calcul & \color{white}Écran\\\hline
+Répétabilité (EV) & 0,001535 & 0,001535 & Écart type global (TV) & 0,01960 & 0,01960\\\hline
+Reproductibilité (AV) & 0,0009317 & 0,0009317 & Nombre de catégories & 15,37 & 15,4\\\hline
+Instrument (GRR) & 0,001795 & 0,001795 & GRR \% et $C_{pc}$ & 17,95 \% ; 5,57 & 18,0 \% ; 5,570\\\hline
+Pièces (PV) & 0,01952 & 0,01952 & GRR/TV («\,production\,») & 9,16 \% & 9,16 \%\\\hline
+Interaction & regroupée & 0 & Tolérance minimale & 0,04309 & 0,04309\\\hline
+\end{tabularx}}
+
+\stitre{Dans Ellistat}
+\begin{enumerate}[leftmargin=14pt,itemsep=1pt,topsep=1pt]
+\item \menu{Gage R\&R}, \menu{Mesures}, \menu{Ajouter un gage R\&R}. Nom ; Produits 10 ; Opérateurs 3 ; \textbf{Répétitions 2} (3 par défaut) ; méthode ANAVAR ; $K=3$ (AIAG).
+\item Piège : les tolérances saisies à la création ne sont pas conservées. Ouvrir \menu{Voir Plus} à côté de \menu{Informations du gage} et saisir 5,97 et 6,03.
+\item Onglet \menu{Mesure} : un tableau par opérateur, deux colonnes. Coller A1 A2, puis B1 B2, puis C1 C2, sans en-tête. Onglet \menu{Analyse} (bouton $>$) pour comparer.
+\end{enumerate}
+
+\stitre{Application : G2 à 4 opérateurs (arbres Ø\,48, jeu simulé)}
+{\small Fichier \fichier{RR\_arbres\_diametre48\_4operateurs\_simule.xlsx}, 10 pièces, 4 opérateurs, 2 répétitions. Mon calcul : EV 0,00542 ; AV 0,00315 ; GRR 0,00627 ; PV 0,1057 ; $ndc=23{,}9$. Interaction $F=0{,}76$, $p=0{,}77$ : regroupée. Opérateur $F=7{,}8$ pour un seuil de 2,74 : significatif, mais AV pèse 25 \% de GRR$^2$.\par\smallskip
+\renewcommand{\arraystretch}{1.05}
+\begin{tabularx}{\linewidth}{|c|c|c|>{\raggedright\arraybackslash}X|}\hline
+\rowcolor{uimm}\color{white}$T$ (mm) & \color{white}\%GRR & \color{white}$C_{pc}$ & \color{white}Verdict du livret\\\hline
+0,4 & 9,40 \% & 10,6 & \cellcolor{ok!25}capable\\\hline
+0,2 & 18,8 \% & 5,3 & \cellcolor{orange!25}capable sous conditions\\\hline
+0,1 & 37,6 \% & 2,7 & \cellcolor{ko!25}non capable\\\hline
+0,05 & 75,2 \% & 1,3 & \cellcolor{ko!25}non capable\\\hline
+\end{tabularx}}
+
+\begin{tcolorbox}[verif,title={\bfseries Pièges et limites},top=2pt,bottom=2pt]
+{\small \textbf{Interaction à la limite.} Bosch : $p=0{,}055$. Sans regroupement, GRR $=1{,}8371$ $\mu$m soit 18,4 \% (calcul, non vu à l'écran). Le verdict ne change pas, mais le regroupement est un choix. \textbf{Significatif n'est pas important.} Opérateur Bosch : $F=8{,}37$ pour un seuil de 3,19, mais AV vaut 9,3 \% de $T$. \textbf{Non vu à l'écran :} Ellistat à 4 opérateurs, donc les valeurs G2 sont des calculs. Elles sont à comparer, et un écart viendrait du réglage ($K$, regroupement) plutôt que de la méthode. \textbf{Sources :} livret Bosch, \emph{Technical Statistics}, Booklet 10 ; AIAG, \emph{MSA}, 4\textsuperscript{e} éd.}
+\end{tcolorbox}
+\end{document}

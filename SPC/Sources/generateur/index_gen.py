@@ -114,6 +114,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,s
     <a href="Activites/Trames_terrain_stagiaires.pdf">Trames terrain : 5 TP d'une page (PDF, à imprimer)</a>
     <a href="Activites/Memo_cartes_attributs.pdf">Mémo : les cartes p, Np, c, u et Laney (PDF)</a>
     <a href="Activites/Memo_methode_Bosch_Cg_Cgk.pdf">Mémo : Cg et Cgk, méthode Bosch (PDF)</a>
+    <a href="Activites/Memo_Gage_RR.pdf">Mémo : le Gage R&amp;R expliqué simplement (PDF)</a>
     <a href="Activites/Livret_toutes_les_fiches.pdf">Toutes les fiches en un seul PDF</a>
   </div>
   <details class="form"><summary>Documents du formateur</summary>
@@ -124,6 +125,7 @@ a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible,s
       <a href="Formateur/Guide_RR_formateur.pdf">Guide de « L'opérateur compte-t-il ? »</a>
       <a href="Formateur/Guide_Trois_cales_formateur.pdf">Guide de « Trois cales, trois questions »</a>
       <a href="Formateur/Rappel_GRR_ANOVA_formateur.pdf">Rappel : GRR et analyse de variance</a>
+      <a href="Formateur/Fiche_formateur_Gage_RR.pdf">Fiche formateur : formules du Gage R&amp;R et exemple à reproduire dans Ellistat</a>
       <a href="Formateur/Ellistat_tests_conventions.pdf">Ellistat : deux tests de conventions</a>
     </div>
   </details>

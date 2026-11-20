@@ -1,0 +1,91 @@
+\documentclass[10pt,a4paper]{article}
+\input{commun.tex}
+\usetikzlibrary{decorations.pathreplacing}
+\usepackage{colortbl}
+\pied{Base SPC · Mémo · Le Gage R\&R}
+\newcommand{\stitre}[1]{\par\vspace{1pt}{\color{uimm}\bfseries\large #1}\par\vspace{-7pt}{\color{cyan}\rule{\linewidth}{0.9pt}}\par\vspace{-4pt}}
+\begin{document}
+\thispagestyle{fancy}
+\fontsize{9.3}{11}\selectfont
+\bandeau{Base SPC · Mémo}{Le Gage R\&R, c'est quoi ?}{Peut-on se fier à la mesure avant de juger la pièce ?}
+\vspace{2pt}
+\begin{tcolorbox}[boite,top=2pt,bottom=2pt]
+\textbf{L'idée.} Avant de dire qu'une pièce est bonne ou mauvaise, on vérifie que la \textbf{mesure} est fiable. Un \textbf{Gage R\&R} fait cette vérification. \emph{Gage} veut dire instrument de mesure. \emph{R\&R} veut dire \textbf{R}épétabilité et \textbf{R}eproductibilité. Le résultat se donne en pourcentage de la tolérance : le \textbf{\%GRR}. Plus il est petit, plus la mesure est fiable.
+\end{tcolorbox}
+
+\stitre{1. D'où vient la variation que l'on observe ?}
+Dix pièces donnent dix valeurs différentes : les \textbf{pièces sont vraiment différentes} (on veut le voir) et la \textbf{mesure n'est pas parfaite} (le parasite). Le Gage R\&R chiffre le parasite, qui a deux composantes.\par\vspace{2pt}
+\renewcommand{\arraystretch}{1.06}
+\begin{tabularx}{\linewidth}{|>{\bfseries\raggedright\arraybackslash}p{24mm}|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|}\hline
+\rowcolor{uimm}& \color{white}\textbf{Répétabilité (EV) : moi, je répète} & \color{white}\textbf{Reproductibilité (AV) : un autre reproduit}\\\hline
+La question & Une même personne, avec le même instrument, remesure la même pièce. Trouve-t-elle les mêmes valeurs ? & Des personnes différentes, avec le même instrument, mesurent la même pièce. Trouvent-elles la même moyenne ?\\\hline
+Exemple imaginé & Jean trouve 11,92 ; 11,91 ; 11,92. Ses valeurs sont groupées. & Jean trouve environ 11,92 et Marie environ 11,95. Chacun est régulier, mais ils ne sont pas d'accord.\\\hline
+Comment on la chiffre & L'écart-type des mesures répétées (même personne, même pièce). & L'écart-type entre les moyennes des personnes.\\\hline
+\end{tabularx}
+
+\stitre{2. Comment se calcule le GRR ?}
+\begin{minipage}[c]{0.30\linewidth}
+\centering
+\begin{tikzpicture}[x=0.62cm,y=0.62cm,font=\small]
+\fill[fond] (0,0) -- (3,0) -- (0,4) -- cycle;
+\draw[orange!85!black,line width=1.6pt] (0,0) -- (0,4) node[midway,left=1pt,black]{EV\,=\,0,004};
+\draw[red!70!black,line width=1.6pt] (0,0) -- (3,0) node[midway,below=1pt,black]{AV\,=\,0,003};
+\draw[uimm,line width=1.6pt] (3,0) -- (0,4) node[midway,above right=0pt,black]{\bfseries GRR};
+\draw (0,0.35) -- (0.35,0.35) -- (0.35,0);
+\end{tikzpicture}
+\end{minipage}\hfill
+\begin{minipage}[c]{0.67\linewidth}
+Les deux erreurs ne s'additionnent pas : elles se composent comme les côtés d'un \textbf{triangle rectangle}, car ce sont leurs carrés (les variances) qui s'additionnent.
+\begin{center}$\mathrm{GRR}=\sqrt{\mathrm{EV}^2+\mathrm{AV}^2}$\end{center}\vspace{-4pt}
+Exemple : $\sqrt{0{,}004^2+0{,}003^2}=\sqrt{0{,}000025}=0{,}005$ mm. Le GRR est plus petit que $\mathrm{EV}+\mathrm{AV}=0{,}007$. Ellistat calcule EV, AV et GRR (par analyse de variance) : vous les lisez à l'écran en G2, sans calcul à la main.
+\end{minipage}
+
+\stitre{3. Dans Ellistat, « Gage R\&R » est d'abord le nom d'un menu}
+\renewcommand{\arraystretch}{1.06}
+\begin{tabularx}{\linewidth}{|>{\bfseries}p{20mm}|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}p{28mm}|}\hline
+\rowcolor{uimm}\color{white}\textbf{Onglet} & \color{white}\textbf{Question posée} & \color{white}\textbf{Fiches}\\\hline
+Justesse & Le micromètre est-il juste sur une cale connue ? & M3, M7, M16\\\hline
+Linéarité & Est-il juste sur toute la longueur mesurée ? & M8, G1\\\hline
+\rowcolor{orange!12}Mesures & Les opérateurs et l'instrument, ensemble, sont-ils fiables ? \textbf{C'est le R\&R.} & G2\\\hline
+Attributs & Trois contrôleurs qui trient « bon » ou « rejet » décident-ils pareil ? & G4\\\hline
+\end{tabularx}
+\par\vspace{2pt}
+M3 est donc une étude de \textbf{justesse}, pas un R\&R. Le vrai R\&R se fait en G2 : chaque stagiaire est opérateur.
+
+\stitre{4. Lire le résultat}
+\begin{minipage}[t]{0.47\linewidth}\vspace{0pt}
+\begin{tcolorbox}[boite,top=1pt,bottom=2pt]
+\textbf{Une seule formule}\begin{center}\large $\%\mathrm{GRR}=\dfrac{6\times \mathrm{GRR}}{T}$\end{center}\vspace{-6pt}
+GRR et $T$ (la tolérance) : même unité, ici le mm. Le 6 : la mesure s'étale sur environ 6 écarts types ($\pm 3$). On compare cette largeur à la tolérance.
+\end{tcolorbox}
+\renewcommand{\arraystretch}{1.1}
+\begin{tabularx}{\linewidth}{|>{\raggedright\arraybackslash}p{26mm}|>{\raggedright\arraybackslash}X|}\hline
+\cellcolor{ok!25}moins de 10 \% & capable\\\hline
+\cellcolor{orange!25}10 à 30 \% & capable sous conditions\\\hline
+\cellcolor{ko!25}plus de 30 \% & non capable\\\hline
+\end{tabularx}
+\par\smallskip
+Il faut aussi au moins \textbf{5 catégories distinctes} (groupes de pièces que la mesure sait séparer).
+\end{minipage}\hfill
+\begin{minipage}[t]{0.50\linewidth}\vspace{0pt}
+\textbf{Exemple.} Suite du calcul : GRR = 0,005 mm.\par\smallskip
+\renewcommand{\arraystretch}{1.15}
+\begin{tabularx}{\linewidth}{|c|>{\raggedright\arraybackslash}X|c|}\hline
+\rowcolor{uimm}\color{white}\textbf{Tolérance} & \color{white}\textbf{Calcul} & \color{white}\textbf{\%GRR}\\\hline
+0,4 mm & $6\times 0{,}005 / 0{,}4$ & \cellcolor{ok!25}7,5 \%\\\hline
+0,08 mm & $6\times 0{,}005 / 0{,}08$ & \cellcolor{ko!25}37,5 \%\\\hline
+\end{tabularx}
+\par\smallskip
+Mêmes mesures : seule la tolérance change, et le verdict passe de capable à non capable. Une mesure est bonne ou mauvaise \textbf{pour une tolérance donnée}.
+\end{minipage}
+
+\stitre{5. Pour vérifier que vous avez compris}
+\begin{enumerate}[leftmargin=16pt,itemsep=1pt]
+\item Même butée, même micromètre. Paul trouve 11,90 ; 11,91 ; 11,90. Léa trouve 11,95 ; 11,96 ; 11,95. Quel est le problème : la répétabilité ou la reproductibilité ?
+\item EV $= 0{,}006$ mm et AV $= 0{,}008$ mm. Quel est le GRR ? Quel est le \%GRR pour $T = 0{,}4$ mm ? Quel verdict ?
+\item Vous êtes dans Ellistat, menu « Gage R\&R », onglet Justesse. Faites-vous un R\&R ?
+\end{enumerate}
+{\footnotesize\color{gray}\textbf{Réponses.} 1. La reproductibilité : chacun est régulier, mais ils ne trouvent pas la même moyenne. 2. GRR $=\sqrt{0{,}006^2+0{,}008^2}=0{,}010$ mm (et non 0,014). \%GRR $=6\times 0{,}010/0{,}4=15$ \% : capable sous conditions. 3. Non : c'est une étude de justesse. Le R\&R se fait dans l'onglet Mesures.}
+
+{\scriptsize\color{gray}\textbf{Sources.} AIAG, \emph{Measurement Systems Analysis}, 4\textsuperscript{e} éd. ; Bosch, \emph{Technical Statistics}, Booklet 10. Valeurs des exemples imaginées.}
+\end{document}

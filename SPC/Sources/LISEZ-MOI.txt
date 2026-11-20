@@ -29,3 +29,8 @@ Mise à jour du 19 novembre 2026 (page) : L_operateur_compte-t-il.html : nombre 
 - Test de la page à 4 opérateurs : generateur/test_page_4_operateurs.js
 
 20/11/2026 : toutes les fiches qui utilisent une page web donnent maintenant son adresse complète, dans l'étape « Page web » (une fois par page) et dans « Ressources de la base ». Générateur : gen.py (avec_adresse, PAGES_TITRES, page_principale). Livret_toutes_les_fiches.pdf (62 p.) et Livret_25nov_journee.pdf (24 p.) reconstruits.
+
+20/11/2026 : ajout de Formateur\Trame_journee_25nov_formateur.pdf (trame de 6 h 30, reserves, materiel, copies, conseils pour la journee du 25/11) et de sa source fiches\Trame_journee_25nov_formateur.tex.
+
+20/11/2026 : ajout de Activites\Memo_Gage_RR.pdf (memo d une page : le Gage R&R expliqué simplement), de sa source fiches\Memo_Gage_RR.tex, et du lien dans index.html (generateur\index_gen.py mis a jour).
+- 20/11/2026 : Fiche_formateur_Gage_RR.pdf (2 p. recto-verso : modele, tableau ANOVA, formules, exemple Bosch p.14 pas a pas, G2 a 4 operateurs) dans Formateur ; tex dans Sources/fiches ; liens ajoutes (index, Deroule formateur).
