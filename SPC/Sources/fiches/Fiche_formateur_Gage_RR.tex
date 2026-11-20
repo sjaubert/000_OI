@@ -7,7 +7,7 @@
 \newcommand{\SC}[1]{\mathit{SC}_{#1}}
 \begin{document}
 \thispagestyle{fancy}
-\fontsize{9.2}{11}\selectfont
+\fontsize{9}{10.5}\selectfont
 \bandeau{Base SPC · Fiche formateur}{Gage R\&R : rappel des formules}{Du modèle au \%GRR, avec un exemple à reproduire dans Ellistat}
 \vspace{2pt}
 
@@ -27,7 +27,7 @@ TV, total & $\sqrt{\mathrm{GRR}^2+\mathrm{PV}^2}$\\\hline
 
 \stitre{2. Le tableau d'analyse de variance}
 Moyennes : $\bar x_{i\cdot\cdot}$ de la pièce $i$ (sur $kr$ mesures), $\bar x_{\cdot j\cdot}$ de l'opérateur $j$ (sur $nr$), $\bar x_{ij\cdot}$ de la cellule (sur $r$), $\bar x_{\cdot\cdot\cdot}$ générale.\par\vspace{3pt}
-\renewcommand{\arraystretch}{1.28}
+\renewcommand{\arraystretch}{1.12}
 \begin{tabularx}{\linewidth}{|>{\bfseries\raggedright\arraybackslash}p{24mm}|c|>{\raggedright\arraybackslash}X|c|}\hline
 \rowcolor{uimm}\color{white}\textbf{Source} & \color{white}\textbf{ddl} & \color{white}\textbf{Somme des carrés $\SC{}$} & \color{white}\textbf{Espérance de $\CM{}=\SC{}/\mathrm{ddl}$}\\\hline
 Pièces & $n-1$ & $kr\sum_i(\bar x_{i\cdot\cdot}-\bar x_{\cdot\cdot\cdot})^2$ & $\sigma^2+r\sigma_{PO}^2+kr\sigma_P^2$\\\hline
@@ -36,11 +36,11 @@ Interaction & $(n-1)(k-1)$ & $r\sum_{i,j}(\bar x_{ij\cdot}-\bar x_{i\cdot\cdot}-
 Répétabilité & $nk(r-1)$ & $\sum_{i,j,l}(x_{ijl}-\bar x_{ij\cdot})^2$ & $\sigma^2$\\\hline
 Total & $nkr-1$ & $\sum_{i,j,l}(x_{ijl}-\bar x_{\cdot\cdot\cdot})^2$ & \\\hline
 \end{tabularx}
-\par\smallskip
-La dernière colonne donne les estimateurs : on résout ces équations pour $\sigma^2$, $\sigma_O^2$, $\sigma_P^2$.
+\par\vspace{1pt}
+{\small La dernière colonne donne les estimateurs : on résout ces équations pour $\sigma^2$, $\sigma_O^2$, $\sigma_P^2$.}
 
 \stitre{3. Du tableau au \%GRR}
-\begin{enumerate}[leftmargin=14pt,itemsep=2pt,topsep=2pt]
+\begin{enumerate}[leftmargin=14pt,itemsep=1pt,topsep=1pt]
 \item \textbf{Interaction.} $F=\CM{PO}/\CM{E}$, avec $(n-1)(k-1)$ et $nk(r-1)$ ddl. Si $p>0{,}05$ (non significative), on la regroupe avec la répétabilité : $\CM{E}'=\dfrac{\SC{PO}+\SC{E}}{\mathrm{ddl}_{PO}+\mathrm{ddl}_{E}}$. C'est ce que fait Ellistat (ligne «\,interaction 0\,»).
 \item \textbf{Écarts types.} $\mathrm{EV}=\sqrt{\CM{E}'}$ \quad $\mathrm{AV}=\sqrt{\dfrac{\CM{O}-\CM{E}'}{nr}}$ \quad $\mathrm{PV}=\sqrt{\dfrac{\CM{P}-\CM{E}'}{kr}}$. Sous la racine, un nombre négatif est ramené à 0.
 \item \textbf{Combiner.} $\mathrm{GRR}=\sqrt{\mathrm{EV}^2+\mathrm{AV}^2}$ \quad $\mathrm{TV}=\sqrt{\mathrm{GRR}^2+\mathrm{PV}^2}$.
@@ -56,6 +56,16 @@ Livret Bosch, AIAG & $\%\mathrm{GRR}<10$ \% capable ; de 10 à 30 \% capable sou
 Ellistat & Jugement par le $C_{pc}$ : rouge sous 3 ($\%\mathrm{GRR}>33$ \%), orange de 3 à 4, vert au-dessus de 4 ($<25$ \%). Les deux jugements divergent entre 10 et 33 \% : à faire discuter.\\\hline
 Tolérance minimale & Pour 10 \% : $T_{\min}=60\,\mathrm{GRR}$. Ellistat affiche $24\,\mathrm{GRR}$ ($C_{pc}=4$).\\\hline
 \end{tabularx}
+
+\stitre{5. Les colonnes de l'écran Résultats d'Ellistat}
+\renewcommand{\arraystretch}{1.08}
+{\small\begin{tabularx}{\linewidth}{|>{\bfseries\raggedright\arraybackslash}p{30mm}|>{\raggedright\arraybackslash}X|c|}\hline
+\rowcolor{uimm}\color{white}\textbf{Colonne} & \color{white}\textbf{Ce que c'est, pour une ligne d'écart type $\sigma_x$} & \color{white}\textbf{Répétabilité}\\\hline
+proportion & part du GRR en variance : $\sigma_x^2/\mathrm{GRR}^2$ (EV, AV, interaction ; l'instrument fait 100 \%) & 73,1 \%\\\hline
+proportion totale & rapport des écarts types : $\sigma_x/\mathrm{TV}$ (la ligne instrument donne $\mathrm{GRR}/\mathrm{TV}$) & 7,83 \%\\\hline
+contribution & part de la variance totale : $\sigma_x^2/\mathrm{TV}^2$ (la somme fait 100 \%) & 0,613 \%\\\hline
+Bloc « dispersion process » & dispersion de la production $=6\,\mathrm{PV}$ ; $C_{pc}$ production $=\mathrm{TV}/\mathrm{GRR}=100/\%\mathrm{GRR}_{prod}$ ; $\%\mathrm{GRR}_{prod}=\mathrm{GRR}/\mathrm{TV}$ & 0,1171 ; 10,92 ; 9,16 \%\\\hline
+\end{tabularx}}
 
 \newpage
 \bandeau{Base SPC · Fiche formateur}{Exemple à reproduire dans Ellistat}{Livret Bosch p.\,14 : 10 pièces, 3 opérateurs, 2 répétitions}
@@ -103,7 +113,7 @@ Total & 59 & 20\,738,98 & \\\hline
 \end{enumerate}}
 \end{minipage}
 
-\stitre{Ce que tu dois lire dans Ellistat (K = 3), écran vu le 14/11/2026}
+\stitre{Ce que tu dois lire dans Ellistat (K = 3), écrans des 14 et 20/11/2026}
 \renewcommand{\arraystretch}{1.08}\setlength{\tabcolsep}{4pt}
 {\small\begin{tabularx}{\linewidth}{|>{\raggedright\arraybackslash}X|c|c|>{\raggedright\arraybackslash}X|c|c|}\hline
 \rowcolor{uimm}\color{white}Ellistat & \color{white}Mon calcul & \color{white}Écran & \color{white}Ellistat & \color{white}Mon calcul & \color{white}Écran\\\hline
@@ -133,6 +143,6 @@ Interaction & regroupée & 0 & Tolérance minimale & 0,04309 & 0,04309\\\hline
 \end{tabularx}}
 
 \begin{tcolorbox}[verif,title={\bfseries Pièges et limites},top=2pt,bottom=2pt]
-{\small \textbf{Interaction à la limite.} Bosch : $p=0{,}055$. Sans regroupement, GRR $=1{,}8371$ $\mu$m soit 18,4 \% (calcul, non vu à l'écran). Le verdict ne change pas, mais le regroupement est un choix. \textbf{Significatif n'est pas important.} Opérateur Bosch : $F=8{,}37$ pour un seuil de 3,19, mais AV vaut 9,3 \% de $T$. \textbf{Non vu à l'écran :} Ellistat à 4 opérateurs, donc les valeurs G2 sont des calculs. Elles sont à comparer, et un écart viendrait du réglage ($K$, regroupement) plutôt que de la méthode. \textbf{Sources :} livret Bosch, \emph{Technical Statistics}, Booklet 10 ; AIAG, \emph{MSA}, 4\textsuperscript{e} éd.}
+{\small \textbf{Interaction à la limite.} Bosch : $p=0{,}055$. Sans regroupement, GRR $=1{,}8371$ $\mu$m soit 18,4 \% (calcul, non vu à l'écran). Le verdict ne change pas, mais le regroupement est un choix. \textbf{Significatif n'est pas important.} Opérateur Bosch : $F=8{,}37$ pour un seuil de 3,19, mais AV vaut 9,3 \% de $T$. \textbf{Non vu à l'écran :} Ellistat à 4 opérateurs, donc les valeurs G2 sont des calculs. Elles sont à comparer, et un écart viendrait du réglage ($K$, regroupement) plutôt que de la méthode. \textbf{Cpc min} (4,373) $=C_{pc}/\sqrt{\nu/\chi^2_{0{,}05}(\nu)}$ avec $\nu=30$ (formule d'Ellistat, mail du 17/11) ; même facteur pour Min Cpc Production : $10{,}92/1{,}2737=8{,}57$. Que $\nu=30=nk(r-1)$ soit le ddl de la répétabilité est une hypothèse (avec 48 on aurait 4,625). \textbf{Sources :} livret Bosch, \emph{Technical Statistics}, Booklet 10 ; AIAG, \emph{MSA}, 4\textsuperscript{e} éd.}
 \end{tcolorbox}
 \end{document}
