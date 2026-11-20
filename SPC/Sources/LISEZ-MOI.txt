@@ -27,3 +27,5 @@ Mise à jour du 19 novembre 2026 (page) : L_operateur_compte-t-il.html : nombre 
 - Valeurs de corrigé à 4 opérateurs : calculées (ANOVA, facteur 6) et retrouvées dans la page L_operateur_compte-t-il.html réglée sur 4. Non lues dans Ellistat (écrans vus seulement à 3 opérateurs).
 - La fiche PDF Fiche_RR_operateur_compte-t-il.pdf et Guide_RR_formateur.pdf restent écrits pour 3 opérateurs.
 - Test de la page à 4 opérateurs : generateur/test_page_4_operateurs.js
+
+20/11/2026 : toutes les fiches qui utilisent une page web donnent maintenant son adresse complète, dans l'étape « Page web » (une fois par page) et dans « Ressources de la base ». Générateur : gen.py (avec_adresse, PAGES_TITRES, page_principale). Livret_toutes_les_fiches.pdf (62 p.) et Livret_25nov_journee.pdf (24 p.) reconstruits.

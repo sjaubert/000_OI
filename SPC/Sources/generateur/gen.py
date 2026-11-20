@@ -182,6 +182,27 @@ def lire_plan(code):
     s += r"\end{tcolorbox}"
     return s
 
+BASE_URL = "https://sjaubert.github.io/000_OI/SPC/"
+PAGES_TITRES = {"Données à copier": "Donnees_a_copier.html", "Comparer deux séries de mesures": "Comparer_deux_series.html",
+                "L'opérateur compte-t-il ?": "L_operateur_compte-t-il.html", "L'instrument est-il capable ?": "L_instrument_est-il_capable.html",
+                "Trois cales, trois questions": "Trois_cales_trois_questions.html", "Compter les défauts": "Compter_les_defauts.html", "Tirer un lot": "Tirer_un_lot.html"}
+def lien_url(u): return r"\href{" + u + r"}{\nolinkurl{" + u + "}}"
+def page_principale(a):
+    for lab, h in a['liens']:
+        f = h.split('#')[0].split('/')[-1]
+        if '/Pages/' in ('/' + h.replace('../', '')) or h.startswith('../Pages/'):
+            if f != 'Donnees_a_copier.html': return f
+    return 'Donnees_a_copier.html'
+def avec_adresse(texte, a, vues, force):
+    """Ajoute « Adresse : URL » après le texte si une page web est utilisée et que son adresse n'est pas encore donnée dans la fiche."""
+    for f in re.findall(r'Pages/([A-Za-z_\-]+\.html)', texte): vues.add(f)
+    trouvees = [f for t, f in PAGES_TITRES.items() if re.search('«\\s*' + re.escape(t).replace(r'\ ', r'\s+') + '\\s*»', texte)]
+    if not trouvees and force: trouvees = [page_principale(a)]
+    ajout = [f for f in trouvees if f not in vues]
+    for f in ajout: vues.add(f)
+    if not ajout: return texte
+    return texte + r"\par Adresse : " + r"\par ".join(lien_url(BASE_URL + 'Pages/' + f) for f in ajout)
+
 COUPE = {'A2', 'A4', 'A6', 'M6', 'M14', 'M15', 'M16', 'M17', 'G1', 'G2', 'G3', 'G5'}   # fiches sur deux pages : coupure avant les questions
 TAG = {'E': r"\tagE\ ", 'W': r"\tagW\ ", 'M': ""}
 def fiche(a, bloc):
@@ -194,8 +215,11 @@ def fiche(a, bloc):
         L.append(r"\begin{tcolorbox}[pred]" + a['predire'] + r"\reponse\end{tcolorbox}")
     L.append(r"\titre{À faire}")
     L.append(r"\begin{enumerate}[label=\textcolor{cyan}{\textbf{\arabic*.}},leftmargin=15pt,itemsep=1.5pt]")
+    vues = set()
     for e in a['etapes']:
-        k, t = e.split('|', 1); L.append(r"\item " + TAG[k] + t)
+        k, t = e.split('|', 1)
+        if k == 'W': t = avec_adresse(t, a, vues, True)
+        L.append(r"\item " + TAG[k] + t)
     L.append(r"\end{enumerate}")
     if a['releve']:
         L.append(r"\vspace{3pt}" + releve(a['releve']))
@@ -206,18 +230,14 @@ def fiche(a, bloc):
         L.append(r"\item " + q + (rf"\reponse[{n}]" if n else r"\par\vspace{5pt}"))
     L.append(r"\end{enumerate}")
     L.append(r"\begin{tcolorbox}[retenir]" + a['retenir'] + r"\end{tcolorbox}")
-    if a['plus']: L.append(r"\begin{tcolorbox}[plus]" + a['plus'] + r"\end{tcolorbox}")
+    if a['plus']: L.append(r"\begin{tcolorbox}[plus]" + avec_adresse(a['plus'], a, vues, False) + r"\end{tcolorbox}")
     if a['code'].startswith('G') and a['code'] not in BOX_SUR_PLAN:
         L.append(lire_plan(a['code']))
-    if a['code'].startswith('G'):
-        res = []
-        for lab, h in a['liens']:
-            u = "https://sjaubert.github.io/000_OI/SPC/" + (h[3:] if h.startswith('../') else 'Activites/' + h)
-            res.append(tex(lab) + r" : \href{" + u.replace('#', r'\#') + r"}{\nolinkurl{" + u.split('#')[0] + "}}")
-        if res: L.append(r"\vfill{\footnotesize\color{uimm}\textbf{Ressources de la base :}" + (" " if len(res) == 1 else r"\par ") + r"\par ".join(res) + "}")
-    else:
-        res = [tex(l[0]) for l in a['liens']]
-        if res: L.append(r"\vfill{\footnotesize\color{uimm}\textbf{Ressources de la base :} " + " · ".join(res) + ".}")
+    res = []
+    for lab, h in a['liens']:
+        u = BASE_URL + (h[3:] if h.startswith('../') else 'Activites/' + h)
+        res.append(tex(lab) + r" : \href{" + u.replace('#', r'\#') + r"}{\nolinkurl{" + u.split('#')[0] + "}}")
+    if res: L.append(r"\vfill{\footnotesize\color{uimm}\textbf{Ressources de la base :}" + (" " if len(res) == 1 else r"\par ") + r"\par ".join(res) + "}")
     if a['code'].startswith('G'):
         pl = PLANS[a['code']]
         L.append(r"\newpage")
