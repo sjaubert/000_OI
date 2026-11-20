@@ -1,0 +1,34 @@
+Séances Ellistat pour les Bachelor Maintenance (MA et CIRI) : TP 2 et TP 3
+
+Hors de la base de 45 activités. Voir README.md à la racine de 000_OI, section 1.5.
+
+TP 2  Les pannes augmentent-elles vraiment ? Carte u des pannes (2 h 30)
+      TP2_u_Fiche_stagiaire.pdf (4 p., fiche de collecte d'une série GMAO en page 4)
+      TP2_u_Guide_formateur.pdf (4 p., corrigé, barème, déroulé)
+      Pannes_cellule_C2_simule.xlsx (78 semaines : Semaine, Heures_marche, Pannes)
+      Pannes_parc_presses_simule.xlsx (52 semaines, 6 presses, volontairement surdispersée)
+
+TP 3  Le pied à coulisse suffit-il pour réceptionner ces arbres ? Cg, Cgk, R&R (3 h 30)
+      TP3_Cg_Fiche_stagiaire.pdf (4 p., fiche de relevé en page 4)
+      TP3_Cg_Guide_formateur.pdf (3 p., corrigé, barème, déroulé)
+      Releve_RR_arbres_vierge.xlsx (ordre de passage tiré au sort, graine 2026)
+      Cg_cale48_simule.xlsx, Cg_cale19_simule.xlsx (25 mesures, colonnes Micrometre et Pied_a_coulisse)
+      RR_arbres_pied_simule.xlsx, RR_arbres_micrometre_simule.xlsx (10 arbres, 3 opérateurs, 2 séries)
+      Cotes et tolérances : dessins GUNT PT105.10.00.011 (arbre Ø48 +/-0,2) et PT102.10.00.012 (plaque), dossier GUNT.
+
+Statut des chiffres
+- Les valeurs des corrigés sont recalculées en Python. Elles ne sont pas lues à l'écran d'Ellistat : chaque guide donne la liste des points à contrôler sur poste.
+- Les fichiers « simulé » sont construits (graines fixées dans les scripts) pour faire apparaître un cas limite. Le TP 2 simule un doublement du taux de pannes à la semaine 60 ; le TP 3 simule un pied à coulisse juste sous Cg = 1,33.
+- La méthode de R&R (ANOVA, interaction regroupée au risque de 5 %, facteur 6) a été validée sur l'exemple du livret Bosch p. 14 et sur RR_arbres_diametre48_simule.xlsx (EV 0,00577 ; GRR 0,00683).
+
+Sources
+Sources_TP2/ et Sources_TP3/ : .tex, charte.tex, commun.tex, trame.tex, logo_uimm.jpg, scripts Python et résultats .json.
+Compiler deux fois : xelatex TP2_u_Fiche_stagiaire.tex (police Liberation Sans). Les figures du guide du TP 2 (u_s1.pdf, c_s1.pdf, u_s2.pdf) sont dans Sources_TP2.
+Régénérer les données : python3 -I gen_series.py <dossier_sortie> puis extra.py (TP 2, chemins à adapter : extra.py lit /home/claude/tp_u/work/data) ; python3 -I gen_tp3.py <dossier_Donnees_Ellistat_de_la_base> <dossier_sortie> (TP 3 ; lit RR_arbres_diametre48_simule.xlsx).
+Les scripts ont été lancés dans un autre dossier de travail : adapter les chemins avant de les relancer.
+
+À faire
+- TP 1 : carte XmR d'un indicateur vibratoire du banc BV12 (attend des acquisitions réelles).
+- Contrôler sur poste les points listés dans les deux guides ; confirmer la composition des cales de 48 et 19 mm et la disponibilité d'un micromètre 0-25 mm.
+
+Créé le 20/11/2026.

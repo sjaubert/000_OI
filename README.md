@@ -8,7 +8,7 @@ Pôle Formation UIMM Centre-Val de Loire. Ressources de Stéphane Jaubert pour l
 
 | Thème | Public | Contenu | Aller à |
 |---|---|---|---|
-| SPC et capabilité | BTS ATI, Bachelor, formation continue | 45 activités, TP de capabilité de la butée, trames terrain | [Section 1](#1-spc-et-capabilité) |
+| SPC et capabilité | BTS ATI, Bachelor, formation continue | 45 activités, TP de capabilité de la butée, trames terrain, séances Ellistat pour les Bachelor Maintenance | [Section 1](#1-spc-et-capabilité) |
 | Fiabilité | Bachelor | 11 TP Weibull avec Ellistat | [Section 2](#2-fiabilité-et-loi-de-weibull) |
 | TRS | BTS ATI, Bachelor | Cours, diaporama, TP Excel de 4 h (tableaux croisés dynamiques, modèle de données, DAX) | [Section 3](#3-taux-de-rendement-synthétique-trs) |
 | Gestion des stocks | BTS ATI, Bachelor Maintenance | Cours, 20 exercices, 5 TP Excel, étude de cas | [Section 4](#4-gestion-des-stocks) |
@@ -19,10 +19,11 @@ Pôle Formation UIMM Centre-Val de Loire. Ressources de Stéphane Jaubert pour l
 | Toutes les fiches SPC en un seul PDF | [Livret de toutes les fiches](SPC/Activites/Livret_toutes_les_fiches.pdf) |
 | Les données à coller dans Ellistat | [Données à copier](https://sjaubert.github.io/000_OI/SPC/Pages/Donnees_a_copier.html) |
 | Une page par TP de mesure, à imprimer pour le terrain | [Trames terrain stagiaires](SPC/Activites/Trames_terrain_stagiaires.pdf) |
+| Les séances Ellistat des Bachelor Maintenance : carte u des pannes, capabilité du moyen de mesure sur les arbres GUNT | [Section 1.5](#15-séances-ellistat-pour-les-bachelor-maintenance) |
 | Les TP de fiabilité (Weibull) | [Section 2](#2-fiabilité-et-loi-de-weibull) |
 | Le cours et le TP sur le TRS | [Section 3](#3-taux-de-rendement-synthétique-trs) |
 | Le cours et les exercices de gestion des stocks | [Section 4](#4-gestion-des-stocks) |
-| Les corrigés et guides formateur | Sous-section « Documents formateur » de chaque thème : [SPC](#14-documents-formateur-spc), [Fiabilité](#22-documents-formateur-fiabilité), [TRS](#32-documents-formateur-trs), [Stocks](#42-documents-formateur-stocks) |
+| Les corrigés et guides formateur | Sous-section « Documents formateur » de chaque thème : [SPC](#14-documents-formateur-spc) (et [séances Bachelor](#15-séances-ellistat-pour-les-bachelor-maintenance)), [Fiabilité](#22-documents-formateur-fiabilité), [TRS](#32-documents-formateur-trs), [Stocks](#42-documents-formateur-stocks) |
 
 ---
 
@@ -123,6 +124,7 @@ Les cinq activités reposent sur 2 mallettes PT102 (20 plaques) et 2 mallettes P
 - [Mémo : Cg et Cgk, méthode Bosch](SPC/Activites/Memo_methode_Bosch_Cg_Cgk.pdf)
 - [Mémo : cartes aux attributs](SPC/Activites/Memo_cartes_attributs.pdf)
 - [Mémo : justesse, fidélité, linéarité, stabilité](SPC/Activites/Memo_qualite_moyen_mesure.pdf)
+- [Mémo : le Gage R&R expliqué simplement](SPC/Activites/Memo_Gage_RR.pdf)
 - [Fiche R&R : l'opérateur compte-t-il ?](SPC/Activites/Fiche_RR_operateur_compte-t-il.pdf)
 - [Fiche : trois cales, trois questions](SPC/Activites/Fiche_Trois_cales.pdf)
 - [Livret de toutes les fiches](SPC/Activites/Livret_toutes_les_fiches.pdf)
@@ -156,8 +158,10 @@ Les cinq activités reposent sur 2 mallettes PT102 (20 plaques) et 2 mallettes P
 - [Lots_35x50_simule.xlsx](SPC/Donnees_Ellistat/Lots_35x50_simule.xlsx)
 - [Lots_taille_variable_simule.xlsx](SPC/Donnees_Ellistat/Lots_taille_variable_simule.xlsx)
 - [Plaques_7_cotes_simule.xlsx](SPC/Donnees_Ellistat/Plaques_7_cotes_simule.xlsx)
+- [RR_arbres_diametre48_4operateurs_simule.xlsx](SPC/Donnees_Ellistat/RR_arbres_diametre48_4operateurs_simule.xlsx)
 - [RR_arbres_diametre48_simule.xlsx](SPC/Donnees_Ellistat/RR_arbres_diametre48_simule.xlsx)
 - [RR_Bosch_p14.xlsx](SPC/Donnees_Ellistat/RR_Bosch_p14.xlsx)
+- [RR_butees_4operateurs_simule.xlsx](SPC/Donnees_Ellistat/RR_butees_4operateurs_simule.xlsx)
 - [RR_cales_cotes_connues_simule.xlsx](SPC/Donnees_Ellistat/RR_cales_cotes_connues_simule.xlsx)
 - [Secours_cale_chauffee_simule.xlsx](SPC/Donnees_Ellistat/Secours_cale_chauffee_simule.xlsx)
 - [Secours_cliquet_simule.xlsx](SPC/Donnees_Ellistat/Secours_cliquet_simule.xlsx)
@@ -204,6 +208,27 @@ Outils en ligne (dépôt `00FC`) :
 - Corrigé du livret de TP butée : [BTS ATI](SPC/Corrige_Livret_TP_Capabilite_MSP_Butee_BTS_ATI%20%281%29.docx) · [Bachelor](SPC/Corrige_Livret_TP_Capabilite_MSP_Butee_Bachelor.docx)
 - [Trame formateur : repères](SPC/Formateur/Trame_formateur_reperes.pdf)
 - [Trame d'une journée de 8 h](SPC/Formateur/Trame_journee_8h_formateur.pdf)
+- [Trame de la journée du 25 novembre (6 h 30)](SPC/Formateur/Trame_journee_25nov_formateur.pdf)
+- [Fiche formateur : le Gage R&R](SPC/Formateur/Fiche_formateur_Gage_RR.pdf) (modèle, tableau ANOVA, formules, exemple Bosch p. 14, G2 à 4 opérateurs)
+
+### 1.5 Séances Ellistat pour les Bachelor Maintenance
+
+Public : Bachelor Maintenance (MA et CIRI, 7 stagiaires). Séances de 2 à 4 h, hors des 45 activités de la base, à faire après le livret de TP de capabilité de la butée (Excel) et après le stage de fiabilité. Chaque séance suit un scénario industriel, utilise Ellistat et se termine par une note de décision d'une page. Dossier : `SPC/Bachelor_Ellistat/`.
+
+| Séance | Question posée | Durée | Stagiaire | Formateur et corrigé | Données |
+|---|---|---|---|---|---|
+| TP 2 | Les pannes augmentent-elles vraiment ? Carte u des pannes : exposition, dérive, MTBF avec intervalle de confiance, carte U Laney, règle d'alerte | 2 h 30 | [PDF](SPC/Bachelor_Ellistat/TP2_u_Fiche_stagiaire.pdf) (4 p., dont la fiche de collecte d'une série GMAO) | [PDF](SPC/Bachelor_Ellistat/TP2_u_Guide_formateur.pdf) (4 p.) | [Cellule C2, 78 semaines](SPC/Bachelor_Ellistat/Pannes_cellule_C2_simule.xlsx) · [Parc de 6 presses, 52 semaines](SPC/Bachelor_Ellistat/Pannes_parc_presses_simule.xlsx) |
+| TP 3 | Le pied à coulisse suffit-il pour réceptionner ces arbres ? Cg, Cgk et R&R sur l'arbre GUNT PT105 Ø48 ±0,2 | 3 h 30 | [PDF](SPC/Bachelor_Ellistat/TP3_Cg_Fiche_stagiaire.pdf) (4 p., dont la fiche de relevé) | [PDF](SPC/Bachelor_Ellistat/TP3_Cg_Guide_formateur.pdf) (3 p.) | [Relevé vierge](SPC/Bachelor_Ellistat/Releve_RR_arbres_vierge.xlsx) · [Cale 48 mm](SPC/Bachelor_Ellistat/Cg_cale48_simule.xlsx) · [Cale 19 mm](SPC/Bachelor_Ellistat/Cg_cale19_simule.xlsx) · [R&R pied à coulisse](SPC/Bachelor_Ellistat/RR_arbres_pied_simule.xlsx) · [R&R micromètre](SPC/Bachelor_Ellistat/RR_arbres_micrometre_simule.xlsx) |
+
+À savoir avant de les utiliser :
+
+- La numérotation « TP 2 » et « TP 3 » est celle de cette série. Elle ne renvoie ni aux trames terrain TP 1 à 5 (section 1.1) ni aux TP de fiabilité (section 2).
+- Le TP 2 relie la carte u au stage de fiabilité : un taux de pannes stable est l'hypothèse d'un MTBF unique. Le TP 3 enchaîne les fiches M1, M3, M4, M5, M6, M11 et G2 de la base dans un scénario de décision.
+- Les mesures du TP 3 sont celles des stagiaires. Tous les fichiers marqués « simulé » servent à répéter à blanc ou à remplacer une série manquante. Leurs graines ont été choisies pour faire apparaître un cas limite : le dire aux stagiaires.
+- Les chiffres des corrigés sont recalculés en Python (méthode de R&R validée sur l'exemple du livret Bosch p. 14 et sur la fiche G2). Ils ne sont pas lus à l'écran d'Ellistat. Chaque guide contient la liste des points à contrôler sur poste avant la séance.
+- Le TP 3 suppose que le coffret de cales permet de composer 48,000 et 19,000 mm, et, pour la cote de 19 mm, qu'un micromètre 0-25 mm est disponible. À confirmer.
+- Prévu, pas encore écrit : un TP 1 sur la carte XmR d'un indicateur vibratoire du banc BV12 (ACOEM), qui attend des acquisitions réelles. Les cartes p et Laney sur des contrôles de réception viendront ensuite.
+- Sources : [Sources_TP2](SPC/Bachelor_Ellistat/Sources_TP2/) et [Sources_TP3](SPC/Bachelor_Ellistat/Sources_TP3/) (LaTeX à compiler deux fois avec xelatex, scripts Python `gen_series.py`, `extra.py`, `gen_tp3.py`, `rr_lib.py`). Mode d'emploi : [LISEZ-MOI](SPC/Bachelor_Ellistat/LISEZ-MOI.txt).
 
 ---
 
@@ -295,8 +320,7 @@ Public : BTS ATI et Bachelor Maintenance. Quatre séances, 15 h au total (durée
 - [Sources LaTeX des fiches SPC](SPC/Sources/fiches/) (xelatex, compiler deux fois)
 - [Générateur Python](SPC/Sources/generateur/) : écrit les fiches, le guide, les trames et le catalogue
 - [Mode d'emploi des sources](SPC/Sources/LISEZ-MOI.txt)
-- [Archive complète de la base SPC, 14 novembre 2026](SPC/Sources/Base_SPC_2026-11-14.zip)
-- [Archive des sources du déroulé V4, 14 novembre 2026](SPC/Sources/V4_deroule_2026-11-14.zip)
+- [Sources des séances Ellistat des Bachelor Maintenance](SPC/Bachelor_Ellistat/) (TP 2 et TP 3, section 1.5)
 - [Données, liens et source LaTeX du dossier Bachelor](SPC/Donnees_et_source_LaTeX_Bachelor/) ([archive zip](SPC/Donnees_Liens_et_source_LaTeX_Bachelor.zip))
 - [Sources de génération du corrigé de gestion des stocks](Stock/02_Formateur/sources_generation.zip)
 

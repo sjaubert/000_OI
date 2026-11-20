@@ -34,3 +34,5 @@ Mise à jour du 19 novembre 2026 (page) : L_operateur_compte-t-il.html : nombre 
 
 20/11/2026 : ajout de Activites\Memo_Gage_RR.pdf (memo d une page : le Gage R&R expliqué simplement), de sa source fiches\Memo_Gage_RR.tex, et du lien dans index.html (generateur\index_gen.py mis a jour).
 - 20/11/2026 : Fiche_formateur_Gage_RR.pdf (2 p. recto-verso : modele, tableau ANOVA, formules, exemple Bosch p.14 pas a pas, G2 a 4 operateurs) dans Formateur ; tex dans Sources/fiches ; liens ajoutes (index, Deroule formateur).
+
+20/11/2026 : dossier Bachelor_Ellistat ajouté (séances Ellistat TP 2 et TP 3 pour les Bachelor Maintenance, hors des 45 activités : fiches stagiaires, guides formateur, jeux simulés, sources). Voir Bachelor_Ellistat\LISEZ-MOI.txt et le README racine, section 1.5.
